@@ -32,7 +32,9 @@
   (load-theme 'zenburn))
 (use-package magit ; for git
   :ensure t
-  :bind ("C-c g" . magit-status))
+  :bind ("C-c g" . magit-status)
+  :config
+  (setq magit-push-always-verify nil))
 (use-package smex
   :ensure t)
 (use-package ido-ubiquitous
