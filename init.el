@@ -24,7 +24,8 @@
   :config
   (load-theme 'zenburn))
 (use-package magit ; for git
-  :ensure t)
+  :ensure t
+  :bind ("C-c g" magit-status)
 (use-package smex
   :ensure t)
 (use-package ido-ubiquitous
@@ -68,12 +69,21 @@
   :init
   (progn
     (setq reftex-plug-into-AUCTeX t)))
+(use-package neotree ; file tree plugin
+  :ensure t)
+(use-pacakge flycheck ; checks for style and syntax errors - needs lintr package from CRAN for R
+             :ensure t
+             :config
+             (add-hook 'after-init-hook #'global-flycheck-mode)
+             (add-hook 'ess-mode-hook
+            (lambda () (flycheck-mode t))))
 
+(neotree) ; add file manager by default
 ;;; misc settings 
 (setq inhibit-startup-message t) ; disable startup
 (add-to-list 'default-frame-alist '(fullscreen . maximized)) ; start maximized
 (global-set-key (kbd "C-z") 'undo) ; set "C-z" to undo, rather than minimize emacs (which seems useless)
-(global-set-key (kbd "C-c g") 'magit-status) ; use C-c g to run magit 
+;(global-set-key (kbd "C-c g") 'magit-status) ; use C-c g to run magit 
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
