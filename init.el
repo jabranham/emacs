@@ -116,6 +116,8 @@
   (setq ispell-extra-args '("--sug-mode=ultra"))
   (setq ispell-personal-dictionary "~/.aspell.en.pws")
   (setq flyspell-issue-message-flag nil))
+(use-package latex-pretty-symbols
+  :ensure t)
 
 ;; clean up buffers on save
 (defun untabify-buffer ()
@@ -131,8 +133,8 @@
   (untabify-buffer)
   (delete-trailing-whitespace))
 (defun cleanup-buffer-hook ()
-  "A hook for cleanup-buffer. cleanup-buffer-modes should be a list
-  of modes you want the cleanup-buffer function applied to routinely. "
+  "This is a hook for cleanup-buffer.
+cleanup-buffer-modes should be a list of modes you want the cleanup-buffer function applied to routinely"
   (when (member major-mode cleanup-buffer-modes)
     (cleanup-buffer)))
 ;; now files in the modes listed in cleanup-buffer-mode will be
