@@ -2,6 +2,8 @@
 
 ;;; Commentary:
 ; This is how I set up my emacs
+; See https://github.com/jabranham/emacs for a readme on how to get set up
+
 
 ;;; Code:
 ;; add MELPA, install use-package
