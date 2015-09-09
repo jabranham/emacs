@@ -71,7 +71,9 @@
 
 ;;; misc settings 
 (setq inhibit-startup-message t) ; disable startup
-(add-to-list 'default-frame-alist '(fullscreen . maximized)) ; start maximized 
+(add-to-list 'default-frame-alist '(fullscreen . maximized)) ; start maximized
+(global-set-key (kbd "C-z") 'undo) ; set "C-z" to undo, rather than minimize emacs (which seems useless)
+(global-set-key (kbd "C-c g") 'magit-status) ; use C-c g to run magit 
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
