@@ -3,3 +3,4 @@ backups/
 elpa/
 /ido.last
 /places
+/company-statistics-cache.el
