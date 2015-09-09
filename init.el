@@ -117,7 +117,32 @@
   (setq ispell-personal-dictionary "~/.aspell.en.pws")
   (setq flyspell-issue-message-flag nil))
 
-;;; misc settings
+;; clean up buffers on save
+(defun untabify-buffer ()
+  (interactive)
+  (untabify (point-min) (point-max)))
+(defun indent-buffer ()
+  (interactive)
+  (indent-region (point-min) (point-max)))
+(defun cleanup-buffer ()
+  "Perform a bunch of operations on the whitespace content of a buffer."
+  (interactive)
+;;  (indent-buffer)
+  (untabify-buffer)
+  (delete-trailing-whitespace))
+(defun cleanup-buffer-hook ()
+  "A hook for cleanup-buffer. cleanup-buffer-modes should be a list
+  of modes you want the cleanup-buffer function applied to routinely. "
+  (when (member major-mode cleanup-buffer-modes)
+    (cleanup-buffer)))
+;; now files in the modes listed in cleanup-buffer-mode will be
+;; automatically cleaned every time they are saved.
+(add-hook 'before-save-hook 'cleanup-buffer-hook)
+(setq cleanup-buffer-modes
+      '(haskell-mode emacs-lisp-mode lisp-mode scheme-mode
+                     ess-mode erlang-mode clojure-mode ruby-mode))
+
+;; misc settings
 (setq inhibit-startup-message t) ; disable startup
 (add-to-list 'default-frame-alist '(fullscreen . maximized)) ; start maximized
 (global-set-key (kbd "C-z") 'undo) ; set "C-z" to undo, rather than minimize emacs (which seems useless)
