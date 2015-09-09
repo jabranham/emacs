@@ -25,12 +25,7 @@
   (load-theme 'zenburn))
 (use-package magit ; for git
   :ensure t
-  :bind ("C-c g" . magit-status)
-  :init
-  (defadvice git-commit-commit (after delete-window activate)
-    (delete-window))
-  (defadvice git-commit-abort (after delete-window activate)
-    (delete-window)))
+  :bind ("C-c g" . magit-status))
 (use-package smex
   :ensure t)
 (use-package ido-ubiquitous
@@ -72,6 +67,7 @@
 (use-package reftex ; bibliography and reference management 
   :commands turn-on-reftex)
 (use-package neotree ; file tree plugin
+  :disabled t ; this makes magit misbehave - need to fix
   :ensure t
   :config (neotree))
 (use-package flycheck ; checks for style and syntax 
