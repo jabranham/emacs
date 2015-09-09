@@ -25,7 +25,7 @@
   (load-theme 'zenburn))
 (use-package magit ; for git
   :ensure t
-  :bind ("C-c g" magit-status)
+  :bind ("C-c g" . magit-status))
 (use-package smex
   :ensure t)
 (use-package ido-ubiquitous
@@ -70,35 +70,15 @@
   (progn
     (setq reftex-plug-into-AUCTeX t)))
 (use-package neotree ; file tree plugin
-  :ensure t)
-(use-pacakge flycheck ; checks for style and syntax errors - needs lintr package from CRAN for R
-             :ensure t
-             :config
-             (add-hook 'after-init-hook #'global-flycheck-mode)
-             (add-hook 'ess-mode-hook
-            (lambda () (flycheck-mode t))))
+  :ensure t
+  :config (neotree))
+(use-package flycheck ; checks for style and syntax 
+  :ensure t
+  :config (add-hook 'after-init-hook #'global-flycheck-mode))
 
-(neotree) ; add file manager by default
 ;;; misc settings 
 (setq inhibit-startup-message t) ; disable startup
 (add-to-list 'default-frame-alist '(fullscreen . maximized)) ; start maximized
 (global-set-key (kbd "C-z") 'undo) ; set "C-z" to undo, rather than minimize emacs (which seems useless)
-;(global-set-key (kbd "C-c g") 'magit-status) ; use C-c g to run magit 
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("19352d62ea0395879be564fc36bc0b4780d9768a964d26dfae8aad218062858d" default)))
- '(package-selected-packages
-   (quote
-    (use-package smex polymode paredit magit inlineR ido-ubiquitous find-file-in-project ess better-defaults auto-complete-auctex auctex))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+;;; init.el ends here 
