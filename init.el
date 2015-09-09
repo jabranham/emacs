@@ -70,10 +70,7 @@
 (use-package auto-complete ; auto completion
   :ensure t)
 (use-package reftex ; bibliography and reference management 
-  :commands turn-on-reftex
-  :init
-  (progn
-    (setq reftex-plug-into-AUCTeX t)))
+  :commands turn-on-reftex)
 (use-package neotree ; file tree plugin
   :ensure t
   :config (neotree))
