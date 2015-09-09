@@ -95,14 +95,14 @@
 (use-package flycheck ; checks for style and syntax
   :ensure t
   :config (add-hook 'after-init-hook #'global-flycheck-mode))
-(use-package smooth-scrolling
+(use-package smooth-scrolling ; stops emacs nonsense default scrolling
   :ensure t
   :config
   (setq-default
    scroll-conservatively 0
    scroll-up-aggressively 0.01
    scroll-down-aggressively 0.01))
-(use-package flyspell
+(use-package flyspell ; spell checking on the fly
   :ensure t
   :config
   (setq ispell-program-name "aspell"
@@ -116,30 +116,20 @@
   (setq ispell-extra-args '("--sug-mode=ultra"))
   (setq ispell-personal-dictionary "~/.aspell.en.pws")
   (setq flyspell-issue-message-flag nil))
-(use-package latex-pretty-symbols
+(use-package latex-pretty-symbols ; makes latex math look a bit better in the editor
   :ensure t)
-
-;; clean up buffers on save
-(defun untabify-buffer ()
-  (interactive)
-  (untabify (point-min) (point-max)))
-(defun indent-buffer ()
-  (interactive)
-  (indent-region (point-min) (point-max)))
-(defun cleanup-buffer ()
-  "Perform a bunch of operations on the whitespace content of a buffer."
-  (interactive)
-;;  (indent-buffer)
-  (untabify-buffer)
-  (delete-trailing-whitespace))
-(defun cleanup-buffer-hook ()
-  "This is a hook for cleanup-buffer.
-cleanup-buffer-modes should be a list of modes you want the cleanup-buffer function applied to routinely"
-  (when (member major-mode cleanup-buffer-modes)
-    (cleanup-buffer)))
-;; now files in the modes listed in cleanup-buffer-mode will be
-;; automatically cleaned every time they are saved.
-(add-hook 'before-save-hook 'cleanup-buffer-hook)
+(use-package whitespace-cleanup-mode ; cleans up whitespace from specified modes
+  :ensure t
+  :config
+  (add-hook 'haskell-mode 'whitespace-cleanup-mode)
+  (add-hook 'emacs-lisp-mode 'whitespace-cleanup-mode)
+  (add-hook 'lisp-mode 'whitespace-cleanup-mode)
+  (add-hook 'scheme-mode 'whitespace-cleanup-mode)
+  (add-hook 'ess-mode 'whitespace-cleanup-mode)
+  (add-hook 'erlang-mode 'whitespace-cleanup-mode)
+  (add-hook 'clojure-mode 'whitespace-cleanup-mode)
+  (add-hook 'ruby-mode 'whitespace-cleanup-mode)
+  (add-hook 'stan-mode 'whitespace-cleanup-mode))
 (setq cleanup-buffer-modes
       '(haskell-mode emacs-lisp-mode lisp-mode scheme-mode
                      ess-mode erlang-mode clojure-mode ruby-mode))
