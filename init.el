@@ -138,5 +138,7 @@
 (setq inhibit-startup-message t) ; disable startup
 (add-to-list 'default-frame-alist '(fullscreen . maximized)) ; start maximized
 (global-set-key (kbd "C-z") 'undo) ; set "C-z" to undo, rather than minimize emacs (which seems useless)
+(define-key global-map (kbd "C-+") 'text-scale-increase) ; C-+ increases font size
+(define-key global-map (kbd "C--") 'text-scale-decrease) ; C-- decreases font size
 
 ;;; init.el ends here
