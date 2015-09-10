@@ -5,7 +5,8 @@ I use emacs mainly to work with LaTeX, R, git, markdown, and ESS.
 
 # Install emacs
 If you decide to use this file, you need to download and install emacs.
-This init file depends on emacs 24.
+This init file depends on GNU Emacs 24.
+It will not work out of the box with other Emacs builds, such as XEmacs.
 On Ubuntu, you can get emacs via `sudo apt-get install emacs24`.
 Emacs is also available on Windows and Mac.
 
