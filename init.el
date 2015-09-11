@@ -19,7 +19,7 @@
   (package-refresh-contents)
   (package-install 'use-package))
 (eval-when-compile
-  (require 'use-package))
+(require 'use-package))
 ;(require 'diminish)                ; if you use :diminish
 (require 'bind-key)                ; if you use any :bind variant
 
@@ -137,5 +137,6 @@
 (global-set-key (kbd "C-z") 'undo) ; set "C-z" to undo, rather than minimize emacs (which seems useless)
 (define-key global-map (kbd "C-+") 'text-scale-increase) ; C-+ increases font size
 (define-key global-map (kbd "C--") 'text-scale-decrease) ; C-- decreases font size
+(global-font-lock-mode t) ; turn on syntax highlighting
 
 ;;; init.el ends here
