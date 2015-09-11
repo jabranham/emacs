@@ -86,7 +86,6 @@
 
 (use-package polymode ; to have more than one major mode
   :ensure t
-  :config
   :mode
   ("\\.Snw" . poly-noweb+r-mode)
   ("\\.Rnw" . poly-noweb+r-mode)
