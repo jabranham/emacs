@@ -91,15 +91,14 @@
   ("\\.Rmd" . poly-markdown+r-mode))
 
 (use-package company ; auto completion
-  :ensure t
-  :config
-  (add-hook 'after-init-hook 'global-company-mode))
+  :ensure t)
 
 (use-package company-statistics
   :ensure t
   :config
   (company-statistics-mode)
-  (define-key company-active-map (kbd "<tab>") (lambda () (interactive) (company-complete-common-or-cycle 1)))
+  (define-key company-active-map (kbd "<tab>")
+    (lambda () (interactive) (company-complete-common-or-cycle 1)))
   (global-company-mode t))
 
 (use-package reftex ; bibliography and reference management
