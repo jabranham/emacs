@@ -88,6 +88,8 @@
   :ensure t
   :config
   :mode
+  ("\\.Snw" . poly-noweb+r-mode)
+  ("\\.Rnw" . poly-noweb+r-mode)
   ("\\.Rmd" . poly-markdown+r-mode))
 
 (use-package company ; auto completion
@@ -123,18 +125,12 @@
 
 (use-package flyspell ; spell checking on the fly
   :ensure t
+  :init
+  (setq flyspell-sort-corrections nil)
+  (autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
   :config
-  (setq ispell-program-name "aspell"
-        ispell-dictionary "english"
-        ispell-dictionary-alist
-        (let ((default '("[A-Za-z]" "[^A-Za-z]" "[']" nil
-                         ("-B" "-d" "english")
-                         nil iso-8859-1)))
-          `((nil ,@default)
-            ("english" ,@default))))
-  (setq ispell-extra-args '("--sug-mode=ultra"))
-  (setq ispell-personal-dictionary "~/.aspell.en.pws")
-  (setq flyspell-issue-message-flag nil))
+  (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+  )
 
 (use-package latex-pretty-symbols ; makes latex math look a bit better in the editor
   :ensure t)
