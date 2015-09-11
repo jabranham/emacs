@@ -72,9 +72,6 @@
   :ensure t
   :config
   :mode
-  ("\\.md" . poly-markdown-mode)
-  ("\\.Snw" . poly-noweb+r-mode)
-  ("\\.Rnw" . poly-noweb+r-mode)
   ("\\.Rmd" . poly-markdown+r-mode))
 (use-package company ; auto completion
   :ensure t
