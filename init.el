@@ -49,8 +49,9 @@
 (use-package ido-vertical-mode
   :ensure t
   :config
-  (ido-mode 1)
-  (ido-vertical-mode 1))
+  (ido-mode 1) ; turn on ido mode
+  (ido-vertical-mode 1) ; turn on ido vertical mode
+  (setq ido-vertical-define-keys 'C-n-C-p-up-and-down)) ; make up and down keys work
 
 (use-package smartparens-config ; makes parens easier to keep track of
   :ensure smartparens
