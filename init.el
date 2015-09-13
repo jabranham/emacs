@@ -65,10 +65,6 @@
 (use-package markdown-mode ; for markdown mode
   :ensure t)
 
-(use-package ess-site ; for ESS (Emacs Speaks Statistics)
-  :ensure ess
-  :mode ("\\.R" . r-mode))
-
 (use-package auctex ; for LaTeX documents
   :ensure t
   :mode ("\\.tex\\'" . latex-mode)
