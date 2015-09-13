@@ -10,6 +10,9 @@ It will not work out of the box with other Emacs builds, such as XEmacs.
 On Ubuntu, you can get emacs via `sudo apt-get install emacs24`.
 Emacs is also available on Windows and Mac.
 
+## Install ESS
+You also need to install ESS. The package is up-to-date on Ubuntu's repositories, so just `sudo apt-get install ess` and you're good to go. 
+
 # Install other programs
 These aren't strictly speaking necessary, but you probably want them.
 You'll want [R](https://www.r-project.org/), LaTeX (TeXLive for Linux, [MaCTeX](https://tug.org/mactex/) for mac, and [MiKTeX](http://www.miktex.org/) for Windows), [pandoc](http://pandoc.org/), and [git](http://www.git-scm.com/).
