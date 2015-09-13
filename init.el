@@ -130,7 +130,7 @@
   (autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
   :config
   (add-hook 'LaTeX-mode-hook 'flyspell-mode)
-  )
+  (add-hook 'markdown-mode-hook 'flyspell-mode))
 
 (use-package latex-pretty-symbols ; makes latex math look a bit better in the editor
   :ensure t)
