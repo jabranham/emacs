@@ -158,7 +158,7 @@
   :ensure t
   :config
   (setq ebib-preload-bib-files
-      '("~/Documents/library.bib")))
+      '("~/Dropbox/library.bib")))
 
 ;; misc settings
 (setq inhibit-startup-message t ; disable start screen
