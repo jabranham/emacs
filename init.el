@@ -38,12 +38,18 @@
 
 (use-package magit ; for git
   :ensure t
-  :bind ("C-c g" . magit-status)
+  :bind
+  ("C-c g" . magit-status)
+  ("C-x g" . magit-statu)
   :config
   (setq magit-push-always-verify nil))
 
 (use-package smex
-  :ensure t)
+  :ensure t
+  :bind
+  ("M-x" . smex)
+  ("C-c C-c M-x" . execute-extended-command)
+  ("M-X" . smex-major-mode-commands))
 
 (use-package ido-ubiquitous
   :ensure t)
@@ -135,8 +141,11 @@
   (setq flyspell-sort-corrections nil)
   (autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
   :config
-  (add-hook 'LaTeX-mode-hook 'flyspell-mode)
-  (add-hook 'markdown-mode-hook 'flyspell-mode))
+  (add-hook 'text-mode-hook 'turn-on-auto-fill)
+  (add-hook 'text-mode-hook 'turn-on-flyspell)
+  (add-hook 'LaTeX-mode-hook 'turn-on-flyspell)
+  (add-hook 'markdown-mode-hook 'turn-on-flyspell)
+  (add-hook 'org-mode-hook 'turn-on-flyspell))
 
 (use-package latex-pretty-symbols ; makes latex math look a bit better in the editor
   :ensure t)
@@ -168,6 +177,17 @@
 (global-set-key (kbd "C-z") 'undo) ; set "C-z" to undo, rather than minimize emacs (which seems useless)
 (define-key global-map (kbd "C-+") 'text-scale-increase) ; C-+ increases font size
 (define-key global-map (kbd "C--") 'text-scale-decrease) ; C-- decreases font size
+(if window-system ; show menu if emacs is window, not if terminal
+    (menu-bar-mode t)
+    (menu-bar-mode -1)
+    )
+(set-default 'indent-tabs-mode nil) ; don't use tabs
+(global-set-key (kbd "M-/") 'hippie-expand) ; use M-/ for hippie expand
+;; resizing 'windows' (i.e., inside the frame)
+(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "S-C-<down>") 'shrink-window)
+(global-set-key (kbd "S-C-<up>") 'enlarge-window)
 
 
 ;;; init.el ends here
