@@ -141,7 +141,6 @@
   (add-hook 'ruby-mode 'whitespace-cleanup-mode)
   (add-hook 'stan-mode 'whitespace-cleanup-mode))
 
-
 ;; misc settings
 (setq inhibit-startup-message t ; disable start screen
       global-font-lock-mode t ; font lock (syntax highlighting) everywhere
