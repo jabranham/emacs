@@ -81,7 +81,8 @@
           TeX-parse-self t
           reftex-plug-into-AUCTeX t
           TeX-PDF-mode t)
-    (setq-default TeX-master nil)))
+    (setq-default TeX-master nil))
+  (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode))
 
 (use-package polymode ; to have more than one major mode
   :ensure t
@@ -152,6 +153,12 @@
   (add-hook 'clojure-mode 'whitespace-cleanup-mode)
   (add-hook 'ruby-mode 'whitespace-cleanup-mode)
   (add-hook 'stan-mode 'whitespace-cleanup-mode))
+
+(use-package ebib
+  :ensure t
+  :config
+  (setq ebib-preload-bib-files
+      '("~/Documents/library.bib")))
 
 ;; misc settings
 (setq inhibit-startup-message t ; disable start screen
