@@ -102,7 +102,19 @@
   (global-company-mode t))
 
 (use-package reftex ; bibliography and reference management
-  :commands turn-on-reftex)
+  :commands turn-on-reftex
+  :config
+  (setq reftex-cite-format ; set up reftex to work with biblatex (not natbib) and pandoc
+      '((?\C-m . "\\cite[]{%l}")
+        (?t . "\\textcite{%l}")
+        (?a . "\\autocite[]{%l}")
+        (?p . "\\parencite{%l}")
+        (?f . "\\footcite[][]{%l}")
+        (?F . "\\fullcite[]{%l}")
+        (?P . "[@%l]")
+        (?T . "@%l [p. ]")
+        (?x . "[]{%l}")
+        (?X . "{%l}"))))
 
 (use-package flycheck ; checks for style and syntax
   :ensure t
