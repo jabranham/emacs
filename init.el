@@ -40,7 +40,7 @@
   :ensure t
   :bind
   ("C-c g" . magit-status)
-  ("C-x g" . magit-statu)
+  ("C-x g" . magit-status)
   :config
   (setq magit-push-always-verify nil))
 
