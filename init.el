@@ -195,6 +195,7 @@
 (global-set-key (kbd "S-C-<down>") 'shrink-window)
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
 
+(fset 'yes-or-no-p 'y-or-n-p) ; type y or n instead of yes RET and no RET
 
 ;;; init.el ends here
 (custom-set-variables
