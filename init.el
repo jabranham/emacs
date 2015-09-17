@@ -167,7 +167,13 @@
   :ensure t
   :config
   (setq ebib-preload-bib-files
-      '("~/Dropbox/library.bib")))
+        '("~/Dropbox/library.bib")))
+
+(use-package rainbow-delimiters
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+  (add-hook 'ess-mode-hook #'rainbow-delimiters-mode))
 
 ;; misc settings
 (setq inhibit-startup-message t ; disable start screen
