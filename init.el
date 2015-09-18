@@ -175,6 +175,24 @@
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
   (add-hook 'ess-mode-hook #'rainbow-delimiters-mode))
 
+;; Set up ESS style
+(add-to-list 'ess-style-alist
+             '(my-style
+               (ess-indent-level . 4)
+               (ess-first-continued-statement-offset . 2)
+               (ess-continued-statement-offset . 0)
+               (ess-brace-offset . -4)
+               (ess-expression-offset . 4)
+               (ess-else-offset . 0)
+               (ess-close-brace-offset . 0)
+               (ess-brace-imaginary-offset . 0)
+               (ess-continued-brace-offset . 0)
+               (ess-arg-function-offset . 4)
+           (ess-arg-function-offset-new-line . '(4))
+               ))
+
+(setq ess-default-style 'my-style)
+
 ;; misc settings
 (setq inhibit-startup-message t ; disable start screen
       global-font-lock-mode t ; font lock (syntax highlighting) everywhere
