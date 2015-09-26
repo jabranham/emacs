@@ -98,15 +98,24 @@
   ("\\.Rmd" . poly-markdown+r-mode))
 
 (use-package company ; auto completion
-  :ensure t)
-
-(use-package company-statistics
   :ensure t
-  :config
-  (company-statistics-mode)
-  (define-key company-active-map (kbd "<tab>")
-    (lambda () (interactive) (company-complete-common-or-cycle 1)))
-  (global-company-mode t))
+  :config  
+  (use-package company-statistics
+    :ensure t
+    :config
+    (company-statistics-mode)
+    (define-key company-active-map (kbd "<tab>")
+      (lambda () (interactive) (company-complete-common-or-cycle 1)))
+    (global-company-mode t))
+  (use-package company-auctex
+    :ensure t
+    :config
+    (company-auctex-init))
+  (use-package company-math
+    :ensure t)
+  (use-package company-quickhelp
+    :ensure t)
+)
 
 (use-package reftex ; bibliography and reference management
   :commands turn-on-reftex
