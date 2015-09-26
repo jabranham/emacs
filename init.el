@@ -172,11 +172,16 @@
   (add-hook 'ruby-mode 'whitespace-cleanup-mode)
   (add-hook 'stan-mode 'whitespace-cleanup-mode))
 
-(use-package ebib
+(use-package ebib ; for .bib files
   :ensure t
   :config
   (setq ebib-preload-bib-files
         '("~/Dropbox/library.bib")))
+
+(use-package pdf-tools
+  :ensure t
+  :config
+  (pdf-tools-install))
 
 (use-package rainbow-delimiters
   :ensure t
