@@ -178,12 +178,12 @@
   (setq ebib-preload-bib-files
         '("~/Dropbox/library.bib")))
 
-(use-package pdf-tools
+(use-package pdf-tools ; for a nice pdf viewer
   :ensure t
   :config
   (pdf-tools-install))
 
-(use-package rainbow-delimiters
+(use-package rainbow-delimiters ; for nice coloring of parens
   :ensure t
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
