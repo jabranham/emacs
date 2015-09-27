@@ -178,6 +178,9 @@
   (setq ebib-preload-bib-files
         '("~/Dropbox/library.bib")))
 
+(use-package dired+
+  :ensure t)
+
 (pdf-tools-install) ; nice PDF viewer (needs separate installation)
 
 (use-package rainbow-delimiters ; for nice coloring of parens
