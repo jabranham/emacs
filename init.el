@@ -189,6 +189,13 @@
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
   (add-hook 'ess-mode-hook #'rainbow-delimiters-mode))
 
+;; Auto refresh buffers
+(global-auto-revert-mode 1)
+
+;; Also auto refresh dired, but be quiet about it
+(setq global-auto-revert-non-file-buffers t)
+(setq auto-revert-verbose nil)
+
 ;; Set up ESS style
 (add-to-list 'ess-style-alist
              '(my-style
