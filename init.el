@@ -201,6 +201,14 @@
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
   (add-hook 'ess-mode-hook #'rainbow-delimiters-mode))
 
+;; Write backup files to own directory
+(setq backup-directory-alist
+      `(("." . ,(expand-file-name
+                 (concat user-emacs-directory "backups")))))
+
+;; Make backups of files, even when they're in version control
+(setq vc-make-backup-files t)
+
 ;; Auto refresh buffers
 (global-auto-revert-mode 1)
 
