@@ -100,7 +100,18 @@
           reftex-plug-into-AUCTeX t
           TeX-PDF-mode t)
     (setq-default TeX-master nil))
-  (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode))
+  (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode)
+  (setq TeX-source-correlate-method 'synctex)
+  (setq TeX-source-correlate-mode t)
+  (setq TeX-view-program-selection '((output-pdf "PDF Viewer")))
+  (setq TeX-view-program-list '(("PDF Viewer" "okular --unique %o#src:%n%b"))) ; set up Okular as pdf viewer
+  )
+
+(use-package auctex-latexmk ; enables latexmk
+  :ensure t
+  :config
+  (auctex-latexmk-setup)
+  (setq auctex-latexmk-inherit-TeX-PDF-mode t))
 
 (use-package polymode ; to have more than one major mode
   :ensure t
@@ -193,7 +204,11 @@
 (use-package dired+
   :ensure t)
 
-(pdf-tools-install) ; nice PDF viewer (needs separate installation)
+;; (pdf-tools-install) ; nice PDF viewer (needs separate installation)
+;; (eval-after-load "tex"
+;;   '(progn
+;;      (setq TeX-view-program-list '(("pdf-tools" "pdftools")))
+;;      (setq TeX-view-program-selection '((output-pdf "pdf-tools")))))
 
 (use-package rainbow-delimiters ; for nice coloring of parens
   :ensure t
