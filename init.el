@@ -104,8 +104,7 @@
   (setq TeX-source-correlate-method 'synctex)
   (setq TeX-source-correlate-mode t)
   (setq TeX-view-program-selection '((output-pdf "pdf-tools")))
-  (setq TeX-view-program-list '(("pdf-tools" "TeX-pdf-tools-sync-view"))) ; set up pdf-tools as pdf viewer
-  )
+  (setq TeX-view-program-list '(("pdf-tools" "TeX-pdf-tools-sync-view")))) ; set up pdf-tools as pdf viewer
 
 (pdf-tools-install) ; nice PDF viewer (needs separate installation)
 
@@ -114,7 +113,7 @@
   :config
   (auctex-latexmk-setup)
   (setq auctex-latexmk-inherit-TeX-PDF-mode t)
-  (setq TeX-command-default "LatexMk"))
+  (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk"))))
 
 (use-package polymode ; to have more than one major mode
   :ensure t
