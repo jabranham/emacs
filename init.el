@@ -6,6 +6,7 @@
 
 
 ;;; Code:
+(setq gc-cons-threshold 20000000)
 ;; add MELPA, install use-package
 (require 'package)
 (setq package-enable-at-startup nil)
