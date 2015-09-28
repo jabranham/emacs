@@ -15,7 +15,7 @@ You also need to install ESS. The package is up-to-date on Ubuntu's repositories
 
 # Install other programs
 These aren't strictly speaking necessary, but you probably want them.
-You'll want [R](https://www.r-project.org/), LaTeX (TeXLive for Linux, [MaCTeX](https://tug.org/mactex/) for mac, and [MiKTeX](http://www.miktex.org/) for Windows), [pandoc](http://pandoc.org/), and [git](http://www.git-scm.com/).
+You'll want [R](https://www.r-project.org/), LaTeX (TeXLive for Linux, [MaCTeX](https://tug.org/mactex/) for mac, and [MiKTeX](http://www.miktex.org/) for Windows), [pandoc](http://pandoc.org/), and [git](http://www.git-scm.com/). You may also want to install [pdf-tools](https://github.com/politza/pdf-tools), which makes emacs much better at dealing with PDFs. 
 
 # Using this file
 If you want to use my setup, you can download this file and put it in `~/.emacs.d`.
