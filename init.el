@@ -213,6 +213,11 @@
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
   (add-hook 'ess-mode-hook #'rainbow-delimiters-mode))
 
+(use-package smart-mode-line
+  :ensure t
+  :config
+  (use-package smart-mode-line-powerline-theme))
+
 ;; Write backup files to own directory
 (setq backup-directory-alist
       `(("." . ,(expand-file-name
