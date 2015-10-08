@@ -188,15 +188,15 @@
 (use-package whitespace-cleanup-mode ; cleans up whitespace from specified modes
   :ensure t
   :config
-  (add-hook 'haskell-mode 'whitespace-cleanup-mode)
-  (add-hook 'emacs-lisp-mode 'whitespace-cleanup-mode)
-  (add-hook 'lisp-mode 'whitespace-cleanup-mode)
-  (add-hook 'scheme-mode 'whitespace-cleanup-mode)
-  (add-hook 'ess-mode 'whitespace-cleanup-mode)
-  (add-hook 'erlang-mode 'whitespace-cleanup-mode)
-  (add-hook 'clojure-mode 'whitespace-cleanup-mode)
-  (add-hook 'ruby-mode 'whitespace-cleanup-mode)
-  (add-hook 'stan-mode 'whitespace-cleanup-mode))
+  (add-hook 'haskell-mode-hook 'whitespace-cleanup-mode)
+  (add-hook 'emacs-lisp-mode-hook 'whitespace-cleanup-mode)
+  (add-hook 'lisp-mode-hook 'whitespace-cleanup-mode)
+  (add-hook 'scheme-mode-hook 'whitespace-cleanup-mode)
+  (add-hook 'ess-mode-hook 'whitespace-cleanup-mode)
+  (add-hook 'erlang-mode-hook 'whitespace-cleanup-mode)
+  (add-hook 'clojure-mode-hook 'whitespace-cleanup-mode)
+  (add-hook 'ruby-mode-hook 'whitespace-cleanup-mode)
+  (add-hook 'stan-mode-hook 'whitespace-cleanup-mode))
 
 (use-package ebib ; for .bib files
   :ensure t
