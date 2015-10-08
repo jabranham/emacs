@@ -216,7 +216,7 @@
 (use-package smart-mode-line
   :ensure t
   :config
-  (use-package smart-mode-line-powerline-theme))
+  (sml/setup))
 
 ;; Write backup files to own directory
 (setq backup-directory-alist
