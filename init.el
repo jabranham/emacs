@@ -125,7 +125,7 @@
 
 (use-package company ; auto completion
   :ensure t
-  :config  
+  :config
   (use-package company-statistics
     :ensure t
     :config
