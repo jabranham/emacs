@@ -156,7 +156,11 @@
         (?P . "[@%l]")
         (?T . "@%l [p. ]")
         (?x . "[]{%l}")
-        (?X . "{%l}"))))
+        (?X . "{%l}")))
+  ;; So that RefTeX also recognizes \addbibresource. Note that you
+  ;; can't use $HOME in path for \addbibresource but that "~"
+  ;; works.
+  (setq reftex-bibliography-commands '("bibliography" "nobibliography" "addbibresource")))
 
 (use-package flycheck ; checks for style and syntax
   :ensure t
