@@ -234,6 +234,9 @@
   :config
   (sml/setup))
 
+(use-package org
+  :ensure t)
+
 ;; Write backup files to own directory
 (setq backup-directory-alist
       `(("." . ,(expand-file-name
