@@ -261,10 +261,11 @@
      (emacs-lisp . t)))
   (add-to-list 'org-src-lang-modes
                '("r" . ess-mode))
-  (require 'ob-latex)
+  ;(require 'ob-latex)
   ;; use latexmk
   (add-to-list 'org-babel-noweb-error-langs "latex")
-  (setq org-latex-to-pdf-process "latexmk -f -pdf %f")
+  ;(setq org-latex-to-pdf-process "latexmk -f -pdf %f") ; for org version < 8.0
+  (setq org-latex-pdf-process (list "latexmk -f -pdf %f"))
   ;; when working via C-c ' open in current window
   (setq org-src-window-setup 'current-window)
   ;; display inline images
