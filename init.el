@@ -261,8 +261,11 @@
   (add-to-list 'org-src-lang-modes
                '("r" . ess-mode))
   (require 'ob-latex)
+  ;; use latexmk
   (add-to-list 'org-babel-noweb-error-langs "latex")
   (setq org-latex-to-pdf-process "latexmk -f -pdf %f")
+  ;; when working via C-c ' open in current window
+  (setq org-src-window-setup 'current-window)
   )
 
 ;; Write backup files to own directory
@@ -347,7 +350,8 @@
      (ess-fl-keyword:delimiters . t)
      (ess-fl-keyword:= . t)
      (ess-R-fl-keyword:F&T . t)
-     (ess-R-fl-keyword:%op% . t)))))
+     (ess-R-fl-keyword:%op% . t))))
+ '(org-agenda-files nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
