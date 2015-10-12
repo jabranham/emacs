@@ -254,6 +254,7 @@
   (setq org-completion-use-ido t)
   (setq org-src-fontify-natively t)
   (setq org-src-tab-acts-natively t)
+  (setq org-confirm-babel-evaluate nil)
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((R . t)
@@ -266,7 +267,9 @@
   (setq org-latex-to-pdf-process "latexmk -f -pdf %f")
   ;; when working via C-c ' open in current window
   (setq org-src-window-setup 'current-window)
-  )
+  ;; display inline images
+  (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)   
+  (add-hook 'org-mode-hook 'org-display-inline-images))
 
 ;; Write backup files to own directory
 (setq backup-directory-alist
