@@ -6,6 +6,10 @@
 
 
 ;;; Code:
+(setq inhibit-startup-message t ; disable start screen
+      global-font-lock-mode t ; font lock (syntax highlighting) everywhere
+      font-lock-maximum-decoration t) ; lots of color
+(add-to-list 'default-frame-alist '(fullscreen . maximized)) ; start maximized
 (setq gc-cons-threshold 20000000)
 ;; add MELPA, install use-package
 (require 'package)
@@ -256,10 +260,7 @@
 (setq ess-default-style 'my-style)
 
 ;; misc settings
-(setq inhibit-startup-message t ; disable start screen
-      global-font-lock-mode t ; font lock (syntax highlighting) everywhere
-      font-lock-maximum-decoration t) ; lots of color
-(add-to-list 'default-frame-alist '(fullscreen . maximized)) ; start maximized
+
 (global-set-key (kbd "C-z") 'undo) ; set "C-z" to undo, rather than minimize emacs (which seems useless)
 (define-key global-map (kbd "C-+") 'text-scale-increase) ; C-+ increases font size
 (define-key global-map (kbd "C--") 'text-scale-decrease) ; C-- decreases font size
