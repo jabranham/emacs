@@ -157,6 +157,17 @@
 
 (use-package reftex ; bibliography and reference management
   :commands turn-on-reftex
+  :init
+  ;; Make RefTeX work with Org-Mode
+  ;; use 'C-c (' instead of 'C-c [' because the latter is already
+  ;; defined in orgmode to the add-to-agenda command.
+  (defun org-mode-reftex-setup ()
+    (load-library "reftex") 
+    (and (buffer-file-name)
+         (file-exists-p (buffer-file-name))
+         (reftex-parse-all))
+    (define-key org-mode-map (kbd "C-c (") 'reftex-citation))
+  (add-hook 'org-mode-hook 'org-mode-reftex-setup)
   :config
   (setq reftex-cite-format ; set up reftex to work with biblatex (not natbib) and pandoc
       '((?\C-m . "\\cite[]{%l}")
@@ -172,7 +183,10 @@
   ;; So that RefTeX also recognizes \addbibresource. Note that you
   ;; can't use $HOME in path for \addbibresource but that "~"
   ;; works.
-  (setq reftex-bibliography-commands '("bibliography" "nobibliography" "addbibresource")))
+  (setq reftex-bibliography-commands '("bibliography" "nobibliography" "addbibresource"))
+  
+  (setq reftex-default-bibliography '("~/Dropbox/library.bib"))
+  )
 
 (use-package flycheck ; checks for style and syntax
   :ensure t
@@ -235,7 +249,21 @@
   (sml/setup))
 
 (use-package org
-  :ensure t)
+  :ensure t
+  :config
+  (setq org-completion-use-ido t)
+  (setq org-src-fontify-natively t)
+  (setq org-src-tab-acts-natively t)
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((R . t)
+     (emacs-lisp . t)))
+  (add-to-list 'org-src-lang-modes
+               '("r" . ess-mode))
+  (require 'ob-latex)
+  (add-to-list 'org-babel-noweb-error-langs "latex")
+  (setq org-latex-to-pdf-process "latexmk -f -pdf %f")
+  )
 
 ;; Write backup files to own directory
 (setq backup-directory-alist
