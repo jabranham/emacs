@@ -260,7 +260,8 @@
    '((R . t)
      (emacs-lisp . t)))
   (add-to-list 'org-src-lang-modes
-               '("r" . ess-mode))
+               '("r" . ess-mode)
+                ("latex" . t))
   ;(require 'ob-latex)
   ;; use latexmk
   (add-to-list 'org-babel-noweb-error-langs "latex")
