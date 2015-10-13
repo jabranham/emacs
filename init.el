@@ -258,10 +258,10 @@
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((R . t)
-     (emacs-lisp . t)))
+     (emacs-lisp . t)
+     (latex . t)))
   (add-to-list 'org-src-lang-modes
-               '("r" . ess-mode)
-                ("latex" . t))
+               '("r" . ess-mode))
   ;(require 'ob-latex)
   ;; use latexmk
   (add-to-list 'org-babel-noweb-error-langs "latex")
