@@ -271,7 +271,9 @@
   (setq org-src-window-setup 'current-window)
   ;; display inline images
   (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)   
-  (add-hook 'org-mode-hook 'org-display-inline-images))
+  (add-hook 'org-mode-hook 'org-display-inline-images)
+  (use-package htmlize
+    :ensure t))
 
 ;; Write backup files to own directory
 (setq backup-directory-alist
