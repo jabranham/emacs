@@ -248,32 +248,39 @@
   :config
   (sml/setup))
 
-(use-package org
+;; (use-package org
+;;   :ensure t
+;;   :config
+;;   (setq org-completion-use-ido t)
+;;   (setq org-src-fontify-natively t)
+;;   (setq org-src-tab-acts-natively t)
+;;   (setq org-confirm-babel-evaluate nil)
+;;   (org-babel-do-load-languages
+;;    'org-babel-load-languages
+;;    '((R . t)
+;;      (emacs-lisp . t)
+;;      (latex . t)))
+;;   (add-to-list 'org-src-lang-modes
+;;                '("r" . ess-mode))
+;;   ;(require 'ob-latex)
+;;   ;; use latexmk
+;;   (add-to-list 'org-babel-noweb-error-langs "latex")
+;;   ;(setq org-latex-to-pdf-process "latexmk -f -pdf %f") ; for org version < 8.0
+;;   (setq org-latex-pdf-process (list "latexmk -f -pdf %f"))
+;;   ;; when working via C-c ' open in current window
+;;   (setq org-src-window-setup 'current-window)
+;;   ;; display inline images
+;;   (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)   
+;;   (add-hook 'org-mode-hook 'org-display-inline-images)
+;;   (use-package htmlize
+;;     :ensure t))
+
+(use-package shell-pop
   :ensure t
+  :bind
+  ("C-c C-t" . shell-pop)
   :config
-  (setq org-completion-use-ido t)
-  (setq org-src-fontify-natively t)
-  (setq org-src-tab-acts-natively t)
-  (setq org-confirm-babel-evaluate nil)
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((R . t)
-     (emacs-lisp . t)
-     (latex . t)))
-  (add-to-list 'org-src-lang-modes
-               '("r" . ess-mode))
-  ;(require 'ob-latex)
-  ;; use latexmk
-  (add-to-list 'org-babel-noweb-error-langs "latex")
-  ;(setq org-latex-to-pdf-process "latexmk -f -pdf %f") ; for org version < 8.0
-  (setq org-latex-pdf-process (list "latexmk -f -pdf %f"))
-  ;; when working via C-c ' open in current window
-  (setq org-src-window-setup 'current-window)
-  ;; display inline images
-  (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)   
-  (add-hook 'org-mode-hook 'org-display-inline-images)
-  (use-package htmlize
-    :ensure t))
+  (setq shell-pop-shell-type '("eshell")))
 
 ;; Write backup files to own directory
 (setq backup-directory-alist
