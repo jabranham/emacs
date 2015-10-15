@@ -338,7 +338,10 @@
    (if mark-active (list (region-beginning) (region-end))
      (list (line-beginning-position)
            (line-beginning-position 2)))))
-
+;; change frame name of emacs
+(setq frame-title-format
+  '("Emacs - " (buffer-file-name "%f"
+    (dired-directory dired-directory "%b"))))
 ;;; init.el ends here
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
