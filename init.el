@@ -252,6 +252,7 @@
   (setq org-src-fontify-natively t)
   (setq org-src-tab-acts-natively t)
   (setq org-confirm-babel-evaluate nil)
+  (setq org-pretty-entities t) 
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((R . t)
