@@ -61,22 +61,22 @@
     (jump-to-register :magit-fullscreen))
     (define-key magit-status-mode-map (kbd "q") 'magit-quit-session))
 
-(use-package smex
-  :ensure t
-  :bind
-  ("M-x" . smex)
-  ("C-c C-c M-x" . execute-extended-command)
-  ("M-X" . smex-major-mode-commands))
 
 (use-package ido-ubiquitous
-  :ensure t)
-
-(use-package ido-vertical-mode
   :ensure t
   :config
-  (ido-mode 1) ; turn on ido mode
-  (ido-vertical-mode 1) ; turn on ido vertical mode
-  (setq ido-vertical-define-keys 'C-n-C-p-up-and-down)) ; make up and down keys work
+  (use-package smex
+    :ensure t
+    :bind
+    ("M-x" . smex)
+    ("C-c C-c M-x" . execute-extended-command)
+    ("M-X" . smex-major-mode-commands))
+  (use-package ido-vertical-mode
+    :ensure t
+    :config
+    (ido-mode 1) ; turn on ido mode
+    (ido-vertical-mode 1) ; turn on ido vertical mode
+    (setq ido-vertical-define-keys 'C-n-C-p-up-and-down))) ; make up and down keys work
 
 (use-package smartparens-config ; makes parens easier to keep track of
   :ensure smartparens
@@ -84,13 +84,10 @@
   (smartparens-global-mode 1)
   (show-smartparens-global-mode +1))
 
-(use-package find-file-in-project
-  :ensure t)
-
 (use-package markdown-mode ; for markdown mode
   :ensure t)
 
-(use-package ess-site
+(use-package ess-site ; for R goodness
   :ensure ess
   :config
   (add-hook 'ess-mode-hook
@@ -117,16 +114,19 @@
   (setq TeX-source-correlate-method 'synctex)
   (setq TeX-source-correlate-mode t)
   (setq TeX-view-program-selection '((output-pdf "pdf-tools")))
-  (setq TeX-view-program-list '(("pdf-tools" "TeX-pdf-tools-sync-view")))) ; set up pdf-tools as pdf viewer
+  (setq TeX-view-program-list '(("pdf-tools" "TeX-pdf-tools-sync-view"))) ; set up pdf-tools as pdf viewer
+  :config
+  (use-package auctex-latexmk ; enables latexmk
+    :ensure t
+    :config
+    (auctex-latexmk-setup)
+    (setq auctex-latexmk-inherit-TeX-PDF-mode t)
+    (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk"))))
+  (use-package latex-pretty-symbols ; makes latex math look a bit better in the editor
+    :ensure t))
 
 (pdf-tools-install) ; nice PDF viewer (needs separate installation)
 
-(use-package auctex-latexmk ; enables latexmk
-  :ensure t
-  :config
-  (auctex-latexmk-setup)
-  (setq auctex-latexmk-inherit-TeX-PDF-mode t)
-  (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk"))))
 
 (use-package polymode ; to have more than one major mode
   :ensure t
@@ -184,7 +184,6 @@
   ;; can't use $HOME in path for \addbibresource but that "~"
   ;; works.
   (setq reftex-bibliography-commands '("bibliography" "nobibliography" "addbibresource"))
-  
   (setq reftex-default-bibliography '("~/Dropbox/library.bib"))
   )
 
@@ -212,8 +211,6 @@
   (add-hook 'markdown-mode-hook 'turn-on-flyspell)
   (add-hook 'org-mode-hook 'turn-on-flyspell))
 
-(use-package latex-pretty-symbols ; makes latex math look a bit better in the editor
-  :ensure t)
 
 (use-package whitespace-cleanup-mode ; cleans up whitespace from specified modes
   :ensure t
@@ -248,32 +245,32 @@
   :config
   (sml/setup))
 
-;; (use-package org
-;;   :ensure t
-;;   :config
-;;   (setq org-completion-use-ido t)
-;;   (setq org-src-fontify-natively t)
-;;   (setq org-src-tab-acts-natively t)
-;;   (setq org-confirm-babel-evaluate nil)
-;;   (org-babel-do-load-languages
-;;    'org-babel-load-languages
-;;    '((R . t)
-;;      (emacs-lisp . t)
-;;      (latex . t)))
-;;   (add-to-list 'org-src-lang-modes
-;;                '("r" . ess-mode))
-;;   ;(require 'ob-latex)
-;;   ;; use latexmk
-;;   (add-to-list 'org-babel-noweb-error-langs "latex")
-;;   ;(setq org-latex-to-pdf-process "latexmk -f -pdf %f") ; for org version < 8.0
-;;   (setq org-latex-pdf-process (list "latexmk -f -pdf %f"))
-;;   ;; when working via C-c ' open in current window
-;;   (setq org-src-window-setup 'current-window)
-;;   ;; display inline images
-;;   (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)   
-;;   (add-hook 'org-mode-hook 'org-display-inline-images)
-;;   (use-package htmlize
-;;     :ensure t))
+(use-package org
+  :ensure t
+  :config
+  (setq org-completion-use-ido t)
+  (setq org-src-fontify-natively t)
+  (setq org-src-tab-acts-natively t)
+  (setq org-confirm-babel-evaluate nil)
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((R . t)
+     (emacs-lisp . t)
+     (latex . t)))
+  (add-to-list 'org-src-lang-modes
+               '("r" . ess-mode))
+  ;(require 'ob-latex)
+  ;; use latexmk
+  (add-to-list 'org-babel-noweb-error-langs "latex")
+  ;(setq org-latex-to-pdf-process "latexmk -f -pdf %f") ; for org version < 8.0
+  (setq org-latex-pdf-process (list "latexmk -f -pdf %f"))
+  ;; when working via C-c ' open in current window
+  (setq org-src-window-setup 'current-window)
+  ;; display inline images
+  (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)   
+  (add-hook 'org-mode-hook 'org-display-inline-images)
+  (use-package htmlize
+    :ensure t))
 
 (use-package shell-pop
   :ensure t
@@ -297,33 +294,13 @@
 (setq global-auto-revert-non-file-buffers t)
 (setq auto-revert-verbose nil)
 
-;; ;; Set up ESS style
-;; (add-to-list 'ess-style-alist
-;;              '(my-style
-;;                (ess-indent-level . 4)
-;;                (ess-first-continued-statement-offset . 2)
-;;                (ess-continued-statement-offset . 0)
-;;                (ess-brace-offset . -4)
-;;                (ess-expression-offset . 4)
-;;                (ess-else-offset . 0)
-;;                (ess-close-brace-offset . 0)
-;;                (ess-brace-imaginary-offset . 0)
-;;                (ess-continued-brace-offset . 0)
-;;                (ess-arg-function-offset . 4)
-;;            (ess-arg-function-offset-new-line . '(4))
-;;                ))
-
-;; (setq ess-default-style 'my-style)
-
 ;; misc settings
-
 (global-set-key (kbd "C-z") 'undo) ; set "C-z" to undo, rather than minimize emacs (which seems useless)
 (define-key global-map (kbd "C-+") 'text-scale-increase) ; C-+ increases font size
 (define-key global-map (kbd "C--") 'text-scale-decrease) ; C-- decreases font size
 (if window-system ; show menu if emacs is window, not if terminal
     (menu-bar-mode t)
-    (menu-bar-mode -1)
-    )
+    (menu-bar-mode -1))
 (set-default 'indent-tabs-mode nil) ; don't use tabs
 (global-set-key (kbd "M-/") 'hippie-expand) ; use M-/ for hippie expand
 ;; resizing 'windows' (i.e., inside the frame)

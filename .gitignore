@@ -7,3 +7,5 @@ elpa/
 /flycheck_init.el
 url/
 /smex-items
+eshell/
+/.org-id-locations
