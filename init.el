@@ -115,15 +115,13 @@
   (setq TeX-source-correlate-mode t)
   (setq TeX-view-program-selection '((output-pdf "pdf-tools")))
   (setq TeX-view-program-list '(("pdf-tools" "TeX-pdf-tools-sync-view"))) ; set up pdf-tools as pdf viewer
+  )
+(use-package auctex-latexmk ; enables latexmk
+  :ensure t
   :config
-  (use-package auctex-latexmk ; enables latexmk
-    :ensure t
-    :config
-    (auctex-latexmk-setup)
-    (setq auctex-latexmk-inherit-TeX-PDF-mode t)
-    (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk"))))
-  (use-package latex-pretty-symbols ; makes latex math look a bit better in the editor
-    :ensure t))
+  (auctex-latexmk-setup)
+  (setq auctex-latexmk-inherit-TeX-PDF-mode t)
+  (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk"))))
 
 (pdf-tools-install) ; nice PDF viewer (needs separate installation)
 
