@@ -183,6 +183,7 @@
   ;; works.
   (setq reftex-bibliography-commands '("bibliography" "nobibliography" "addbibresource"))
   (setq reftex-default-bibliography '("~/Dropbox/library.bib"))
+  (setq reftex-extra-bindings t)
   )
 
 (use-package flycheck ; checks for style and syntax
