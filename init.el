@@ -62,21 +62,41 @@
     (define-key magit-status-mode-map (kbd "q") 'magit-quit-session))
 
 
-(use-package ido-ubiquitous
+;; (use-package ido-ubiquitous
+;;   :ensure t
+;;   :config
+;;   (use-package smex
+;;     :ensure t
+;;     :bind
+;;     ("M-x" . smex)
+;;     ("C-c C-c M-x" . execute-extended-command)
+;;     ("M-X" . smex-major-mode-commands))
+;;   (use-package ido-vertical-mode
+;;     :ensure t
+;;     :config
+;;     (ido-mode 1) ; turn on ido mode
+;;     (ido-vertical-mode 1) ; turn on ido vertical mode
+;;     (setq ido-vertical-define-keys 'C-n-C-p-up-and-down))) ; make up and down keys work
+
+(use-package helm
   :ensure t
+  :bind
+  ("C-c h" . helm-command-prefix)
+  ("M-x" . helm-M-x)
+  ("M-y" . helm-show-kill-ring)
   :config
-  (use-package smex
-    :ensure t
-    :bind
-    ("M-x" . smex)
-    ("C-c C-c M-x" . execute-extended-command)
-    ("M-X" . smex-major-mode-commands))
-  (use-package ido-vertical-mode
-    :ensure t
-    :config
-    (ido-mode 1) ; turn on ido mode
-    (ido-vertical-mode 1) ; turn on ido vertical mode
-    (setq ido-vertical-define-keys 'C-n-C-p-up-and-down))) ; make up and down keys work
+  (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
+  (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
+  (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+  (when (executable-find "curl")
+    (setq helm-google-suggest-use-curl-p t))
+  (setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
+        helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
+        helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
+        helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+        helm-ff-file-name-history-use-recentf t
+        helm-M-x-fuzzy-match                  t) ; optional fuzzy matching for helm-M-x
+  (helm-mode t))
 
 (use-package smartparens-config ; makes parens easier to keep track of
   :ensure smartparens
