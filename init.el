@@ -231,7 +231,9 @@
         '("~/Dropbox/library.bib")))
 
 (use-package dired+
-  :ensure t)
+  :ensure t
+  :config
+  (setq dired-dwim-target t))
 
 (use-package rainbow-delimiters ; for nice coloring of parens
   :ensure t
