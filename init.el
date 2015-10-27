@@ -84,6 +84,9 @@
   ("C-c h" . helm-command-prefix)
   ("M-x" . helm-M-x)
   ("M-y" . helm-show-kill-ring)
+  ("C-x b". helm-mini)
+  ("C-x C-f". helm-find-files)
+  ("C-c h g". helm-google-suggest)
   :init
   (require 'helm-config)
   :config
@@ -97,7 +100,10 @@
         helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
         helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
         helm-ff-file-name-history-use-recentf t
-        helm-M-x-fuzzy-match                  t) ; optional fuzzy matching for helm-M-x
+        helm-M-x-fuzzy-match                  t ; optional fuzzy matching for helm-M-x
+        helm-autoresize-mode                  t
+        helm-buffers-fuzzy-matching           t
+        helm-recentf-fuzzy-match              t)
   (helm-mode t))
 
 (use-package smartparens-config ; makes parens easier to keep track of
