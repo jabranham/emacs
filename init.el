@@ -117,6 +117,12 @@
               (ess-set-style 'RStudio)))
   (setq ess-offset-arguments 'prev-line))
 
+(use-package stan-mode
+  :ensure t
+  :config
+  (use-package stan-snippets
+    :ensure t))
+
 (use-package auctex ; for LaTeX documents
   :ensure t
   :mode ("\\.tex\\'" . latex-mode)
@@ -253,7 +259,9 @@
         '("~/Dropbox/library.bib")))
 
 (use-package dired+
-  :ensure t)
+  :ensure t
+  :config
+  (setq dired-dwim-target t))
 
 (use-package rainbow-delimiters ; for nice coloring of parens
   :ensure t
