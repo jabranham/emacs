@@ -124,10 +124,10 @@
   (setq ess-offset-arguments 'prev-line))
 
 (use-package stan-mode
-  :ensure t
-  :config
-  (use-package stan-snippets
-    :ensure t))
+  :ensure t)
+  ;; :config
+  ;; (use-package stan-snippets
+  ;;   :ensure t))
 
 (use-package auctex ; for LaTeX documents
   :ensure t
