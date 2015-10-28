@@ -87,6 +87,7 @@
   ("C-x b". helm-mini)
   ("C-x C-f". helm-find-files)
   ("C-c h g". helm-google-suggest)
+  ("C-c h c" . helm-calcul-expression)
   :init
   (require 'helm-config)
   :config
