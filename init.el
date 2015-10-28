@@ -106,6 +106,32 @@
         helm-buffers-fuzzy-matching           t
         helm-recentf-fuzzy-match              t)
   (helm-mode t))
+(use-package projectile
+  :ensure t)
+(use-package helm-projectile
+  :ensure t
+  :config
+  (projectile-global-mode)
+  (setq projectile-completion-system 'helm)
+  (helm-projectile-on))
+(use-package helm-R
+  :ensure t)
+(use-package helm-flyspell
+  :ensure t
+  :config
+  (define-key flyspell-mode-map (kbd "M-/") 'helm-flyspell-correct))
+(use-package helm-company
+  :ensure t
+  :config
+  (eval-after-load 'company
+  '(progn
+     (define-key company-mode-map (kbd "C-;") 'helm-company)
+     (define-key company-active-map (kbd "C-;") 'helm-company))))
+(use-package helm-flycheck
+  :ensure t
+  :config
+  (eval-after-load 'flycheck
+   '(define-key flycheck-mode-map (kbd "C-c ! h") 'helm-flycheck)))
 
 (use-package smartparens-config ; makes parens easier to keep track of
   :ensure smartparens
@@ -137,7 +163,7 @@
   :init
   (progn
     (add-hook 'LaTeX-mode-hook 'visual-line-mode)
-    (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+    ;(add-hook 'LaTeX-mode-hook 'flyspell-mode)
     (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
     (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
     (setq TeX-auto-save t
@@ -239,6 +265,7 @@
   (setq flyspell-sort-corrections nil)
   (autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
   :config
+  (setq ispell-program-name "aspell")
   (add-hook 'text-mode-hook 'turn-on-auto-fill)
   (add-hook 'text-mode-hook 'turn-on-flyspell)
   (add-hook 'LaTeX-mode-hook 'turn-on-flyspell)
