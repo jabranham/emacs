@@ -328,7 +328,8 @@
    'org-babel-load-languages
    '((R . t)
      (emacs-lisp . t)
-     (latex . t)))
+     (latex . t)
+     (python . t)))
   (add-to-list 'org-src-lang-modes
                '("r" . ess-mode))
   ;(require 'ob-latex)
