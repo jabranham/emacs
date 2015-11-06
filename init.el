@@ -318,12 +318,12 @@
 (use-package org
   :ensure t
   :config
-  (setq org-completion-use-ido t)
-  (setq org-src-fontify-natively t)
-  (setq org-src-tab-acts-natively t)
-  (setq org-confirm-babel-evaluate nil)
-  (setq org-pretty-entities t)
-  (setq org-support-shift-select t)
+  (setq org-completion-use-ido       t
+        org-src-fontify-natively     t
+        org-src-tab-acts-natively    t
+        org-confirm-babel-evaluate   nil
+        org-pretty-entities          t
+        org-support-shift-select     t)
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((R . t)
