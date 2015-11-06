@@ -352,6 +352,16 @@
   :config
   (setq shell-pop-shell-type '("eshell")))
 
+(use-package buffer-move
+  :ensure t
+  :bind
+  ("M-S-<up>" . buf-move-up)
+  ("M-S-<down>" . buf-move-down)
+  ("M-S-<left>" . buf-move-left)
+  ("M-S-<right>" . buf-move-right)
+  :config
+  (setq buffer-move-behavior 'move))
+
 ;; Write backup files to own directory
 (setq backup-directory-alist
       `(("." . ,(expand-file-name
