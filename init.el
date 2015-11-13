@@ -365,9 +365,9 @@
 (require 'mu4e)
 ;; default
 (setq mu4e-maildir "~/Documents/Maildir/utexas")
-(setq mu4e-drafts-folder "/bak.drafts")
-(setq mu4e-sent-folder   "/bak.sent")
-(setq mu4e-trash-folder  "/bak.trash")
+(setq mu4e-drafts-folder "/[Gmail].Drafts")
+(setq mu4e-sent-folder   "/[Gmail].Sent Mail")
+(setq mu4e-trash-folder  "/[Gmail].Trash")
 ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
 (setq mu4e-sent-messages-behavior 'delete)
 (setq
@@ -378,9 +378,11 @@
 ;; then, when you want archive some messages, move them to
 ;; the 'All Mail' folder by pressing ``ma''.
 (setq mu4e-maildir-shortcuts
-      '( ("/inbox"  . ?i)
-         ("/bak.sent"   . ?s)
-         ("/bak.trash"  . ?t)))
+      '( ("/INBOX"  . ?i)
+         ("/[Gmail].Sent Mail"   . ?s)
+         ("/[Gmail].Trash"  . ?t)
+         ("/[Gmail].All Mail"  . ?a)
+         ("" . ?a)))
 ;; something about ourselves
 (setq
  user-mail-address "branham@utexas.edu"
