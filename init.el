@@ -431,9 +431,12 @@
                    (null message-sent-message-via))
           (push (buffer-name buffer) buffers))))
     (nreverse buffers)))
-
 (setq gnus-dired-mail-mode 'mu4e-user-agent)
-(add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)
+;; ;; configure orgmode support in mu4e
+;; (require ‘org-mu4e)
+;; ;; when mail is sent, automatically convert org body to HTML
+;; (setq org-mu4e-convert-to-html t)
+;; (org-export-preserve-breaks nil)
 
 (global-set-key (kbd "<f1>") 'mu4e)
 (global-set-key (kbd "<f2>") 'mu4e-compose-new)
