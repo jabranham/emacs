@@ -362,6 +362,62 @@
   :config
   (setq buffer-move-behavior 'move))
 
+(require 'mu4e)
+;; default
+(setq mu4e-maildir "~/Documents/Maildir/utexas")
+(setq mu4e-drafts-folder "/bak.drafts")
+(setq mu4e-sent-folder   "/bak.sent")
+(setq mu4e-trash-folder  "/bak.trash")
+;; don't save message to Sent Messages, Gmail/IMAP takes care of this
+(setq mu4e-sent-messages-behavior 'delete)
+(setq
+   mu4e-get-mail-command "offlineimap"   ;; or fetchmail, or ...
+   mu4e-update-interval 180)             ;; update every 3 minutes
+;; setup some handy shortcuts
+;; you can quickly switch to your Inbox -- press ``ji''
+;; then, when you want archive some messages, move them to
+;; the 'All Mail' folder by pressing ``ma''.
+(setq mu4e-maildir-shortcuts
+      '( ("/inbox"  . ?i)
+         ("/sent"   . ?s)
+         ("/trash"  . ?t)))
+;; something about ourselves
+(setq
+ user-mail-address "branham@utexas.edu"
+ user-full-name  "Alex Branham")
+(setq mu4e-compose-signature
+ (concat
+  "J. Alexander Branham\n"
+  "PhD Candidate\n"
+  "Department of Government\n"
+  "University of Texas at Austin"
+  "\n"))
+(require 'smtpmail)
+(setq message-send-mail-function 'smtpmail-send-it
+      smtpmail-stream-type 'starttls
+      smtpmail-default-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-service 587)
+;; don't keep message buffers around
+(setq message-kill-buffer-on-exit t)
+;; attachments go here
+(setq mu4e-attachment-dir "~/Downloads")
+(use-package mu4e-alert
+  :ensure t
+  :config
+  ;; Choose the style you prefer for desktop notifications
+  ;; If you are on Linux you can use
+  ;; 1. notifications - Emacs lisp implementation of the Desktop Notifications API
+  ;; 2. libnotify     - Notifications using the `notify-send' program, requires `notify-send' to be in PATH
+  ;;
+  ;; On Mac OSX you can set style to
+  ;; 1. notifier      - Notifications using the `terminal-notifier' program, requires `terminal-notifier' to be in PATH
+  ;; 1. growl         - Notifications using the `growl' program, requires `growlnotify' to be in PATH
+  (mu4e-alert-set-default-style 'libnotify)
+  (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
+  (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display))
+
+
 ;; Write backup files to own directory
 (setq backup-directory-alist
       `(("." . ,(expand-file-name
