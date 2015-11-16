@@ -369,7 +369,8 @@
 (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
 (setq mu4e-trash-folder  "/[Gmail].Trash")
 ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
-(setq mu4e-sent-messages-behavior 'delete)
+(setq mu4e-sent-messages-behavior 'delete
+      mu4e-compose-dont-reply-to-self t) ; don't reply to self
 (setq
    mu4e-get-mail-command "offlineimap"   ;; or fetchmail, or ...
    mu4e-update-interval 180)             ;; update every 3 minutes
@@ -432,6 +433,7 @@
           (push (buffer-name buffer) buffers))))
     (nreverse buffers)))
 (setq gnus-dired-mail-mode 'mu4e-user-agent)
+(add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)
 ;; ;; configure orgmode support in mu4e
 ;; (require ‘org-mu4e)
 ;; ;; when mail is sent, automatically convert org body to HTML
