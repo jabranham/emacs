@@ -369,8 +369,8 @@
 (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
 (setq mu4e-trash-folder  "/[Gmail].Trash")
 ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
-(setq mu4e-sent-messages-behavior 'delete
-      mu4e-compose-dont-reply-to-self t) ; don't reply to self
+(setq mu4e-sent-messages-behavior 'delete)
+(setq mu4e-compose-dont-reply-to-self t) ; don't reply to self
 (setq
    mu4e-get-mail-command "offlineimap"   ;; or fetchmail, or ...
    mu4e-update-interval 180)             ;; update every 3 minutes
@@ -393,14 +393,28 @@
   "Department of Government\n"
   "University of Texas at Austin"
   "\n"))
+;; enable inline images
+(setq mu4e-view-show-images t)
+;; use imagemagick, if available
+(when (fboundp 'imagemagick-register-types)
+   (imagemagick-register-types))
 (require 'smtpmail)
-(setq message-send-mail-function 'smtpmail-send-it
+(setq message-send-mail-ggfunction 'smtpmail-send-it
       smtpmail-stream-type 'starttls
       smtpmail-default-smtp-server "smtp.gmail.com"
       smtpmail-smtp-server "smtp.gmail.com"
       smtpmail-smtp-service 587)
 ;; don't keep message buffers around
 (setq message-kill-buffer-on-exit t)
+(add-hook 'mu4e-view-mode-hook 'visual-line-mode)
+;; html2text command from eww browser 
+(require 'mu4e-contrib)
+(setq mu4e-html2text-command 'mu4e-shr2text)
+;; use aV to open message in browser
+(add-to-list 'mu4e-view-actions
+  '("ViewInBrowser" . mu4e-action-view-in-browser) t)
+(setq mu4e-use-fancy-chars t)
+(setq mu4e-headers-skip-duplicates t)
 ;; attachments go here
 (setq mu4e-attachment-dir "~/Downloads")
 (use-package mu4e-alert
