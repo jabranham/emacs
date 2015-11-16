@@ -381,7 +381,8 @@
 (setq mu4e-maildir-shortcuts
       '( ("/INBOX"  . ?i)
          ("/[Gmail].Sent Mail"   . ?s)
-         ("/[Gmail].Trash"  . ?t)))
+         ("/[Gmail].Trash"  . ?t)
+         ("/[Gmail].All Mail" . ?a)))
 ;; something about ourselves
 (setq
  user-mail-address "branham@utexas.edu"
@@ -539,9 +540,4 @@
      (ess-R-fl-keyword:F&T . t)
      (ess-R-fl-keyword:%op% . t))))
  '(org-agenda-files nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+
