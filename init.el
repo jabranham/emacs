@@ -381,9 +381,7 @@
 (setq mu4e-maildir-shortcuts
       '( ("/INBOX"  . ?i)
          ("/[Gmail].Sent Mail"   . ?s)
-         ("/[Gmail].Trash"  . ?t)
-         ("/[Gmail].All Mail"  . ?a)
-         ("" . ?a)))
+         ("/[Gmail].Trash"  . ?t)))
 ;; something about ourselves
 (setq
  user-mail-address "branham@utexas.edu"
