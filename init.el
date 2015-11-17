@@ -370,7 +370,6 @@
 (setq mu4e-trash-folder  "/[Gmail].Trash")
 ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
 (setq mu4e-sent-messages-behavior 'delete)
-(setq mu4e-compose-dont-reply-to-self t) ; don't reply to self
 (setq
    mu4e-get-mail-command "offlineimap"   ;; or fetchmail, or ...
    mu4e-update-interval 180)             ;; update every 3 minutes
@@ -394,6 +393,14 @@
   "Department of Government\n"
   "University of Texas at Austin"
   "\n"))
+(setq mu4e-compose-dont-reply-to-self t) ; don't reply to self
+(setq mu4e-bookmarks
+      '( ((concat
+         "flag:unread"
+         " AND NOT flag:trashed"
+         " AND NOT maildir:"
+         "\"/[Gmail].All Mail\"") "Unread messages" ?u)
+         ("maildir:/INBOX" "Inbox" ?i )))
 ;; enable inline images
 (setq mu4e-view-show-images t)
 ;; use imagemagick, if available
@@ -431,7 +438,13 @@
   ;; 1. growl         - Notifications using the `growl' program, requires `growlnotify' to be in PATH
   (mu4e-alert-set-default-style 'libnotify)
   (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
-  (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display))
+  (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)
+  (setq mu4e-alert-interesting-mail-query
+        (concat
+         "flag:unread"
+         " AND NOT flag:trashed"
+         " AND NOT maildir:"
+         "\"/[Gmail].All Mail\"")))
 (require 'gnus-dired)
 ;; make the `gnus-dired-mail-buffers' function also work on
 ;; message-mode derived modes, such as mu4e-compose-mode
@@ -455,6 +468,7 @@
 
 (global-set-key (kbd "<f1>") 'mu4e)
 (global-set-key (kbd "<f2>") 'mu4e-compose-new)
+(mu4e t) ; starts mu4e when emacs starts, but silently 
 
 ;; Write backup files to own directory
 (setq backup-directory-alist
@@ -539,5 +553,12 @@
      (ess-fl-keyword:= . t)
      (ess-R-fl-keyword:F&T . t)
      (ess-R-fl-keyword:%op% . t))))
- '(org-agenda-files nil))
+ '(org-agenda-files nil)
+ '(send-mail-function (quote smtpmail-send-it)))
 
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
