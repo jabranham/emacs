@@ -459,9 +459,25 @@
 ;; (setq org-mu4e-convert-to-html t)
 ;; (org-export-preserve-breaks nil)
 
-(global-set-key (kbd "<f1>") 'mu4e)
+;; Start mu4e in fullscreen
+(defun my-mu4e-start ()
+  (interactive)
+  (window-configuration-to-register :mu4e-fullscreen)
+  (mu4e)
+  (delete-other-windows))
+
+;; Restore previous window configuration
+(defun mu4e-quit-session ()
+  "Restores the previous window configuration and kills the mu4e buffer"
+  (interactive)
+  (kill-buffer)
+  (jump-to-register :mu4e-fullscreen))
+
+(define-key mu4e-main-mode-map (kbd "q") 'mu4e-quit-session)
+
+(global-set-key (kbd "<f1>") 'my-mu4e-start)
 (global-set-key (kbd "<f2>") 'mu4e-compose-new)
-(mu4e t) ; starts mu4e when emacs starts, but silently 
+(mu4e t) ; starts mu4e when emacs starts, but silently
 
 ;; Write backup files to own directory
 (setq backup-directory-alist
