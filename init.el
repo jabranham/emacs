@@ -318,8 +318,7 @@
 (use-package org
   :ensure t
   :config
-  (setq org-completion-use-ido       t
-        org-src-fontify-natively     t
+  (setq org-src-fontify-natively     t
         org-src-tab-acts-natively    t
         org-confirm-babel-evaluate   nil
         org-pretty-entities          t
@@ -453,11 +452,13 @@
     (nreverse buffers)))
 (setq gnus-dired-mail-mode 'mu4e-user-agent)
 (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)
-;; ;; configure orgmode support in mu4e
-;; (require ‘org-mu4e)
-;; ;; when mail is sent, automatically convert org body to HTML
-;; (setq org-mu4e-convert-to-html t)
-;; (org-export-preserve-breaks nil)
+;; configure orgmode support in mu4e
+(use-package org-mu4e)
+;; when mail is sent, automatically convert org body to HTML
+(setq org-mu4e-convert-to-html t)
+;; need to do org-mu4e-compose-org-mode
+;; and include #+OPTIONS: tex:imagemagick
+;; then send while in headers for this to work properly 
 
 ;; Start mu4e in fullscreen
 (defun my-mu4e-start ()
