@@ -382,6 +382,7 @@
          ("/[Gmail].Trash"  . ?t)
          ("/[Gmail].All Mail" . ?a)))
 ;; something about ourselves
+(setq mu4e-user-mail-address-list '("branham@utexas.edu"))
 (setq
  user-mail-address "branham@utexas.edu"
  user-full-name  "Alex Branham")
