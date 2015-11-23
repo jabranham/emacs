@@ -175,8 +175,6 @@
   (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode)
   (setq TeX-source-correlate-method 'synctex)
   (setq TeX-source-correlate-mode t)
-  (setq TeX-view-program-selection '((output-pdf "pdf-tools")))
-  (setq TeX-view-program-list '(("pdf-tools" "TeX-pdf-tools-sync-view"))) ; set up pdf-tools as pdf viewer
   (eval-after-load "tex"
     '(add-to-list 'TeX-command-list '("latexmk" "latexmk -synctex=1 -shell-escape -pdf %s" TeX-run-TeX nil t :help "Process file with latexmk"))
     )
@@ -192,7 +190,11 @@
 ;;   (setq auctex-latexmk-inherit-TeX-PDF-mode t)
 ;;   (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "LatexMk"))))
 
-(pdf-tools-install) ; nice PDF viewer (needs separate installation)
+(when (eq system-type 'gnu/linux) 
+  (pdf-tools-install) ; nice PDF viewer (needs separate installation)
+  (setq TeX-view-program-selection '((output-pdf "pdf-tools")))
+  (setq TeX-view-program-list '(("pdf-tools" "TeX-pdf-tools-sync-view")))) ; set up pdf-tools as pdf viewer
+ 
 
 
 (use-package polymode ; to have more than one major mode
