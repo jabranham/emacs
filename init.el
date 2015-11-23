@@ -133,9 +133,10 @@
   (eval-after-load 'flycheck
    '(define-key flycheck-mode-map (kbd "C-c ! h") 'helm-flycheck)))
 
-(use-package smartparens-config ; makes parens easier to keep track of
-  :ensure smartparens
+(use-package smartparens ; makes parens easier to keep track of
+  :ensure t
   :config
+  (require 'smartparens-config)
   (smartparens-global-mode 1)
   (show-smartparens-global-mode +1))
 
