@@ -195,8 +195,6 @@
   (setq TeX-view-program-selection '((output-pdf "pdf-tools")))
   (setq TeX-view-program-list '(("pdf-tools" "TeX-pdf-tools-sync-view")))) ; set up pdf-tools as pdf viewer
  
-
-
 (use-package polymode ; to have more than one major mode
   :ensure t
   :mode
