@@ -398,6 +398,7 @@
          "University of Texas at Austin"
          "\n"))
   (setq mu4e-compose-dont-reply-to-self t) ; don't reply to self
+  (setq mu4e-compose-complete-only-after "2015-01-01")
   ;; enable inline images
   (setq mu4e-view-show-images t)
   ;; use imagemagick, if available
