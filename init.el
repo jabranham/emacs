@@ -347,12 +347,12 @@
   (use-package htmlize
     :ensure t))
 
-(use-package shell-pop
-  :ensure t
-  :bind
-  ("C-c C-t" . shell-pop)
-  :config
-  (setq shell-pop-shell-type '("eshell")))
+;; (use-package shell-pop
+;;   :ensure t
+;;   :bind
+;;   ("C-c C-t" . shell-pop)
+;;   :config
+;;   (setq shell-pop-shell-type '("eshell")))
 
 (use-package buffer-move
   :ensure t
