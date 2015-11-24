@@ -364,63 +364,110 @@
   :config
   (setq buffer-move-behavior 'move))
 
-(require 'mu4e)
-;; default
-(setq mu4e-maildir "~/Documents/Maildir/utexas")
-(setq mu4e-drafts-folder "/[Gmail].Drafts")
-(setq mu4e-sent-folder   "/[Gmail].Sent Mail")
-(setq mu4e-trash-folder  "/[Gmail].Trash")
-;; don't save message to Sent Messages, Gmail/IMAP takes care of this
-(setq mu4e-sent-messages-behavior 'delete)
-(setq
+(use-package mu4e
+  :config
+  ;; default
+  (setq mu4e-maildir "~/Documents/Maildir/utexas")
+  (setq mu4e-drafts-folder "/[Gmail].Drafts")
+  (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
+  (setq mu4e-trash-folder  "/[Gmail].Trash")
+  ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
+  (setq mu4e-sent-messages-behavior 'delete)
+  (setq
    mu4e-get-mail-command "offlineimap"   ;; or fetchmail, or ...
    mu4e-update-interval 180)             ;; update every 3 minutes
-;; setup some handy shortcuts
-;; you can quickly switch to your Inbox -- press ``ji''
-;; then, when you want archive some messages, move them to
-;; the 'All Mail' folder by pressing ``ma''.
-(setq mu4e-maildir-shortcuts
-      '( ("/INBOX"  . ?i)
-         ("/[Gmail].Sent Mail"   . ?s)
-         ("/[Gmail].Trash"  . ?t)
-         ("/[Gmail].All Mail" . ?a)))
-;; something about ourselves
-(setq mu4e-user-mail-address-list '("branham@utexas.edu"))
-(setq
- user-mail-address "branham@utexas.edu"
- user-full-name  "Alex Branham")
-(setq mu4e-compose-signature
- (concat
-  "J. Alexander Branham\n"
-  "PhD Candidate\n"
-  "Department of Government\n"
-  "University of Texas at Austin"
-  "\n"))
-(setq mu4e-compose-dont-reply-to-self t) ; don't reply to self
-;; enable inline images
-(setq mu4e-view-show-images t)
-;; use imagemagick, if available
-(when (fboundp 'imagemagick-register-types)
-   (imagemagick-register-types))
-(require 'smtpmail)
-(setq message-send-mail-ggfunction 'smtpmail-send-it
-      smtpmail-stream-type 'starttls
-      smtpmail-default-smtp-server "smtp.gmail.com"
-      smtpmail-smtp-server "smtp.gmail.com"
-      smtpmail-smtp-service 587)
-;; don't keep message buffers around
-(setq message-kill-buffer-on-exit t)
-(add-hook 'mu4e-view-mode-hook 'visual-line-mode)
-;; html2text command from eww browser 
-(require 'mu4e-contrib)
-(setq mu4e-html2text-command 'mu4e-shr2text)
-;; use aV to open message in browser
-(add-to-list 'mu4e-view-actions
-  '("ViewInBrowser" . mu4e-action-view-in-browser) t)
-(setq mu4e-use-fancy-chars t)
-(setq mu4e-headers-skip-duplicates t)
-;; attachments go here
-(setq mu4e-attachment-dir "~/Downloads")
+  ;; setup some handy shortcuts
+  ;; you can quickly switch to your Inbox -- press ``ji''
+  ;; then, when you want archive some messages, move them to
+  ;; the 'All Mail' folder by pressing ``ma''.
+  (setq mu4e-maildir-shortcuts
+        '( ("/INBOX"  . ?i)
+           ("/[Gmail].Sent Mail"   . ?s)
+           ("/[Gmail].Trash"  . ?t)
+           ("/[Gmail].All Mail" . ?a)))
+  ;; something about ourselves
+  (setq mu4e-user-mail-address-list '("branham@utexas.edu"))
+  (setq
+   user-mail-address "branham@utexas.edu"
+   user-full-name  "Alex Branham")
+  (setq mu4e-compose-signature
+        (concat
+         "J. Alexander Branham\n"
+         "PhD Candidate\n"
+         "Department of Government\n"
+         "University of Texas at Austin"
+         "\n"))
+  (setq mu4e-compose-dont-reply-to-self t) ; don't reply to self
+  ;; enable inline images
+  (setq mu4e-view-show-images t)
+  ;; use imagemagick, if available
+  (when (fboundp 'imagemagick-register-types)
+    (imagemagick-register-types))
+  ;; don't keep message buffers around
+  (setq message-kill-buffer-on-exit t)
+  (add-hook 'mu4e-view-mode-hook 'visual-line-mode)
+  (setq mu4e-use-fancy-chars t)
+  (setq mu4e-headers-skip-duplicates t)
+  ;; attachments go here
+  (setq mu4e-attachment-dir "~/Downloads")
+  (use-package gnus-dired
+    ;; make the `gnus-dired-mail-buffers' function also work on
+    ;; message-mode derived modes, such as mu4e-compose-mode
+    :config
+    (defun gnus-dired-mail-buffers ()
+      "Return a list of active message buffers."
+      (let (buffers)
+        (save-current-buffer
+          (dolist (buffer (buffer-list t))
+            (set-buffer buffer)
+            (when (and (derived-mode-p 'message-mode)
+                       (null message-sent-message-via))
+              (push (buffer-name buffer) buffers))))
+        (nreverse buffers)))
+    (setq gnus-dired-mail-mode 'mu4e-user-agent)
+    (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode))
+  ;; configure orgmode support in mu4e
+  (use-package org-mu4e
+  ;; when mail is sent, automatically convert org body to HTML
+    :config
+    (setq org-mu4e-convert-to-html t))
+  ;; need to do org-mu4e-compose-org-mode
+  ;; and include #+OPTIONS: tex:imagemagick
+  ;; then send while in headers for this to work properly 
+  ;; Start mu4e in fullscreen
+  (defun my-mu4e-start ()
+    (interactive)
+    (window-configuration-to-register :mu4e-fullscreen)
+    (mu4e)
+    (delete-other-windows))
+  ;; Restore previous window configuration
+  (defun mu4e-quit-session ()
+    "Restores the previous window configuration and kills the mu4e buffer"
+    (interactive)
+    (kill-buffer)
+    (jump-to-register :mu4e-fullscreen))
+  (define-key mu4e-main-mode-map (kbd "q") 'mu4e-quit-session)
+  (global-set-key (kbd "<f1>") 'my-mu4e-start)
+  (global-set-key (kbd "<f2>") 'mu4e-compose-new)
+  (mu4e t) ; starts mu4e when emacs starts, but silently
+  (use-package mu4e-contrib
+    :config
+    ;; html2text command from eww browser
+    (setq mu4e-html2text-command 'mu4e-shr2text)
+    ;; use aV to open message in browser
+    (add-to-list 'mu4e-view-actions
+                 '("ViewInBrowser" . mu4e-action-view-in-browser) t))
+  )
+
+(use-package smtpmail
+  :config
+  (setq message-send-mail-ggfunction 'smtpmail-send-it
+        smtpmail-stream-type 'starttls
+        smtpmail-default-smtp-server "smtp.gmail.com"
+        smtpmail-smtp-server "smtp.gmail.com"
+        smtpmail-smtp-service 587))
+   
+
 (use-package mu4e-alert
   :ensure t
   :config
@@ -441,48 +488,6 @@
          " AND NOT flag:trashed"
          " AND NOT maildir:"
          "\"/[Gmail].All Mail\"")))
-(require 'gnus-dired)
-;; make the `gnus-dired-mail-buffers' function also work on
-;; message-mode derived modes, such as mu4e-compose-mode
-(defun gnus-dired-mail-buffers ()
-  "Return a list of active message buffers."
-  (let (buffers)
-    (save-current-buffer
-      (dolist (buffer (buffer-list t))
-        (set-buffer buffer)
-        (when (and (derived-mode-p 'message-mode)
-                   (null message-sent-message-via))
-          (push (buffer-name buffer) buffers))))
-    (nreverse buffers)))
-(setq gnus-dired-mail-mode 'mu4e-user-agent)
-(add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)
-;; configure orgmode support in mu4e
-(use-package org-mu4e)
-;; when mail is sent, automatically convert org body to HTML
-(setq org-mu4e-convert-to-html t)
-;; need to do org-mu4e-compose-org-mode
-;; and include #+OPTIONS: tex:imagemagick
-;; then send while in headers for this to work properly 
-
-;; Start mu4e in fullscreen
-(defun my-mu4e-start ()
-  (interactive)
-  (window-configuration-to-register :mu4e-fullscreen)
-  (mu4e)
-  (delete-other-windows))
-
-;; Restore previous window configuration
-(defun mu4e-quit-session ()
-  "Restores the previous window configuration and kills the mu4e buffer"
-  (interactive)
-  (kill-buffer)
-  (jump-to-register :mu4e-fullscreen))
-
-(define-key mu4e-main-mode-map (kbd "q") 'mu4e-quit-session)
-
-(global-set-key (kbd "<f1>") 'my-mu4e-start)
-(global-set-key (kbd "<f2>") 'mu4e-compose-new)
-(mu4e t) ; starts mu4e when emacs starts, but silently
 
 ;; Write backup files to own directory
 (setq backup-directory-alist
