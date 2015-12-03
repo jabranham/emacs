@@ -16,7 +16,7 @@
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/"))
-
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (package-initialize)
 
 ;; Bootstrap `use-package'
@@ -317,7 +317,7 @@
 ;;   (sml/setup))
 
 (use-package org
-  :ensure t
+  :ensure org-plus-contrib
   :config
   (setq org-src-fontify-natively     t
         org-src-tab-acts-natively    t
@@ -341,9 +341,9 @@
   (setq org-src-window-setup 'current-window)
   ;; display inline images
   (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)   
-  (add-hook 'org-mode-hook 'org-display-inline-images)
-  (use-package htmlize
-    :ensure t))
+  (add-hook 'org-mode-hook 'org-display-inline-images))
+(use-package htmlize
+    :ensure t)
 
 ;; (use-package shell-pop
 ;;   :ensure t
