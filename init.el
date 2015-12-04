@@ -456,8 +456,6 @@
     (add-to-list 'mu4e-view-actions
                  '("ViewInBrowser" . mu4e-action-view-in-browser) t))
   )
-(use-package helm-mu
-  :ensure t)
 
 (use-package smtpmail
   :config
