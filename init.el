@@ -16,7 +16,6 @@
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/"))
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (package-initialize)
 
 ;; Bootstrap `use-package'
@@ -317,7 +316,6 @@
 ;;   (sml/setup))
 
 (use-package org
-  :ensure org-plus-contrib
   :config
   (setq org-src-fontify-natively     t
         org-src-tab-acts-natively    t
