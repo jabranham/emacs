@@ -1,0 +1,64 @@
+* R (with ESS)
+  ESS (Emacs Speaks Statistics) is a
+  [[http://ess.r-project.org/][great project]] and makes emacs speak with R.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ess-site ; for R goodness
+    :ensure ess
+    :config
+    (add-hook 'ess-mode-hook
+              (lambda ()
+                (ess-set-style 'RStudio)))
+    (setq ess-offset-arguments 'prev-line))
+
+#+END_SRC
+* Stan
+  Stan is a Bayesian modeling language. Emacs has a mode for it (of
+  course!) Stan-snippets has some yasnippet stuff. Yasnippet is on my
+  to-do list to check out, but since I haven't gotten around to it yet
+  I leave this part out for now. 
+
+#+BEGIN_SRC emacs-lisp
+  (use-package stan-mode
+    :ensure t)
+    ;; :config
+    ;; (use-package stan-snippets
+    ;;   :ensure t))
+
+#+END_SRC
+* Code and syntax checking
+  Emacs can tell you magically if your code is wrong (or just
+  ugly). Flycheck is a minor mode for this. Let's enable it globally. 
+
+  Flycheck can check your R code too, but you'll need to install the
+  ~lintr~ package. 
+
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck ; checks for style and syntax
+    :ensure t
+    :config
+    (add-hook 'after-init-hook #'global-flycheck-mode))
+
+#+END_SRC
+** TODO Flycheck too aggressive - check into calming it down
+* Whitespace
+  Whitespace is evil. Let's get rid of as much as possible. But we
+  don't want to do this with files that already had whitespace (from
+  someone else's project, for example).  This mode will call
+  ~whitespace-cleanup~ before buffers are saved (but smartly)!
+
+#+BEGIN_SRC emacs-lisp
+  (use-package whitespace-cleanup-mode 
+    :ensure t
+    :config
+    (add-hook 'haskell-mode-hook 'whitespace-cleanup-mode)
+    (add-hook 'emacs-lisp-mode-hook 'whitespace-cleanup-mode)
+    (add-hook 'lisp-mode-hook 'whitespace-cleanup-mode)
+    (add-hook 'scheme-mode-hook 'whitespace-cleanup-mode)
+    (add-hook 'ess-mode-hook 'whitespace-cleanup-mode)
+    (add-hook 'erlang-mode-hook 'whitespace-cleanup-mode)
+    (add-hook 'clojure-mode-hook 'whitespace-cleanup-mode)
+    (add-hook 'ruby-mode-hook 'whitespace-cleanup-mode)
+    (add-hook 'stan-mode-hook 'whitespace-cleanup-mode))
+
+#+END_SRC

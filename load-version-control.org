@@ -1,0 +1,33 @@
+I want emacs to make backups of files, even if they're in version
+control. 
+
+#+BEGIN_SRC emacs-lisp
+  (setq vc-make-backup-files t)
+#+END_SRC
+* Git & Magit
+Magit is better than the command line for git. I don't modify much. I
+just bind it to both ~C-c g~ and ~C-x g~. I also set it up that it
+will run alone in the frame, then restore your previous window
+configuration when you exit. 
+
+#+BEGIN_SRC emacs-lisp
+(use-package magit ; for git
+  :ensure t
+  :bind
+  ("C-c g" . magit-status)
+  ("C-x g" . magit-status)
+  :config
+  (setq magit-push-always-verify nil)
+  ;; This code makes magit-status run alone in the frame,
+  ;; and then restores the old window configuration when you quit out of magit.
+  (defadvice magit-status (around magit-fullscreen activate)
+    (window-configuration-to-register :magit-fullscreen)
+    ad-do-it
+    (delete-other-windows))
+  (defun magit-quit-session ()
+      "Restores the previous window configuration and kills the magit buffer"
+    (interactive)
+    (kill-buffer)
+    (jump-to-register :magit-fullscreen))
+    (define-key magit-status-mode-map (kbd "q") 'magit-quit-session))
+#+END_SRC

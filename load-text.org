@@ -1,0 +1,140 @@
+This is the file that loads my configuration for text files. I use
+LaTeX a lot, as well as markdown. I use org too, but that's loaded in
+the load-org.org file. 
+
+* Markdown
+  Markdown mode for Markdown editing! 
+
+#+BEGIN_SRC emacs-lisp
+  (use-package markdown-mode ; for markdown mode
+    :ensure t)
+#+END_SRC
+
+* LaTeX
+  AuCTeX is better than the built in latex mode; let's use it. It's
+  good out of the box, but I like to use latexmk so that I don't have
+  to remember to rerun the file X times to get references right. 
+
+#+BEGIN_SRC emacs-lisp
+(use-package auctex ; for LaTeX documents
+  :ensure t
+  :mode ("\\.tex\\'" . latex-mode)
+  :commands (latex-mode LaTeX-mode plain-tex-mode)
+  :init
+  (progn
+    (add-hook 'LaTeX-mode-hook 'visual-line-mode)
+    (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+    (setq TeX-auto-save t
+          TeX-parse-self t
+          reftex-plug-into-AUCTeX t
+          TeX-PDF-mode t)
+    (setq-default TeX-master nil))
+  (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode)
+  (setq TeX-source-correlate-method 'synctex)
+  (setq TeX-source-correlate-mode t)
+  (eval-after-load "tex"
+    '(add-to-list 'TeX-command-list '("latexmk" "latexmk -synctex=1 -shell-escape -pdf %s" TeX-run-TeX nil t :help "Process file with latexmk"))
+    )
+  (eval-after-load "tex"
+    '(add-to-list 'TeX-command-list '("xelatexmk" "latexmk -synctex=1 -shell-escape -xelatex %s" TeX-run-TeX nil t :help "Process file with xelatexmk"))
+    )
+  (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "latexmk"))))
+#+END_SRC
+
+* Polymode (for knitr)
+  Polymode is a (relatively new) way of working with multiple major
+  modes. This is especially helpful if we want to use latex or
+  markdown together with R code. 
+
+#+BEGIN_SRC emacs-lisp
+  (use-package polymode ; to have more than one major mode
+    :ensure t
+    :mode
+    ("\\.Snw" . poly-noweb+r-mode)
+    ("\\.Rnw" . poly-noweb+r-mode)
+    ("\\.Rmd" . poly-markdown+r-mode))
+
+#+END_SRC
+* RefTeX
+  RefTeX takes care of referencing things. You can use it with ~C-[~
+  most places. I also use it in org mode, but we need to bind it to a
+  different key since that's taken. Finally, I like to use biblatex
+  and pandoc-flavored markdown for references, so I set up reftex to
+  understand that. 
+
+  You will need to change ~reftex-default-bibliography~ to wherever
+  you keep your main .bib file. 
+
+#+BEGIN_SRC emacs-lisp
+  (use-package reftex ; bibliography and reference management
+    :commands turn-on-reftex
+    :init
+    ;; Make RefTeX work with Org-Mode
+    ;; use 'C-c (' instead of 'C-c [' because the latter is already
+    ;; defined in orgmode to the add-to-agenda command.
+    (defun org-mode-reftex-setup ()
+      (load-library "reftex") 
+      (and (buffer-file-name)
+           (file-exists-p (buffer-file-name))
+           (reftex-parse-all))
+      (define-key org-mode-map (kbd "C-c (") 'reftex-citation))
+    (add-hook 'org-mode-hook 'org-mode-reftex-setup)
+    (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+    :config
+    (setq reftex-cite-format ; set up reftex to work with biblatex (not natbib) and pandoc
+        '((?\C-m . "\\cite[]{%l}")
+          (?t . "\\textcite{%l}")
+          (?a . "\\autocite[]{%l}")
+          (?p . "\\parencite{%l}")
+          (?f . "\\footcite[][]{%l}")
+          (?F . "\\fullcite[]{%l}")
+          (?P . "[@%l]")
+          (?T . "@%l [p. ]")
+          (?x . "[]{%l}")
+          (?X . "{%l}")))
+    ;; So that RefTeX also recognizes \addbibresource. Note that you
+    ;; can't use $HOME in path for \addbibresource but that "~"
+    ;; works.
+    (setq reftex-bibliography-commands '("bibliography" "nobibliography" "addbibresource"))
+    (setq reftex-default-bibliography '("~/Dropbox/library.bib"))
+    (setq reftex-extra-bindings t))
+#+END_SRC
+
+* Ebib - for bib file management
+  I use ebib for bib file management. I'm not totally enamored with
+  it, so I might replace this at some point. You'll need to change
+  ~ebib-preload-bib-files~ to wherever you keep your main .bib file. 
+
+
+#+BEGIN_SRC emacs-lisp
+(use-package ebib ; for .bib files
+  :ensure t
+  :config
+  (setq ebib-preload-bib-files
+        '("~/Dropbox/library.bib")))
+#+END_SRC
+
+* Spell Check
+  Flyspell checks for spelling on the fly. I use aspell instead of
+  ispell because it's better. :-) You may need to install it
+  separately, though I didn't need to. If you want to use non-english
+  words, you can tell it so with ~ispell-local-dictionary~ variable. 
+
+  For whatever reason, this is also where I choose to turn on
+  auto-fill in text modes. This will break lines at around 80
+  characters. 
+
+#+BEGIN_SRC emacs-lisp
+(use-package flyspell ; spell checking on the fly
+  :ensure t
+  :init
+  (setq flyspell-sort-corrections nil)
+  (autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
+  :config
+  (setq ispell-program-name "aspell")
+  (add-hook 'text-mode-hook 'turn-on-auto-fill)
+  (add-hook 'text-mode-hook 'turn-on-flyspell)
+  (add-hook 'LaTeX-mode-hook 'turn-on-flyspell)
+  (add-hook 'markdown-mode-hook 'turn-on-flyspell)
+  (add-hook 'org-mode-hook 'turn-on-flyspell))
+#+END_SRC

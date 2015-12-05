@@ -13,3 +13,11 @@ games/
 /projectile-bookmarks.eld
 /recentf
 /projectile.cache
+/initial.el
+/load-behavior.el
+/load-completions.el
+/load-email.el
+/load-org.el
+/load-statistics.el
+/load-text.el
+/load-version-control.el

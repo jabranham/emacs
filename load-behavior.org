@@ -1,0 +1,306 @@
+Emacs has a lot of behavior as a default that really isn't the
+best. This file tries to correct much of that. This file also makes
+emacs be able to do some really neat stuff. So basically I guess this
+file corrects stupid behavior then has some misc functions. :-) 
+* Theme
+  By default, emacs starts with a blindingly white theme. Let's get
+  rid of that pronto. 
+#+BEGIN_SRC emacs-lisp
+  (use-package zenburn-theme ; this is the theme I use
+    :ensure t
+    :init
+    (setq custom-safe-themes t)
+    :config
+    (load-theme 'zenburn))
+#+END_SRC
+* Scrolling
+  Emacs has some awful scrolling by default. This gets rid of that. 
+
+#+BEGIN_SRC emacs-lisp
+  (use-package smooth-scrolling ; stops emacs nonsense default scrolling
+    :ensure t
+    :init
+    (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ; one line at a time
+    (setq mouse-wheel-progressive-speed nil) ; don't accelerate scrolling
+    (setq mouse-wheel-follow-mouse 't) ; scroll window under mouse
+    (setq scroll-step 1)) ; keyboard scroll one line at a time
+
+#+END_SRC
+* Smart parens
+  I'm not good at keeping track of parentheses. This makes me slightly
+  better at it. It also keeps track of other things that should
+  "match" like {}, [], "", ``'' (in latex mode), etc. 
+
+#+BEGIN_SRC emacs-lisp
+(use-package smartparens-config ; makes parens easier to keep track of
+  :ensure smartparens
+  :config
+  (smartparens-global-mode 1))
+
+#+END_SRC
+
+Since I am super bad at parens, though, I need more help. This package
+makes parentheses different colors based on level so it's a little
+easier to see which parens match with what. I've heard that it makes
+emacs slow for some people, so you may want to disable it if emacs
+seems slow to you. 
+
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-delimiters ; for nice coloring of parens
+    :ensure t
+    :config
+    (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+    (add-hook 'ess-mode-hook #'rainbow-delimiters-mode))
+#+END_SRC
+* PDF viewer
+  I like emacs, so why not view PDFs in it? You'll need to ~M-x
+  package-list-packages~ then install ~pdf-tools~ and restart
+  emacs. Build the server when it asks - this may take a second. 
+
+  This package is annoying to update. Before updating, make sure to
+  uninstall it and restart emacs. Then you can install it as above. 
+
+  NOTE: ~pdf-tools~ only officially supports gnu/linux operating
+  systems. I think that it will work on macs as well, but you may have
+  to finagle it a bit. Regardless, I tell emacs to only use it if the
+  OS is linux based. 
+
+#+BEGIN_SRC emacs-lisp
+  (when (eq system-type 'gnu/linux) 
+    (pdf-tools-install) ; nice PDF viewer (needs separate installation)
+    (setq TeX-view-program-selection '((output-pdf "pdf-tools")))
+    (setq TeX-view-program-list '(("pdf-tools" "TeX-pdf-tools-sync-view"))))
+#+END_SRC
+* File finder (Dired)
+  Emacs can act as your file finder/explorer. Dired is the built-in
+  way to do this, but we can extend its capabilities a bit. In
+  particular, I like to modify what information is shown by default. 
+
+#+BEGIN_SRC emacs-lisp
+  (use-package dired+
+    :ensure t
+    :config
+    (setq dired-dwim-target t))
+
+#+END_SRC
+* Splitting windows
+  These functions make splitting windows behave more like I want it
+  to. This way, calling ~C-x 2~ or ~C-x 3~ both splits the window
+  /and/ shows the last buffer. 
+
+#+BEGIN_SRC emacs-lisp
+  (defun my/vsplit-last-buffer (prefix)
+    "Split the window vertically and display the previous buffer."
+    (interactive "p")
+    (split-window-vertically)
+    (other-window 1 nil)
+    (if (= prefix 1)
+      (switch-to-next-buffer)))
+  (defun my/hsplit-last-buffer (prefix)
+    "Split the window horizontally and display the previous buffer."
+    (interactive "p")
+    (split-window-horizontally)
+    (other-window 1 nil)
+    (if (= prefix 1) (switch-to-next-buffer)))
+  (bind-key "C-x 2" 'my/vsplit-last-buffer)
+  (bind-key "C-x 3" 'my/hsplit-last-buffer)
+#+END_SRC
+* Miscellaneous 
+  Here are a bunch of things I want emacs to do (or not) but don't
+  seem to fit in other sections. 
+** Backup files
+   I want emacs to make these, but don't want to clutter up my project
+   folders with tons of backup files. Solution: put them in the
+   ~.emacs.d/~ directory.
+#+BEGIN_SRC emacs-lisp
+  (setq backup-directory-alist
+        `(("." . ,(expand-file-name
+                   (concat user-emacs-directory "backups")))))
+#+END_SRC
+** Refresh buffers
+   Emacs should refresh buffers automatically so if they've changed on
+   disk the buffer will update. I want dired to do this, but don't ask
+   me. 
+
+#+BEGIN_SRC emacs-lisp
+  (setq global-auto-revert-non-file-buffers t)
+  (setq auto-revert-verbose nil)
+  (global-auto-revert-mode 1)
+#+END_SRC
+** Move buffers
+   Sometimes the buffers are in the wrong places. This lets me move
+   them around. 
+
+#+BEGIN_SRC emacs-lisp
+  (use-package buffer-move
+    :ensure t
+    :bind
+    ("M-S-<up>" . buf-move-up)
+    ("M-S-<down>" . buf-move-down)
+    ("M-S-<left>" . buf-move-left)
+    ("M-S-<right>" . buf-move-right)
+    :config
+    (setq buffer-move-behavior 'move))
+#+END_SRC
+** Resize windows
+   We can resize windows now! Though this doesn't work in org-mode for
+   whatever reason.... 
+*** TODO Why doesn't this work in org mode? 
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
+  (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
+  (global-set-key (kbd "S-C-<down>") 'shrink-window)
+  (global-set-key (kbd "S-C-<up>") 'enlarge-window)
+#+END_SRC
+
+** Better defaults 
+   This is inspired by the [[https://github.com/technomancy/better-defaults][better defaults]] package, but I don't like
+   everything in there. 
+
+   Originally, ~C-z~ minimizes emacs. That's stupid, so let's make it
+   undo instead like a sane person. 
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-z") 'undo)
+#+END_SRC
+
+We can also bind ~C-+~ and ~C--~ to increase and decrease text
+size. Watch out - you need to remember to press shift to get the plus
+symbol. 
+
+#+BEGIN_SRC emacs-lisp
+  (define-key global-map (kbd "C-+") 'text-scale-increase) ; C-+ increases font size
+  (define-key global-map (kbd "C--") 'text-scale-decrease) ; C-- decreases font size
+#+END_SRC
+
+Yes, please save my place when opening/closing files: 
+#+BEGIN_SRC emacs-lis
+  (require 'saveplace)
+  (setq-default save-place t)
+#+END_SRC
+
+I like having the menu-bar, but not if I'm in terminal. I don't really
+want the toolbar or the scroll bars, though. 
+#+BEGIN_SRC emacs-lisp
+  (if window-system 
+      (menu-bar-mode t)
+      (menu-bar-mode -1))
+  (when (fboundp 'tool-bar-mode)
+    (tool-bar-mode -1))
+  (when (fboundp 'scroll-bar-mode)
+    (scroll-bar-mode -1))
+#+END_SRC
+
+Don't ever use tabs. Always use spaces. 
+#+BEGIN_SRC emacs-lisp
+  (setq-default indent-tabs-mode nil)
+#+END_SRC
+
+   Emacs "kills" and "yanks" instead of cutting and pasting. Using
+   this, we can ~C-w~ and that will kill the active region (whatever
+   you have selected). If you haven't selected anything, it'll kill
+   the line it's on. 
+#+BEGIN_SRC emacs-lisp
+  ;; http://emacs-fu.blogspot.co.uk/2009/11/copying-lines-without-selecting-them.html
+  (defadvice kill-region (before slick-cut activate compile)
+    "When called interactively with no active region, kill a single line instead."
+    (interactive
+     (if mark-active (list (region-beginning) (region-end))
+       (list (line-beginning-position)
+             (line-beginning-position 2)))))
+#+END_SRC
+
+   This will set the frame name to the name of the file, so you can
+   see what file you've got selected in the menu bar. 
+
+#+BEGIN_SRC emacs-lisp
+  (setq frame-title-format
+    '("Emacs - " (buffer-file-name "%f"
+      (dired-directory dired-directory "%b"))))
+#+END_SRC
+
+   This will let you go to the first non-whitespace character on a
+   line with ~C-a~. Pressing it again will take you to the beginning
+   of line. 
+#+BEGIN_SRC emacs-lisp
+  (defun my/smarter-move-beginning-of-line (arg)
+    "Move point back to indentation of beginning of line.
+
+  Move point to the first non-whitespace character on this line.
+  If point is already there, move to the beginning of the line.
+  Effectively toggle between the first non-whitespace character and
+  the beginning of the line.
+
+  If ARG is not nil or 1, move forward ARG - 1 lines first.  If
+  point reaches the beginning or end of the buffer, stop there."
+    (interactive "^p")
+    (setq arg (or arg 1))
+
+    ;; Move lines first
+    (when (/= arg 1)
+      (let ((line-move-visual nil))
+        (forward-line (1- arg))))
+
+    (let ((orig-point (point)))
+      (back-to-indentation)
+      (when (= orig-point (point))
+        (move-beginning-of-line 1))))
+
+  (global-set-key [remap move-beginning-of-line]
+                  'my/smarter-move-beginning-of-line)
+  (global-set-key (kbd "C-a") 'my/smarter-move-beginning-of-line)
+#+END_SRC
+
+We can also define ~C-M-<backspace>~ to kill back to the first
+non-whitespace character on a line: 
+
+#+BEGIN_SRC emacs-lisp
+  (defun sanityinc/kill-back-to-indentation ()
+    "Kill from point back to the first non-whitespace character on the line."
+    (interactive)
+    (let ((prev-pos (point)))
+      (back-to-indentation)
+      (kill-region (point) prev-pos)))
+
+  (bind-key "C-M-<backspace>" 'sanityinc/kill-back-to-indentation)
+#+END_SRC
+
+Because I'm lazy, I want to just type y or n instead of spelling out
+yes/no. 
+
+#+BEGIN_SRC emacs-lisp
+  (fset 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+
+We can use shift-mouse for selecting from point:
+
+#+BEGIN_SRC emacs-lisp
+  (define-key global-map (kbd "<S-down-mouse-1>") 'mouse-save-then-kill)
+
+#+END_SRC
+
+Better search defaults:
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-s") 'isearch-forward-regexp)
+  (global-set-key (kbd "C-r") 'isearch-backward-regexp)
+  (global-set-key (kbd "C-M-s") 'isearch-forward)
+  (global-set-key (kbd "C-M-r") 'isearch-backward)
+#+END_SRC
+
+A few final modifications: 
+
+#+BEGIN_SRC emacs-lisp
+  (setq x-select-enable-clipboard t
+        x-select-enable-primary t
+          save-interprogram-paste-before-kill t
+          apropos-do-all t
+          mouse-yank-at-point t
+          require-final-newline t
+          visible-bell t
+          load-prefer-newer t
+          ediff-window-setup-function 'ediff-setup-windows-plain
+          save-place-file (concat user-emacs-directory "places")
+          backup-directory-alist `(("." . ,(concat user-emacs-directory
+                                                   "backups"))))
+#+END_SRC
