@@ -21,3 +21,4 @@ games/
 /load-statistics.el
 /load-text.el
 /load-version-control.el
+/load-helm.el

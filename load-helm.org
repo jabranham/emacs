@@ -1,0 +1,91 @@
+* Helm
+  Helm is a incremental completion and selection narrowing framework for
+  emacs. It's super powerful and super customizable, much like the rest
+  of emacs. Let's load it up! I also set up my keybindings here. 
+
+#+BEGIN_SRC emacs-lisp
+  (use-package helm-config
+    :ensure helm
+    :bind
+    ;("C-c h" . helm-command-prefix)
+    ("M-x" . helm-M-x)
+    ("M-y" . helm-show-kill-ring)
+    ("C-x b" . helm-mini)
+    ("C-x C-f" . helm-find-files)
+    ("C-c h g" . helm-google-suggest)
+    ("C-c h c" . helm-calcul-expression)
+    ("C-c h f" . helm-find)
+    ("C-c h o" . helm-occur)
+    :config
+    (define-key global-map [remap list-buffers] 'helm-buffers-list)
+    (define-key global-map [remap dabbrev-expand] 'helm-dabbrev)
+    (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+    (progn
+      (helm-mode 1)
+      (helm-adaptive-mode 1)
+      (helm-push-mark-mode 1)))
+#+END_SRC
+** Helm settings
+   Helm has a lot of settings you can customize. Here are some of
+   mine. 
+
+#+BEGIN_SRC emacs-lisp
+  (when (executable-find "curl")
+    (setq helm-google-suggest-use-curl-p t))
+  (setq helm-split-window-in-side-p           t 
+        helm-move-to-line-cycle-in-source     t 
+        helm-ff-search-library-in-sexp        t 
+        helm-scroll-amount                    8 
+        helm-ff-file-name-history-use-recentf t
+        helm-M-x-fuzzy-match                  t 
+        helm-autoresize-mode                  t
+        helm-buffers-fuzzy-matching           t
+        helm-recentf-fuzzy-match              t)
+#+END_SRC
+* Projectile 
+  Projectile makes using projects easier in emacs. It also plays well
+  with helm, so let's set that up. 
+
+#+BEGIN_SRC emacs-lisp
+(use-package projectile
+  :ensure t)
+(use-package helm-projectile
+  :ensure t
+  :config
+  (setq projectile-completion-system 'helm)
+  (projectile-global-mode)
+  (helm-projectile-on))
+#+END_SRC
+* Helm and spellcheck
+  Helm can mange the spell checking that we do. I like it bound to
+  ~M-/~. 
+#+BEGIN_SRC emacs-lisp
+  (use-package helm-flyspell
+    :ensure t
+    :config
+    (define-key flyspell-mode-map (kbd "M-/") 'helm-flyspell-correct))
+#+END_SRC
+* Helm and autocompletion
+  Helm can play well with company, which we use for autocompletion.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package helm-company
+    :ensure t
+    :config
+    (eval-after-load 'company
+    '(progn
+       (define-key company-mode-map (kbd "C-;") 'helm-company)
+       (define-key company-active-map (kbd "C-;") 'helm-company))))
+#+END_SRC
+* Helm and syntax checking
+  We use flycheck for syntax checking. Helm can be integrated into
+  this. I haven't used this much yet but it looks interesting. 
+
+#+BEGIN_SRC emacs-lisp
+(use-package helm-flycheck
+  :ensure t
+  :config
+  (eval-after-load 'flycheck
+   '(define-key flycheck-mode-map (kbd "C-c ! h") 'helm-flycheck)))
+
+#+END_SRC
