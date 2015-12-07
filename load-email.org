@@ -1,7 +1,61 @@
 * mu4e setup 
-  I use ~mu4e~ with offlineimap and mu for my email. 
-** TODO clean up and document this setup 
+  I use ~mu4e~ with offlineimap and mu for my email. In order to use
+  this file, you'll need to make sure that offlineimap and mu are
+  installed on your system. Offlineimap requires a bit of
+  configuration to get it started. 
+** Other files
+   In order to use offlineimap, you need to create a file
+   ~~/.offlineimaprc~. Mine looks like this: 
 
+   #+BEGIN_EXAMPLE
+   [general]
+   accounts = utexas
+   maxsyncaccounts = 5
+   pythonfile = ~/.offlineimap.py
+   
+   [Account utexas]
+   localrepository = utexas-local
+   remoterepository = utexas-remote
+   
+   [Repository utexas-local]
+   type = Maildir
+   localfolders = ~/Documents/Maildir/utexas
+   
+   [Repository utexas-remote]
+   type = Gmail
+   remoteuser = branham@utexas.edu
+   remotepasseval = get_password_emacs("imap.gmail.com", "branham@utexas.edu", "993")
+   sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+   realdelete = no
+   
+   folderfilter = lambda foldername: foldername not in ['[Gmail]/Spam', '[Gmail]/Starred', '[Gmail]/Important']
+   #+END_EXAMPLE
+
+   To avoid storing my password in plain text, I store it in an
+   encrypted file ~~/.authinfo~ that looks like this:
+
+#+BEGIN_EXAMPLE
+machine imap.gmail.com login branham@utexas.edu port 993 password YOURPASS
+machine smtp.gmail.com login branham@utexas.edu port 587 password YOURPASS
+#+END_EXAMPLE
+
+ You can then use emacs to encrypt that file with ~M-x
+   epa-encrypt-file~ and save it as ~~/.authinfo.gpg~. Finally, you
+   need to set up a python script so that offlineimap can use your
+   ~.authinfo.gpg~ file:
+
+#+BEGIN_EXAMPLE
+#!/usr/bin/python
+import re, os
+
+def get_password_emacs(machine, login, port):
+    s = "machine %s login %s port %s password ([^ ]*)\n" % (machine, login, port)
+    p = re.compile(s)
+    authinfo = os.popen("gpg -q --no-tty -d ~/.authinfo.gpg").read()
+    return p.search(authinfo).group(1)
+#+END_EXAMPLE
+
+Finally, we can get mu4e set up. 
 #+BEGIN_SRC emacs-lisp
   (use-package mu4e
     :config
