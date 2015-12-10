@@ -77,12 +77,14 @@ seems slow to you.
   particular, I like to modify what information is shown by default. 
 
 #+BEGIN_SRC emacs-lisp
-  (use-package dired+
-    :ensure t
-    :config
-    (setq dired-dwim-target t))
+    (use-package dired+
+      :ensure t
+      :config
+      (setq dired-dwim-target t)
+  (setq dired-recursive-copies (quote always)))
 
 #+END_SRC
+
 * Splitting windows
   These functions make splitting windows behave more like I want it
   to. This way, calling ~C-x 2~ or ~C-x 3~ both splits the window
