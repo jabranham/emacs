@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: orgemail
+# key: orgemail
+# --
+#+OPTIONS: tex:imagemagick
+#+OPTIONS: toc:0
