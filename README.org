@@ -1,0 +1,60 @@
+#+AUTHOR: J. Alexander Branha
+#+TITLE: My Emacs Configuration
+
+
+* Emacs file
+This is my personal `.emacs` file. Feel free to fork, clone, edit it
+to your heart's content. I use emacs mainly to work with LaTeX, R,
+git, markdown, and ESS. Oh, and handle email. And html. And Makefiles.
+Actually, it pretty much has taken over everything I use a computer
+for except my browser (and I'm just waiting for [[http://www.emacswiki.org/emacs/eww][eww]] to get better!)
+
+* Install emacs
+  If you decide to use this file, you need to download and install
+emacs. This init file depends on the most recent GNU Emacs. It will
+not work out of the box with other Emacs builds, such as XEmacs. You
+can install emacs from your package manager (on GNU/Linux). It's also
+available on [[http://ftp.gnu.org/gnu/emacs/windows/][Windows]] and [[http://emacsformacosx.com/][Mac]].
+
+* Install other programs
+These aren't strictly speaking necessary, but you probably want them.
+You'll want [[https://www.r-project.org/][R]], LaTeX (TeXLive for Linux, [[https://tug.org/mactex/][MaCTeX]] for mac, and [[http://www.miktex.org/][MiKTeX]]
+for Windows), [[http://pandoc.org/][pandoc]], and [[http://www.git-scm.com/][git]].
+
+I also use ~mu4e~ to manage my email in emacs. If you want to use this
+as well, you'll need to install offlineimap and mu. The file
+[[file:load-email.org][load-email.org]] walks through how to get this set up. If you don't want
+to do that, just delete that file before starting emacs.
+
+* Using this file
+If you want to use my setup, you can download this file and put it in
+~/.emacs.d. Or (even better), clone this git repo with:
+
+#+BEGIN_EXAMPLE
+git clone https://github.com/jabranham/emacs.git ~/.emacs.d
+#+END_EXAMPLE
+
+Take a moment and look through the various load-XXX.org files. There
+will be a few things that you want to customize (e.g. you don't have
+the same email address as me). I've tried to set these up to be pretty
+helpful, though they're still a work in progress. Feel free to ask
+questions via github issues.
+
+Once you do that, you probably want to create a new branch so that you
+can pull in changes I make easily. The first time you open emacs, it
+will attempt to contact an online package repository, so make sure
+that you're online. If you get an error, try closing and reopening
+emacs. Sometimes the package repositories are a little finicky.
+
+* lintr
+One of the packages I use relies on an R package to inform you of bad
+syntax. Open up R, and run `install.packages("lintr")`
+
+* Weird quirk
+This is a weird quirk. Since I'm loading all org files and this readme
+is an org file, emacs produces an errror unless I include code in
+here. So here's a comment.
+
+#+BEGIN_SRC emacs-lisp
+;
+#+END_SRC
