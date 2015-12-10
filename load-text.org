@@ -2,6 +2,12 @@ This is the file that loads my configuration for text files. I use
 LaTeX a lot, as well as markdown. I use org too, but that's loaded in
 the load-org.org file. 
 
+I end sentences with a single space. 
+
+#+BEGIN_SRC emacs-lisp
+(setq sentence-end-double-space nil)
+#+END_SRC
+
 * Markdown
   Markdown mode for Markdown editing! 
 
