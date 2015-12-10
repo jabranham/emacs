@@ -1,4 +1,4 @@
-#+AUTHOR: J. Alexander Branha
+#+AUTHOR: J. Alexander Branham
 #+TITLE: My Emacs Configuration
 
 
