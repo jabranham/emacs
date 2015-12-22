@@ -85,6 +85,15 @@ seems slow to you.
 
 #+END_SRC
 
+Sometimes I uncompress .zip files from within emacs. This lets me do
+it in dired with ~Z~
+
+#+BEGIN_SRC emacs-lisp
+  (eval-after-load "dired-aux"
+     '(add-to-list 'dired-compress-file-suffixes 
+                   '("\\.zip\\'" ".zip" "unzip")))
+#+END_SRC
+
 * Splitting windows
   These functions make splitting windows behave more like I want it
   to. This way, calling ~C-x 2~ or ~C-x 3~ both splits the window
