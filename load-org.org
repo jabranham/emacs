@@ -29,11 +29,11 @@ more bearable.
         '("<%d %b %Y>" . "<%d/%m/%y %a %H:%M>"))
 #+END_SRC
 
-Finally, let's use latexmk on org export to pdf:
+Finally, I use xelatexmk so that org uses xelatex by default. I really
+like the [[https://github.com/matze/mtheme][metropolis beamer theme.]] 
 
 #+BEGIN_SRC emacs-lisp
-  (add-to-list 'org-babel-noweb-error-langs "latex")
-  (setq org-latex-pdf-process (list "latexmk -f -pdf %f"))
+  (setq org-latex-pdf-process (list "latexmk -f -shell-escape -xelatex %f"))
 #+END_SRC
 
 * Code blocks
