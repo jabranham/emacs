@@ -37,9 +37,11 @@
 (require 'cl) ; require common lisp
 
 ;; load up all literate org-mode files in this directory
+(require 'org)
 (require 'org-install)
 (require 'ob-tangle)
 (require 'ox)
+
 (mapc #'org-babel-load-file (directory-files dotfiles-dir t "\\.org$"))
 
 
