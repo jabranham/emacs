@@ -2,6 +2,13 @@ Some of the org-mode packages have already been loaded in the init.el
 file. The init.el file also made sure that org mode was installed, so
 no need to double-check that here. 
 
+* Keybindings
+
+#+BEGIN_SRC emacs-lisp
+  (define-key global-map "\C-cl" 'org-store-link)
+  (define-key global-map "\C-ca" 'org-agenda)
+#+END_SRC
+
 * Exporting
 HTML and latex shown by default, let's add markdown:
 
@@ -109,11 +116,21 @@ like the [[https://github.com/matze/mtheme][metropolis beamer theme.]]
   (add-hook 'org-mode-hook 'org-display-inline-images)
 #+END_SRC
 
+* Agenda files
+Here's where I set which files are added to org-agenda, which controls
+org's global todo list, scheduling, and agenda features. I use Dropbox
+to keep these files in sync across computers. 
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-agenda-files (list "~/Dropbox/org/todo.org"
+                               "~/Dropbox/bibliography/notes.org"))
+#+END_SRC
 * Misc
 Here are a few miscellaneous things that make org mode better. 
 #+BEGIN_SRC emacs-lisp
   (setq org-pretty-entities          t
         org-support-shift-select     t)
+  (setq org-log-done t)
   (use-package htmlize
     :ensure t)
 #+END_SRC
