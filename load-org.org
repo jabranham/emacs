@@ -64,6 +64,41 @@ like the [[https://github.com/matze/mtheme][metropolis beamer theme.]]
           org-src-tab-acts-natively    t)
 #+END_SRC
 
+* References 
+  I use org-ref to manage my references. 
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-ref
+    :ensure t
+    :init
+    (defun my-org-reftex-keybinding ()
+      "Fixes reftex citation commands"
+      (local-set-key (kbd "C-]") 'reftex-citation))
+  
+    (add-hook 'org-mode-hook 'my-org-reftex-keybinding)
+    (setq reftex-default-bibliography '("~/Dropbox/bibliography/references.bib"))
+
+    ;; see org-ref for use of these variables
+    (setq org-ref-bibliography-notes "~/Dropbox/bibliography/notes.org"
+          org-ref-default-bibliography '("~/Dropbox/bibliography/references.bib")
+          org-ref-pdf-directory "~/Dropbox/bibliography/bibtex-pdfs/")
+
+    (setq helm-bibtex-bibliography "~/Dropbox/bibliography/references.bib")
+    (setq helm-bibtex-library-path "~/Dropbox/bibliography/bibtex-pdfs")
+
+    ;; open pdf with system pdf viewer (works on mac)
+    (setq helm-bibtex-pdf-open-function
+          (lambda (fpath)
+            (start-process "open" "*open*" "open" fpath)))
+
+    ;; alternative
+    ;; (setq helm-bibtex-pdf-open-function 'org-open-file)
+
+    (setq helm-bibtex-notes-path "~/Dropbox/bibliography/helm-bibtex-notes")
+    (setq org-ref-default-citation-link "autocite"))
+#+END_SRC
+
+
 * Display images
   Org has a neat trick that it can display images. This is especially
   handy for when org-babel outputs a graph, since we can see the graph

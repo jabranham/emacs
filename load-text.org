@@ -75,16 +75,16 @@ I end sentences with a single space.
   (use-package reftex ; bibliography and reference management
     :commands turn-on-reftex
     :init
-    ;; Make RefTeX work with Org-Mode
-    ;; use 'C-c (' instead of 'C-c [' because the latter is already
-    ;; defined in orgmode to the add-to-agenda command.
-    (defun org-mode-reftex-setup ()
-      (load-library "reftex") 
-      (and (buffer-file-name)
-           (file-exists-p (buffer-file-name))
-           (reftex-parse-all))
-      (define-key org-mode-map (kbd "C-c (") 'reftex-citation))
-    (add-hook 'org-mode-hook 'org-mode-reftex-setup)
+    ;; ;; Make RefTeX work with Org-Mode
+    ;; ;; use 'C-c (' instead of 'C-c [' because the latter is already
+    ;; ;; defined in orgmode to the add-to-agenda command.
+    ;; (defun org-mode-reftex-setup ()
+    ;;   (load-library "reftex") 
+    ;;   (and (buffer-file-name)
+    ;;        (file-exists-p (buffer-file-name))
+    ;;        (reftex-parse-all))
+    ;;   (define-key org-mode-map (kbd "C-c (") 'reftex-citation))
+    ;; (add-hook 'org-mode-hook 'org-mode-reftex-setup)
     (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
     :config
     (setq reftex-cite-format ; set up reftex to work with biblatex (not natbib) and pandoc
@@ -102,7 +102,7 @@ I end sentences with a single space.
     ;; can't use $HOME in path for \addbibresource but that "~"
     ;; works.
     (setq reftex-bibliography-commands '("bibliography" "nobibliography" "addbibresource"))
-    (setq reftex-default-bibliography '("~/Dropbox/library.bib"))
+    ;(setq reftex-default-bibliography '("~/Dropbox/library.bib"))
     (setq reftex-extra-bindings t))
 #+END_SRC
 
