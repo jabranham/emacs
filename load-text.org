@@ -85,25 +85,31 @@ I end sentences with a single space.
     ;;        (reftex-parse-all))
     ;;   (define-key org-mode-map (kbd "C-c (") 'reftex-citation))
     ;; (add-hook 'org-mode-hook 'org-mode-reftex-setup)
-    (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-    :config
     (setq reftex-cite-format ; set up reftex to work with biblatex (not natbib) and pandoc
-        '((?\C-m . "\\cite[]{%l}")
-          (?t . "\\textcite{%l}")
-          (?a . "\\autocite[]{%l}")
-          (?p . "\\parencite{%l}")
-          (?f . "\\footcite[][]{%l}")
-          (?F . "\\fullcite[]{%l}")
-          (?P . "[@%l]")
-          (?T . "@%l [p. ]")
-          (?x . "[]{%l}")
-          (?X . "{%l}")))
+          '((?\C-m . "\\cite[]{%l}")
+            (?t . "\\textcite{%l}")
+            (?a . "\\autocite[]{%l}")
+            (?p . "\\parencite{%l}")
+            (?f . "\\footcite[][]{%l}")
+            (?F . "\\fullcite[]{%l}")
+            (?P . "[@%l]")
+            (?T . "@%l [p. ]")
+            (?x . "[]{%l}")
+            (?X . "{%l}")))
     ;; So that RefTeX also recognizes \addbibresource. Note that you
     ;; can't use $HOME in path for \addbibresource but that "~"
     ;; works.
     (setq reftex-bibliography-commands '("bibliography" "nobibliography" "addbibresource"))
-    ;(setq reftex-default-bibliography '("~/Dropbox/library.bib"))
-    (setq reftex-extra-bindings t))
+    (setq reftex-extra-bindings t)
+  
+    :config
+    (defun my-org-reftex-keybinding ()
+      "Fixes reftex citation commands"
+      (local-set-key (kbd "C-]") 'reftex-citation))
+
+    (add-hook 'org-mode-hook 'my-org-reftex-keybinding)
+
+    (add-hook 'LaTeX-mode-hook 'turn-on-reftex))
 #+END_SRC
 
 * Ebib - for bib file management

@@ -78,11 +78,6 @@ like the [[https://github.com/matze/mtheme][metropolis beamer theme.]]
   (use-package org-ref
     :ensure t
     :init
-    (defun my-org-reftex-keybinding ()
-      "Fixes reftex citation commands"
-      (local-set-key (kbd "C-]") 'reftex-citation))
-  
-    (add-hook 'org-mode-hook 'my-org-reftex-keybinding)
     (setq reftex-default-bibliography '("~/Dropbox/bibliography/references.bib"))
 
     ;; see org-ref for use of these variables
