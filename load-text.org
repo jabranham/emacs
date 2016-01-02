@@ -99,9 +99,15 @@ I end sentences with a single space.
     ;; So that RefTeX also recognizes \addbibresource. Note that you
     ;; can't use $HOME in path for \addbibresource but that "~"
     ;; works.
+    (setq bibtex-autokey-titleword-length 0)
+    (setq bibtex-autokey-titleword-separator "")
+    (setq bibtex-autokey-titlewords 0)
+    (setq bibtex-autokey-year-length 4)
+    (setq bibtex-autokey-year-title-separator "")
+
     (setq reftex-bibliography-commands '("bibliography" "nobibliography" "addbibresource"))
     (setq reftex-extra-bindings t)
-  
+
     :config
     (defun my-org-reftex-keybinding ()
       "Fixes reftex citation commands"
