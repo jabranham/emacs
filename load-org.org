@@ -88,14 +88,6 @@ like the [[https://github.com/matze/mtheme][metropolis beamer theme.]]
     (setq helm-bibtex-bibliography "~/Dropbox/bibliography/references.bib")
     (setq helm-bibtex-library-path "~/Dropbox/bibliography/bibtex-pdfs")
 
-    ;; open pdf with system pdf viewer (works on mac)
-    (setq helm-bibtex-pdf-open-function
-          (lambda (fpath)
-            (start-process "open" "*open*" "open" fpath)))
-
-    ;; alternative
-    ;; (setq helm-bibtex-pdf-open-function 'org-open-file)
-
     (setq helm-bibtex-notes-path "~/Dropbox/bibliography/helm-bibtex-notes")
     (setq org-ref-default-citation-link "autocite"))
 #+END_SRC
@@ -128,4 +120,17 @@ Here are a few miscellaneous things that make org mode better.
   (setq org-log-done t)
   (use-package htmlize
     :ensure t)
+#+END_SRC
+
+For whatever reason, I have to explicitely tell org how to open pdf
+links. I use pdf-tools, which is loaded in [[file:load-behavior.org][load-behavior]]. If pdf-tools
+isn't installed, it will use doc-view (the default in emacs) instead. 
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-file-apps
+        '((auto-mode . emacs)
+          ("\\.mm\\'" . default)
+          ("\\.x?html?\\'" . default)
+          ("\\.pdf\\'" . emacs)))
+
 #+END_SRC

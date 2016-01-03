@@ -65,7 +65,7 @@ seems slow to you.
   to finagle it a bit. Regardless, I tell emacs to only use it if the
   OS is linux based. 
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp 
   (when (eq system-type 'gnu/linux) 
     (pdf-tools-install) ; nice PDF viewer (needs separate installation)
     (setq TeX-view-program-selection '((output-pdf "pdf-tools")))
