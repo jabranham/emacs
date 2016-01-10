@@ -8,6 +8,27 @@ I end sentences with a single space.
 (setq sentence-end-double-space nil)
 #+END_SRC
 
+I like autofill mode so that lines break at about 80 characters. Let's
+turn it on automaticallly in text mode:
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'text-mode-hook 'turn-on-auto-fill)
+#+END_SRC
+
+I use fill-paragraph in text modes, but sometimes I need to undo that.
+So here's a function that does exactly that! I map it to ~M-Q~ since
+fill-paragraph is ~M-q~. 
+
+#+BEGIN_SRC emacs-lisp
+  (defun unfill-paragraph (&optional region)
+        "Takes a multi-line paragraph and makes it into a single line of text."
+        (interactive (progn (barf-if-buffer-read-only) '(t)))
+        (let ((fill-column (point-max)))
+          (fill-paragraph nil region)))
+
+  (define-key global-map "\M-Q" 'unfill-paragraph)
+#+END_SRC
+
 * Markdown
   Markdown mode for Markdown editing! 
 
@@ -138,9 +159,6 @@ I end sentences with a single space.
   separately, though I didn't need to. If you want to use non-english
   words, you can tell it so with ~ispell-local-dictionary~ variable. 
 
-  For whatever reason, this is also where I choose to turn on
-  auto-fill in text modes. This will break lines at around 80
-  characters. 
 
 #+BEGIN_SRC emacs-lisp
 (use-package flyspell ; spell checking on the fly
@@ -150,7 +168,6 @@ I end sentences with a single space.
   (autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
   :config
   (setq ispell-program-name "aspell")
-  (add-hook 'text-mode-hook 'turn-on-auto-fill)
   (add-hook 'text-mode-hook 'turn-on-flyspell)
   (add-hook 'LaTeX-mode-hook 'turn-on-flyspell)
   (add-hook 'markdown-mode-hook 'turn-on-flyspell)
