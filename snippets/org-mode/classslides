@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: classslides
+# key: classslides
+# --
+#+TITLE:     $0
+#+AUTHOR:    J. Alexander Branham
+#+EMAIL:     branham@utexas.edu
+#+DATE:      Spring 2016
+#+startup: beamer
+#+LaTeX_CLASS: beamer
+#+LATEX_CMD: xelatex
+#+OPTIONS: toc:nil H:2
+#+LATEX_CLASS_OPTIONS: [colorlinks, urlcolor=blue]
+#+BEAMER_THEME: m[sectionpage=none, progressbar=frametitle] 
