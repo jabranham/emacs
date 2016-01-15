@@ -9,7 +9,8 @@
     (add-hook 'ess-mode-hook
               (lambda ()
                 (ess-set-style 'RStudio)))
-    (setq ess-offset-arguments 'prev-line))
+    (setq ess-offset-arguments 'prev-line)
+    (setq ess-ask-for-ess-directory nil))
 
 #+END_SRC
 * Stan
