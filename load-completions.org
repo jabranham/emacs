@@ -4,6 +4,7 @@
 #+BEGIN_SRC emacs-lisp
   (use-package company ; auto completion
     :ensure t
+    :diminish company-mode
     :config
     (use-package company-statistics
       :ensure t
@@ -41,6 +42,7 @@
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet
     :ensure t
+    :diminish yas-minor-mode
     :config
     (yas-global-mode))
 

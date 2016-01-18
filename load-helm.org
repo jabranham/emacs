@@ -6,6 +6,7 @@
 #+BEGIN_SRC emacs-lisp
   (use-package helm-config
     :ensure helm
+    :diminish helm-mode
     :bind
     ("C-c h" . helm-command-prefix)
     ("M-x" . helm-M-x)
@@ -45,14 +46,15 @@
   with helm, so let's set that up. 
 
 #+BEGIN_SRC emacs-lisp
-(use-package projectile
-  :ensure t)
-(use-package helm-projectile
-  :ensure t
-  :config
-  (setq projectile-completion-system 'helm)
-  (projectile-global-mode)
-  (helm-projectile-on))
+  (use-package projectile
+    :ensure t
+    :diminish projectile-mode)
+  (use-package helm-projectile
+    :ensure t
+    :config
+    (setq projectile-completion-system 'helm)
+    (projectile-global-mode)
+    (helm-projectile-on))
 #+END_SRC
 * Helm and spellcheck
   Helm can mange the spell checking that we do. I like it bound to

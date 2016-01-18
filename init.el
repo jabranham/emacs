@@ -31,7 +31,7 @@
 
 (eval-when-compile
 (require 'use-package))
-;(require 'diminish) ; if you use :diminish
+(require 'diminish) ; if you use :diminish
 (require 'bind-key) ; if you use any :bind variant
 (require 'cl-lib) ; require common lisp expressions
 (require 'cl) ; require common lisp

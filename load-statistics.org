@@ -36,6 +36,7 @@
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck ; checks for style and syntax
     :ensure t
+    :diminish flycheck-mode
     :config
     (add-hook 'after-init-hook #'global-flycheck-mode))
 
@@ -50,6 +51,7 @@
 #+BEGIN_SRC emacs-lisp
   (use-package whitespace-cleanup-mode 
     :ensure t
+    :diminish whitespace-cleanup-mode
     :config
     (add-hook 'haskell-mode-hook 'whitespace-cleanup-mode)
     (add-hook 'emacs-lisp-mode-hook 'whitespace-cleanup-mode)

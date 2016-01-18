@@ -32,10 +32,11 @@ file corrects stupid behavior then has some misc functions. :-)
   "match" like {}, [], "", ``'' (in latex mode), etc. 
 
 #+BEGIN_SRC emacs-lisp
-(use-package smartparens-config ; makes parens easier to keep track of
-  :ensure smartparens
-  :config
-  (smartparens-global-mode 1))
+  (use-package smartparens-config ; makes parens easier to keep track of
+    :ensure smartparens
+    :diminish smartparens-mode
+    :config
+    (smartparens-global-mode 1))
 
 #+END_SRC
 
