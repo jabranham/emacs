@@ -15,11 +15,13 @@
     :config
     (define-key global-map [remap list-buffers] 'helm-buffers-list)
     (define-key global-map [remap dabbrev-expand] 'helm-dabbrev)
-    (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
     (progn
       (helm-mode 1)
       (helm-adaptive-mode 1)
-      (helm-push-mark-mode 1)))
+      (helm-push-mark-mode 1))
+    (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to do persistent action
+    (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
+    (define-key helm-map (kbd "C-z")  'helm-select-action)) ; list actions using C-z
 #+END_SRC
 ** Helm settings
    Helm has a lot of settings you can customize. Here are some of
