@@ -7,15 +7,11 @@
   (use-package helm-config
     :ensure helm
     :bind
-    ;("C-c h" . helm-command-prefix)
+    ("C-c h" . helm-command-prefix)
     ("M-x" . helm-M-x)
     ("M-y" . helm-show-kill-ring)
     ("C-x b" . helm-mini)
     ("C-x C-f" . helm-find-files)
-    ("C-c h g" . helm-google-suggest)
-    ("C-c h c" . helm-calcul-expression)
-    ("C-c h f" . helm-find)
-    ("C-c h o" . helm-occur)
     :config
     (define-key global-map [remap list-buffers] 'helm-buffers-list)
     (define-key global-map [remap dabbrev-expand] 'helm-dabbrev)
