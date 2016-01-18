@@ -226,6 +226,32 @@ lets me make that happen:
             (select-window first-win)
             (if this-win-2nd (other-window 1))))))
 #+END_SRC
+
+** Move around quickly
+You can ~C-n~ and whatnot to go by line, but sometimes I want to move
+a bit more quickly than that. Using ~C-S-n~ will now let me: 
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-S-n")
+                  (lambda ()
+                    (interactive)
+                    (ignore-errors (next-line 5))))
+
+  (global-set-key (kbd "C-S-p")
+                  (lambda ()
+                    (interactive)
+                    (ignore-errors (previous-line 5))))
+
+  (global-set-key (kbd "C-S-f")
+                  (lambda ()
+                    (interactive)
+                    (ignore-errors (forward-char 5))))
+
+  (global-set-key (kbd "C-S-b")
+                  (lambda ()
+                    (interactive)
+                    (ignore-errors (backward-char 5))))
+#+END_SRC
 ** Better defaults 
    This is inspired by the [[https://github.com/technomancy/better-defaults][better defaults]] package, but I don't like
    everything in there. 
