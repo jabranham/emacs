@@ -116,6 +116,17 @@ it in dired with ~Z~
   (bind-key "C-x 2" 'my/vsplit-last-buffer)
   (bind-key "C-x 3" 'my/hsplit-last-buffer)
 #+END_SRC
+
+* Which-key
+  [[https://github.com/justbur/emacs-which-key][Which key]] shows key bindings for incomplete commands (prefixes).
+  Let's try it out:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key
+    :ensure t
+    :config
+    (which-key-mode))
+#+END_SRC 
 * Miscellaneous 
   Here are a bunch of things I want emacs to do (or not) but don't
   seem to fit in other sections. 
