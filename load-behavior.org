@@ -127,7 +127,18 @@ it in dired with ~Z~
     :ensure t
     :config
     (which-key-mode))
-#+END_SRC 
+#+END_SRC
+
+* Window numbering
+  This package will assign a number to each window, then I can use
+  ~M-1~ through ~M-0~ to switch to these numbers. 
+
+#+BEGIN_SRC emacs-lisp
+  (use-package window-numbering
+    :ensure t
+    :config
+    (window-numbering-mode))
+#+END_SRC
 * Miscellaneous 
   Here are a bunch of things I want emacs to do (or not) but don't
   seem to fit in other sections. 
