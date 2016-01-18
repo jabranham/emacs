@@ -24,3 +24,4 @@ games/
 /load-helm.el
 /README.el
 /helm-adaptive-history
+/load-shell.el
