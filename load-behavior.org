@@ -118,6 +118,16 @@ it in dired with ~Z~
   (bind-key "C-x 3" 'my/hsplit-last-buffer)
 #+END_SRC
 
+* Modeline
+  Trying out spacemacs modeline... 
+
+#+BEGIN_SRC emacs-lisp
+  (use-package spaceline-config
+    :ensure spaceline
+    :config
+    (spaceline-emacs-theme)
+    (spaceline-helm-mode))
+#+END_SRC
 * Which-key
   [[https://github.com/justbur/emacs-which-key][Which key]] shows key bindings for incomplete commands (prefixes).
   Let's try it out:
