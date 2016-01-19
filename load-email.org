@@ -88,7 +88,8 @@ Finally, we can get mu4e set up.
            "J. Alexander Branham\n"
            "PhD Candidate\n"
            "Department of Government\n"
-           "University of Texas at Austin"
+           "University of Texas at Austin\n"
+           "www.jabranham.com"
            "\n"))
     (setq mu4e-compose-dont-reply-to-self t) ; don't reply to self
     (setq mu4e-compose-complete-only-after "2015-01-01")
