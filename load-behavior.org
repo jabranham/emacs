@@ -162,6 +162,21 @@ it in dired with ~Z~
         `(("." . ,(expand-file-name
                    (concat user-emacs-directory "backups")))))
 #+END_SRC
+** Garbage collection
+The default value for garbage collection in emacs is quite low. Let's
+override that when we're using the minibuffer:
+
+#+BEGIN_SRC emacs-lisp
+  (defun my-minibuffer-setup-hook ()
+    (setq gc-cons-threshold most-positive-fixnum))
+
+  (defun my-minibuffer-exit-hook ()
+    (setq gc-cons-threshold 800000))
+
+  (add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
+  (add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
+
+#+END_SRC
 ** Refresh buffers
    Emacs should refresh buffers automatically so if they've changed on
    disk the buffer will update. I want dired to do this, but don't ask

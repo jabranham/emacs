@@ -44,6 +44,7 @@
 
 (mapc #'org-babel-load-file (directory-files dotfiles-dir t "\\.org$"))
 
+(setq gc-cons-threshold 800000)
 
 
 ;;; init.el ends here
