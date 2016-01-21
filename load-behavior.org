@@ -135,6 +135,7 @@ it in dired with ~Z~
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
     :ensure t
+    :diminish which-key-mode
     :config
     (which-key-mode))
 #+END_SRC

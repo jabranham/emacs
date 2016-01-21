@@ -74,7 +74,7 @@ fill-paragraph is ~M-q~.
   markdown together with R code. 
 
 #+BEGIN_SRC emacs-lisp
-  (use-package polymode ; to have more than one major mode
+  (use-package polymode 
     :ensure t
     :mode
     ("\\.Snw" . poly-noweb+r-mode)
@@ -161,15 +161,16 @@ fill-paragraph is ~M-q~.
 
 
 #+BEGIN_SRC emacs-lisp
-(use-package flyspell ; spell checking on the fly
-  :ensure t
-  :init
-  (setq flyspell-sort-corrections nil)
-  (autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
-  :config
-  (setq ispell-program-name "aspell")
-  (add-hook 'text-mode-hook 'turn-on-flyspell)
-  (add-hook 'LaTeX-mode-hook 'turn-on-flyspell)
-  (add-hook 'markdown-mode-hook 'turn-on-flyspell)
-  (add-hook 'org-mode-hook 'turn-on-flyspell))
+  (use-package flyspell ; spell checking on the fly
+    :ensure t
+    :diminish flyspell-mode
+    :init
+    (setq flyspell-sort-corrections nil)
+    (autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
+    :config
+    (setq ispell-program-name "aspell")
+    (add-hook 'text-mode-hook 'turn-on-flyspell)
+    (add-hook 'LaTeX-mode-hook 'turn-on-flyspell)
+    (add-hook 'markdown-mode-hook 'turn-on-flyspell)
+    (add-hook 'org-mode-hook 'turn-on-flyspell))
 #+END_SRC

@@ -5,6 +5,7 @@
 #+BEGIN_SRC emacs-lisp
   (use-package ess-site ; for R goodness
     :ensure ess
+    :diminish eldoc-mode
     :config
     (add-hook 'ess-mode-hook
               (lambda ()
