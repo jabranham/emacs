@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: else if
+# key: elif
+# contributor: jrnold <jeffrey.arnold@gmail.com>
+# --
+else if ($1) {
+`yas/selected-text`$0
+} 
