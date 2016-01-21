@@ -15,9 +15,7 @@
 #+END_SRC
 * Stan
   Stan is a Bayesian modeling language. Emacs has a mode for it (of
-  course!) Stan-snippets has some yasnippet stuff. Yasnippet is on my
-  to-do list to check out, but since I haven't gotten around to it yet
-  I leave this part out for now. 
+  course!) Stan-snippets has some yasnippet stuff. 
 
 #+BEGIN_SRC emacs-lisp
   (use-package stan-mode
@@ -42,7 +40,16 @@
     (add-hook 'after-init-hook #'global-flycheck-mode))
 
 #+END_SRC
-** TODO Flycheck too aggressive - check into calming it down
+
+Electric operator will turn ~a=10*5+2~ into ~a = 10 * 5 + 2~, so let's
+enable it for R:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package electric-operator
+    :ensure t
+    :config
+    (add-hook 'ess-mode-hook #'electric-operator-mode))
+#+END_SRC
 * Whitespace
   Whitespace is evil. Let's get rid of as much as possible. But we
   don't want to do this with files that already had whitespace (from
