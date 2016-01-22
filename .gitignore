@@ -25,3 +25,4 @@ games/
 /README.el
 /helm-adaptive-history
 /load-shell.el
+/.cask/
