@@ -1,4 +1,4 @@
-* mu4e setup 
+* mu4e setup files
   I use ~mu4e~ with offlineimap and mu for my email. In order to use
   this file, you'll need to make sure that offlineimap and mu are
   installed on your system. Offlineimap requires a bit of
@@ -54,7 +54,7 @@ def get_password_emacs(machine, login, port):
     authinfo = os.popen("gpg -q --no-tty -d ~/.authinfo.gpg").read()
     return p.search(authinfo).group(1)
 #+END_EXAMPLE
-
+* mu4e setup
 Finally, we can get mu4e set up. 
 #+BEGIN_SRC emacs-lisp
   (use-package mu4e
