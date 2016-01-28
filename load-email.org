@@ -95,6 +95,7 @@ Finally, we can get mu4e set up.
     (setq mu4e-compose-complete-only-after "2015-01-01")
     (setq mu4e-view-show-addresses t)
     (setq mu4e-hide-index-messages t)
+    (setq epa-file-cache-passphrase-for-symmetric-encryption t)
     ;; enable inline images
     (setq mu4e-view-show-images t)
     ;; use imagemagick, if available
