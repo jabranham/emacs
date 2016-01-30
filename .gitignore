@@ -26,3 +26,5 @@ games/
 /helm-adaptive-history
 /load-shell.el
 /.cask/
+/.sx/auth.el
+/.sx/*
