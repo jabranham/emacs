@@ -89,7 +89,7 @@ like the [[https://github.com/matze/mtheme][metropolis beamer theme.]]
     (setq helm-bibtex-library-path "~/Dropbox/bibliography/bibtex-pdfs")
 
     (setq helm-bibtex-notes-path "~/Dropbox/bibliography/helm-bibtex-notes")
-    (setq org-ref-default-citation-link "autocite"))
+    (setq org-ref-default-citation-link "citep"))
 #+END_SRC
 
 

@@ -106,29 +106,21 @@ fill-paragraph is ~M-q~.
     ;;        (reftex-parse-all))
     ;;   (define-key org-mode-map (kbd "C-c (") 'reftex-citation))
     ;; (add-hook 'org-mode-hook 'org-mode-reftex-setup)
-    (setq reftex-cite-format ; set up reftex to work with biblatex (not natbib) and pandoc
+    (setq reftex-cite-format 
           '((?\C-m . "\\cite[]{%l}")
-            (?t . "\\textcite{%l}")
-            (?a . "\\autocite[]{%l}")
-            (?p . "\\parencite{%l}")
-            (?f . "\\footcite[][]{%l}")
-            (?F . "\\fullcite[]{%l}")
+            (?t . "\\citet{%l}")
+            (?p . "\\citep[]{%l}")
             (?P . "[@%l]")
             (?T . "@%l [p. ]")
             (?x . "[]{%l}")
             (?X . "{%l}")))
-    ;; So that RefTeX also recognizes \addbibresource. Note that you
-    ;; can't use $HOME in path for \addbibresource but that "~"
-    ;; works.
     (setq bibtex-autokey-titleword-length 0)
     (setq bibtex-autokey-titleword-separator "")
     (setq bibtex-autokey-titlewords 0)
     (setq bibtex-autokey-year-length 4)
     (setq bibtex-autokey-year-title-separator "")
-
     (setq reftex-bibliography-commands '("bibliography" "nobibliography" "addbibresource"))
     (setq reftex-extra-bindings t)
-
     :config
     (defun my-org-reftex-keybinding ()
       "Fixes reftex citation commands"
