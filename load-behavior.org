@@ -150,6 +150,15 @@ it in dired with ~Z~
     :config
     (window-numbering-mode))
 #+END_SRC
+
+* Keybindings
+  I use ~desktop-clear~ to get rid of buffers and other things every
+  now and then. Let's bind it to f12: 
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "<f12>") 'desktop-clear)
+#+END_SRC
+
 * Miscellaneous 
   Here are a bunch of things I want emacs to do (or not) but don't
   seem to fit in other sections. 
