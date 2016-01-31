@@ -11,4 +11,4 @@
 #+LATEX_CMD: xelatex
 #+OPTIONS: toc:nil H:2
 #+LATEX_CLASS_OPTIONS: [colorlinks, urlcolor=blue]
-#+BEAMER_THEME: m[sectionpage=none, progressbar=frametitle] 
+#+BEAMER_THEME: metropolis[titleformat=smallcaps, progressbar=frametitle] 
