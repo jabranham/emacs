@@ -16,6 +16,9 @@ not work out of the box with other Emacs builds, such as XEmacs. You
 can install emacs from your package manager (on GNU/Linux). It's also
 available on [[http://ftp.gnu.org/gnu/emacs/windows/][Windows]] and [[http://emacsformacosx.com/][Mac]].
 
+[[http://emacs.link/][Here's]] a website that shows you how to get emacs on each operating
+system. 
+
 * Install other programs
 These aren't strictly speaking necessary, but you probably want them.
 You'll want [[https://www.r-project.org/][R]], LaTeX (TeXLive for Linux, [[https://tug.org/mactex/][MaCTeX]] for mac, and [[http://www.miktex.org/][MiKTeX]]
