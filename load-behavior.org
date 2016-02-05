@@ -188,6 +188,12 @@ it in dired with ~Z~
         `(("." . ,(expand-file-name
                    (concat user-emacs-directory "backups")))))
 #+END_SRC
+** Blinking cursor
+   Gets kinda annoying, so get rid of it:
+
+#+BEGIN_SRC emacs-lisp
+  (blink-cursor-mode -1)
+#+END_SRC
 ** Garbage collection
 The default value for garbage collection in emacs is quite low. Let's
 override that when we're using the minibuffer:
