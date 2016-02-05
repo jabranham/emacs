@@ -300,6 +300,16 @@ a bit more quickly than that. Using ~C-S-n~ will now let me:
                     (interactive)
                     (ignore-errors (backward-char 5))))
 #+END_SRC
+
+** Mouse copy
+   Holding control while selecting text will paste it wherever point
+   is. Holding control and shift "moves" the text there. 
+
+#+BEGIN_SRC emacs-lisp
+  (require 'mouse-copy)
+  (global-set-key [C-down-mouse-1] 'mouse-drag-secondary-pasting)
+  (global-set-key [C-S-down-mouse-1] 'mouse-drag-secondary-moving)
+#+END_SRC
 ** Better defaults 
    This is inspired by the [[https://github.com/technomancy/better-defaults][better defaults]] package, but I don't like
    everything in there. 
