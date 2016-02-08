@@ -126,7 +126,8 @@ it in dired with ~Z~
     :ensure spaceline
     :config
     (spaceline-emacs-theme)
-    (spaceline-helm-mode))
+    (spaceline-helm-mode)
+    (spaceline-toggle-buffer-encoding-abbrev-off))
 #+END_SRC
 * Which-key
   [[https://github.com/justbur/emacs-which-key][Which key]] shows key bindings for incomplete commands (prefixes).
