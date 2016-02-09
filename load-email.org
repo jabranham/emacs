@@ -96,7 +96,6 @@ Finally, we can get mu4e set up.
     (setq mu4e-view-show-addresses t)
     (setq mu4e-hide-index-messages t)
     (setq epa-file-cache-passphrase-for-symmetric-encryption t)
-    (setenv "GPG_AGENT_INFO" nil)
     ;; enable inline images
     (setq mu4e-view-show-images t)
     ;; use imagemagick, if available
