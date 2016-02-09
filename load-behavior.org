@@ -67,11 +67,15 @@ seems slow to you.
   OS is linux based. 
 
 #+BEGIN_SRC emacs-lisp 
-  (when (eq system-type 'gnu/linux) 
-    (pdf-tools-install) ; nice PDF viewer (needs separate installation)
-    (setq TeX-view-program-selection '((output-pdf "pdf-tools")))
-    (setq TeX-view-program-list '(("pdf-tools" "TeX-pdf-tools-sync-view"))))
+  (when (eq system-type 'gnu/linux)
+    (use-package pdf-tools
+      :ensure t
+      :config
+      (pdf-tools-install)
+      (setq TeX-view-program-selection '((output-pdf "pdf-tools")))
+      (setq TeX-view-program-list '(("pdf-tools" "TeX-pdf-tools-sync-view")))))
 #+END_SRC
+
 * File finder (Dired)
   Emacs can act as your file finder/explorer. Dired is the built-in
   way to do this, but we can extend its capabilities a bit. In
