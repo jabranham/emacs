@@ -58,7 +58,7 @@ quotes for latex export:
 #+BEGIN_SRC emacs-lisp
   (org-babel-do-load-languages
    'org-babel-load-languages
-     (emacs-lisp . t)
+   '((emacs-lisp . t)
      (latex . t)
      (python . t)
      (R . t)))
