@@ -58,10 +58,10 @@ quotes for latex export:
 #+BEGIN_SRC emacs-lisp
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((R . t)
      (emacs-lisp . t)
      (latex . t)
-     (python . t)))
+     (python . t)
+     (R . t)))
   (setq org-confirm-babel-evaluate nil)
   ;; when working via C-c ' open in current window
   (setq org-src-window-setup 'current-window)
