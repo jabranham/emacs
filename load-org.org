@@ -13,7 +13,6 @@ no need to double-check that here.
 HTML and latex shown by default, let's add markdown:
 
 #+BEGIN_SRC emacs-lisp
-  (require 'ox)
   (require 'ox-md)
 #+END_SRC
 
