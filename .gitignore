@@ -28,3 +28,4 @@ games/
 /.cask/
 /.sx/auth.el
 /.sx/*
+/abbrev_defs
