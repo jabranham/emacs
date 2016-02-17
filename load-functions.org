@@ -1,0 +1,29 @@
+This is a file to store some miscellaneous functions I use every now
+and then. 
+
+* Jekyll functions
+I use ~jekyll-publish-draft~ to move a post from _drafts/ to _posts/
+which publishes it to my blog. Inspiration from [[http://pasoev.github.io/programming/2015/10/31/jekyll-posts-emacs-capture/][here]]
+
+#+BEGIN_SRC emacs-lisp
+  (defun today-is ()
+    "Return current year-month-day."
+    (format-time-string "%Y-%m-%d"))
+
+  (defun jekyll-drafts ()
+    (let ((default-directory
+            (concat (projectile-project-root) "_drafts")))
+    (file-expand-wildcards "*.md")))
+
+  (defun jekyll-publish-draft (post)
+    "Mark one of the posts from the Jekyll drafts directory as published.
+     This actually means moving the post from the _drafts to the _posts 
+     directory."
+    (interactive
+     (list (completing-read "Post to publish: "
+                            (jekyll-drafts) nil t "")))
+    (copy-file (concat (projectile-project-root) "_drafts/" post)
+               (concat (projectile-project-root) "_posts/" (today-is) "-" post))
+    (delete-file (concat (projectile-project-root) "_drafts/" post)))
+
+#+END_SRC
