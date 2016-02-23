@@ -230,7 +230,5 @@ Finally, we can get mu4e set up.
       (setq mu4e-alert-interesting-mail-query
             (concat
              "flag:unread"
-             " AND NOT flag:trashed"
-             " AND NOT maildir:"
-             "\"/[Gmail].All Mail\""))))
+             " AND maildir:\"/INBOX\""))))
 #+END_SRC
