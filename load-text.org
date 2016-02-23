@@ -96,16 +96,6 @@ fill-paragraph is ~M-q~.
   (use-package reftex ; bibliography and reference management
     :commands turn-on-reftex
     :init
-    ;; ;; Make RefTeX work with Org-Mode
-    ;; ;; use 'C-c (' instead of 'C-c [' because the latter is already
-    ;; ;; defined in orgmode to the add-to-agenda command.
-    ;; (defun org-mode-reftex-setup ()
-    ;;   (load-library "reftex") 
-    ;;   (and (buffer-file-name)
-    ;;        (file-exists-p (buffer-file-name))
-    ;;        (reftex-parse-all))
-    ;;   (define-key org-mode-map (kbd "C-c (") 'reftex-citation))
-    ;; (add-hook 'org-mode-hook 'org-mode-reftex-setup)
     (setq reftex-cite-format 
           '((?\C-m . "\\cite[]{%l}")
             (?t . "\\citet{%l}")
@@ -125,9 +115,7 @@ fill-paragraph is ~M-q~.
     (defun my-org-reftex-keybinding ()
       "Fixes reftex citation commands"
       (local-set-key (kbd "C-]") 'reftex-citation))
-
     (add-hook 'org-mode-hook 'my-org-reftex-keybinding)
-
     (add-hook 'LaTeX-mode-hook 'turn-on-reftex))
 #+END_SRC
 
