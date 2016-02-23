@@ -29,3 +29,4 @@ games/
 /.sx/auth.el
 /.sx/*
 /abbrev_defs
+/load-functions.el
