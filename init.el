@@ -30,11 +30,11 @@
   (package-install 'org-plus-contrib))
 
 (eval-when-compile
-(require 'use-package))
+  (require 'use-package))
 (require 'diminish) ; if you use :diminish
 (require 'bind-key) ; if you use any :bind variant
 (require 'cl-lib) ; require common lisp expressions
-(require 'cl) ; require common lisp
+;(require 'cl) ; require common lisp
 
 ;; load up all literate org-mode files in this directory
 (require 'org)
