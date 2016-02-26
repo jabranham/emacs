@@ -97,17 +97,14 @@ Finally, we can get mu4e set up.
       (setq mu4e-view-show-addresses t)
       (setq mu4e-hide-index-messages t)
       (setq epa-file-cache-passphrase-for-symmetric-encryption t)
-      ;; enable inline images
       (setq mu4e-view-show-images t)
       ;; use imagemagick, if available
       (when (fboundp 'imagemagick-register-types)
         (imagemagick-register-types))
-      ;; don't keep message buffers around
       (setq message-kill-buffer-on-exit t)
       (add-hook 'mu4e-view-mode-hook 'visual-line-mode)
       (setq mu4e-use-fancy-chars t)
       (setq mu4e-headers-skip-duplicates t)
-      ;; attachments go here
       (setq mu4e-attachment-dir "~/Downloads")
       (use-package gnus-dired
         ;; make the `gnus-dired-mail-buffers' function also work on
@@ -156,7 +153,9 @@ Finally, we can get mu4e set up.
         ;; use aV to open message in browser
         (add-to-list 'mu4e-view-actions
                      '("ViewInBrowser" . mu4e-action-view-in-browser) t))
-      ))
+      (use-package helm-mu
+        :bind ("C-c M-m" . helm-mu)
+        :ensure t)))
 #+END_SRC
 
 * Sending mail
