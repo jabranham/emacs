@@ -184,6 +184,22 @@ it in dired with ~Z~
 * Miscellaneous 
   Here are a bunch of things I want emacs to do (or not) but don't
   seem to fit in other sections. 
+** Keyfreq
+This is a neat package that keeps track of which commands you're
+using. You can then assign your most-used commands to more accessible
+keybindings. 
+#+BEGIN_SRC emacs-lisp
+  (use-package keyfreq
+    :ensure t
+    :config
+    (setq keyfreq-excluded-commands
+          '(self-insert-command
+            abort-recursive-edit
+            previous-line
+            next-line))
+    (keyfreq-mode 1)
+    (keyfreq-autosave-mode 1))
+#+END_SRC
 ** Backup files
    I want emacs to make these, but don't want to clutter up my project
    folders with tons of backup files. Solution: put them in the
