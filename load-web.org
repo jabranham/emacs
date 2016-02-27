@@ -1,0 +1,20 @@
+This file loads up some customizations for working with html files and
+the like. 
+
+
+* HTML and friends
+#+BEGIN_SRC emacs-lisp
+  (use-package web-mode
+    :ensure t
+    :defer t
+    :mode 
+    ("\\.html?\\'" . web-mode)
+    ("\\.scss?\\'" . web-mode))
+#+END_SRC
+
+* CSS, SCSS
+#+BEGIN_SRC emacs-lisp
+  (use-package scss-mode
+    :ensure t
+    :defer t)
+#+END_SRC
