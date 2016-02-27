@@ -30,3 +30,4 @@ games/
 /.sx/*
 /abbrev_defs
 /load-functions.el
+/load-web.el
