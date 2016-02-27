@@ -99,7 +99,6 @@ quotes for latex export:
     (setq org-ref-default-citation-link "citep"))
 #+END_SRC
 
-
 * Display images
   Org has a neat trick that it can display images. This is especially
   handy for when org-babel outputs a graph, since we can see the graph
@@ -116,7 +115,8 @@ org's global todo list, scheduling, and agenda features. I use Dropbox
 to keep these files in sync across computers. 
 
 #+BEGIN_SRC emacs-lisp
-  (setq org-agenda-files (list "~/Dropbox/org/todo.org"
+  (setq org-directory "~/Dropbox/org/")
+  (setq org-agenda-files (list (concat org-directory "todo.org")
                                "~/Dropbox/bibliography/notes.org"))
 #+END_SRC
 * Misc
