@@ -2,6 +2,17 @@ Emacs has a lot of behavior as a default that really isn't the
 best. This file tries to correct much of that. This file also makes
 emacs be able to do some really neat stuff. So basically I guess this
 file corrects stupid behavior then has some misc functions. :-) 
+* UTF-8
+Pretty please use utf-8 for all the things:
+
+#+BEGIN_SRC emacs-lisp
+  (set-language-environment "UTF-8")
+  (prefer-coding-system 'utf-8-unix)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (set-buffer-file-coding-system 'utf-8)
+  (set-default-coding-systems 'utf-8)
+#+END_SRC
 * Theme
   By default, emacs starts with a blindingly white theme. Let's get
   rid of that pronto. 
