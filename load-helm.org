@@ -49,7 +49,12 @@
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
     :ensure t
-    :diminish projectile-mode)
+    :diminish projectile-mode
+    :config
+    (use-package projectile-rails
+      :ensure t
+      :config
+      (add-hook 'projectile-mode-hook 'projectile-rails-on)))
   (use-package helm-projectile
     :ensure t
     :config
