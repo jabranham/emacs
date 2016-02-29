@@ -26,6 +26,18 @@
     ;;   :ensure t))
 
 #+END_SRC
+* Ruby
+#+BEGIN_SRC emacs-lisp
+  (use-package ruby-mode
+    :defer t
+    :config
+    (use-package robe
+      :diminish robe-mode
+      :ensure t
+      :config
+      (add-to-list 'company-backends 'company-robe)
+      (add-hook 'ruby-mode-hook 'robe-mode)))
+#+END_SRC
 * Code and syntax checking
   Emacs can tell you magically if your code is wrong (or just
   ugly). Flycheck is a minor mode for this. Let's enable it globally. 
