@@ -9,7 +9,8 @@ the like.
     :defer t
     :mode 
     ("\\.html?\\'" . web-mode)
-    ("\\.scss?\\'" . web-mode))
+    ("\\.scss?\\'" . web-mode)
+    ("\\.erb\\'" . web-mode))
 #+END_SRC
 
 * CSS, SCSS
