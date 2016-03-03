@@ -85,15 +85,17 @@ fill-paragraph is ~M-q~.
 * RefTeX
   RefTeX takes care of referencing things. You can use it with ~C-[~
   most places. I also use it in org mode, but we need to bind it to a
-  different key since that's taken. Finally, I like to use biblatex
+  different key since that's taken. Finally, I like to use natbib
   and pandoc-flavored markdown for references, so I set up reftex to
   understand that. 
 
   You will need to change ~reftex-default-bibliography~ to wherever
   you keep your main .bib file. 
 
+  There are other reference setup options in [[file:load-helm.org][load-helm]] and [[file:load-org.org][load-org]]. 
+
 #+BEGIN_SRC emacs-lisp
-  (use-package reftex ; bibliography and reference management
+  (use-package reftex
     :commands turn-on-reftex
     :init
     (setq reftex-cite-format 
@@ -104,11 +106,12 @@ fill-paragraph is ~M-q~.
             (?T . "@%l [p. ]")
             (?x . "[]{%l}")
             (?X . "{%l}")))
-    (setq bibtex-autokey-titleword-length 0)
-    (setq bibtex-autokey-titleword-separator "")
-    (setq bibtex-autokey-titlewords 0)
-    (setq bibtex-autokey-year-length 4)
-    (setq bibtex-autokey-year-title-separator "")
+    (setq bibtex-autokey-titleword-length 0
+          bibtex-autokey-titleword-separator ""
+          bibtex-autokey-titlewords 0
+          bibtex-autokey-year-length 4
+          bibtex-autokey-year-title-separator "")
+    (setq reftex-default-bibliography '("~/Dropbox/bibliography/references.bib"))
     (setq reftex-bibliography-commands '("bibliography" "nobibliography" "addbibresource"))
     (setq reftex-extra-bindings t)
     :config
@@ -124,6 +127,10 @@ fill-paragraph is ~M-q~.
   ispell because it's better. :-) You may need to install it
   separately, though I didn't need to. If you want to use non-english
   words, you can tell it so with ~ispell-local-dictionary~ variable. 
+
+  Finally, you can just use `C-x C-i` to fix the last misspelled word.
+  Emacs will then automatically correct that particular misspelling in
+  the future. 
 
 
 #+BEGIN_SRC emacs-lisp

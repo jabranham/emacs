@@ -62,6 +62,17 @@
     (projectile-global-mode)
     (helm-projectile-on))
 #+END_SRC
+* Helm and references
+#+BEGIN_SRC emacs-lisp
+    (use-package helm-bibtex
+      :ensure t
+      :config
+      (setq helm-bibtex-bibliography "~/Dropbox/bibliography/references.bib"
+            helm-bibtex-library-path "~/Dropbox/bibliography/bibtex-pdfs"
+            helm-bibtex-notes-path "~/Dropbox/bibliography/notes.org"
+            helm-bibtex-full-frame nil)
+      (setq helm-bibtex-cite-commands '("citep" "citet" "citeauthor" "citeyear" "Citep" "Citet")))
+#+END_SRC
 * Helm and spellcheck
   Helm can mange the spell checking that we do. I like it bound to
   ~M-/~. 

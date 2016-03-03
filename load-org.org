@@ -85,18 +85,10 @@ quotes for latex export:
   (use-package org-ref
     :ensure t
     :init
-    (setq reftex-default-bibliography '("~/Dropbox/bibliography/references.bib"))
-
-    ;; see org-ref for use of these variables
     (setq org-ref-bibliography-notes "~/Dropbox/bibliography/notes.org"
           org-ref-default-bibliography '("~/Dropbox/bibliography/references.bib")
-          org-ref-pdf-directory "~/Dropbox/bibliography/bibtex-pdfs/")
-
-    (setq helm-bibtex-bibliography "~/Dropbox/bibliography/references.bib")
-    (setq helm-bibtex-library-path "~/Dropbox/bibliography/bibtex-pdfs")
-
-    (setq helm-bibtex-notes-path "~/Dropbox/bibliography/helm-bibtex-notes")
-    (setq org-ref-default-citation-link "citep"))
+          org-ref-pdf-directory "~/Dropbox/bibliography/bibtex-pdfs/"
+          org-ref-default-citation-link "citep"))
 #+END_SRC
 
 * Display images
