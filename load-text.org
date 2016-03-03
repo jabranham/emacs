@@ -119,20 +119,6 @@ fill-paragraph is ~M-q~.
     (add-hook 'LaTeX-mode-hook 'turn-on-reftex))
 #+END_SRC
 
-* Ebib - for bib file management
-  I use ebib for bib file management. I'm not totally enamored with
-  it, so I might replace this at some point. You'll need to change
-  ~ebib-preload-bib-files~ to wherever you keep your main .bib file. 
-
-
-#+BEGIN_SRC emacs-lisp
-(use-package ebib ; for .bib files
-  :ensure t
-  :config
-  (setq ebib-preload-bib-files
-        '("~/Dropbox/library.bib")))
-#+END_SRC
-
 * Spell Check
   Flyspell checks for spelling on the fly. I use aspell instead of
   ispell because it's better. :-) You may need to install it
