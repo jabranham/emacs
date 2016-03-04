@@ -220,11 +220,18 @@ keybindings.
         `(("." . ,(expand-file-name
                    (concat user-emacs-directory "backups")))))
 #+END_SRC
-** Blinking cursor
-   Gets kinda annoying, so get rid of it:
+** Blinking cursor & highlight line
+   A blinking cursor gets kinda annoying, so get rid of it:
 
 #+BEGIN_SRC emacs-lisp
   (blink-cursor-mode -1)
+#+END_SRC
+
+Also, I like the current line to be highlighted. Makes it easy to see
+where I am:
+
+#+BEGIN_SRC emacs-lisp
+  (global-hl-line-mode t)
 #+END_SRC
 ** Garbage collection
 The default value for garbage collection in emacs is quite low. Let's
