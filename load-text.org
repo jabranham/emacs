@@ -43,29 +43,40 @@ fill-paragraph is ~M-q~.
   to remember to rerun the file X times to get references right. 
 
 #+BEGIN_SRC emacs-lisp
-(use-package auctex ; for LaTeX documents
-  :ensure t
-  :mode ("\\.tex\\'" . latex-mode)
-  :commands (latex-mode LaTeX-mode plain-tex-mode)
-  :init
-  (progn
-    (add-hook 'LaTeX-mode-hook 'visual-line-mode)
-    (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-    (setq TeX-auto-save t
-          TeX-parse-self t
-          reftex-plug-into-AUCTeX t
-          TeX-PDF-mode t)
-    (setq-default TeX-master nil))
-  (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode)
-  (setq TeX-source-correlate-method 'synctex)
-  (setq TeX-source-correlate-mode t)
-  (eval-after-load "tex"
-    '(add-to-list 'TeX-command-list '("latexmk" "latexmk -synctex=1 -shell-escape -pdf %s" TeX-run-TeX nil t :help "Process file with latexmk"))
-    )
-  (eval-after-load "tex"
-    '(add-to-list 'TeX-command-list '("xelatexmk" "latexmk -synctex=1 -shell-escape -xelatex %s" TeX-run-TeX nil t :help "Process file with xelatexmk"))
-    )
-  (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "latexmk"))))
+  (use-package auctex
+    :ensure t
+    :mode ("\\.tex\\'" . latex-mode)
+    :commands (latex-mode LaTeX-mode plain-tex-mode)
+    :init
+    (progn
+      (add-hook 'LaTeX-mode-hook 'visual-line-mode)
+      (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+      (setq TeX-auto-save t
+            TeX-parse-self t
+            reftex-plug-into-AUCTeX t
+            TeX-PDF-mode t)
+      (setq-default TeX-master nil))
+    (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode)
+    (setq TeX-source-correlate-method 'synctex)
+    (setq TeX-source-correlate-mode t)
+    (eval-after-load "tex"
+      '(add-to-list 'TeX-command-list '("latexmk" "latexmk -synctex=1 -shell-escape -pdf %s" TeX-run-TeX nil t :help "Process file with latexmk"))
+      )
+    (eval-after-load "tex"
+      '(add-to-list 'TeX-command-list '("xelatexmk" "latexmk -synctex=1 -shell-escape -xelatex %s" TeX-run-TeX nil t :help "Process file with xelatexmk"))
+      )
+    (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "latexmk"))))
+#+END_SRC
+
+Magic-latex-buffer is a package that makes LaTeX look great in emacs.
+Let's get it set up:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package magic-latex-buffer
+    :ensure t
+    :config
+    (add-hook 'latex-mode-hook 'magic-latex-buffer)
+    (add-hook 'LaTeX-mode-hook 'magic-latex-buffer))
 #+END_SRC
 
 * Polymode (for knitr)
