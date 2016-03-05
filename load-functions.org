@@ -27,3 +27,23 @@ which publishes it to my blog. Inspiration from [[http://pasoev.github.io/progra
     (delete-file (concat (projectile-project-root) "_drafts/" post)))
 
 #+END_SRC
+
+* Sudo editing
+This function lets me edit the current file as root. Note that I can
+also edit files as root when using helm find files by simply using
+~C-c r~ in the buffer. So I use this to edit the already-open file as
+root and then helm to open files as root. [[http://emacsredux.com/blog/2013/04/21/edit-files-as-root/][source for this function]]
+
+#+BEGIN_SRC emacs-lisp
+  (defun sudo-edit (&optional arg)
+    "Edit currently visited file as root.
+
+  With a prefix ARG prompt for a file to visit.
+  Will also prompt for a file to visit if current
+  buffer is not visiting a file."
+    (interactive "P")
+    (if (or arg (not buffer-file-name))
+        (find-file (concat "/sudo:root@localhost:"
+                           (ido-read-file-name "Find file(as root): ")))
+      (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
+#+END_SRC
