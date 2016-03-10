@@ -65,12 +65,8 @@ seems slow to you.
     (add-hook 'ess-mode-hook #'rainbow-delimiters-mode))
 #+END_SRC
 * PDF viewer
-  I like emacs, so why not view PDFs in it? You'll need to ~M-x
-  package-list-packages~ then install ~pdf-tools~ and restart
-  emacs. Build the server when it asks - this may take a second. 
-
-  This package is annoying to update. Before updating, make sure to
-  uninstall it and restart emacs. Then you can install it as above. 
+  I like emacs, so why not view PDFs in it? Build the server when it
+  asks - this may take a second.
 
   NOTE: ~pdf-tools~ only officially supports gnu/linux operating
   systems. I think that it will work on macs as well, but you may have
@@ -192,6 +188,11 @@ it in dired with ~Z~
   (global-set-key (kbd "<f12>") 'desktop-clear)
 #+END_SRC
 
+* Server
+  Start the server:
+#+BEGIN_SRC emacs-lisp
+  (server-start)
+#+END_SRC
 * Miscellaneous 
   Here are a bunch of things I want emacs to do (or not) but don't
   seem to fit in other sections. 
