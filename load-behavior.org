@@ -187,15 +187,6 @@ it in dired with ~Z~
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "<f12>") 'desktop-clear)
 #+END_SRC
-
-* Server
-  Start the server:
-#+BEGIN_SRC emacs-lisp
-  (server-start)
-#+END_SRC
-* Miscellaneous 
-  Here are a bunch of things I want emacs to do (or not) but don't
-  seem to fit in other sections. 
 ** Keyfreq
 This is a neat package that keeps track of which commands you're
 using. You can then assign your most-used commands to more accessible
@@ -206,12 +197,31 @@ keybindings.
     :config
     (setq keyfreq-excluded-commands
           '(self-insert-command
+            org-self-insert-command
+            delete-backward-char
+            pdf-view-next-page-command
+            yas-expand
+            pdf-view-scroll-up-or-next-page
+            org-delete-backward-char
+            mouse-drag-region
+            LaTeX-insert-left-brace
+            mouse-drag-region
+            newline
             abort-recursive-edit
             previous-line
             next-line))
     (keyfreq-mode 1)
     (keyfreq-autosave-mode 1))
 #+END_SRC
+
+* Server
+  Start the server:
+#+BEGIN_SRC emacs-lisp
+  (server-start)
+#+END_SRC
+* Miscellaneous 
+  Here are a bunch of things I want emacs to do (or not) but don't
+  seem to fit in other sections. 
 ** Backup files
    I want emacs to make these, but don't want to clutter up my project
    folders with tons of backup files. Solution: put them in the
