@@ -152,10 +152,7 @@ Finally, we can get mu4e set up.
         (setq mu4e-html2text-command 'mu4e-shr2text)
         ;; use aV to open message in browser
         (add-to-list 'mu4e-view-actions
-                     '("ViewInBrowser" . mu4e-action-view-in-browser) t))
-      (use-package helm-mu
-        :bind ("C-c M-m" . helm-mu)
-        :ensure t)))
+                     '("ViewInBrowser" . mu4e-action-view-in-browser) t))))
 #+END_SRC
 
 * Sending mail

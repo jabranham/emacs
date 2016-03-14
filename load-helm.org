@@ -70,6 +70,15 @@
             helm-bibtex-full-frame nil)
       (setq helm-bibtex-cite-commands '("citep" "citet" "citeauthor" "citeyear" "Citep" "Citet")))
 #+END_SRC
+* Helm and email
+#+BEGIN_SRC emacs-lisp
+  (when (executable-find "mu")
+    (use-package helm-mu
+      :bind
+      ("C-c s e" . helm-mu)
+      ("C-c s c" . helm-mu-contacts)
+      :ensure t))
+#+END_SRC
 * Helm and spellcheck
   Helm can mange the spell checking that we do. I like it bound to
   ~M-/~. 
