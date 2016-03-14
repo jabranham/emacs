@@ -24,7 +24,9 @@
       (company-quickhelp-mode 1))
     (define-key company-active-map (kbd "<tab>")
       (lambda () (interactive) (company-complete-common-or-cycle 1)))
-    (global-company-mode t))
+    (global-company-mode t)
+    (use-package company-web-html
+      :ensure company-web))
 #+END_SRC
 * Yasnippet 
   Yasnippet allows you to type an abbreviation and then expand it into
