@@ -14,6 +14,28 @@
     (setq ess-ask-for-ess-directory nil))
 
 #+END_SRC
+* Python
+The package is called python, the mode is python-mode: 
+#+BEGIN_SRC emacs-lisp
+  (use-package python
+    :mode ("\\.py\\'". python-mode)
+    :interpreter "python")
+#+END_SRC
+
+Elpy is a ton of customizations for python. Load it up:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package elpy
+    :ensure t
+    :init
+    (progn
+      (elpy-enable))
+    :config
+    (when (require 'flycheck nil t)
+    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+    (add-hook 'elpy-mode-hook 'flycheck-mode)))
+#+END_SRC
+
 * Stan
   Stan is a Bayesian modeling language. Emacs has a mode for it (of
   course!) Stan-snippets has some yasnippet stuff. 
@@ -61,7 +83,8 @@ enable it for R:
   (use-package electric-operator
     :ensure t
     :config
-    (add-hook 'ess-mode-hook #'electric-operator-mode))
+    (add-hook 'ess-mode-hook #'electric-operator-mode)
+    (add-hook 'python-mode-hook #'electric-operator-mode))
 #+END_SRC
 * Whitespace
   Whitespace is evil. Let's get rid of as much as possible. But we
