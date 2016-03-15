@@ -106,6 +106,16 @@ it in dired with ~Z~
                    '("\\.zip\\'" ".zip" "unzip")))
 #+END_SRC
 
+Finally, I like the ability to quickly narrow the list of files I'm
+looking at using dired. This package lets me do that:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package dired-narrow
+    :bind
+    ("C-c n". dired-narrow-fuzzy)
+    :ensure t)
+#+END_SRC
+
 * Splitting windows
   These functions make splitting windows behave more like I want it
   to. This way, calling ~C-x 2~ or ~C-x 3~ both splits the window
