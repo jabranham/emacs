@@ -211,7 +211,10 @@ keybindings.
 * Server
   Start the server:
 #+BEGIN_SRC emacs-lisp
-  (server-start)
+  (use-package server
+    :if window-system
+    :init
+    (add-hook 'after-init-hook 'server-start t))
 #+END_SRC
 * Miscellaneous 
   Here are a bunch of things I want emacs to do (or not) but don't
@@ -319,9 +322,17 @@ a bit more quickly than that. Using ~C-S-n~ will now let me:
    is. Holding control and shift "moves" the text there. 
 
 #+BEGIN_SRC emacs-lisp
-  (require 'mouse-copy)
-  (global-set-key [C-down-mouse-1] 'mouse-drag-secondary-pasting)
-  (global-set-key [C-S-down-mouse-1] 'mouse-drag-secondary-moving)
+  (use-package mouse-copy
+    :disabled t
+    :config
+    (global-set-key [C-down-mouse-1] 'mouse-drag-secondary-pasting)
+    (global-set-key [C-S-down-mouse-1] 'mouse-drag-secondary-moving))
+#+END_SRC
+
+** Start maximized
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'default-frame-alist '(fullscreen . maximized)) 
+
 #+END_SRC
 ** Better defaults 
    This is inspired by the [[https://github.com/technomancy/better-defaults][better defaults]] package, but I don't like
@@ -344,9 +355,10 @@ symbol.
 #+END_SRC
 
 Yes, please save my place when opening/closing files: 
-#+BEGIN_SRC emacs-lis
-  (require 'saveplace)
-  (setq-default save-place t)
+#+BEGIN_SRC emacs-lisp
+  (use-package saveplace
+    :config
+    (setq-default save-place t))
 #+END_SRC
 
 I like having the menu-bar, but not if I'm in terminal. I don't really

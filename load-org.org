@@ -14,7 +14,7 @@ no need to double-check that here.
 HTML and latex shown by default, let's add markdown:
 
 #+BEGIN_SRC emacs-lisp
-  (require 'ox-md)
+  (use-package ox-md)
 #+END_SRC
 
 I don't like how timestamps look when org exports them. This makes it
@@ -64,7 +64,6 @@ quotes for latex export:
      (python . t)
      (R . t)))
   (setq org-confirm-babel-evaluate nil)
-  ;; when working via C-c ' open in current window
   (setq org-src-window-setup 'current-window)
 #+END_SRC
 
