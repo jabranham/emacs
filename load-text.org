@@ -79,6 +79,23 @@ Let's get it set up:
     (add-hook 'LaTeX-mode-hook 'magic-latex-buffer))
 #+END_SRC
 
+Finally, sometimes we want wordcounts. If I just want a quick snippet,
+I can run the following command. If I want more information, I can
+drop into a shell with ~C-c M-e~ (~shell-pop~) and run ~texcount
+my-file.tex~:
+
+#+BEGIN_SRC emacs-lisp
+  (defun latex-word-count ()
+      (interactive)
+      (let* ((this-file (buffer-file-name))
+             (word-count
+              (with-output-to-string
+                (with-current-buffer standard-output
+                  (call-process "texcount" nil t nil "-brief" this-file)))))
+        (string-match "\n$" word-count)
+        (message (replace-match "" nil nil word-count))))
+#+END_SRC
+
 * Polymode (for knitr)
   Polymode is a (relatively new) way of working with multiple major
   modes. This is especially helpful if we want to use latex or
