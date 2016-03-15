@@ -116,29 +116,6 @@ looking at using dired. This package lets me do that:
     :ensure t)
 #+END_SRC
 
-* Splitting windows
-  These functions make splitting windows behave more like I want it
-  to. This way, calling ~C-x 2~ or ~C-x 3~ both splits the window
-  /and/ shows the last buffer. 
-
-#+BEGIN_SRC emacs-lisp
-  (defun my/vsplit-last-buffer (prefix)
-    "Split the window vertically and display the previous buffer."
-    (interactive "p")
-    (split-window-vertically)
-    (other-window 1 nil)
-    (if (= prefix 1)
-      (switch-to-next-buffer)))
-  (defun my/hsplit-last-buffer (prefix)
-    "Split the window horizontally and display the previous buffer."
-    (interactive "p")
-    (split-window-horizontally)
-    (other-window 1 nil)
-    (if (= prefix 1) (switch-to-next-buffer)))
-  (bind-key "C-x 2" 'my/vsplit-last-buffer)
-  (bind-key "C-x 3" 'my/hsplit-last-buffer)
-#+END_SRC
-
 * Modeline
   Trying out spacemacs modeline... 
 
@@ -311,37 +288,6 @@ override that when we're using the minibuffer:
   (global-set-key (kbd "S-C-<down>") 'shrink-window)
   (global-set-key (kbd "S-C-<up>") 'enlarge-window)
 #+END_SRC
-** Swap horizontal and vertical windows
-Sometimes I want horizontal windows to be vertical or vice versa. This
-lets me make that happen:
-
-#+BEGIN_SRC emacs-lisp
-  (defun toggle-window-split ()
-    (interactive)
-    (if (= (count-windows) 2)
-        (let* ((this-win-buffer (window-buffer))
-               (next-win-buffer (window-buffer (next-window)))
-               (this-win-edges (window-edges (selected-window)))
-               (next-win-edges (window-edges (next-window)))
-               (this-win-2nd (not (and (<= (car this-win-edges)
-                                           (car next-win-edges))
-                                       (<= (cadr this-win-edges)
-                                           (cadr next-win-edges)))))
-               (splitter
-                (if (= (car this-win-edges)
-                       (car (window-edges (next-window))))
-                    'split-window-horizontally
-                  'split-window-vertically)))
-          (delete-other-windows)
-          (let ((first-win (selected-window)))
-            (funcall splitter)
-            (if this-win-2nd (other-window 1))
-            (set-window-buffer (selected-window) this-win-buffer)
-            (set-window-buffer (next-window) next-win-buffer)
-            (select-window first-win)
-            (if this-win-2nd (other-window 1))))))
-#+END_SRC
-
 ** Move around quickly
 You can ~C-n~ and whatnot to go by line, but sometimes I want to move
 a bit more quickly than that. Using ~C-S-n~ will now let me: 
