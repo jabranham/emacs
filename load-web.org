@@ -10,7 +10,11 @@ the like.
     :mode 
     ("\\.html?\\'" . web-mode)
     ("\\.scss?\\'" . web-mode)
-    ("\\.erb\\'" . web-mode))
+    ("\\.erb\\'" . web-mode)
+    ("\\.djhtml\\'" . web-mode)
+    :config
+    (setq web-mode-engines-alist
+          '(("django" . "\\.djhtml'"))))
 #+END_SRC
 
 * CSS, SCSS
