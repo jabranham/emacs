@@ -52,12 +52,3 @@ emacs. Sometimes the package repositories are a little finicky.
 * lintr
 One of the packages I use relies on an R package to inform you of bad
 syntax. Open up R, and run `install.packages("lintr")`
-
-* Weird quirk
-This is a weird quirk. Since I'm loading all org files and this readme
-is an org file, emacs produces an errror unless I include code in
-here. So here's a comment.
-
-#+BEGIN_SRC emacs-lisp
-;
-#+END_SRC
