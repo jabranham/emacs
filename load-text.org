@@ -75,6 +75,7 @@ Let's get it set up:
   (use-package magic-latex-buffer
     :ensure t
     :config
+    (setq magic-latex-enable-block-align nil)
     (add-hook 'latex-mode-hook 'magic-latex-buffer)
     (add-hook 'LaTeX-mode-hook 'magic-latex-buffer))
 #+END_SRC
