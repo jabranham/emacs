@@ -96,11 +96,8 @@ source blocks in org mode:
       (previous-line 2)
       (org-edit-src-code)))
 
-  (add-hook 'org-mode-hook
-            '(lambda ()
-               local-set-key (kbd C-c s a) 'my/org-insert-src-block))
+  (define-key org-mode-map (kbd "C-c s a") 'my/org-insert-src-block)
 #+END_SRC
-
 
 * References 
   I use org-ref to manage my references. 
