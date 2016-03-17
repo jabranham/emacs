@@ -77,6 +77,31 @@ quotes for latex export:
           org-src-tab-acts-natively    t)
 #+END_SRC
 
+** Adding SRC blocks
+Here I define a function ([[https://github.com/vdemeester/emacs-config/blob/master/.emacs.d/emacs.org][thanks!]]) that lets me easily add and edit
+source blocks in org mode:
+
+#+BEGIN_SRC emacs-lisp
+  (defun my/org-insert-src-block (src-code-type)
+    "Insert a `SRC-CODE-TYPE' type source code block in org-mode."
+    (interactive
+     (let ((src-code-types
+            '("emacs-lisp" "python" "sh"  "css" "calc" "R" "sass" "latex" "lisp" "matlab" "org")))
+       (list (ido-completing-read "Source code type: " src-code-types))))
+    (progn
+      (newline-and-indent)
+      (insert (format "#+BEGIN_SRC %s\n" src-code-type))
+      (newline-and-indent)
+      (insert "#+END_SRC\n")
+      (previous-line 2)
+      (org-edit-src-code)))
+
+  (add-hook 'org-mode-hook
+            '(lambda ()
+               local-set-key (kbd C-c s a) 'my/org-insert-src-block))
+#+END_SRC
+
+
 * References 
   I use org-ref to manage my references. 
 
@@ -114,7 +139,8 @@ to keep these files in sync across computers.
 Here are a few miscellaneous things that make org mode better. 
 #+BEGIN_SRC emacs-lisp
   (setq org-pretty-entities          t
-        org-support-shift-select     t)
+        org-support-shift-select     t
+        org-enforce-todo-checkbox-dependencies t)
   (setq org-log-done t)
   (use-package htmlize
     :ensure t)
