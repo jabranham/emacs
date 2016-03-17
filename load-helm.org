@@ -75,8 +75,8 @@
   (when (executable-find "mu")
     (use-package helm-mu
       :bind
-      ("C-c s e" . helm-mu)
-      ("C-c s c" . helm-mu-contacts)
+      ("C-c m m" . helm-mu)
+      ("C-c m c" . helm-mu-contacts)
       :ensure t))
 #+END_SRC
 * Helm and spellcheck
