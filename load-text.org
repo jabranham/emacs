@@ -175,6 +175,7 @@ my-file.tex~:
     (add-hook 'LaTeX-mode-hook 'turn-on-flyspell)
     (add-hook 'markdown-mode-hook 'turn-on-flyspell)
     (add-hook 'org-mode-hook 'turn-on-flyspell)
+    (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
     (define-key ctl-x-map "\C-i"
       #'endless/ispell-word-then-abbrev)
@@ -210,7 +211,7 @@ my-file.tex~:
               (message "\"%s\" now expands to \"%s\" %sally"
                        bef aft (if p "loc" "glob")))
           (user-error "No typo at or before point"))))
-  
+
 
     (setq save-abbrevs 'silently)
     (setq-default abbrev-mode t))
