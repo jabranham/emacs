@@ -17,12 +17,11 @@ Pretty please use utf-8 for all the things:
   By default, emacs starts with a blindingly white theme. Let's get
   rid of that pronto. 
 #+BEGIN_SRC emacs-lisp
-  (use-package zenburn-theme ; this is the theme I use
+  (use-package spacemacs-theme
     :ensure t
     :init
     (setq custom-safe-themes t)
-    :config
-    (load-theme 'zenburn))
+    (load-theme 'spacemacs-dark))
 #+END_SRC
 * Scrolling
   Emacs has some awful scrolling by default. This gets rid of that. 
