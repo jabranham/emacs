@@ -81,6 +81,7 @@ Finally, we can load up [[http://www.deadpansincerity.com/docs/pony/][pony-mode]
     :ensure t
     :diminish flycheck-mode
     :config
+    (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
     (add-hook 'after-init-hook #'global-flycheck-mode))
 
 #+END_SRC
