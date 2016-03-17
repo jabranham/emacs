@@ -201,6 +201,15 @@ keybindings.
 * Miscellaneous 
   Here are a bunch of things I want emacs to do (or not) but don't
   seem to fit in other sections. 
+** Replace selected text
+Emacs by default doesn't replace selected text if you start typing
+over it. Since that's the behavior of virtually all other programs,
+let's make emacs do that too:
+
+#+BEGIN_SRC emacs-lisp
+  (delete-selection-mode)
+#+END_SRC
+
 ** Backup files
    I want emacs to make these, but don't want to clutter up my project
    folders with tons of backup files. Solution: put them in the
