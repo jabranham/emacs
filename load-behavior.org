@@ -198,6 +198,20 @@ keybindings.
     :init
     (add-hook 'after-init-hook 'server-start t))
 #+END_SRC
+
+* Comments
+
+This package makes emacs's commenting behavior work more like how I
+want it to: when the cursor is at the beginning or mid line, ~M-;~
+comments out the line. If it's at the end of a line, then ~M-;~ starts
+a comment at the end of the line. 
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package smart-comment
+      :ensure t
+      :bind ("M-;" . smart-comment))
+  #+END_SRC
+
 * Miscellaneous 
   Here are a bunch of things I want emacs to do (or not) but don't
   seem to fit in other sections. 
