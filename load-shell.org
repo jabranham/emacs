@@ -1,3 +1,6 @@
+* Shell mode
+
+** create new shell
 It's a bit hard to get a second shell, so we can use this function to
 create a second shell by renaming it:
 #+BEGIN_SRC emacs-lisp
@@ -8,6 +11,13 @@ create a second shell by renaming it:
       (shell (concat "*" shell-name "*"))))
   (global-set-key (kbd "C-c M-E") 'create-shell)
 #+END_SRC
+
+** Make urls clickable
+
+   #+BEGIN_SRC emacs-lisp
+     (add-hook 'shell-mode-hook 'goto-address-mode)
+   #+END_SRC
+
 
 * Shell-pop
 Use ~C-c M-e to pop up a little shell
