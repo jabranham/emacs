@@ -93,7 +93,7 @@ enable it for R:
   (use-package electric-operator
     :ensure t
     :config
-    (electric-operator-add-rules-for-mode 'ess-mode (cons "=" " = "))
+    (setq electric-operator-R-named-argument-style 'spaced)
     (add-hook 'ess-mode-hook #'electric-operator-mode)
     (add-hook 'python-mode-hook #'electric-operator-mode))
 #+END_SRC
