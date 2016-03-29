@@ -122,6 +122,11 @@ Finally, we can get mu4e set up.
             (nreverse buffers)))
         (setq gnus-dired-mail-mode 'mu4e-user-agent)
         (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode))
+      ;; turn off autofill mode in mu4e compose
+      (defun no-auto-fill ()
+        "Turn off auto-fill-mode."
+        (auto-fill-mode -1))
+      (add-hook 'mu4e-compose-mode-hook #'no-auto-fill)
       ;; configure orgmode support in mu4e
       (use-package org-mu4e
         ;; when mail is sent, automatically convert org body to HTML
