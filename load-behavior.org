@@ -369,13 +369,9 @@ Yes, please save my place when opening/closing files:
 I like having the menu-bar, but not if I'm in terminal. I don't really
 want the toolbar or the scroll bars, though. 
 #+BEGIN_SRC emacs-lisp
-  (if window-system 
-      (menu-bar-mode t)
-      (menu-bar-mode -1))
-  (when (fboundp 'tool-bar-mode)
-    (tool-bar-mode -1))
-  (when (fboundp 'scroll-bar-mode)
-    (scroll-bar-mode -1))
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
 #+END_SRC
 
 Don't ever use tabs. Always use spaces. 
