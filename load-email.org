@@ -60,6 +60,7 @@ Finally, we can get mu4e set up.
   (when (executable-find "mu")
     (use-package mu4e
       :config
+      (add-to-list 'auto-mode-alist '("\\.offlineimaprc" . conf-mode))
       ;; default
       (setq mu4e-maildir "~/Documents/Maildir/utexas")
       (setq mu4e-drafts-folder "/[Gmail].Drafts")

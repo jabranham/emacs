@@ -31,3 +31,12 @@ configuration when you exit.
     (jump-to-register :magit-fullscreen))
     (define-key magit-status-mode-map (kbd "q") 'magit-quit-session))
 #+END_SRC
+
+Need to let emacs know that =.gitconfig= is a unix config file:
+
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'auto-mode-alist '("\\.gitconfig" . conf-mode))
+#+END_SRC
+
+
