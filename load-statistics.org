@@ -11,7 +11,13 @@
               (lambda ()
                 (ess-set-style 'RStudio)))
     (setq ess-offset-arguments 'prev-line)
-    (setq ess-ask-for-ess-directory nil))
+    (setq ess-ask-for-ess-directory nil)
+    (defun my/add-pipe ()
+      (interactive)
+      (just-one-space 1)
+      (insert "%>%")
+      (ess-newline-and-indent))
+    (define-key ess-mode-map (kbd "M-p") 'my/add-pipe))
 
 #+END_SRC
 * Python
