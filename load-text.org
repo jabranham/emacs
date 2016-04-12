@@ -68,18 +68,6 @@ fill-paragraph is ~M-q~.
     (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "latexmk"))))
 #+END_SRC
 
-Magic-latex-buffer is a package that makes LaTeX look great in emacs.
-Let's get it set up:
-
-#+BEGIN_SRC emacs-lisp
-  (use-package magic-latex-buffer
-    :ensure t
-    :config
-    (setq magic-latex-enable-block-align nil)
-    (add-hook 'latex-mode-hook 'magic-latex-buffer)
-    (add-hook 'LaTeX-mode-hook 'magic-latex-buffer))
-#+END_SRC
-
 Finally, sometimes we want wordcounts. If I just want a quick snippet,
 I can run the following command. If I want more information, I can
 drop into a shell with ~C-c M-e~ (~shell-pop~) and run ~texcount
