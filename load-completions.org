@@ -26,7 +26,11 @@
       (lambda () (interactive) (company-complete-common-or-cycle 1)))
     (global-company-mode t)
     (use-package company-web-html
-      :ensure company-web))
+      :ensure company-web)
+    (use-package company-shell
+      :ensure t
+      :config
+      (add-to-list 'company-backends 'company-shell)))
 #+END_SRC
 * Yasnippet 
   Yasnippet allows you to type an abbreviation and then expand it into
