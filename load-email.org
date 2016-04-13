@@ -1,85 +1,34 @@
 * mu4e setup files
-  I use ~mu4e~ with offlineimap and mu for my email. In order to use
-  this file, you'll need to make sure that offlineimap and mu are
-  installed on your system. Offlineimap requires a bit of
+  I use ~mu4e~ with mbsync and mu for my email. In order to use
+  this file, you'll need to make sure that mbsync and mu are
+  installed on your system. mbsync requires a bit of
   configuration to get it started. 
-** Other files
-   In order to use offlineimap, you need to create a file
-   ~~/.offlineimaprc~. Mine looks like this: 
-
-   #+BEGIN_EXAMPLE
-   [general]
-   accounts = utexas
-   maxsyncaccounts = 5
-   pythonfile = ~/.offlineimap.py
-   
-   [Account utexas]
-   localrepository = utexas-local
-   remoterepository = utexas-remote
-   
-   [Repository utexas-local]
-   type = Maildir
-   localfolders = ~/Documents/Maildir/utexas
-   
-   [Repository utexas-remote]
-   type = Gmail
-   remoteuser = branham@utexas.edu
-   remotepasseval = get_password_emacs("imap.gmail.com", "branham@utexas.edu", "993")
-   sslcacertfile = /etc/ssl/certs/ca-certificates.crt
-   realdelete = no
-   
-   folderfilter = lambda foldername: foldername not in ['[Gmail]/Spam', '[Gmail]/Starred', '[Gmail]/Important']
-   #+END_EXAMPLE
-
-   To avoid storing my password in plain text, I store it in an
-   encrypted file ~~/.authinfo~ that looks like this:
-
-#+BEGIN_EXAMPLE
-machine imap.gmail.com login branham@utexas.edu port 993 password YOURPASS
-machine smtp.gmail.com login branham@utexas.edu port 587 password YOURPASS
-#+END_EXAMPLE
-
- You can then use emacs to encrypt that file with ~M-x
-   epa-encrypt-file~ and save it as ~~/.authinfo.gpg~. Finally, you
-   need to set up a python script so that offlineimap can use your
-   ~.authinfo.gpg~ file:
-
-#+BEGIN_EXAMPLE
-#!/usr/bin/python
-import re, os
-
-def get_password_emacs(machine, login, port):
-    s = "machine %s login %s port %s password ([^ ]*)\n" % (machine, login, port)
-    p = re.compile(s)
-    authinfo = os.popen("gpg -q --no-tty -d ~/.authinfo.gpg").read()
-    return p.search(authinfo).group(1)
-#+END_EXAMPLE
 * mu4e setup
 Finally, we can get mu4e set up. 
 #+BEGIN_SRC emacs-lisp
   (when (executable-find "mu")
     (use-package mu4e
       :config
-      (add-to-list 'auto-mode-alist '("\\.offlineimaprc" . conf-mode))
       ;; default
-      (setq mu4e-maildir "~/Documents/Maildir/utexas")
-      (setq mu4e-drafts-folder "/[Gmail].Drafts")
-      (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
-      (setq mu4e-trash-folder  "/[Gmail].Trash")
+      (setq mu4e-maildir "~/.mail/utexas")
+      (setq mu4e-drafts-folder "/[Gmail]/.Drafts")
+      (setq mu4e-sent-folder   "/[Gmail]/.Sent Mail")
+      (setq mu4e-trash-folder  "/[Gmail]/.Trash")
       ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
       (setq mu4e-sent-messages-behavior 'delete)
       (setq
-       mu4e-get-mail-command "offlineimap"   ;; or fetchmail, or ...
-       mu4e-update-interval 180)             ;; update every 3 minutes
+       mu4e-get-mail-command "mbsync -a"   ;; or fetchmail, or ...
+       mu4e-update-interval 60)             ;; update every minute
+      (setq mu4e-change-filenames-when-moving t)
       ;; setup some handy shortcuts
       ;; you can quickly switch to your Inbox -- press ``ji''
       ;; then, when you want archive some messages, move them to
       ;; the 'All Mail' folder by pressing ``ma''.
       (setq mu4e-maildir-shortcuts
             '( ("/INBOX"  . ?i)
-               ("/[Gmail].Sent Mail"   . ?s)
-               ("/[Gmail].Trash"  . ?t)
-               ("/[Gmail].All Mail" . ?a)))
+               ("/[Gmail]/Sent Mail"   . ?s)
+               ("/[Gmail]/Trash"  . ?t)
+               ("/[Gmail]/All Mail" . ?a)))
       ;; something about ourselves
       (setq mu4e-user-mail-address-list '("branham@utexas.edu"))
       (setq
