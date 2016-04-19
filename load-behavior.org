@@ -212,6 +212,25 @@ a comment at the end of the line.
       :bind ("M-;" . smart-comment))
   #+END_SRC
 
+* Crux
+  [[https://github.com/bbatsov/crux/blob/master/crux.el][Crux]] is a collection of useful extensions. Here I bind some of the
+  more useful functions: 
+
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package crux
+      :ensure t
+      :diminish abbrev-mode
+      :bind
+      ("C-a" . crux-move-beginning-of-line)
+      ("C-x i" . crux-ispell-word-then-abbrev)
+      ("C-c o" . crux-open-with)
+      :config
+      (setq save-abbrevs 'silently)
+      (setq-default abbrev-mode t))
+  #+END_SRC
+
+
 * Miscellaneous 
   Here are a bunch of things I want emacs to do (or not) but don't
   seem to fit in other sections. 
@@ -400,38 +419,6 @@ Don't ever use tabs. Always use spaces.
   (setq frame-title-format
     '("Emacs - " (buffer-file-name "%f"
       (dired-directory dired-directory "%b"))))
-#+END_SRC
-
-   This will let you go to the first non-whitespace character on a
-   line with ~C-a~. Pressing it again will take you to the beginning
-   of line. 
-#+BEGIN_SRC emacs-lisp
-  (defun my/smarter-move-beginning-of-line (arg)
-    "Move point back to indentation of beginning of line.
-
-  Move point to the first non-whitespace character on this line.
-  If point is already there, move to the beginning of the line.
-  Effectively toggle between the first non-whitespace character and
-  the beginning of the line.
-
-  If ARG is not nil or 1, move forward ARG - 1 lines first.  If
-  point reaches the beginning or end of the buffer, stop there."
-    (interactive "^p")
-    (setq arg (or arg 1))
-
-    ;; Move lines first
-    (when (/= arg 1)
-      (let ((line-move-visual nil))
-        (forward-line (1- arg))))
-
-    (let ((orig-point (point)))
-      (back-to-indentation)
-      (when (= orig-point (point))
-        (move-beginning-of-line 1))))
-
-  (global-set-key [remap move-beginning-of-line]
-                  'my/smarter-move-beginning-of-line)
-  (global-set-key (kbd "C-a") 'my/smarter-move-beginning-of-line)
 #+END_SRC
 
 We can also define ~C-M-<backspace>~ to kill back to the first
