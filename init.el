@@ -8,7 +8,7 @@
 ;; This file loads Org-mode and then loads the rest of our Emacs
 ;; initialization from Emacs lisp embedded in literate Org-mode files.
 ;; It will load all files with a file name starting "load" and ending
-;; with "org"
+;; with ".org"
 
 (setq dotfiles-dir (file-name-directory (or (buffer-file-name) load-file-name)))
 
@@ -39,13 +39,9 @@
   (require 'use-package))
 (require 'diminish)
 (require 'bind-key)
-;(require 'cl-lib)
 
 ;; load up all literate org-mode files in this directory
 (require 'org)
-;(require 'org-install)
-;(require 'ob-tangle)
-;(require 'ox)
 
 (mapc #'org-babel-load-file (directory-files dotfiles-dir t "load.*\\.org$"))
 
