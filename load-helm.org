@@ -48,16 +48,16 @@
     :ensure t
     :diminish projectile-mode
     :config
-    (use-package projectile-rails
+    (def-projectile-commander-method ?F
+      "Git fetch."
+      (magit-status)
+      (call-interactively #'magit-fetch-current))
+    (use-package helm-projectile
       :ensure t
       :config
-      (add-hook 'projectile-mode-hook 'projectile-rails-on)))
-  (use-package helm-projectile
-    :ensure t
-    :config
-    (setq projectile-completion-system 'helm)
-    (projectile-global-mode)
-    (helm-projectile-on))
+      (setq projectile-completion-system 'helm)
+      (projectile-global-mode)
+      (helm-projectile-on)))
 #+END_SRC
 * Helm and references
 #+BEGIN_SRC emacs-lisp
