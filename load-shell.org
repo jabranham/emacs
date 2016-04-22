@@ -27,3 +27,18 @@ Use ~C-c M-e to pop up a little shell
     :bind
     ("C-c M-e" . shell-pop))
 #+END_SRC
+
+* Bash completion 
+We can get bash completion in shell-mode! Among other things, I get
+tab-completion for aliases I've set up in my .bashrc file. 
+
+
+#+BEGIN_SRC emacs-lisp
+  (use-package bash-completion
+    :ensure t
+    :config
+    (bash-completion-setup))
+#+END_SRC
+
+
+
