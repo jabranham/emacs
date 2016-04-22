@@ -230,6 +230,15 @@ a comment at the end of the line.
       (setq-default abbrev-mode t))
   #+END_SRC
 
+* Avy
+
+#+BEGIN_SRC emacs-lisp
+  (use-package avy
+    :ensure t
+    :bind
+    ("M-s" . avy-goto-word-1))
+#+END_SRC
+
 * Help windows
 You can use =C-h f=, =C-h v= and others to read docs for functions,
 variables, etc. This makes emacs switch focus to these windows:
