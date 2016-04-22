@@ -99,7 +99,7 @@ my-file.tex~:
     ("\\.Rmd" . poly-markdown+r-mode))
 
 #+END_SRC
-* RefTeX
+* References 
   RefTeX takes care of referencing things. You can use it with ~C-[~
   most places. I also use it in org mode, but we need to bind it to a
   different key since that's taken. Finally, I like to use natbib
@@ -138,6 +138,15 @@ my-file.tex~:
     (add-hook 'org-mode-hook 'my-org-reftex-keybinding)
     (add-hook 'LaTeX-mode-hook 'turn-on-reftex))
 #+END_SRC
+
+This package lets me search google scholar and automatically add
+entries to my bib file: 
+
+#+BEGIN_SRC emacs-lisp
+  (use-package gscholar-bibtex
+    :ensure t)
+#+END_SRC
+
 
 * Spell Check
   Flyspell checks for spelling on the fly. I use aspell instead of
