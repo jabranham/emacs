@@ -100,3 +100,20 @@ lets me make that happen:
   (bind-key "C-x 3" 'my/hsplit-last-buffer)
 #+END_SRC
 
+* UT's VPN
+I can connect to the VPN at UT-Austin with this function:
+
+#+BEGIN_SRC emacs-lisp
+  (defun utexas/vpn ()
+    (interactive)
+    (with-temp-buffer
+      (cd "/sudo::/")
+      (async-shell-command "openconnect vpn.utexas.edu --script=/etc/vpnc/vpnc-script")))
+#+END_SRC
+
+Now let's bind it to f-5:
+
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "<f3>") 'utexas/vpn)
+#+END_SRC
