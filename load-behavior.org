@@ -63,6 +63,20 @@ seems slow to you.
     (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
     (add-hook 'ess-mode-hook #'rainbow-delimiters-mode))
 #+END_SRC
+* Embrace
+[[https://github.com/cute-jumper/embrace.el][Embrace]] lets me add parens and quotes and whatnot around words. I bind
+=C-,= to =embrace-commander=. 
+
+#+BEGIN_SRC emacs-lisp
+  (use-package embrace
+    :ensure t
+    :config
+    (bind-keys*
+     ("C-," . embrace-commander))
+    (add-hook 'LaTeX-mode-hook 'embrace-LaTeX-mode-hook)
+    (add-hook 'org-mode-hook 'embrace-org-mode-hook))
+#+END_SRC
+
 * PDF viewer
   I like emacs, so why not view PDFs in it? Build the server when it
   asks - this may take a second.
