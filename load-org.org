@@ -114,7 +114,6 @@ source blocks in org mode:
     (use-package org-ref-latex))
 #+END_SRC
 
-
 * Agenda 
 Here's where I set which files are added to org-agenda, which controls
 org's global todo list, scheduling, and agenda features. I use Dropbox
@@ -140,6 +139,13 @@ Finally, set up some nice global keybindings for accessing the agenda:
   (global-set-key (kbd "C-'") 'org-cycle-agenda-files)
 #+END_SRC
 
+* Capture
+
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-default-notes-file (concat org-directory "todo.org"))
+  (define-key global-map "\C-cc" 'org-capture)
+#+END_SRC
 
 * Misc
 Here are a few miscellaneous things that make org mode better. 
