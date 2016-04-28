@@ -262,6 +262,15 @@ variables, etc. This makes emacs switch focus to these windows:
   (setq help-window-select t)
 #+END_SRC
 
+* Passwords
+  I use [[https://www.passwordstore.org/][pass]] to manage all my passwords and login info. This lets me
+  easily access it from within emacs:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package pass
+    :ensure t)
+#+END_SRC
+
 * Miscellaneous 
   Here are a bunch of things I want emacs to do (or not) but don't
   seem to fit in other sections. 
