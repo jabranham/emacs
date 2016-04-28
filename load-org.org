@@ -6,8 +6,6 @@ no need to double-check that here.
 
 #+BEGIN_SRC emacs-lisp
   (define-key global-map "\C-cl" 'org-store-link)
-  (define-key global-map "\C-ca" 'org-agenda)
-  (global-set-key (kbd "C-'") 'org-cycle-agenda-files)
 #+END_SRC
 
 * Exporting
@@ -141,6 +139,14 @@ I also don't want finished TODO items to appear in my agenda:
 #+BEGIN_SRC emacs-lisp
   (setq org-agenda-skip-deadline-if-done t)
   (setq org-agenda-skip-scheduled-if-done t)
+#+END_SRC
+
+
+Finally, set up some nice global keybindings for accessing the agenda:
+
+#+BEGIN_SRC emacs-lisp
+  (define-key global-map "\C-ca" 'org-agenda)
+  (global-set-key (kbd "C-'") 'org-cycle-agenda-files)
 #+END_SRC
 
 
