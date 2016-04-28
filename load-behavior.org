@@ -239,6 +239,7 @@ a comment at the end of the line.
       ("C-a" . crux-move-beginning-of-line)
       ("C-x i" . crux-ispell-word-then-abbrev)
       ("C-c o" . crux-open-with)
+      ("C-c C-r r" . crux-sudo-edit)
       :config
       (setq save-abbrevs 'silently)
       (setq-default abbrev-mode t))
