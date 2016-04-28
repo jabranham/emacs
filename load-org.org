@@ -126,7 +126,7 @@ source blocks in org mode:
   (add-hook 'org-mode-hook 'org-display-inline-images)
 #+END_SRC
 
-* Agenda files
+* Agenda 
 Here's where I set which files are added to org-agenda, which controls
 org's global todo list, scheduling, and agenda features. I use Dropbox
 to keep these files in sync across computers. 
@@ -136,6 +136,14 @@ to keep these files in sync across computers.
   (setq org-agenda-files (list (concat org-directory "todo.org")
                                "~/Dropbox/bibliography/notes.org"))
 #+END_SRC
+
+I also don't want finished TODO items to appear in my agenda:
+#+BEGIN_SRC emacs-lisp
+  (setq org-agenda-skip-deadline-if-done t)
+  (setq org-agenda-skip-scheduled-if-done t)
+#+END_SRC
+
+
 * Misc
 Here are a few miscellaneous things that make org mode better. 
 #+BEGIN_SRC emacs-lisp
