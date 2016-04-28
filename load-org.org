@@ -48,7 +48,7 @@ quotes for latex export:
   (setq org-export-with-smart-quotes t)
 #+END_SRC
 
-* Code blocks
+* Code blocks (org-babel)
   Org-babel is included in org. We just need to tell it which
   languages to load. And don't ask us if we're sure we want to run
   code blocks when we ~C-c C-c~. Finally, open the code block in the
@@ -114,15 +114,6 @@ source blocks in org mode:
     (use-package org-ref-latex))
 #+END_SRC
 
-* Display images
-  Org has a neat trick that it can display images. This is especially
-  handy for when org-babel outputs a graph, since we can see the graph
-  and then type around it. Let's turn that on:
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)   
-  (add-hook 'org-mode-hook 'org-display-inline-images)
-#+END_SRC
 
 * Agenda 
 Here's where I set which files are added to org-agenda, which controls
