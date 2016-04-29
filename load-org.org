@@ -147,6 +147,17 @@ Finally, set up some nice global keybindings for accessing the agenda:
   (define-key global-map "\C-cc" 'org-capture)
 #+END_SRC
 
+* Refile
+Org-refile lets me quickly move around headings in org files. It plays
+nicely with org-capture, which I use to turn emails into TODOs easily
+(among other things, of course)
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-outline-path-complete-in-steps nil)
+  (setq org-refile-use-outline-path t)
+  (setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
+#+END_SRC
+
 * Misc
 Here are a few miscellaneous things that make org mode better. 
 #+BEGIN_SRC emacs-lisp
