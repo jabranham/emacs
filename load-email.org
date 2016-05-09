@@ -26,9 +26,9 @@ Finally, we can get mu4e set up.
       ;; the 'All Mail' folder by pressing ``ma''.
       (setq mu4e-maildir-shortcuts
             '( ("/INBOX"  . ?i)
-               ("/[Gmail]/Sent Mail"   . ?s)
-               ("/[Gmail]/Trash"  . ?t)
-               ("/[Gmail]/All Mail" . ?a)))
+               ("/[Gmail]/.Sent Mail"   . ?s)
+               ("/[Gmail]/.Trash"  . ?t)
+               ("/[Gmail]/.All Mail" . ?a)))
       ;; something about ourselves
       (setq mu4e-user-mail-address-list '("branham@utexas.edu"))
       (setq
