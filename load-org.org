@@ -189,3 +189,10 @@ isn't installed, it will use doc-view (the default in emacs) instead.
           ("\\.pdf\\'" . emacs)))
 
 #+END_SRC
+
+Follow links when I hit =RET= on them:
+
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-return-follows-link t)
+#+END_SRC
