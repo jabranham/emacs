@@ -271,6 +271,18 @@ variables, etc. This makes emacs switch focus to these windows:
     :ensure t)
 #+END_SRC
 
+* Package management
+[[https://github.com/mola-T/spu][SPU]] can upgrade the emacs packages once on a daily basis so I don't
+have to think about it.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package spu
+    :ensure t
+    :defer 5
+    :config
+    (spu-package-upgrade-daily))
+#+END_SRC
+
 * Miscellaneous 
   Here are a bunch of things I want emacs to do (or not) but don't
   seem to fit in other sections. 
