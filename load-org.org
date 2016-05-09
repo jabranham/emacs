@@ -139,6 +139,14 @@ Finally, set up some nice global keybindings for accessing the agenda:
   (global-set-key (kbd "C-'") 'org-cycle-agenda-files)
 #+END_SRC
 
+Finally, set up org-agenda to open in the current window:
+
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-agenda-window-setup 'current-window)
+#+END_SRC
+
+
 * Capture
 
 
