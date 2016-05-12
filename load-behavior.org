@@ -262,6 +262,17 @@ variables, etc. This makes emacs switch focus to these windows:
   (setq help-window-select t)
 #+END_SRC
 
+* popwin
+  [[https://github.com/m2ym/popwin-el][popwin]] describes itself as freeing me from the hell of annoying
+  buffers. Let's see if that's true: 
+
+#+BEGIN_SRC emacs-lisp
+  (use-package popwin
+    :ensure t
+    :config
+    (popwin-mode 1))
+#+END_SRC
+
 * Passwords
   I use [[https://www.passwordstore.org/][pass]] to manage all my passwords and login info. This lets me
   easily access it from within emacs:
