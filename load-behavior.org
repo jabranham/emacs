@@ -307,6 +307,17 @@ have to think about it.
     (spu-package-upgrade-daily))
 #+END_SRC
 
+* Highlights
+This package provides a visual cue whenever we change a block of text
+by highlighting it for a bit:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package volatile-highlights
+    :ensure t
+    :config
+    (volatile-highlights-mode t))
+#+END_SRC
+
 * Miscellaneous 
   Here are a bunch of things I want emacs to do (or not) but don't
   seem to fit in other sections. 
