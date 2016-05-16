@@ -110,6 +110,19 @@ seems slow to you.
 
 #+END_SRC
 
+Here I sort dired buffers with directories (folders) first, then
+everything else:
+
+#+BEGIN_SRC emacs-lisp
+  (defadvice dired-readin (after dired-after-updating-hook first () activate)
+    "Sort dired listings with directories first before adding marks."
+    (save-excursion
+      (let (buffer-read-only)
+        (forward-line 2) ;; beyond dir. header
+        (sort-regexp-fields t "^.*$" "[ ]*." (point) (point-max)))
+      (set-buffer-modified-p nil)))
+#+END_SRC
+
 Sometimes I uncompress .zip files from within emacs. This lets me do
 it in dired with ~Z~
 
