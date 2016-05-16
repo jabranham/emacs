@@ -114,6 +114,19 @@ source blocks in org mode:
     (use-package org-ref-latex))
 #+END_SRC
 
+* Latex
+Cdlatex lets me write latex in org-mode. It's particularly useful for
+math. [[https://www.gnu.org/software/emacs/manual/html_node/org/CDLaTeX-mode.html][doc]]
+
+#+BEGIN_SRC emacs-lisp
+  (use-package cdlatex
+    :ensure t
+    :diminish org-cdlatex-mode
+    :config
+    (progn
+      (add-hook 'org-mode-hook 'org-cdlatex-mode)))
+#+END_SRC
+
 * Agenda 
 Here's where I set which files are added to org-agenda, which controls
 org's global todo list, scheduling, and agenda features. I use Dropbox
