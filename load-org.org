@@ -209,3 +209,8 @@ Follow links when I hit =RET= on them:
 #+BEGIN_SRC emacs-lisp
   (setq org-return-follows-link t)
 #+END_SRC
+
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-image-actual-width '(300))
+#+END_SRC
