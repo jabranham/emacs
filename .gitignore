@@ -31,3 +31,5 @@ games/
 /abbrev_defs
 /load-functions.el
 /load-web.el
+/bookmarks
+/tramp
