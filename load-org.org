@@ -111,7 +111,15 @@ source blocks in org mode:
     :config
     (use-package doi-utils)
     (use-package org-ref-isbn)
-    (use-package org-ref-latex))
+    (use-package org-ref-latex)
+
+    ;; override helm-bibtex's note method with org-ref's
+    (defun my/org-ref-notes-function (candidates)
+      (let ((key (helm-marked-candidates)))
+        (funcall org-ref-notes-function (car key))))
+
+    (helm-delete-action-from-source "Edit notes" helm-source-bibtex)
+    (helm-add-action-to-source "Edit notes" 'my/org-ref-notes-function helm-source-bibtex 7))
 #+END_SRC
 
 * Latex
