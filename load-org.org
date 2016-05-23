@@ -184,7 +184,8 @@ Here are a few miscellaneous things that make org mode better.
 #+BEGIN_SRC emacs-lisp
   (setq org-pretty-entities          t
         org-support-shift-select     t
-        org-enforce-todo-checkbox-dependencies t)
+        org-enforce-todo-checkbox-dependencies t
+        org-hide-emphasis-markers t)
   (setq org-log-done t)
   (use-package htmlize
     :ensure t)
