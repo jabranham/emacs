@@ -291,10 +291,12 @@ variables, etc. This makes emacs switch focus to these windows:
   easily access it from within emacs:
 
 #+BEGIN_SRC emacs-lisp
-  (use-package pass
-    :ensure t)
+  (when (executable-find "pass")
+    (use-package pass
+      :ensure t
+      :config
+      (setq password-store-password-length 20)))
 #+END_SRC
-
 
 * Highlights
 This package provides a visual cue whenever we change a block of text
