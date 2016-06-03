@@ -19,9 +19,9 @@ Pretty please use utf-8 for all the things:
 #+BEGIN_SRC emacs-lisp
   (use-package spacemacs-theme
     :ensure t
+    :defer t
     :init
-    (setq custom-safe-themes t)
-    (load-theme 'spacemacs-dark))
+    (load-theme 'spacemacs-dark t))
 #+END_SRC
 * Scrolling
   Emacs has some awful scrolling by default. This gets rid of that. 
