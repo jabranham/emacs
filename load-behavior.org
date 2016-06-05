@@ -310,6 +310,17 @@ by highlighting it for a bit:
     (volatile-highlights-mode t))
 #+END_SRC
 
+* Try
+This package lets me try out other packages before installing them by
+installing them to tmp:
+
+
+#+BEGIN_SRC emacs-lisp
+  (use-package try
+    :ensure t)
+#+END_SRC
+
+
 * Miscellaneous 
   Here are a bunch of things I want emacs to do (or not) but don't
   seem to fit in other sections. 
