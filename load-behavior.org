@@ -176,6 +176,19 @@ looking at using dired. This package lets me do that:
     (window-numbering-mode))
 #+END_SRC
 
+* Buffer management
+Here's a quick [[https://github.com/abo-abo/hydra][hydra]] that I wrote to quickly move buffers from window
+to window: 
+
+#+BEGIN_SRC emacs-lisp
+  (defhydra hydra-window (global-map "C-c mb")
+      "window management"
+      ("l" buf-move-left "left")
+      ("r" buf-move-right "right")
+      ("d" buf-move-down "down")
+      ("u" buf-move-up "up"))
+#+END_SRC
+
 * Keybindings
   I use ~desktop-clear~ to get rid of buffers and other things every
   now and then. Let's bind it to f12: 
