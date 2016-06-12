@@ -80,6 +80,21 @@ lets me make that happen:
   (bind-key "C-x 2" 'my/vsplit-last-buffer)
   (bind-key "C-x 3" 'my/hsplit-last-buffer)
 #+END_SRC
+* Google
+Google the marked region or ask:
+
+
+#+BEGIN_SRC emacs-lisp
+  (defun google ()
+    "Google the selected region if any, display a query prompt otherwise."
+    (interactive)
+    (browse-url
+     (concat
+      "http://www.google.com/search?ie=utf-8&oe=utf-8&q="
+      (url-hexify-string (if mark-active
+           (buffer-substring (region-beginning) (region-end))
+           (read-string "Search Google: "))))))
+#+END_SRC
 
 * UT's VPN
 I can connect to the VPN at UT-Austin with this function:
