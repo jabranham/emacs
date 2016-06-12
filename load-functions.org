@@ -104,7 +104,7 @@ I can connect to the VPN at UT-Austin with this function:
     (interactive)
     (with-temp-buffer
       (cd "/sudo::/")
-      (async-shell-command "openconnect vpn.utexas.edu --script=/etc/vpnc/vpnc-script")))
+      (async-shell-command "openconnect vpn.utexas.edu")))
 #+END_SRC
 
 Now let's bind it to f3:
