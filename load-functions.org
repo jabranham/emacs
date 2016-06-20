@@ -145,3 +145,31 @@ From [[https://www.reddit.com/r/emacs/comments/445w6s/whats_some_small_thing_in_
       ((or 1 4) (insert value))
       (-1 (message value))))))
 #+END_SRC
+
+* Insert file name
+
+This function ([[http://pragmaticemacs.com/emacs/insert-file-name/][credit]]) lets me insert a file name easily. Defaults to
+relative patph, use the universal argument to get the absolute path.
+
+#+BEGIN_SRC emacs-lisp
+  (defun my/insert-file-name (filename &optional args)
+    "Insert name of file FILENAME into buffer after point.
+
+    Prefixed with \\[universal-argument], expand the file name to
+    its fully canocalized path.  See `expand-file-name'.
+
+    Prefixed with \\[negative-argument], use relative path to file
+    name from current directory, `default-directory'.  See
+    `file-relative-name'.
+
+    The default with no prefix is to insert the file name exactly as
+    it appears in the minibuffer prompt."
+    ;; Based on insert-file in Emacs -- ashawley 20080926
+    (interactive "*fInsert file name: \nP")
+    (cond ((eq '- args)
+           (insert (expand-file-name filename)))
+          ((not (null args))
+           (insert (filename)))
+          (t
+           (insert (file-relative-name filename)))))
+#+END_SRC
