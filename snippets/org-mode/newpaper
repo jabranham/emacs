@@ -11,15 +11,14 @@
 #+LANGUAGE: en
 #+OPTIONS: toc:nil
 #+LATEX_HEADER: \usepackage[margin=1in]{geometry}
-#+LATEX_HEADER: \usepackage{natbib}
+#+LATEX_HEADER: \usepackage[style=authoryear, doi=false, isbn=false, url=false]{biblatex}
+#+LATEX_HEADER: \addbibresource{~/Dropbox/bibliography/references.bib}
 #+LATEX_HEADER: \usepackage{fontspec}
 #+LATEX_HEADER: \setmainfont{Linux Libertine}
 #+LATEX_CLASS_OPTIONS: [colorlinks, urlcolor=blue,citecolor=blue]
 
 $2
 
-bibliographystyle:apsr
-bibliography:\string~/Dropbox/bibliography/references.bib
-
+\printbibliography
 
 
