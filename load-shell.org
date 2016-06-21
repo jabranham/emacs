@@ -1,4 +1,12 @@
 * Shell mode
+** Fix for dumb terminal
+   Shell-mode uses a "dumb" terminal. Sometimes that's annoying, but
+   this fixes the worst of that: 
+
+#+BEGIN_SRC emacs-lisp
+  (setenv "PAGER" "cat")
+#+END_SRC
+
 
 ** create new shell
 It's a bit hard to get a second shell, so we can use this function to
