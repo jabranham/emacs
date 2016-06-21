@@ -29,6 +29,11 @@ Finally, we can get mu4e set up.
                ("/[Gmail]/.Sent Mail"   . ?s)
                ("/[Gmail]/.Trash"  . ?t)
                ("/[Gmail]/.All Mail" . ?a)))
+      (defun my/mu4e-headers-keybinds ()
+        "I rarely delete emails, so use d and D to delete rather
+        than trash."
+        (local-set-key (kbd "d") #'mu4e-headers-mark-for-delete))
+      (add-hook 'mu4e-headers-mode-hook #'my/mu4e-headers-keybinds)
       ;; something about ourselves
       (setq mu4e-user-mail-address-list '("branham@utexas.edu"))
       (setq
