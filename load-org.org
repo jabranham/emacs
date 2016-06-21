@@ -88,7 +88,7 @@ source blocks in org mode:
     (setq org-ref-bibliography-notes "~/Dropbox/bibliography/notes.org"
           org-ref-default-bibliography '("~/Dropbox/bibliography/references.bib")
           org-ref-pdf-directory "~/Dropbox/bibliography/bibtex-pdfs/"
-          org-ref-default-citation-link "citep")
+          org-ref-default-citation-link "autocite")
     :config
     (use-package doi-utils)
     (use-package org-ref-isbn)
