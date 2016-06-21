@@ -38,8 +38,14 @@ that.
   Markdown mode for Markdown editing! 
 
 #+BEGIN_SRC emacs-lisp
-  (use-package markdown-mode ; for markdown mode
-    :ensure t)
+  (use-package markdown-mode 
+    :ensure t
+    :commands (markdown-mode gfm-mode)
+    :mode (("README\\.md\\'" . gfm-mode)
+           ("\\.md\\'" . markdown-mode)
+           ("\\.markdown\\'" . markdown-mode))
+    :config
+    (setq markdown-enable-math t))
 #+END_SRC
 
 * LaTeX
