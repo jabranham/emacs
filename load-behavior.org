@@ -363,7 +363,7 @@ installing them to tmp:
     :bind
     ("C-z" . undo-tree-undo)
     ("C-?" . undo-tree-redo)
-    ("C- x u" . undo-tree-visualize)
+    ("C-x u" . undo-tree-visualize)
     :config
     (global-undo-tree-mode))
 #+END_SRC
