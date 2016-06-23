@@ -36,6 +36,23 @@ Pretty please use utf-8 for all the things:
     (setq scroll-step 1)) ; keyboard scroll one line at a time
 
 #+END_SRC
+* Key chords
+Key chords let me call a command by pressing two keys simultaneously
+or one key twice (quickly).
+
+#+BEGIN_SRC emacs-lisp
+  (use-package key-chord
+    :ensure t
+    :config
+    (key-chord-mode 1)
+    (key-chord-define-global
+     "--"
+     (lambda ()
+       "insert an underscore"
+       (interactive)
+       (insert "_"))))
+#+END_SRC
+
 * Smart parens
   I'm not good at keeping track of parentheses. This makes me slightly
   better at it. It also keeps track of other things that should
