@@ -1069,6 +1069,15 @@
          (add-hook 'org-mode-hook 'org-cdlatex-mode)))
    #+END_SRC
 
+   Org can preview latex fragments with =C-c C-x C-l= but it uses dvipng by
+   default. Let's switch it to imagemagick:
+
+
+   #+BEGIN_SRC emacs-lisp
+     (setq org-latex-create-formula-image-program 'imagemagick)
+   #+END_SRC
+
+
 ** Agenda 
    Here's where I set which files are added to org-agenda, which controls
    org's global todo list, scheduling, and agenda features. I use Dropbox
