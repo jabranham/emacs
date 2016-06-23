@@ -1109,9 +1109,9 @@
       (setq org-capture-templates
             (quote (
                     ("t" "task" entry (file+headline (concat org-directory "todo.org") "Tasks")
-                     "* TODO %?\n %t\n %a\n %i")
+                     "* TODO %^{Task}\n %a\n:LOGBOOK:\n - Added %U\n:END:\n %?")
                     ("x" "firefox" entry (file+headline (concat org-directory "todo.org") "Firefox")
-                     "* TODO %c\n%U\n%i\n" :immediate-finish))))
+                     "* TODO %c\n %U\n" :immediate-finish t))))
     #+END_SRC
 
 ** Refile
