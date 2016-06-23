@@ -1130,6 +1130,7 @@
    #+BEGIN_SRC emacs-lisp
      (setq org-pretty-entities          t ; UTF8 all the things!  
            org-support-shift-select     t
+           org-enforce-todo-dependencies t
            org-enforce-todo-checkbox-dependencies t
            org-hide-emphasis-markers t)
      (setq org-log-done t)
