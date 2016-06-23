@@ -1096,6 +1096,24 @@
      (define-key global-map "\C-cc" 'org-capture)
    #+END_SRC
 
+*** Firefox
+
+
+    #+BEGIN_SRC emacs-lisp
+      (require 'org-protocol)
+    #+END_SRC
+
+*** Capture templates
+
+    #+BEGIN_SRC emacs-lisp
+      (setq org-capture-templates
+            (quote (
+                    ("t" "task" entry (file+headline (concat org-directory "todo.org") "Tasks")
+                     "* TODO %?\n %t\n %a\n %i")
+                    ("x" "firefox" entry (file+headline (concat org-directory "todo.org") "Firefox")
+                     "* TODO %c\n%U\n%i\n" :immediate-finish))))
+    #+END_SRC
+
 ** Refile
    Org-refile lets me quickly move around headings in org files. It plays
    nicely with org-capture, which I use to turn emails into TODOs easily
