@@ -333,6 +333,23 @@ installing them to tmp:
     :ensure t)
 #+END_SRC
 
+* Undo-tree
+  Emacs undo system is incredibly powerful but a bit confusing. This
+  package has a great visualization system that helps out, bound to
+  =C-x u= by default. Originally, =C-z= minimizes emacs. That's stupid, so
+  let's make it undo instead like a sane person. Note that redo is
+  bound 
+
+#+BEGIN_SRC emacs-lisp
+  (use-package undo-tree
+    :ensure t
+    :bind
+    ("C-z" . undo-tree-undo)
+    ("C-?" . undo-tree-redo)
+    ("C- x u" . undo-tree-visualize)
+    :config
+    (global-undo-tree-mode))
+#+END_SRC
 
 * Miscellaneous 
   Here are a bunch of things I want emacs to do (or not) but don't
@@ -464,13 +481,6 @@ a bit more quickly than that. Using ~C-S-n~ will now let me:
 ** Better defaults 
    This is inspired by the [[https://github.com/technomancy/better-defaults][better defaults]] package, but I don't like
    everything in there. 
-
-   Originally, ~C-z~ minimizes emacs. That's stupid, so let's make it
-   undo instead like a sane person. 
-
-#+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-z") 'undo)
-#+END_SRC
 
 We can also bind ~C-+~ and ~C--~ to increase and decrease text
 size. Watch out - you need to remember to press shift to get the plus
