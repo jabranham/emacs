@@ -10,11 +10,6 @@
 ;; It will load all files with a file name starting "load" and ending
 ;; with ".org"
 
-(setq dotfiles-dir (file-name-directory (or (buffer-file-name) load-file-name)))
-
-(setq inhibit-startup-message t ; disable start screen
-      global-font-lock-mode t ; font lock (syntax highlighting) everywhere
-      font-lock-maximum-decoration t) ; lots of color
 (setq gc-cons-threshold 20000000)
 
 ;; add MELPA, install use-package
