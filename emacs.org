@@ -823,6 +823,19 @@
               (insert (file-relative-name filename)))))
    #+END_SRC
 
+** Go to this file
+   It's nice to have a function to find this file quickly. Here's one:
+
+
+   #+BEGIN_SRC emacs-lisp
+     (defun my/find-emacs-file ()
+       "Find my emacs org file"
+       (interactive)
+       (find-file (concat user-emacs-directory "emacs.org")))
+
+     (global-set-key (kbd "<f11>") #'my/find-emacs-file)
+   #+END_SRC
+
 * Helm
   Helm is a incremental completion and selection narrowing framework for
   emacs. It's super powerful and super customizable, much like the rest
