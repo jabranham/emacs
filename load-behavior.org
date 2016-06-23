@@ -351,6 +351,16 @@ installing them to tmp:
     (global-undo-tree-mode))
 #+END_SRC
 
+* Zooming
+Using this hydra, I can press =f3= and then =g= or =l= to zoom in/out
+
+#+BEGIN_SRC emacs-lisp
+  (defhydra hydra-zoom (global-map "<f3>")
+    "zoom"
+    ("g" text-scale-increase "in")
+    ("l" text-scale-decrease "out"))
+#+END_SRC
+
 * Miscellaneous 
   Here are a bunch of things I want emacs to do (or not) but don't
   seem to fit in other sections. 
@@ -482,16 +492,8 @@ a bit more quickly than that. Using ~C-S-n~ will now let me:
    This is inspired by the [[https://github.com/technomancy/better-defaults][better defaults]] package, but I don't like
    everything in there. 
 
-We can also bind ~C-+~ and ~C--~ to increase and decrease text
-size. Watch out - you need to remember to press shift to get the plus
-symbol. 
-
-#+BEGIN_SRC emacs-lisp
-  (define-key global-map (kbd "C-+") 'text-scale-increase) ; C-+ increases font size
-  (define-key global-map (kbd "C--") 'text-scale-decrease) ; C-- decreases font size
-#+END_SRC
-
 Yes, please save my place when opening/closing files: 
+
 #+BEGIN_SRC emacs-lisp
   (use-package saveplace
     :config
