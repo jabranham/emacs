@@ -6,18 +6,17 @@
     (error "Your Emacs is too old -- this config requires v%s or higher" minver)))
 
 ;; This file loads Org-mode and then loads the rest of our Emacs
-;; initialization from Emacs lisp embedded in literate Org-mode files.
-;; It will load all files with a file name starting "load" and ending
-;; with ".org"
+;; initialization from Emacs lisp embedded in emacs.org.
 
 (setq gc-cons-threshold 20000000)
 
-;; add MELPA, install use-package
+;; add MELPA, Org, and ELPY
 (require 'package)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/"))
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+(add-to-list 'package-archives
+             '("org" . "http://orgmode.org/elpa/") t)
 (add-to-list 'package-archives
              '("elpy" . "http://jorgenschaefer.github.io/packages/"))
 (package-initialize)
