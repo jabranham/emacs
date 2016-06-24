@@ -1642,6 +1642,10 @@
            than trash."
            (local-set-key (kbd "d") #'mu4e-headers-mark-for-delete))
          (add-hook 'mu4e-headers-mode-hook #'my/mu4e-headers-keybinds)
+         (defun my/mu4e-view-keybinds()
+           "Don't trash emails - delete them instead"
+           (local-set-key (kbd "d") #'mu4e-view-mark-for-delete))
+         (add-hook 'mu4e-view-mode-hook #'my/mu4e-view-keybinds)
          ;; something about ourselves
          (setq mu4e-user-mail-address-list '("branham@utexas.edu"))
          (setq mu4e-compose-signature
