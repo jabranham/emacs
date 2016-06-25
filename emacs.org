@@ -394,6 +394,22 @@
        ("u" buf-move-up "up"))
    #+END_SRC
 
+** Auto indent
+
+   [[https://github.com/Malabarba/aggressive-indent-mode][Aggressive indent mode]] keeps code indented automatically, even
+   after rearranging stuff:
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package aggressive-indent
+       :ensure t
+       :config
+       (add-hook 'ess-mode-hook #'aggressive-indent-mode)
+       (add-hook 'python-mode-hook #'aggressive-indent-mode)
+       (add-hook 'css-mode-hook #'aggressive-indent-mode)
+       (add-hook 'scss-mode-hook #'aggressive-indent-mode)
+       (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode))
+   #+END_SRC
+
 ** Miscellaneous 
    Here are a bunch of things I want emacs to do (or not) but don't
    seem to fit in other sections. 
