@@ -763,24 +763,6 @@
                               (read-string "Search Google: "))))))
    #+END_SRC
 
-** UT's VPN
-   I can connect to the VPN at UT-Austin with this function:
-
-   #+BEGIN_SRC emacs-lisp
-     (defun utexas/vpn ()
-       (interactive)
-       (with-temp-buffer
-         (cd "/sudo::/")
-         (async-shell-command "openconnect vpn.utexas.edu")))
-   #+END_SRC
-
-   Now let's bind it to f3:
-
-
-   #+BEGIN_SRC emacs-lisp
-     (global-set-key (kbd "<f3>") 'utexas/vpn)
-   #+END_SRC
-
 ** Calc
    From [[https://www.reddit.com/r/emacs/comments/445w6s/whats_some_small_thing_in_your_dotemacs_that_you/][this reddit thread]]
 
