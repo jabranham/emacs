@@ -1254,7 +1254,6 @@
    #+END_SRC
 
 
-
 * R (with ESS)
   ESS (Emacs Speaks Statistics) is a
   [[http://ess.r-project.org/][great project]] and makes emacs speak with R.
@@ -1300,7 +1299,6 @@
         (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
         (add-hook 'elpy-mode-hook 'flycheck-mode)))
   #+END_SRC
-
 
 * Stan
   Stan is a Bayesian modeling language. Emacs has a mode for it (of
@@ -1592,7 +1590,6 @@
    #+END_SRC
 
 
-
 * Webpage editing
 ** HTML and friends
    Web-mode takes care of a lot of html annoyances: 
@@ -1620,7 +1617,6 @@
        ("\\.css\\'". css-mode)
        ("\\.scss\\'" . scss-mode))
    #+END_SRC
-
 
 * Email
 ** mu4e setup files
