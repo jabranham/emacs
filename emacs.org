@@ -49,7 +49,10 @@
        :ensure t
        :defer t
        :init
-       (load-theme 'spacemacs-dark t))
+       (load-theme 'spacemacs-dark t)
+       (custom-set-faces
+        '(mu4e-unread-face ((t (:inherit font-lock-keyword-face :foreground "yellow" :weight bold))))))
+
    #+END_SRC
 ** Scrolling
    Emacs has some awful scrolling by default. This gets rid of that. 
