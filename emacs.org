@@ -191,6 +191,7 @@
      (use-package which-key
        :ensure t
        :diminish which-key-mode
+       :defer 10
        :config
        (which-key-mode))
    #+END_SRC
@@ -360,10 +361,11 @@
    Using this hydra, I can press =f3= and then =g= or =l= to zoom in/out
 
    #+BEGIN_SRC emacs-lisp
-     (defhydra hydra-zoom (global-map "<f3>")
+     (defhydra hydra-zoom ()
        "zoom"
        ("g" text-scale-increase "in")
        ("l" text-scale-decrease "out"))
+     (global-set-key (kbd "<f3>") 'hydra-zoom/body)
    #+END_SRC
 
 ** Move buffers
@@ -386,12 +388,13 @@
    to window: 
 
    #+BEGIN_SRC emacs-lisp
-     (defhydra hydra-window (global-map "C-c mb")
+     (defhydra hydra-window ()
        "window management"
        ("l" buf-move-left "left")
        ("r" buf-move-right "right")
        ("d" buf-move-down "down")
        ("u" buf-move-up "up"))
+     (global-set-key (kbd "C-c m b") 'hydra-window/body)
    #+END_SRC
 
 ** Auto indent
@@ -1811,3 +1814,4 @@
       :config
       (twittering-enable-unread-status-notifier))
   #+END_SRC
+
