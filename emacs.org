@@ -29,6 +29,15 @@
   #+BEGIN_SRC emacs-lisp
     (global-unset-key (kbd "C-x C-c"))
   #+END_SRC
+  
+  I don't work much with emacs-lisp, so the scratch buffer shouldn't
+  be in emacs-lisp mode:
+
+
+  #+BEGIN_SRC emacs-lisp
+    (setq initial-major-mode #'org-mode
+          initial-scratch-message "# This buffer is for notes you don't want to save")
+  #+END_SRC
 
 ** UTF-8
    Pretty please use utf-8 for all the things:
