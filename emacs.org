@@ -779,7 +779,7 @@
    From [[https://www.reddit.com/r/emacs/comments/445w6s/whats_some_small_thing_in_your_dotemacs_that_you/][this reddit thread]]
 
    #+BEGIN_SRC emacs-lisp
-     (defun calc-eval-region (arg)
+     (defun my/calc-eval-region (arg)
        "Evaluate an expression in calc and communicate the result.
 
      If the region is active evaluate that, otherwise search backwards
