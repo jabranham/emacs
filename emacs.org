@@ -1264,6 +1264,8 @@
       (setq ess-offset-arguments 'prev-line)
       (setq ess-ask-for-ess-directory nil)
       (defun my/add-pipe ()
+        "Adds a pipe operator %>% with one space to the left and then
+    starts a newline with proper indentation"
         (interactive)
         (just-one-space 1)
         (insert "%>%")
