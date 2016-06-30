@@ -1006,7 +1006,8 @@
       '((emacs-lisp . t)
         (latex . t)
         (python . t)
-        (R . t)))
+        (R . t)
+        (sh . t)))
      (setq org-confirm-babel-evaluate nil)
      (setq org-src-window-setup 'current-window)
    #+END_SRC
