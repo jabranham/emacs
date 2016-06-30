@@ -912,9 +912,9 @@
      (use-package helm-bibtex
        :ensure t
        :config
-       (setq helm-bibtex-bibliography "~/Dropbox/bibliography/references.bib"
-             helm-bibtex-library-path "~/Dropbox/bibliography/bibtex-pdfs"
-             helm-bibtex-notes-path "~/Dropbox/bibliography/notes.org"
+       (setq bibtex-completion-bibliography "~/Dropbox/bibliography/references.bib"
+             bibtex-completion-library-path "~/Dropbox/bibliography/bibtex-pdfs"
+             bibtex-completion-notes-path "~/Dropbox/bibliography/notes.org"
              helm-bibtex-full-frame nil)
        (setq helm-bibtex-cite-commands '("autocite" "textcite" "citep" "citet" "citeauthor" "citeyear" "Citep" "Citet")))
    #+END_SRC
@@ -1050,9 +1050,9 @@
      (use-package org-ref
        :ensure t
        :init
-       (setq org-ref-bibliography-notes helm-bibtex-notes-path
-             org-ref-default-bibliography '(helm-bibtex-bibliography)
-             org-ref-pdf-directory (concat helm-bibtex-library-path "/")
+       (setq org-ref-bibliography-notes "~/Dropbox/bibliography/notes.org"
+             org-ref-default-bibliography '("~/Dropbox/bibliography/references.bib")
+             org-ref-pdf-directory  "~/Dropbox/bibliography/bibtex-pdfs"
              org-ref-default-citation-link "autocite")
        :config
        (use-package doi-utils)
