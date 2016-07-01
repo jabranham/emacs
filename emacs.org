@@ -1169,10 +1169,11 @@
    Here are a few miscellaneous things that make org mode better. 
    #+BEGIN_SRC emacs-lisp
      (setq org-pretty-entities          t ; UTF8 all the things!  
-           org-support-shift-select     t
-           org-enforce-todo-dependencies t
-           org-enforce-todo-checkbox-dependencies t
-           org-hide-emphasis-markers t)
+           org-support-shift-select     t ; holding shift and moving point should select things
+           org-enforce-todo-dependencies t ; can't finish parent before children
+           org-enforce-todo-checkbox-dependencies t ; can't finish parent before children
+           org-hide-emphasis-markers t ; make words italic or bold, hide / and *
+           org-hide-leading-stars t) ; hides extra stars in headers
      (setq org-log-done t)
      (use-package htmlize
        :ensure t)
