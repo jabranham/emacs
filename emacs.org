@@ -100,12 +100,12 @@
      (use-package smartparens-config
        :ensure smartparens
        :diminish smartparens-mode
+       :commands (smartparens-global-strict-mode)
        :bind
        ("C-M-a" . sp-beginning-of-sexp)
        ("C-M-e" . sp-end-of-sexp)
-       ("M-]" . sp-unwrap-sexp)
-                                             ; C-M-SPC is bound to mark-sexp
-       :config
+       ("M-]" . sp-unwrap-sexp) ; C-M-SPC is bound to mark-sexp
+       :init
        (smartparens-global-strict-mode))
    #+END_SRC
 
