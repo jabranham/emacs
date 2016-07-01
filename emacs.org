@@ -427,6 +427,27 @@
        (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode))
    #+END_SRC
 
+** System packages
+   
+   This is a collection of functions I wrote to help me manage
+   installed system packages with emacs. You can find the package [[https://github.com/jabranham/system-packages][on github]]
+
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package system-packages
+       :load-path "~/code/system-packages"
+       :bind ("<f7>" . hydra/system-packages/body) 
+       :config
+       (defhydra hydra/system-packages ()
+         "Manage system packages"
+         ("i" system-packages-install "install")
+         ("s" system-packages-search "search")
+         ("U" system-packages-uninstall "uninstall")
+         ("u" system-packages-update "update")
+         ("l" system-packages-list-installed-packages "list installed")
+         ("O" system-packages-remove-orphaned "remove orphans")))
+   #+END_SRC
+
 ** Miscellaneous 
    Here are a bunch of things I want emacs to do (or not) but don't
    seem to fit in other sections. 
