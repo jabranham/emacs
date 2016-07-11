@@ -899,6 +899,7 @@
       ("C-x C-f" . helm-find-files)
       ("C-x f" . helm-find-files)
       ("C-M-z" . helm-resume)
+      ("C-M-g" . helm-google-suggest)
       :config
       (define-key global-map [remap list-buffers] 'helm-buffers-list)
       (define-key global-map [remap dabbrev-expand] 'helm-dabbrev)
@@ -993,6 +994,18 @@
        (eval-after-load 'flycheck
          '(define-key flycheck-mode-map (kbd "C-c ! h") 'helm-flycheck)))
 
+   #+END_SRC
+** Helm and google
+   
+   Helm contains =helm-google-suggest= which allows you to google things
+   from within emacs, but this package lets you browse the results
+   from within emacs as well. I also set up a better keybinding for
+   =helm-google-suggest= (the default is =C-c h C-c g= which is ridiculous)
+
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package helm-google 
+       :ensure t)
    #+END_SRC
 
 * Org
