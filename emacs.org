@@ -709,8 +709,8 @@
        :diminish yas-minor-mode
        :config
        (add-hook 'term-mode-hook (lambda() (yas-minor-mode -1)))
+       (define-key yas-minor-mode-map (kbd "C-c &") nil)
        (yas-global-mode))
-
    #+END_SRC
 
 * Functions
