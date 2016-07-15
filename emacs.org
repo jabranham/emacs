@@ -456,6 +456,21 @@
          ("O" system-packages-remove-orphaned "remove orphans")))
    #+END_SRC
 
+** Multiple cursors 
+   
+   Emacs can support multiple cursors. I don't use this much, but it's
+   super handy when I do need it:
+
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package multiple-cursors
+       :ensure t
+       :commands
+       (mc/mark-next-like-this mc/mark-previous-like-this mc/mark-all-like-this mc/edit-lines mc/edit-beginnings-of-lines mc/edit-ends-of-lines))
+   #+END_SRC
+
+   #+RESULTS:
+
 ** Miscellaneous 
    Here are a bunch of things I want emacs to do (or not) but don't
    seem to fit in other sections. 
