@@ -1296,7 +1296,6 @@
        (bash-completion-setup))
    #+END_SRC
 
-
 * R (with ESS)
   ESS (Emacs Speaks Statistics) is a
   [[http://ess.r-project.org/][great project]] and makes emacs speak with R.
@@ -1633,7 +1632,6 @@
    #+BEGIN_SRC emacs-lisp
      (add-to-list 'auto-mode-alist '("\\.gitconfig" . conf-mode))
    #+END_SRC
-
 
 * Webpage editing
 ** HTML and friends
