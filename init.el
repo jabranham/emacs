@@ -14,11 +14,11 @@
 (require 'package)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/"))
+             '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives
-             '("org" . "https://orgmode.org/elpa/") t)
+             '("org" . "http://orgmode.org/elpa/") t)
 (add-to-list 'package-archives
-             '("elpy" . "https://jorgenschaefer.github.io/packages/"))
+             '("elpy" . "http://jorgenschaefer.github.io/packages/"))
 (package-initialize)
 
 ;; Bootstrap 'use-package' and 'org-mode
