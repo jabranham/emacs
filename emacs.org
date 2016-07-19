@@ -1326,6 +1326,7 @@
                   (ess-set-style 'RStudio)))
       (setq ess-offset-arguments 'prev-line)
       (setq ess-ask-for-ess-directory nil)
+      (setq ess-pdf-viewer-pref "emacsclient")
       (defun my/add-pipe ()
         "Adds a pipe operator %>% with one space to the left and then
     starts a newline with proper indentation"
