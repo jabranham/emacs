@@ -1,7 +1,6 @@
 ;;; init.el --- Where all the magic begins
 
-; Minimum version is emacs 24
-(let ((minver 24))
+(let ((minver 24)); Minimum version is emacs 24
   (unless (>= emacs-major-version minver)
     (error "Your Emacs is too old -- this config requires v%s or higher" minver)))
 
