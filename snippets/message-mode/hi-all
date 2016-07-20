@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: hi all
+# key: all
+# --
+Hi all,
+
+$0
+
+Alex
