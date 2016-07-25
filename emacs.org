@@ -1655,6 +1655,24 @@
    #+BEGIN_SRC emacs-lisp
      (add-to-list 'auto-mode-alist '("\\.gitconfig" . conf-mode))
    #+END_SRC
+** Github
+   
+   Here are some packages that make interacting with github a bit better:
+*** Gists
+    
+   #+BEGIN_SRC emacs-lisp
+     (use-package gist
+       :ensure t
+       :commands (gist-list))
+   #+END_SRC
+*** Pull Requests
+
+    #+BEGIN_SRC emacs-lisp
+      (use-package magit-gh-pulls
+        :ensure t
+        :config
+        (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls))
+    #+END_SRC
 
 * Webpage editing
 ** HTML and friends
