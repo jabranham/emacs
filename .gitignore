@@ -34,3 +34,5 @@ games/
 /bookmarks
 /tramp
 /emacs.el
+/.twittering-mode-icons.gz
+var/*
