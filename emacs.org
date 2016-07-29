@@ -44,6 +44,12 @@
             initial-scratch-message "# This buffer is for notes you don't want to save\n\n")
     #+END_SRC
 
+    Ignore file case when trying to find stuff:
+
+    #+BEGIN_SRC emacs-lisp
+      (setq read-file-name-completion-ignore-case t)
+    #+END_SRC
+
 ** UTF-8
    Pretty please use utf-8 for all the things:
 
