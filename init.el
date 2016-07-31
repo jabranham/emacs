@@ -16,7 +16,7 @@
       '(("elpy" . "https://jorgenschaefer.github.io/packages/")
         ("melpa" . "https://melpa.org/packages/")
         ("gnu" . "https://elpa.gnu.org/packages/")
-        ("org" . "https://orgmode.org/elpa/")))
+        ("org" . "http://orgmode.org/elpa/")))
 (package-initialize)
 
 ;; Bootstrap 'use-package' and 'org-mode
