@@ -1693,6 +1693,13 @@
         :config
         (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls))
     #+END_SRC
+*** Issues
+
+    #+BEGIN_SRC emacs-lisp
+      (use-package github-issues
+        :ensure t
+        :commands (github-issues))
+    #+END_SRC
 
 * Webpage editing
 ** HTML and friends
