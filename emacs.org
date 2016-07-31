@@ -1052,6 +1052,29 @@
      (setq org-export-with-smart-quotes t)
    #+END_SRC
 
+   This lets me override all the export variables with a =#+BIND:=
+   statement at the beginning of org-mode files for export:
+
+   #+BEGIN_SRC emacs-lisp
+     (setq org-export-allow-bind-keywords t)
+   #+END_SRC
+
+   Remove =<...>= from timestamps when exporting to latex. [[http://stackoverflow.com/questions/23297422/org-mode-timestamp-format-when-exported][Thanks]]
+
+   #+BEGIN_SRC emacs-lisp
+     (defun my/org-export-filter-timestamp-remove-brackets (timestamp backend info)
+       "removes relevant brackets from a timestamp"
+       (cond
+        ((org-export-derived-backend-p backend 'latex)
+         (replace-regexp-in-string "[<>]\\|[][]" "" timestamp))
+        ((org-export-derived-backend-p backend 'html)
+         (replace-regexp-in-string "&[lg]t;\\|[][]" "" timestamp))))
+
+     (eval-after-load 'ox '(add-to-list
+                            'org-export-filter-timestamp-functions
+                            'my/org-export-filter-timestamp-remove-brackets))
+   #+END_SRC
+
 ** Code blocks (org-babel)
    Org-babel is included in org. We just need to tell it which
    languages to load. And don't ask us if we're sure we want to run
@@ -1147,7 +1170,6 @@
    #+BEGIN_SRC emacs-lisp
      (setq org-latex-create-formula-image-program 'imagemagick)
    #+END_SRC
-
 
 ** Agenda 
    Here's where I set which files are added to org-agenda, which controls
