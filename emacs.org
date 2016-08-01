@@ -1184,10 +1184,10 @@
 
    I also don't want finished TODO items to appear in my agenda:
    #+BEGIN_SRC emacs-lisp
-     (setq org-agenda-skip-deadline-if-done t)
-     (setq org-agenda-skip-scheduled-if-done t)
+     (setq org-agenda-skip-deadline-if-done t
+           org-agenda-skip-scheduled-if-done t
+           org-deadline-warning-days 3)
    #+END_SRC
-
 
    Finally, set up some nice global keybindings for accessing the agenda:
 
