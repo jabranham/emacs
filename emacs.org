@@ -447,6 +447,7 @@
    #+END_SRC
 
 ** Multiple cursors 
+
    
    Emacs can support multiple cursors. I don't use this much, but it's
    super handy when I do need it:
@@ -459,7 +460,17 @@
        (mc/mark-next-like-this mc/mark-previous-like-this mc/mark-all-like-this mc/edit-lines mc/edit-beginnings-of-lines mc/edit-ends-of-lines))
    #+END_SRC
 
-   #+RESULTS:
+** Google
+   
+   Binds a whole lot of functions under =C-c /=, I tend to use =C-c RET=
+   which just starts a google search from the minibuffer. 
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package google-this
+       :ensure t
+       :config
+       (google-this-mode))
+   #+END_SRC
 
 ** Miscellaneous 
    Here are a bunch of things I want emacs to do (or not) but don't
@@ -798,22 +809,6 @@
      (bind-key "C-x 2" 'my/vsplit-last-buffer)
      (bind-key "C-x 3" 'my/hsplit-last-buffer)
    #+END_SRC
-** Google
-   Google the marked region or ask:
-
-
-   #+BEGIN_SRC emacs-lisp
-     (defun google ()
-       "Google the selected region if any, display a query prompt otherwise."
-       (interactive)
-       (browse-url
-        (concat
-         "http://www.google.com/search?ie=utf-8&oe=utf-8&q="
-         (url-hexify-string (if mark-active
-                                (buffer-substring (region-beginning) (region-end))
-                              (read-string "Search Google: "))))))
-   #+END_SRC
-
 ** Calc
    From [[https://www.reddit.com/r/emacs/comments/445w6s/whats_some_small_thing_in_your_dotemacs_that_you/][this reddit thread]]
 
