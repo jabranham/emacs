@@ -1965,21 +1965,3 @@
                 " AND maildir:\"/INBOX\""))))
    #+END_SRC
 
-* Twitter 
-
-  
-
-  #+BEGIN_SRC emacs-lisp
-    (use-package twittering-mode
-      :ensure t
-      :defer t
-      :init
-      (setq twittering-use-master-password t
-            twittering-icon-mode t
-            twittering-use-icon-storage t
-            twittering-icon-storage-file (concat user-emacs-directory ".twittering-mode-icons.gz")
-            twittering-display-remaining t)
-      :config
-      (twittering-enable-unread-status-notifier))
-  #+END_SRC
-
