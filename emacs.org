@@ -468,10 +468,10 @@
    #+BEGIN_SRC emacs-lisp
      (use-package google-this
        :ensure t
+       :diminish google-this-mode
        :config
        (google-this-mode))
    #+END_SRC
-
 ** Miscellaneous 
    Here are a bunch of things I want emacs to do (or not) but don't
    seem to fit in other sections. 
