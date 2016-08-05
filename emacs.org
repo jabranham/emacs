@@ -946,11 +946,16 @@
    #+BEGIN_SRC emacs-lisp
      (use-package helm-bibtex
        :ensure t
+       :init
+       (defvar my/notes-template
+         "* TODO %y - %t\n :PROPERTIES:\n  :Custom_ID: %k\n  :AUTHOR: %9a\n  :JOURNAL: %j\n  :YEAR: %y\n  :VOLUME: %v\n  :PAGES: %p\n  :DOI: %D\n  :URL: %U\n :END:\n")
        :config
        (setq bibtex-completion-bibliography "~/Dropbox/bibliography/references.bib"
              bibtex-completion-library-path "~/Dropbox/bibliography/bibtex-pdfs"
              bibtex-completion-notes-path "~/Dropbox/bibliography/notes.org"
-             helm-bibtex-full-frame nil)
+             helm-bibtex-full-frame nil
+             bibtex-completion-notes-template-one-file my/notes-template
+             )
        (setq helm-bibtex-cite-commands '("autocite" "textcite" "citep" "citet" "citeauthor" "citeyear" "Citep" "Citet")))
    #+END_SRC
 ** Helm and email
@@ -1130,21 +1135,13 @@
        (setq org-ref-bibliography-notes "~/Dropbox/bibliography/notes.org"
              org-ref-default-bibliography '("~/Dropbox/bibliography/references.bib")
              org-ref-pdf-directory  "~/Dropbox/bibliography/bibtex-pdfs"
-             org-ref-default-citation-link "autocite")
+             org-ref-default-citation-link "autocite"
+             org-ref-note-title-format my/notes-template)
        :config
        (use-package doi-utils)
        (use-package org-ref-isbn)
-       (use-package org-ref-latex)
-
-       ;; override helm-bibtex's note method with org-ref's
-       (defun my/org-ref-notes-function (candidates)
-         (let ((key (helm-marked-candidates)))
-           (funcall org-ref-notes-function (car key))))
-
-       (helm-delete-action-from-source "Edit notes" helm-source-bibtex)
-       (helm-add-action-to-source "Edit notes" 'my/org-ref-notes-function helm-source-bibtex 7))
+       (use-package org-ref-latex))
    #+END_SRC
-
 ** Latex
    Cdlatex lets me write latex in org-mode. It's particularly useful for
    math. [[https://www.gnu.org/software/emacs/manual/html_node/org/CDLaTeX-mode.html][doc]]
