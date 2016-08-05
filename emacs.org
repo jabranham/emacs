@@ -161,24 +161,36 @@
          (set-buffer-modified-p nil)))
    #+END_SRC
 
-   Sometimes I uncompress .zip files from within emacs. This lets me do
-   it in dired with ~Z~
+   This lets me make directories on the fly similar to =mkdir -p=. [[http://mbork.pl/2016-07-25_Making_directories_on_the_fly][Thanks!]]
 
    #+BEGIN_SRC emacs-lisp
-     (eval-after-load "dired-aux"
-       '(add-to-list 'dired-compress-file-suffixes 
-                     '("\\.zip\\'" ".zip" "unzip")))
+     (defun make-parent-directory ()
+       "Make sure the directory of `buffer-file-name' exists."
+       (make-directory (file-name-directory buffer-file-name) t))
+
+     (add-hook 'find-file-not-found-functions #'make-parent-directory)
    #+END_SRC
 
-   Finally, I like the ability to quickly narrow the list of files I'm
-   looking at using dired. This package lets me do that:
 
-   #+BEGIN_SRC emacs-lisp
-     (use-package dired-narrow
-       :bind
-       ("C-c n". dired-narrow-fuzzy)
-       :ensure t)
-   #+END_SRC
+*** TODO Remove when emacs 25 is released because this is included
+    Sometimes I uncompress .zip files from within emacs. This lets me do
+    it in dired with ~Z~
+
+    #+BEGIN_SRC emacs-lisp
+      (eval-after-load "dired-aux"
+        '(add-to-list 'dired-compress-file-suffixes 
+                      '("\\.zip\\'" ".zip" "unzip")))
+    #+END_SRC
+
+    Finally, I like the ability to quickly narrow the list of files I'm
+    looking at using dired. This package lets me do that:
+
+    #+BEGIN_SRC emacs-lisp
+      (use-package dired-narrow
+        :bind
+        ("C-c n". dired-narrow-fuzzy)
+        :ensure t)
+    #+END_SRC
 
 ** Modeline
    The default modeline is nice enough, but this one is much better looking:
