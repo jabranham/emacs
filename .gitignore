@@ -36,3 +36,4 @@ games/
 /emacs.el
 /.twittering-mode-icons.gz
 var/*
+/.mc-lists.el
