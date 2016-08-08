@@ -1240,10 +1240,10 @@
 
    #+BEGIN_SRC emacs-lisp
      (setq org-outline-path-complete-in-steps nil)
+     (setq org-refile-allow-creating-parent-nodes (quote confirm))
      (setq org-refile-use-outline-path t)
      (setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
    #+END_SRC
-
 ** Misc
    Here are a few miscellaneous things that make org mode better. 
    #+BEGIN_SRC emacs-lisp
