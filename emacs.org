@@ -472,18 +472,6 @@
        (mc/mark-next-like-this mc/mark-previous-like-this mc/mark-all-like-this mc/edit-lines mc/edit-beginnings-of-lines mc/edit-ends-of-lines))
    #+END_SRC
 
-** Google
-   
-   Binds a whole lot of functions under =C-c /=, I tend to use =C-c RET=
-   which just starts a google search from the minibuffer. 
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package google-this
-       :ensure t
-       :diminish google-this-mode
-       :config
-       (google-this-mode))
-   #+END_SRC
 ** Miscellaneous 
    Here are a bunch of things I want emacs to do (or not) but don't
    seem to fit in other sections. 
