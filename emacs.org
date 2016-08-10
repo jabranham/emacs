@@ -1198,6 +1198,17 @@
      (setq org-agenda-window-setup 'current-window)
    #+END_SRC
 
+   By default, org binds =C-c [= to =org-agenda-file-to-front=, which I
+   find annoying. This removes that:
+
+
+   #+BEGIN_SRC emacs-lisp
+     (add-hook 'org-mode-hook
+               (lambda()
+                 (local-unset-key (kbd "C-c ["))))
+   #+END_SRC
+
+
 ** Capture
    
 
