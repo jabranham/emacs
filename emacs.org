@@ -954,10 +954,12 @@
              bibtex-completion-library-path "~/Dropbox/bibliography/bibtex-pdfs"
              bibtex-completion-notes-path "~/Dropbox/bibliography/notes.org"
              helm-bibtex-full-frame nil
-             bibtex-completion-notes-template-one-file my/notes-template
+             bibtex-completion-notes-template-one-file
+             "\n* TODO ${year} - ${title}\n  :PROPERTIES:\n  :Custom_ID: ${=key=}\n  :AUTHOR: ${author}\n  :JOURNAL: ${journal}\n  :YEAR: ${year}\n  :VOLUME: ${volume}\n  :PAGES: ${pages}\n  :DOI: ${doi}\n  :URL: ${url}\n :END:\n"
              )
        (setq helm-bibtex-cite-commands '("autocite" "textcite" "citep" "citet" "citeauthor" "citeyear" "Citep" "Citet")))
    #+END_SRC
+
 ** Helm and email
    #+BEGIN_SRC emacs-lisp
      (when (executable-find "mu")
@@ -1124,12 +1126,9 @@
        (setq org-ref-bibliography-notes "~/Dropbox/bibliography/notes.org"
              org-ref-default-bibliography '("~/Dropbox/bibliography/references.bib")
              org-ref-pdf-directory  "~/Dropbox/bibliography/bibtex-pdfs"
-             org-ref-default-citation-link "autocite"
-             org-ref-note-title-format my/notes-template)
+             org-ref-default-citation-link "autocite")
        :config
-       (use-package doi-utils
-         :config
-         (setq doi-utils-make-notes nil))
+       (use-package doi-utils)
        (use-package org-ref-isbn)
        (use-package org-ref-latex))
    #+END_SRC
@@ -1609,9 +1608,10 @@
 
   #+BEGIN_SRC emacs-lisp
     (use-package gscholar-bibtex
-      :ensure t)
+      :ensure t
+      :config
+      (setq gscholar-bibtex-database-file "~/Dropbox/bibliography/references.bib"))
   #+END_SRC
-
 * Spell Check
   Flyspell checks for spelling on the fly. I use aspell instead of
   ispell because it's better. :-) You may need to install it
