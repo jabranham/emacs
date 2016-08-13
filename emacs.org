@@ -330,12 +330,12 @@
 
    #+BEGIN_SRC emacs-lisp
      (when (executable-find "pass")
-       (use-package pass
-         :ensure t
+       (use-package helm-pass
+         :load-path "~/code/helm-pass"
+         :commands (helm-pass)
          :config
          (setq password-store-password-length 20)))
    #+END_SRC
-
 ** Highlights
    This package provides a visual cue whenever we change a block of text
    by highlighting it for a bit:
