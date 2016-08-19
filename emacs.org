@@ -1337,6 +1337,7 @@
   #+BEGIN_SRC emacs-lisp
     (use-package ess-site 
       :ensure ess
+      :defer 2
       :diminish eldoc-mode
       :bind (:map ess-mode-map
                   ("C-h h" . ess-help))
@@ -1355,7 +1356,6 @@
         (insert "%>%")
         (ess-newline-and-indent))
       (define-key ess-mode-map (kbd "M-p") 'my/add-pipe))
-
   #+END_SRC
 
 * Python
