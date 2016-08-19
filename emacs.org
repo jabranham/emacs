@@ -1500,7 +1500,8 @@
              ("\\.md\\'" . markdown-mode)
              ("\\.markdown\\'" . markdown-mode))
       :config
-      (setq markdown-enable-math t))
+      (setq markdown-enable-math t)
+      (define-key markdown-mode-map (kbd "C-c ]") #'helm-bibtex))
   #+END_SRC
 
 * LaTeX
