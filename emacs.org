@@ -1346,6 +1346,7 @@
                 (lambda ()
                   (ess-set-style 'RStudio)))
       (setq ess-offset-arguments 'prev-line)
+      (setq ess-eval-visibly 'nowait)
       (setq ess-ask-for-ess-directory nil)
       (setq ess-pdf-viewer-pref "emacsclient")
       (defun my/add-pipe ()
