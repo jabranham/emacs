@@ -912,9 +912,8 @@
       (when (executable-find "curl")
         (setq helm-net-prefer-curl t))
       (setq helm-ff-file-name-history-use-recentf t)
-      (setq helm-M-x-fuzzy-match t)
-      (setq helm-buffers-fuzzy-matching t)
-      (setq helm-recentf-fuzzy-match t))
+      (setq helm-mode-fuzzy-match t)
+      (setq helm-completion-in-region-fuzzy-match t))
   #+END_SRC
 ** Projectile 
    Projectile makes using projects easier in emacs. It also plays well
