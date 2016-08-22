@@ -910,7 +910,7 @@
       (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to do persistent action
       (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
       (when (executable-find "curl")
-        (setq helm-google-suggest-use-curl-p t))
+        (setq helm-net-prefer-curl t))
       (setq helm-ff-file-name-history-use-recentf t)
       (setq helm-M-x-fuzzy-match t)
       (setq helm-buffers-fuzzy-matching t)
