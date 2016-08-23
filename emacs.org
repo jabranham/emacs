@@ -343,7 +343,8 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package try
-       :ensure t)
+       :ensure t
+       :commands (try))
    #+END_SRC
 
 ** Undo-tree
