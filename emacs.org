@@ -100,22 +100,10 @@
        ("C-M-e" . sp-end-of-sexp)
        ("M-]" . sp-unwrap-sexp) ; C-M-SPC is bound to mark-sexp
        :init
-       (smartparens-global-strict-mode))
+       (smartparens-global-strict-mode)
+       (show-smartparens-global-mode))
    #+END_SRC
 
-   Since I am super bad at parens, though, I need more help. This package
-   makes parentheses different colors based on level so it's a little
-   easier to see which parens match with what. I've heard that it makes
-   emacs slow for some people, so you may want to disable it if emacs
-   seems slow to you. 
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package rainbow-delimiters
-       :ensure t
-       :config
-       (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-       (add-hook 'ess-mode-hook #'rainbow-delimiters-mode))
-   #+END_SRC
 ** PDF viewer
    I like emacs, so why not view PDFs in it? Build the server when it
    asks - this may take a second.
