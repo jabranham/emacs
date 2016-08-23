@@ -1110,6 +1110,12 @@
              org-ref-pdf-directory  "~/Dropbox/bibliography/bibtex-pdfs"
              org-ref-default-citation-link "autocite")
        :config
+       (add-hook 'org-mode-hook
+                 (lambda () (local-set-key (kbd "C-c r") #'org-ref-helm-insert-cite-link)))
+       (eval-after-load "latex"
+         '(define-key LaTeX-mode-map (kbd "C-c r") #'org-ref-helm-insert-cite-link))
+       (eval-after-load 'markdown-mode
+         '(define-key markdown-mode-map (kbd "C-c r") #'org-ref-helm-insert-cite-link))
        (use-package doi-utils)
        (use-package org-ref-isbn)
        (use-package org-ref-latex))
@@ -1482,8 +1488,7 @@
              ("\\.md\\'" . markdown-mode)
              ("\\.markdown\\'" . markdown-mode))
       :config
-      (setq markdown-enable-math t)
-      (define-key markdown-mode-map (kbd "C-c ]") #'helm-bibtex))
+      (setq markdown-enable-math t))
   #+END_SRC
 
 * LaTeX
