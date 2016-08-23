@@ -1706,6 +1706,7 @@
        (use-package mu4e
          :config
          ;; default
+         (setq mail-user-agent 'mu4e-user-agent)
          (setq mu4e-maildir "~/.mail/utexas")
          (setq mu4e-drafts-folder "/[Gmail]/.Drafts")
          (setq mu4e-sent-folder   "/[Gmail]/.Sent Mail")
