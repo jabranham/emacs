@@ -951,7 +951,7 @@
              bibtex-completion-notes-template-one-file
              "\n* TODO ${year} - ${title}\n  :PROPERTIES:\n  :Custom_ID: ${=key=}\n  :AUTHOR: ${author}\n  :JOURNAL: ${journal}\n  :YEAR: ${year}\n  :VOLUME: ${volume}\n  :PAGES: ${pages}\n  :DOI: ${doi}\n  :URL: ${url}\n :END:\n"
              )
-       (setq helm-bibtex-cite-commands '("autocite" "textcite" "citep" "citet" "citeauthor" "citeyear" "Citep" "Citet")))
+       (setq bibtex-completion-cite-commands '("autocite" "textcite" "citep" "citet" "citeauthor" "citeyear" "Citep" "Citet")))
    #+END_SRC
 
 ** Helm and email
@@ -1189,7 +1189,6 @@
                (lambda()
                  (local-unset-key (kbd "C-c ["))))
    #+END_SRC
-
 
 ** Capture
    
