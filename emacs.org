@@ -1508,8 +1508,7 @@
         (setq TeX-auto-save t
               TeX-parse-self t
               reftex-plug-into-AUCTeX t
-              TeX-PDF-mode t)
-        (setq-default TeX-master nil))
+              TeX-PDF-mode t))
       (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode)
       (setq TeX-source-correlate-method 'synctex)
       (setq TeX-source-correlate-mode t)
