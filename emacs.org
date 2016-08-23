@@ -1590,15 +1590,6 @@
       (add-hook 'LaTeX-mode-hook 'turn-on-reftex))
   #+END_SRC
 
-  This package lets me search google scholar and automatically add
-  entries to my bib file: 
-
-  #+BEGIN_SRC emacs-lisp
-    (use-package gscholar-bibtex
-      :ensure t
-      :config
-      (setq gscholar-bibtex-database-file "~/Dropbox/bibliography/references.bib"))
-  #+END_SRC
 * Spell Check
   Flyspell checks for spelling on the fly. I use aspell instead of
   ispell because it's better. :-) You may need to install it
