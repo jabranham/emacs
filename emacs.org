@@ -1204,8 +1204,10 @@
     #+BEGIN_SRC emacs-lisp
       (setq org-capture-templates
             (quote (
+                    ("s" "store" entry (file+headline (concat org-directory "todo.org") "Tasks")
+                     "* TODO %?\n   %a")
                     ("t" "task" entry (file+headline (concat org-directory "todo.org") "Tasks")
-                     "* TODO %?\n")
+                     "* TODO %?")
                     ("x" "firefox" entry (file+headline (concat org-directory "todo.org") "Firefox")
                      "* TODO %c\n %U\n" :immediate-finish t))))
     #+END_SRC
