@@ -524,7 +524,6 @@
 *** Resize windows
     We can resize windows now! Though this doesn't work in org-mode for
     whatever reason.... 
-**** TODO Why doesn't this work in org mode? 
      #+BEGIN_SRC emacs-lisp
        (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
        (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
