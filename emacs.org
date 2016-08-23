@@ -924,7 +924,7 @@
          (projectile-global-mode)
          (helm-projectile-on)))
    #+END_SRC
-** Helm and references
+** Helm and references (helm-bibtex)
    #+BEGIN_SRC emacs-lisp
      (use-package helm-bibtex
        :ensure t
