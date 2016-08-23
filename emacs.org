@@ -911,6 +911,7 @@
       (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
       (when (executable-find "curl")
         (setq helm-net-prefer-curl t))
+      (setq helm-split-window-in-side-p t)
       (setq helm-ff-file-name-history-use-recentf t)
       (setq helm-mode-fuzzy-match t)
       (setq helm-completion-in-region-fuzzy-match t))
