@@ -1631,6 +1631,7 @@
        ("C-x g" . magit-status)
        :config
        (setq magit-push-always-verify nil)
+       (setq magit-diff-refine-hunk 'all)
        (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1))
    #+END_SRC
 
