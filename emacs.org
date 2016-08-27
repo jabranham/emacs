@@ -1231,7 +1231,7 @@
            org-enforce-todo-dependencies t ; can't finish parent before children
            org-enforce-todo-checkbox-dependencies t ; can't finish parent before children
            org-hide-emphasis-markers t ; make words italic or bold, hide / and *
-           org-catch-invisible-edits 'smart ; don't let me edit things I can't see
+           org-catch-invisible-edits 'error ; don't let me edit things I can't see
            org-hide-leading-stars t) ; hides extra stars in headers
      (setq org-log-done t)
      (use-package htmlize
