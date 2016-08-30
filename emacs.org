@@ -298,17 +298,6 @@
          :config
          (setq password-store-password-length 20)))
    #+END_SRC
-** Highlights
-   This package provides a visual cue whenever we change a block of text by highlighting it for a bit:
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package volatile-highlights
-       :ensure t
-       :diminish volatile-highlights-mode
-       :config
-       (volatile-highlights-mode t))
-   #+END_SRC
-
 ** Try
    This package lets me try out other packages before installing them by installing them to tmp:
 
