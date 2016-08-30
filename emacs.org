@@ -255,7 +255,7 @@
        ("C-a" . crux-move-beginning-of-line)
        ("C-x i" . crux-ispell-word-then-abbrev)
        ("C-c o" . crux-open-with)
-       ("C-c C-r r" . crux-sudo-edit)
+       ("C-c e" . crux-sudo-edit)
        :config
        (setq save-abbrevs 'silently)
        (setq-default abbrev-mode t))
@@ -1009,7 +1009,7 @@
              org-ref-pdf-directory  "~/Dropbox/bibliography/bibtex-pdfs"
              org-ref-default-citation-link "autocite")
        :config
-       (global-set-key (kbd "C-c r") #'org-ref-helm-insert-cite-link)
+       (global-set-key (kbd "C-c C-r") #'org-ref-helm-insert-cite-link)
        (use-package doi-utils)
        (use-package org-ref-isbn)
        (use-package org-ref-latex))
