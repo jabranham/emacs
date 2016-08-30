@@ -1014,18 +1014,13 @@
    #+BEGIN_SRC emacs-lisp
      (use-package org-ref
        :ensure t
+       :bind ("C-c r" . org-ref-helm-insert-cite-link)
        :init
        (setq org-ref-bibliography-notes "~/Dropbox/bibliography/notes.org"
              org-ref-default-bibliography '("~/Dropbox/bibliography/references.bib")
              org-ref-pdf-directory  "~/Dropbox/bibliography/bibtex-pdfs"
              org-ref-default-citation-link "autocite")
-       :config
-       (add-hook 'org-mode-hook
-                 (lambda () (local-set-key (kbd "C-c r") #'org-ref-helm-insert-cite-link)))
-       (eval-after-load "latex"
-         '(define-key LaTeX-mode-map (kbd "C-c r") #'org-ref-helm-insert-cite-link))
-       (eval-after-load 'markdown-mode
-         '(define-key markdown-mode-map (kbd "C-c r") #'org-ref-helm-insert-cite-link))
+       :config 
        (use-package doi-utils)
        (use-package org-ref-isbn)
        (use-package org-ref-latex))
