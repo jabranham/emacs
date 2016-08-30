@@ -1319,6 +1319,11 @@
        (bash-completion-setup))
    #+END_SRC
 
+** Shell misc
+   Here are a few miscellaneous settings for shell modes, including inferior ~R~ processes used by ~ESS~:
+   #+BEGIN_SRC emacs-lisp
+     (setq comint-scroll-to-bottom-on-input 'this)
+   #+END_SRC
 * R (with ESS)
   ESS (Emacs Speaks Statistics) is a
   [[http://ess.r-project.org/][great project]] and makes emacs speak with R.
