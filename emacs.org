@@ -1333,7 +1333,7 @@
   #+END_SRC
 
 * Text Misc
-  I end sentences with a single space. 
+I end sentences with a single space. 
 
   #+BEGIN_SRC emacs-lisp
     (setq sentence-end-double-space nil)
@@ -1345,21 +1345,34 @@
     (add-hook 'text-mode-hook #'turn-on-visual-line-mode)
   #+END_SRC
 
-  =fill-paragraph= is nice, but emacs weirdly lacks a convenient way to unfill paragraphs once they're filled. This command ([[http://endlessparentheses.com/fill-and-unfill-paragraphs-with-a-single-key.html][credit]]) fixes that.
+  Now that I've turned on ~visual-line-mode~, I want it to respect indentation. This does so:
 
   #+BEGIN_SRC emacs-lisp
-    (defun endless/fill-or-unfill ()
-      "Like `fill-paragraph', but unfill if used twice."
-      (interactive)
-      (let ((fill-column
-             (if (eq last-command 'endless/fill-or-unfill)
-                 (progn (setq this-command nil)
-                        (point-max))
-               fill-column)))
-        (call-interactively #'fill-paragraph)))
+    (use-package adaptive-wrap
+      :ensure t
+      :config
+      (when (fboundp 'adaptive-wrap-prefix-mode)
+        (defun my-activate-adaptive-wrap-prefix-mode ()
+          "Toggle `visual-line-mode' and `adaptive-wrap-prefix-mode' simultaneously."
+          (adaptive-wrap-prefix-mode (if visual-line-mode 1 -1)))
+        (add-hook 'visual-line-mode-hook 'my-activate-adaptive-wrap-prefix-mode)))
+#+END_SRC
 
-    (global-set-key [remap fill-paragraph]
-                    #'endless/fill-or-unfill)
+  =fill-paragraph= is nice, but emacs weirdly lacks a convenient way to unfill paragraphs once they're filled. This command ([[http://endlessparentheses.com/fill-and-unfill-paragraphs-with-a-single-key.html][credit]]) fixes that.
+
+    #+BEGIN_SRC emacs-lisp
+      (defun endless/fill-or-unfill ()
+        "Like `fill-paragraph', but unfill if used twice."
+        (interactive)
+        (let ((fill-column
+               (if (eq last-command 'endless/fill-or-unfill)
+                   (progn (setq this-command nil)
+                          (point-max))
+                 fill-column)))
+          (call-interactively #'fill-paragraph)))
+
+      (global-set-key [remap fill-paragraph]
+                      #'endless/fill-or-unfill)
   #+END_SRC
 
 * Markdown
