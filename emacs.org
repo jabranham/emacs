@@ -1008,19 +1008,19 @@
       (define-key org-mode-map (kbd "C-c s a") 'my/org-insert-src-block)
     #+END_SRC
 
-** References 
+** References (org-ref) 
    I use org-ref to manage my references. 
 
    #+BEGIN_SRC emacs-lisp
      (use-package org-ref
        :ensure t
-       :bind ("C-c r" . org-ref-helm-insert-cite-link)
        :init
        (setq org-ref-bibliography-notes "~/Dropbox/bibliography/notes.org"
              org-ref-default-bibliography '("~/Dropbox/bibliography/references.bib")
              org-ref-pdf-directory  "~/Dropbox/bibliography/bibtex-pdfs"
              org-ref-default-citation-link "autocite")
-       :config 
+       :config
+       (global-set-key (kbd "C-c r") #'org-ref-helm-insert-cite-link)
        (use-package doi-utils)
        (use-package org-ref-isbn)
        (use-package org-ref-latex))
@@ -1355,7 +1355,7 @@ I end sentences with a single space.
         (defun my-activate-adaptive-wrap-prefix-mode ()
           "Toggle `visual-line-mode' and `adaptive-wrap-prefix-mode' simultaneously."
           (adaptive-wrap-prefix-mode (if visual-line-mode 1 -1)))
-        (add-hook 'visual-line-mode-hook 'my-activate-adaptive-wrap-prefix-mode)))
+        (add-hook 'visual-line-mode-hook #'my-activate-adaptive-wrap-prefix-mode)))
 #+END_SRC
 
   =fill-paragraph= is nice, but emacs weirdly lacks a convenient way to unfill paragraphs once they're filled. This command ([[http://endlessparentheses.com/fill-and-unfill-paragraphs-with-a-single-key.html][credit]]) fixes that.
