@@ -1,4 +1,5 @@
 #+author: J. Alexander Branham
+#+STARTUP: indent
 #+title: Emacs settings
 
 * Behavior 
