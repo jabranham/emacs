@@ -1459,11 +1459,10 @@
     (setq sentence-end-double-space nil)
   #+END_SRC
 
-  I like autofill mode so that lines break at about 80 characters. Let's
-  turn it on automaticallly in text mode:
+  Turn on visual line mode for nice line wrapping
 
   #+BEGIN_SRC emacs-lisp
-    (add-hook 'text-mode-hook 'turn-on-auto-fill)
+    (add-hook 'text-mode-hook #'turn-on-visual-line-mode)
   #+END_SRC
 
   =fill-paragraph= is nice, but emacs weirdly lacks a convenient way to
