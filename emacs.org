@@ -1300,7 +1300,7 @@
    #+END_SRC
 
 ** Shell-pop
-   Use ~C-c M-e to pop up a little shell
+   Use ~C-c M-e~ to pop up a little shell
    #+BEGIN_SRC emacs-lisp
      (use-package shell-pop
        :ensure t
