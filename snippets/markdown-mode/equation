@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: equation
+# key: equation
+# --
+$$ $0  $$ {eq:$1}
