@@ -2,4 +2,4 @@
 # name: equation
 # key: equation
 # --
-$$ $0  $$ {eq:$1}
+$$ $0  $$ {#eq:$1}
