@@ -1109,7 +1109,7 @@
                     ("t" "task" entry (file+headline (concat org-directory "todo.org") "Tasks")
                      "* TODO %?")
                     ("x" "firefox" entry (file+headline (concat org-directory "todo.org") "Firefox")
-                     "* TODO %c\n %U\n" :immediate-finish t))))
+                     "* TODO %c" :immediate-finish t))))
     #+END_SRC
 
 ** Refile
