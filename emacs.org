@@ -17,15 +17,13 @@
      user-full-name  "Alex Branham")
   #+END_SRC
 
-  I use ~desktop-clear~ to get rid of buffers and other things every
-  now and then. Let's bind it to f12: 
+  I use ~desktop-clear~ to get rid of buffers and other things every now and then. Let's bind it to f12:
 
   #+BEGIN_SRC emacs-lisp
     (global-set-key (kbd "<f12>") 'desktop-clear)
   #+END_SRC
 
-  C-x C-c is originally bound to kill emacs. I accidentally type this
-  from time to time which is super-frustrating. Get rid of it:
+  C-x C-c is originally bound to kill emacs. I accidentally type this from time to time which is super-frustrating. Get rid of it:
 
   #+BEGIN_SRC emacs-lisp
     (global-unset-key (kbd "C-x C-c"))
@@ -37,8 +35,7 @@
     (global-set-key (kbd "C-z") #'undo)
   #+END_SRC
 
-    I don't work much with emacs-lisp, so the scratch buffer shouldn't
-    be in emacs-lisp mode:
+    I don't work much with emacs-lisp, so the scratch buffer shouldn't be in emacs-lisp mode:
 
     #+BEGIN_SRC emacs-lisp
       (setq initial-major-mode #'org-mode
@@ -63,8 +60,7 @@
      (set-default-coding-systems 'utf-8)
    #+END_SRC
 ** Theme
-   By default, emacs starts with a blindingly white theme. Let's get
-   rid of that pronto. 
+   By default, emacs starts with a blindingly white theme. Let's get rid of that pronto.
    #+BEGIN_SRC emacs-lisp
      (use-package spacemacs-theme
        :ensure t
@@ -87,9 +83,7 @@
 
    #+END_SRC
 ** Smart parens
-   I'm not good at keeping track of parentheses. This makes me slightly
-   better at it. It also keeps track of other things that should
-   "match" like {}, [], "", ``'' (in latex mode), etc. 
+   I'm not good at keeping track of parentheses. This makes me slightly better at it. It also keeps track of other things that should "match" like {}, [], "", ``'' (in latex mode), etc.
 
    #+BEGIN_SRC emacs-lisp
      (use-package smartparens-config
@@ -106,13 +100,9 @@
    #+END_SRC
 
 ** PDF viewer
-   I like emacs, so why not view PDFs in it? Build the server when it
-   asks - this may take a second.
+   I like emacs, so why not view PDFs in it? Build the server when it asks - this may take a second.
 
-   NOTE: ~pdf-tools~ only officially supports gnu/linux operating
-   systems. I think that it will work on macs as well, but you may have
-   to finagle it a bit. Regardless, I tell emacs to only use it if the
-   OS is linux based. 
+   NOTE: ~pdf-tools~ only officially supports gnu/linux operating systems. I think that it will work on macs as well, but you may have to finagle it a bit. Regardless, I tell emacs to only use it if the OS is linux based.
 
    #+BEGIN_SRC emacs-lisp 
      (when (eq system-type 'gnu/linux)
@@ -125,9 +115,7 @@
    #+END_SRC
 
 ** File finder (Dired)
-   Emacs can act as your file finder/explorer. Dired is the built-in
-   way to do this, but we can extend its capabilities a bit. In
-   particular, I like to modify what information is shown by default. 
+   Emacs can act as your file finder/explorer. Dired is the built-in way to do this, but we can extend its capabilities a bit. In particular, I like to modify what information is shown by default.
 
    #+BEGIN_SRC emacs-lisp
      (use-package dired+
@@ -137,8 +125,7 @@
        (setq dired-recursive-copies (quote always)))
    #+END_SRC
 
-   Here I sort dired buffers with directories (folders) first, then
-   everything else:
+   Here I sort dired buffers with directories (folders) first, then everything else:
 
    #+BEGIN_SRC emacs-lisp
      (defadvice dired-readin (after dired-after-updating-hook first () activate)
@@ -162,8 +149,7 @@
 
 
 *** TODO Remove when emacs 25 is released because this is included
-    Sometimes I uncompress .zip files from within emacs. This lets me do
-    it in dired with ~Z~
+    Sometimes I uncompress .zip files from within emacs. This lets me do it in dired with ~Z~
 
     #+BEGIN_SRC emacs-lisp
       (eval-after-load "dired-aux"
@@ -171,8 +157,7 @@
                       '("\\.zip\\'" ".zip" "unzip")))
     #+END_SRC
 
-    Finally, I like the ability to quickly narrow the list of files I'm
-    looking at using dired. This package lets me do that:
+    Finally, I like the ability to quickly narrow the list of files I'm looking at using dired. This package lets me do that:
 
     #+BEGIN_SRC emacs-lisp
       (use-package dired-narrow
@@ -194,7 +179,6 @@
    #+END_SRC
 ** Which-key
    [[https://github.com/justbur/emacs-which-key][Which key]] shows key bindings for incomplete commands (prefixes).
-   Let's try it out:
 
    #+BEGIN_SRC emacs-lisp
      (use-package which-key
@@ -206,8 +190,7 @@
    #+END_SRC
 
 ** Window numbering
-   This package will assign a number to each window, then I can use
-   ~M-1~ through ~M-0~ to switch to these numbers. 
+   This package will assign a number to each window, then I can use ~M-1~ through ~M-0~ to switch to these numbers.
 
    #+BEGIN_SRC emacs-lisp
      (use-package window-numbering
@@ -217,9 +200,7 @@
    #+END_SRC
 
 ** Keyfreq
-   This is a neat package that keeps track of which commands you're
-   using. You can then assign your most-used commands to more accessible
-   keybindings. 
+   This is a neat package that keeps track of which commands you're using. You can then assign your most-used commands to more accessible keybindings.
    #+BEGIN_SRC emacs-lisp
      (use-package keyfreq
        :ensure t
@@ -254,10 +235,7 @@
 
 ** Comments
 
-   This package makes emacs's commenting behavior work more like how I
-   want it to: when the cursor is at the beginning or mid line, ~M-;~
-   comments out the line. If it's at the end of a line, then ~M-;~ starts
-   a comment at the end of the line. 
+   This package makes emacs's commenting behavior work more like how I want it to: when the cursor is at the beginning or mid line, ~M-;~ comments out the line. If it's at the end of a line, then ~M-;~ starts a comment at the end of the line.
 
    #+BEGIN_SRC emacs-lisp
      (use-package smart-comment
@@ -266,8 +244,7 @@
    #+END_SRC
 
 ** Crux
-   [[https://github.com/bbatsov/crux/blob/master/crux.el][Crux]] is a collection of useful extensions. Here I bind some of the
-   more useful functions: 
+   [[https://github.com/bbatsov/crux/blob/master/crux.el][Crux]] is a collection of useful extensions. Here I bind some of the more useful functions:
 
 
    #+BEGIN_SRC emacs-lisp
@@ -285,8 +262,7 @@
    #+END_SRC
 
 ** Avy
-   Avy lets me jump anywhere on the screen super quickly. Just =M-S=,
-   then one letter to jump to wherever you want: 
+   Avy lets me jump anywhere on the screen super quickly. Just =M-S=, then one letter to jump to wherever you want:
    #+BEGIN_SRC emacs-lisp
      (use-package avy
        :ensure t
@@ -295,16 +271,14 @@
    #+END_SRC
 
 ** Help windows
-   You can use =C-h f=, =C-h v= and others to read docs for functions,
-   variables, etc. This makes emacs switch focus to these windows:
+   You can use =C-h f=, =C-h v= and others to read docs for functions, variables, etc. This makes emacs switch focus to these windows:
 
    #+BEGIN_SRC emacs-lisp
      (setq help-window-select t)
    #+END_SRC
 
 ** popwin
-   [[https://github.com/m2ym/popwin-el][popwin]] describes itself as freeing me from the hell of annoying
-   buffers. Let's see if that's true: 
+   [[https://github.com/m2ym/popwin-el][popwin]] describes itself as freeing me from the hell of annoying buffers. Let's see if that's true:
 
    #+BEGIN_SRC emacs-lisp
      (use-package popwin
@@ -314,8 +288,7 @@
    #+END_SRC
 
 ** Passwords
-   I use [[https://www.passwordstore.org/][pass]] to manage all my passwords and login info. This lets me
-   easily access it from within emacs:
+   I use [[https://www.passwordstore.org/][pass]] to manage all my passwords and login info. This lets me easily access it from within emacs:
 
    #+BEGIN_SRC emacs-lisp
      (when (executable-find "pass")
@@ -326,8 +299,7 @@
          (setq password-store-password-length 20)))
    #+END_SRC
 ** Highlights
-   This package provides a visual cue whenever we change a block of text
-   by highlighting it for a bit:
+   This package provides a visual cue whenever we change a block of text by highlighting it for a bit:
 
    #+BEGIN_SRC emacs-lisp
      (use-package volatile-highlights
@@ -338,8 +310,7 @@
    #+END_SRC
 
 ** Try
-   This package lets me try out other packages before installing them by
-   installing them to tmp:
+   This package lets me try out other packages before installing them by installing them to tmp:
 
 
    #+BEGIN_SRC emacs-lisp
@@ -349,14 +320,9 @@
    #+END_SRC
 
 ** Undo-tree
-   Emacs undo system is incredibly powerful but a bit confusing. This
-   package has a great visualization system that helps out, bound to
-   =C-x u= by default. Originally, =C-z= minimizes emacs. That's stupid, so
-   let's make it undo instead like a sane person. Note that redo is
-   bound 
+   Emacs undo system is incredibly powerful but a bit confusing. This package has a great visualization system that helps out, bound to =C-x u= by default. Originally, =C-z= minimizes emacs. That's stupid, so let's make it undo instead like a sane person. Note that redo is bound
 
-   I've turned this off, as I'm experiencing a weird bug and trying to
-   find the cause!
+   I've turned this off, as I'm experiencing a weird bug and trying to find the cause!
 
    #+BEGIN_SRC emacs-lisp :tangle no
      (use-package undo-tree
@@ -382,8 +348,7 @@
    #+END_SRC
 
 ** Move buffers
-   Sometimes the buffers are in the wrong places. This lets me move
-   them around. 
+   Sometimes the buffers are in the wrong places. This lets me move them around.
 
    #+BEGIN_SRC emacs-lisp
      (use-package buffer-move
@@ -397,8 +362,7 @@
        (setq buffer-move-behavior 'move))
    #+END_SRC
 
-   Here's a quick [[https://github.com/abo-abo/hydra][hydra]] that I wrote to quickly move buffers from window
-   to window: 
+   Here's a quick [[https://github.com/abo-abo/hydra][hydra]] that I wrote to quickly move buffers from window to window:
 
    #+BEGIN_SRC emacs-lisp
      (defhydra hydra-window ()
@@ -412,8 +376,7 @@
 
 ** Auto indent
 
-   [[https://github.com/Malabarba/aggressive-indent-mode][Aggressive indent mode]] keeps code indented automatically, even
-   after rearranging stuff:
+   [[https://github.com/Malabarba/aggressive-indent-mode][Aggressive indent mode]] keeps code indented automatically, even after rearranging stuff:
 
    #+BEGIN_SRC emacs-lisp
      (use-package aggressive-indent
@@ -428,9 +391,7 @@
 
 ** System packages
    
-   This is a collection of functions I wrote to help me manage
-   installed system packages with emacs. You can find the package [[https://github.com/jabranham/system-packages][on github]]
-
+   This is a collection of functions I wrote to help me manage installed system packages with emacs. You can find the package [[https://github.com/jabranham/system-packages][on github]]
 
    #+BEGIN_SRC emacs-lisp
      (use-package system-packages
@@ -449,12 +410,7 @@
    #+END_SRC
 
 ** Multiple cursors 
-
-   
-   Emacs can support multiple cursors. I don't use this much, but it's
-   super handy when I do need it:
-
-
+   Emacs can support multiple cursors. I don't use this much, but it's super handy when I do need it:
    #+BEGIN_SRC emacs-lisp
      (use-package multiple-cursors
        :ensure t
@@ -463,21 +419,16 @@
    #+END_SRC
 
 ** Miscellaneous 
-   Here are a bunch of things I want emacs to do (or not) but don't
-   seem to fit in other sections. 
+   Here are a bunch of things I want emacs to do (or not) but don't seem to fit in other sections.
 *** Replace selected text
-    Emacs by default doesn't replace selected text if you start typing
-    over it. Since that's the behavior of virtually all other programs,
-    let's make emacs do that too:
+    Emacs by default doesn't replace selected text if you start typing over it. Since that's the behavior of virtually all other programs, let's make emacs do that too:
 
     #+BEGIN_SRC emacs-lisp
       (delete-selection-mode)
     #+END_SRC
 
 *** Backup files
-    I want emacs to make these, but don't want to clutter up my project
-    folders with tons of backup files. Solution: put them in the
-    ~.emacs.d/~ directory.
+    I want emacs to make these, but don't want to clutter up my project folders with tons of backup files. Solution: put them in the ~.emacs.d/~ directory.
     #+BEGIN_SRC emacs-lisp
       (setq backup-directory-alist
             `(("." . ,(expand-file-name
@@ -490,15 +441,13 @@
       (blink-cursor-mode -1)
     #+END_SRC
 
-    Also, I like the current line to be highlighted. Makes it easy to see
-    where I am:
+    Also, I like the current line to be highlighted. Makes it easy to see where I am:
 
     #+BEGIN_SRC emacs-lisp
       (global-hl-line-mode t)
     #+END_SRC
 *** Garbage collection
-    The default value for garbage collection in emacs is quite low. Let's
-    override that when we're using the minibuffer:
+    The default value for garbage collection in emacs is quite low. Let's override that when we're using the minibuffer:
 
     #+BEGIN_SRC emacs-lisp
       (defun my-minibuffer-setup-hook ()
@@ -512,9 +461,7 @@
 
     #+END_SRC
 *** Refresh buffers
-    Emacs should refresh buffers automatically so if they've changed on
-    disk the buffer will update. I want dired to do this, but don't ask
-    me. 
+    Emacs should refresh buffers automatically so if they've changed on disk the buffer will update. I want dired to do this, but don't ask me.
 
     #+BEGIN_SRC emacs-lisp
       (setq global-auto-revert-non-file-buffers t)
@@ -523,8 +470,7 @@
     #+END_SRC
 
 *** Resize windows
-    We can resize windows now! Though this doesn't work in org-mode for
-    whatever reason.... 
+    We can resize windows now! Though this doesn't work in org-mode for whatever reason....
      #+BEGIN_SRC emacs-lisp
        (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
        (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
@@ -532,8 +478,7 @@
        (global-set-key (kbd "S-C-<up>") 'enlarge-window)
      #+END_SRC
 *** Move around quickly
-    You can ~C-n~ and whatnot to go by line, but sometimes I want to move
-    a bit more quickly than that. Using ~C-S-n~ will now let me: 
+    You can ~C-n~ and whatnot to go by line, but sometimes I want to move a bit more quickly than that. Using ~C-S-n~ will now let me:
 
     #+BEGIN_SRC emacs-lisp
       (global-set-key (kbd "C-S-n")
@@ -563,8 +508,7 @@
     #+END_SRC
 
 *** Better defaults 
-    This is inspired by the [[https://github.com/technomancy/better-defaults][better defaults]] package, but I don't like
-    everything in there. 
+    This is inspired by the [[https://github.com/technomancy/better-defaults][better defaults]] package, but I don't like everything in there.
 
     Yes, please save my place when opening/closing files: 
 
@@ -574,8 +518,7 @@
         (setq-default save-place t))
     #+END_SRC
 
-    I like having the menu-bar, but not if I'm in terminal. I don't really
-    want the toolbar or the scroll bars, though. 
+    I like having the menu-bar, but not if I'm in terminal. I don't really want the toolbar or the scroll bars, though.
     #+BEGIN_SRC emacs-lisp
       (menu-bar-mode -1)
       (tool-bar-mode -1)
@@ -587,10 +530,7 @@
       (setq-default indent-tabs-mode nil)
     #+END_SRC
 
-    Emacs "kills" and "yanks" instead of cutting and pasting. Using
-    this, we can ~C-w~ and that will kill the active region (whatever
-    you have selected). If you haven't selected anything, it'll kill
-    the line it's on. 
+    Emacs "kills" and "yanks" instead of cutting and pasting. Using this, we can ~C-w~ and that will kill the active region (whatever you have selected). If you haven't selected anything, it'll kill the line it's on.
     #+BEGIN_SRC emacs-lisp
       ;; http://emacs-fu.blogspot.co.uk/2009/11/copying-lines-without-selecting-them.html
       (defadvice kill-region (before slick-cut activate compile)
@@ -601,8 +541,7 @@
                  (line-beginning-position 2)))))
     #+END_SRC
 
-    This will set the frame name to the name of the file, so you can
-    see what file you've got selected in the menu bar. 
+    This will set the frame name to the name of the file, so you can see what file you've got selected in the menu bar.
 
     #+BEGIN_SRC emacs-lisp
       (setq frame-title-format
@@ -610,8 +549,7 @@
                                            (dired-directory dired-directory "%b"))))
     #+END_SRC
 
-    We can also define ~C-M-<backspace>~ to kill back to the first
-    non-whitespace character on a line: 
+    We can also define ~C-M-<backspace>~ to kill back to the first non-whitespace character on a line:
 
     #+BEGIN_SRC emacs-lisp
       (defun sanityinc/kill-back-to-indentation ()
@@ -624,8 +562,7 @@
       (bind-key "C-M-<backspace>" 'sanityinc/kill-back-to-indentation)
     #+END_SRC
 
-    Because I'm lazy, I want to just type y or n instead of spelling out
-    yes/no. 
+    Because I'm lazy, I want to just type y or n instead of spelling out yes/no.
 
     #+BEGIN_SRC emacs-lisp
       (fset 'yes-or-no-p 'y-or-n-p)
@@ -696,17 +633,11 @@
          (add-to-list 'company-backends 'company-shell)))
    #+END_SRC
 ** Yasnippet 
-   Yasnippet allows you to type an abbreviation and then expand it into
-   a template. We can look at yasnippet's documentation [[https://github.com/capitaomorte/yasnippet][on github]]. 
+   Yasnippet allows you to type an abbreviation and then expand it into a template. We can look at yasnippet's documentation [[https://github.com/capitaomorte/yasnippet][on github]].
 
-   Yasnippet by default checks for snippets in two places: a path
-   relative to yasnippet.el (these are the default snippets that come
-   with the package). If I want to make my own, I can put then in
-   ~.emacs.d/snippets~ and it should find them there as well. 
+   Yasnippet by default checks for snippets in two places: a path relative to yasnippet.el (these are the default snippets that come with the package). If I want to make my own, I can put then in ~.emacs.d/snippets~ and it should find them there as well.
   
-   You can use the tab key to expand a snippet once you've typed in the
-   "key". It's pretty smart in that if tab fails for yasnippet, it then
-   checks for whatever tab was originally bound to. 
+   You can use the tab key to expand a snippet once you've typed in the "key". It's pretty smart in that if tab fails for yasnippet, it then checks for whatever tab was originally bound to.
 
    #+BEGIN_SRC emacs-lisp
      (use-package yasnippet
@@ -720,8 +651,7 @@
 
 * Functions
 ** Jekyll functions
-   I use ~jekyll-publish-draft~ to move a post from _drafts/ to _posts/
-   which publishes it to my blog. Inspiration from [[http://pasoev.github.io/programming/2015/10/31/jekyll-posts-emacs-capture/][here]]
+   I use ~jekyll-publish-draft~ to move a post from _drafts/ to _posts/ which publishes it to my blog. Inspiration from [[http://pasoev.github.io/programming/2015/10/31/jekyll-posts-emacs-capture/][here]]
 
    #+BEGIN_SRC emacs-lisp
      (defun today-is ()
@@ -747,8 +677,7 @@
    #+END_SRC
 
 ** Swap horizontal and vertical windows
-   Sometimes I want horizontal windows to be vertical or vice versa. This
-   lets me make that happen:
+   Sometimes I want horizontal windows to be vertical or vice versa. This lets me make that happen:
 
    #+BEGIN_SRC emacs-lisp
      (defun toggle-window-split ()
@@ -777,9 +706,7 @@
                (if this-win-2nd (other-window 1))))))
    #+END_SRC
 ** Splitting windows
-   These functions make splitting windows behave more like I want it
-   to. This way, calling ~C-x 2~ or ~C-x 3~ both splits the window
-   /and/ shows the last buffer. 
+   These functions make splitting windows behave more like I want it to. This way, calling ~C-x 2~ or ~C-x 3~ both splits the window /and/ shows the last buffer.
 
    #+BEGIN_SRC emacs-lisp
      (defun my/vsplit-last-buffer (prefix)
@@ -832,8 +759,7 @@
 
 ** Insert file name
 
-   This function ([[http://pragmaticemacs.com/emacs/insert-file-name/][credit]]) lets me insert a file name easily. Defaults to
-   relative patph, use the universal argument to get the absolute path.
+   This function ([[http://pragmaticemacs.com/emacs/insert-file-name/][credit]]) lets me insert a file name easily. Defaults to relative patph, use the universal argument to get the absolute path.
 
    #+BEGIN_SRC emacs-lisp
      (defun my/insert-file-name (filename &optional args)
@@ -872,9 +798,7 @@
    #+END_SRC
 
 * Helm
-  Helm is a incremental completion and selection narrowing framework for
-  emacs. It's super powerful and super customizable, much like the rest
-  of emacs. Let's load it up! I also set up my keybindings here. 
+  Helm is a incremental completion and selection narrowing framework for emacs. It's super powerful and super customizable, much like the rest of emacs. Let's load it up! I also set up my keybindings here.
 
   #+BEGIN_SRC emacs-lisp
     (use-package helm-config
@@ -906,8 +830,7 @@
       (setq helm-completion-in-region-fuzzy-match t))
   #+END_SRC
 ** Projectile 
-   Projectile makes using projects easier in emacs. It also plays well
-   with helm, so let's set that up. 
+   Projectile makes using projects easier in emacs. It also plays well with helm, so let's set that up.
 
    #+BEGIN_SRC emacs-lisp
      (use-package projectile
@@ -974,8 +897,7 @@
             (define-key company-active-map (kbd "C-;") 'helm-company))))
    #+END_SRC
 ** Helm and syntax checking
-   We use flycheck for syntax checking. Helm can be integrated into
-   this. 
+   We use flycheck for syntax checking. Helm can be integrated into this.
 
    #+BEGIN_SRC emacs-lisp
      (use-package helm-flycheck
@@ -986,7 +908,6 @@
 
    #+END_SRC
 ** Helm and org 
-
    Use helm to easily navigate org headers:
 
    #+BEGIN_SRC emacs-lisp
@@ -994,10 +915,7 @@
    #+END_SRC
 
 * Org
-  Org mode is a great thing. I use it for writing academic papers,
-  managing my schedule, managing my references and notes, writing
-  presentations, writing lecture slides, and pretty much anything
-  else. This file is written in org-mode.
+  Org mode is a great thing. I use it for writing academic papers, managing my schedule, managing my references and notes, writing presentations, writing lecture slides, and pretty much anything else. This file is written in org-mode.
 
   Define =C-c l= to =org-store-link=: 
 
@@ -1012,22 +930,19 @@
      (use-package ox-md)
    #+END_SRC
 
-   I use xelatexmk so that org uses xelatex by default. I really like the
-   [[https://github.com/matze/mtheme][metropolis beamer theme.]]
+   I use xelatexmk so that org uses xelatex by default. I really like the [[https://github.com/matze/mtheme][metropolis beamer theme.]]
 
    #+BEGIN_SRC emacs-lisp
      (setq org-latex-pdf-process (list "latexmk -f -shell-escape -xelatex %f"))
    #+END_SRC
 
-   This makes org export smart quotes so that it uses ~``word``~ style
-   quotes for latex export: 
+   This makes org export smart quotes so that it uses ~``word``~ style quotes for latex export:
 
    #+BEGIN_SRC emacs-lisp
      (setq org-export-with-smart-quotes t)
    #+END_SRC
 
-   This lets me override all the export variables with a =#+BIND:=
-   statement at the beginning of org-mode files for export:
+   This lets me override all the export variables with a =#+BIND:= statement at the beginning of org-mode files for export:
 
    #+BEGIN_SRC emacs-lisp
      (setq org-export-allow-bind-keywords t)
@@ -1050,10 +965,7 @@
    #+END_SRC
 
 ** Code blocks (org-babel)
-   Org-babel is included in org. We just need to tell it which
-   languages to load. And don't ask us if we're sure we want to run
-   code blocks when we ~C-c C-c~. Finally, open the code block in the
-   current window when we use ~C-'~ 
+   Org-babel is included in org. We just need to tell it which languages to load. And don't ask us if we're sure we want to run code blocks when we ~C-c C-c~. Finally, open the code block in the current window when we use ~C-'~
 
    #+BEGIN_SRC emacs-lisp
      (org-babel-do-load-languages
@@ -1068,9 +980,7 @@
    #+END_SRC
 
 *** Code block font locking
-    This will make the contents of code blocks use the same font
-    locking (syntax highlighting) as the major mode. It'll also make
-    the tab key act like you want it to inside code blocks. 
+    This will make the contents of code blocks use the same font locking (syntax highlighting) as the major mode. It'll also make the tab key act like you want it to inside code blocks.
 
     #+BEGIN_SRC emacs-lisp
       (setq org-src-fontify-natively     t
@@ -1078,8 +988,7 @@
     #+END_SRC
 
 *** Adding SRC blocks
-    Here I define a function ([[https://github.com/vdemeester/emacs-config/blob/master/.emacs.d/emacs.org][thanks!]]) that lets me easily add and edit
-    source blocks in org mode:
+    Here I define a function ([[https://github.com/vdemeester/emacs-config/blob/master/.emacs.d/emacs.org][thanks!]]) that lets me easily add and edit source blocks in org mode:
 
     #+BEGIN_SRC emacs-lisp
       (defun my/org-insert-src-block (src-code-type)
@@ -1123,8 +1032,7 @@
    #+END_SRC
 
 ** Latex
-   Cdlatex lets me write latex in org-mode. It's particularly useful for
-   math. [[https://www.gnu.org/software/emacs/manual/html_node/org/CDLaTeX-mode.html][doc]]
+   Cdlatex lets me write latex in org-mode. It's particularly useful for math. [[https://www.gnu.org/software/emacs/manual/html_node/org/CDLaTeX-mode.html][doc]]
 
    #+BEGIN_SRC emacs-lisp
      (use-package cdlatex
@@ -1135,8 +1043,7 @@
          (add-hook 'org-mode-hook 'org-cdlatex-mode)))
    #+END_SRC
 
-   Org can preview latex fragments with =C-c C-x C-l= but it uses dvipng by
-   default. Let's switch it to imagemagick:
+   Org can preview latex fragments with =C-c C-x C-l= but it uses dvipng by default. Let's switch it to imagemagick:
 
 
    #+BEGIN_SRC emacs-lisp
@@ -1144,9 +1051,7 @@
    #+END_SRC
 
 ** Agenda 
-   Here's where I set which files are added to org-agenda, which controls
-   org's global todo list, scheduling, and agenda features. I use Dropbox
-   to keep these files in sync across computers. 
+   Here's where I set which files are added to org-agenda, which controls org's global todo list, scheduling, and agenda features. I use Dropbox to keep these files in sync across computers.
 
    #+BEGIN_SRC emacs-lisp
      (setq org-directory "~/Dropbox/org/")
@@ -1175,8 +1080,7 @@
      (setq org-agenda-window-setup 'current-window)
    #+END_SRC
 
-   By default, org binds =C-c [= to =org-agenda-file-to-front=, which I
-   find annoying. This removes that:
+   By default, org binds =C-c [= to =org-agenda-file-to-front=, which I find annoying. This removes that:
 
 
    #+BEGIN_SRC emacs-lisp
@@ -1214,9 +1118,7 @@
     #+END_SRC
 
 ** Refile
-   Org-refile lets me quickly move around headings in org files. It plays
-   nicely with org-capture, which I use to turn emails into TODOs easily
-   (among other things, of course)
+   Org-refile lets me quickly move around headings in org files. It plays nicely with org-capture, which I use to turn emails into TODOs easily (among other things, of course)
 
    #+BEGIN_SRC emacs-lisp
      (setq org-outline-path-complete-in-steps nil)
@@ -1239,9 +1141,7 @@
        :ensure t)
    #+END_SRC
 
-   For whatever reason, I have to explicitely tell org how to open pdf
-   links. I use pdf-tools, which is loaded in [[file:load-behavior.org][load-behavior]]. If pdf-tools
-   isn't installed, it will use doc-view (the default in emacs) instead. 
+   For whatever reason, I have to explicitely tell org how to open pdf links. I use pdf-tools, which is loaded in [[file:load-behavior.org][load-behavior]]. If pdf-tools isn't installed, it will use doc-view (the default in emacs) instead.
 
    #+BEGIN_SRC emacs-lisp
      (setq org-file-apps
@@ -1253,7 +1153,6 @@
    #+END_SRC
 
    Follow links when I hit =RET= on them:
-
 
    #+BEGIN_SRC emacs-lisp
      (setq org-return-follows-link t)
@@ -1271,20 +1170,16 @@
    #+END_SRC
 
 * Shells
-  I use =shell-mode= for things I need to do in the terminal/shell. It's
-  not as fully-featured as bash or zsh, but it's good enough for most
-  things. There's always =term-mode= for when I actually need bash. 
+  I use =shell-mode= for things I need to do in the terminal/shell. It's not as fully-featured as bash or zsh, but it's good enough for most things. There's always =term-mode= for when I actually need bash.
 ** Fix for dumb terminal
-   Shell-mode uses a "dumb" terminal. Sometimes that's annoying, but
-   this fixes the worst of that: 
+   Shell-mode uses a "dumb" terminal. Sometimes that's annoying, but this fixes the worst of that:
 
    #+BEGIN_SRC emacs-lisp
      (setenv "PAGER" "cat")
    #+END_SRC
 
 ** create new shell
-   It's a bit hard to get a second shell, so we can use this function to
-   create a second shell by renaming it:
+   It's a bit hard to get a second shell, so we can use this function to create a second shell by renaming it:
    #+BEGIN_SRC emacs-lisp
      (defun create-shell ()
        "creates a shell with a given name"
@@ -1310,8 +1205,7 @@
    #+END_SRC
 
 ** Bash completion 
-   We can get bash completion in shell-mode! Among other things, I get
-   tab-completion for aliases I've set up in my .bashrc file. 
+   We can get bash completion in shell-mode! Among other things, I get tab-completion for aliases I've set up in my .bashrc file.
 
    #+BEGIN_SRC emacs-lisp
      (use-package bash-completion
@@ -1326,8 +1220,7 @@
      (setq comint-scroll-to-bottom-on-input 'this)
    #+END_SRC
 * R (with ESS)
-  ESS (Emacs Speaks Statistics) is a
-  [[http://ess.r-project.org/][great project]] and makes emacs speak with R.
+  ESS (Emacs Speaks Statistics) is a [[http://ess.r-project.org/][great project]] and makes Emacs speak with R.
 
   #+BEGIN_SRC emacs-lisp
     (use-package ess-site 
@@ -1363,8 +1256,7 @@
       :interpreter "python")
   #+END_SRC
 
-  Elpy is a ton of customizations for python. Note that I had to add it
-  to ~package-archives~ in [[file:init.el]]. Load it up:
+  Elpy is a ton of customizations for python. Note that I had to add it to ~package-archives~ in [[file:init.el]]. Load it up:
 
   #+BEGIN_SRC emacs-lisp
     (use-package elpy
@@ -1379,8 +1271,7 @@
   #+END_SRC
 
 * Stan
-  Stan is a Bayesian modeling language. Emacs has a mode for it (of
-  course!) 
+  Stan is a Bayesian modeling language. Emacs has a mode for it (of course!)
 
   #+BEGIN_SRC emacs-lisp
     (use-package stan-mode
@@ -1390,7 +1281,6 @@
 
 * Ruby
   I really rarely use Ruby, so I guess I'll leave this here for now...
-
   #+BEGIN_SRC emacs-lisp
     (use-package ruby-mode
       :defer t
@@ -1404,11 +1294,9 @@
         (add-hook 'ruby-mode-hook 'robe-mode)))
   #+END_SRC
 * Code and syntax checking
-  Emacs can tell you magically if your code is wrong (or just
-  ugly). Flycheck is a minor mode for this. Let's enable it globally. 
+  Emacs can tell you magically if your code is wrong (or just ugly). Flycheck is a minor mode for this. Let's enable it globally.
 
-  Flycheck can check your R code too, but you'll need to install the
-  ~lintr~ package. 
+  Flycheck can check your R code too, but you'll need to install the ~lintr~ package.
 
   #+BEGIN_SRC emacs-lisp
     (use-package flycheck ; checks for style and syntax
@@ -1420,8 +1308,7 @@
 
   #+END_SRC
 
-  Electric operator will turn ~a=10*5+2~ into ~a = 10 * 5 + 2~, so let's
-  enable it for R:
+  Electric operator will turn ~a=10*5+2~ into ~a = 10 * 5 + 2~, so let's enable it for R:
 
   #+BEGIN_SRC emacs-lisp
     (use-package electric-operator
@@ -1432,10 +1319,7 @@
       (add-hook 'python-mode-hook #'electric-operator-mode))
   #+END_SRC
 * Whitespace
-  Whitespace is evil. Let's get rid of as much as possible. But we
-  don't want to do this with files that already had whitespace (from
-  someone else's project, for example).  This mode will call
-  ~whitespace-cleanup~ before buffers are saved (but smartly)!
+  Whitespace is evil. Let's get rid of as much as possible. But we don't want to do this with files that already had whitespace (from someone else's project, for example). This mode will call ~whitespace-cleanup~ before buffers are saved (but smartly)!
 
   #+BEGIN_SRC emacs-lisp
     (use-package whitespace-cleanup-mode 
@@ -1466,9 +1350,7 @@
     (add-hook 'text-mode-hook #'turn-on-visual-line-mode)
   #+END_SRC
 
-  =fill-paragraph= is nice, but emacs weirdly lacks a convenient way to
-  unfill paragraphs once they're filled. This command ([[http://endlessparentheses.com/fill-and-unfill-paragraphs-with-a-single-key.html][credit]]) fixes
-  that. 
+  =fill-paragraph= is nice, but emacs weirdly lacks a convenient way to unfill paragraphs once they're filled. This command ([[http://endlessparentheses.com/fill-and-unfill-paragraphs-with-a-single-key.html][credit]]) fixes that.
 
   #+BEGIN_SRC emacs-lisp
     (defun endless/fill-or-unfill ()
@@ -1500,9 +1382,7 @@
   #+END_SRC
 
 * LaTeX
-  AuCTeX is better than the built in latex mode; let's use it. It's
-  good out of the box, but I like to use latexmk so that I don't have
-  to remember to rerun the file X times to get references right. 
+  AuCTeX is better than the built in latex mode; let's use it. It's good out of the box, but I like to use latexmk so that I don't have to remember to rerun the file X times to get references right.
 
   #+BEGIN_SRC emacs-lisp
     (use-package auctex
@@ -1529,10 +1409,7 @@
       (add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "latexmk"))))
   #+END_SRC
 
-  Finally, sometimes we want wordcounts. If I just want a quick snippet,
-  I can run the following command. If I want more information, I can
-  drop into a shell with ~C-c M-e~ (~shell-pop~) and run ~texcount
-  my-file.tex~:
+  Finally, sometimes we want wordcounts. If I just want a quick snippet, I can run the following command. If I want more information, I can drop into a shell with ~C-c M-e~ (~shell-pop~) and run ~texcount my-file.tex~:
 
   #+BEGIN_SRC emacs-lisp
     (defun latex-word-count ()
@@ -1547,9 +1424,7 @@
   #+END_SRC
 
 * Polymode (for knitr)
-  Polymode is a (relatively new) way of working with multiple major
-  modes. This is especially helpful if we want to use latex or
-  markdown together with R code. 
+  Polymode is a (relatively new) way of working with multiple major modes. This is especially helpful if we want to use latex or markdown together with R code.
 
   #+BEGIN_SRC emacs-lisp
     (use-package polymode 
@@ -1561,14 +1436,9 @@
   #+END_SRC
 
 * References 
-  RefTeX takes care of referencing things. You can use it with ~C-[~
-  most places. I also use it in org mode, but we need to bind it to a
-  different key since that's taken. Finally, I like to use natbib,
-  biblatex, and pandoc-flavored markdown for references, so I set up
-  reftex to understand that.
+  RefTeX takes care of referencing things. You can use it with ~C-[~ most places. I also use it in org mode, but we need to bind it to a different key since that's taken. Finally, I like to use natbib, biblatex, and pandoc-flavored markdown for references, so I set up reftex to understand that.
 
-  You will need to change ~reftex-default-bibliography~ to wherever
-  you keep your main .bib file. 
+  You will need to change ~reftex-default-bibliography~ to wherever you keep your main .bib file.
 
   There are other reference setup options in [[Helm]] and [[Org]]
 
@@ -1599,10 +1469,7 @@
   #+END_SRC
 
 * Spell Check
-  Flyspell checks for spelling on the fly. I use aspell instead of
-  ispell because it's better. :-) You may need to install it
-  separately, though I didn't need to. If you want to use non-english
-  words, you can tell it so with ~ispell-local-dictionary~ variable. 
+  Flyspell checks for spelling on the fly. I use aspell instead of ispell because it's better. :-) You may need to install it separately, though I didn't need to. If you want to use non-english words, you can tell it so with ~ispell-local-dictionary~ variable.
 
   #+BEGIN_SRC emacs-lisp
     (use-package flyspell
@@ -1625,10 +1492,7 @@
     (setq vc-make-backup-files t)
   #+END_SRC
 ** Git & Magit
-   Magit is better than the command line for git. I don't modify much. I
-   just bind it to both  and =C-x g=. I also set it up that it
-   will run alone in the frame, then restore your previous window
-   configuration when you exit. 
+   Magit is better than the command line for git. I don't modify much. I just bind it to both and =C-x g=. I also set it up that it will run alone in the frame, then restore your previous window configuration when you exit.
 
    #+BEGIN_SRC emacs-lisp
      (use-package magit ; for git
@@ -1647,7 +1511,6 @@
      (add-to-list 'auto-mode-alist '("\\.gitconfig" . conf-mode))
    #+END_SRC
 ** Github
-   
    Here are some packages that make interacting with github a bit better:
 *** Gists
     
@@ -1662,7 +1525,7 @@
       (use-package magit-gh-pulls
         :ensure t
         :config
-        (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls))
+        (add-hook 'magit-mode-hook #'turn-on-magit-gh-pulls))
     #+END_SRC
 *** Issues
 
@@ -1702,10 +1565,7 @@
 
 * Email
 ** mu4e setup files
-   I use ~mu4e~ with mbsync and mu for my email. In order to use
-   this file, you'll need to make sure that mbsync and mu are
-   installed on your system. mbsync requires a bit of
-   configuration to get it started. 
+   I use ~mu4e~ with mbsync and mu for my email. In order to use this file, you'll need to make sure that mbsync and mu are installed on your system. mbsync requires a bit of configuration to get it started.
 ** mu4e setup
    Finally, we can get mu4e set up. 
    #+BEGIN_SRC emacs-lisp
