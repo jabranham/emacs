@@ -1378,6 +1378,14 @@ I end sentences with a single space.
       (setq markdown-enable-math t))
   #+END_SRC
 
+  Of course, markdown contains a yaml header, so we need yaml-mode as well:
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package yaml-mode
+      :ensure t
+      :mode (("\\.yml\\'" . yaml-mode)))
+  #+END_SRC
+
 * LaTeX
   AuCTeX is better than the built in latex mode; let's use it. It's good out of the box, but I like to use latexmk so that I don't have to remember to rerun the file X times to get references right.
 
