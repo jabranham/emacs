@@ -252,10 +252,12 @@
        :ensure t
        :diminish abbrev-mode
        :bind
-       ("C-a" . crux-move-beginning-of-line)
-       ("C-x i" . crux-ispell-word-then-abbrev)
-       ("C-c o" . crux-open-with)
-       ("C-c e" . crux-sudo-edit)
+       (("C-x i" . crux-ispell-word-then-abbrev)
+        ("C-c e" . crux-sudo-edit)
+        :map prog-mode-map
+        ("C-a" . crux-move-beginning-of-line)
+        :map ess-mode-map
+        ("C-a" . crux-move-beginning-of-line))
        :config
        (setq save-abbrevs 'silently)
        (setq-default abbrev-mode t))
