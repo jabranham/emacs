@@ -1211,15 +1211,11 @@ Helm can mange the spell checking that we do.
   #+BEGIN_SRC emacs-lisp
     (use-package ess-site 
       :ensure ess
-      :defer 2
       :diminish eldoc-mode
-      :bind (:map ess-mode-map
-                  ("C-h h" . ess-help))
       :config
       (add-hook 'ess-mode-hook
                 (lambda ()
-                  (ess-set-style 'RStudio)))
-      (setq ess-offset-arguments 'prev-line)
+                  (ess-set-style 'RStudio-)))
       (setq ess-eval-visibly 'nowait)
       (setq ess-ask-for-ess-directory nil)
       (setq ess-eldoc-show-on-symbol t)
@@ -1231,7 +1227,8 @@ Helm can mange the spell checking that we do.
         (just-one-space 1)
         (insert "%>%")
         (ess-newline-and-indent))
-      (define-key ess-mode-map (kbd "M-p") 'my/add-pipe))
+      (define-key ess-mode-map (kbd "M-p") #'my/add-pipe)
+      (define-key ess-mode-map (kbd "C-h h") #'ess-help))
   #+END_SRC
 
 * Python
