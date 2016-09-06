@@ -1013,7 +1013,7 @@
              org-ref-pdf-directory  "~/Dropbox/bibliography/bibtex-pdfs"
              org-ref-default-citation-link "autocite")
        :config
-       (global-set-key (kbd "C-c C-r") #'org-ref-helm-insert-cite-link)
+       (bind-key* "C-c C-r"  #'org-ref-helm-insert-cite-link)
        (use-package doi-utils)
        (use-package org-ref-isbn)
        (use-package org-ref-latex))
