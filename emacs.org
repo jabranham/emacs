@@ -587,7 +587,6 @@
               ediff-window-setup-function 'ediff-setup-windows-plain
               save-place-file (concat user-emacs-directory "places"))
     #+END_SRC
-
 * Auto completion
 ** Company mode
    Company mode provides autocompletion of text and code. 
@@ -596,6 +595,8 @@
      (use-package company 
        :ensure t
        :diminish company-mode
+       :init
+       (add-hook 'after-init-hook #'global-company-mode)
        :config
        (use-package company-statistics
          :ensure t
@@ -620,7 +621,6 @@
            (company-flx-mode +1)))
        (define-key company-active-map (kbd "<tab>")
          (lambda () (interactive) (company-complete-common-or-cycle 1)))
-       (global-company-mode t)
        (use-package company-web-html
          :ensure company-web)
        (use-package company-shell
@@ -644,7 +644,6 @@
        (define-key yas-minor-mode-map (kbd "C-c &") nil)
        (yas-global-mode))
    #+END_SRC
-
 * Functions
 ** Jekyll functions
    I use ~jekyll-publish-draft~ to move a post from _drafts/ to _posts/ which publishes it to my blog. Inspiration from [[http://pasoev.github.io/programming/2015/10/31/jekyll-posts-emacs-capture/][here]]
@@ -792,7 +791,6 @@
 
      (global-set-key (kbd "<f11>") #'my/find-emacs-file)
    #+END_SRC
-
 * Helm
   Helm is a incremental completion and selection narrowing framework for emacs. It's super powerful and super customizable, much like the rest of emacs. Let's load it up! I also set up my keybindings here.
 
@@ -909,7 +907,6 @@
    #+BEGIN_SRC emacs-lisp
      (bind-key "C-c C-j" 'helm-org-in-buffer-headings org-mode-map) ;; was org-goto
    #+END_SRC
-
 * Org
   Org mode is a great thing. I use it for writing academic papers, managing my schedule, managing my references and notes, writing presentations, writing lecture slides, and pretty much anything else. This file is written in org-mode.
 
@@ -1159,7 +1156,6 @@
    #+BEGIN_SRC emacs-lisp
      (setq org-special-ctrl-a/e t)
    #+END_SRC
-
 * Shells
   I use =shell-mode= for things I need to do in the terminal/shell. It's not as fully-featured as bash or zsh, but it's good enough for most things. There's always =term-mode= for when I actually need bash.
 ** Fix for dumb terminal
@@ -1546,7 +1542,6 @@ I end sentences with a single space.
         :ensure t
         :commands (github-issues))
     #+END_SRC
-
 * Webpage editing
 ** HTML and friends
    Web-mode takes care of a lot of html annoyances: 
@@ -1574,7 +1569,6 @@ I end sentences with a single space.
        ("\\.css\\'". css-mode)
        ("\\.scss\\'" . scss-mode))
    #+END_SRC
-
 * Email
 ** mu4e setup files
    I use ~mu4e~ with mbsync and mu for my email. In order to use this file, you'll need to make sure that mbsync and mu are installed on your system. mbsync requires a bit of configuration to get it started.
