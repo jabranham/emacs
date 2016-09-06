@@ -870,13 +870,12 @@
          :ensure t))
    #+END_SRC
 ** Helm and spellcheck
-   Helm can mange the spell checking that we do. I like it bound to
-   ~M-/~. 
+Helm can mange the spell checking that we do. 
    #+BEGIN_SRC emacs-lisp
      (use-package helm-flyspell
        :ensure t
        :config
-       (define-key flyspell-mode-map (kbd "M-/") 'helm-flyspell-correct))
+       (define-key flyspell-mode-map (kbd "C-x I") 'helm-flyspell-correct))
    #+END_SRC
 ** Helm and autocompletion
    Helm can play well with company, which we use for autocompletion.
