@@ -613,6 +613,11 @@
          :ensure t
          :config
          (company-quickhelp-mode 1))
+       (use-package company-flx
+         :ensure t
+         :init
+         (with-eval-after-load 'company
+           (company-flx-mode +1)))
        (define-key company-active-map (kbd "<tab>")
          (lambda () (interactive) (company-complete-common-or-cycle 1)))
        (global-company-mode t)
