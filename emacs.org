@@ -332,11 +332,14 @@
    Using this hydra, I can press =f2= and then =g= or =l= to zoom in/out
 
    #+BEGIN_SRC emacs-lisp
-     (defhydra hydra-zoom ()
-       "zoom"
-       ("g" text-scale-increase "in")
-       ("l" text-scale-decrease "out"))
-     (global-set-key (kbd "<f2>") 'hydra-zoom/body)
+     (use-package hydra
+       :ensure t
+       :config
+       (defhydra hydra-zoom ()
+         "zoom"
+         ("g" text-scale-increase "in")
+         ("l" text-scale-decrease "out"))
+       (global-set-key (kbd "<f2>") 'hydra-zoom/body))
    #+END_SRC
 
 ** Move buffers
