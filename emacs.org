@@ -1219,7 +1219,7 @@ Helm can mange the spell checking that we do.
       :config
       (add-hook 'ess-mode-hook
                 (lambda ()
-                  (ess-set-style 'RStudio-)))
+                  (ess-set-style 'RStudio)))
       (setq ess-eval-visibly 'nowait)
       (setq ess-ask-for-ess-directory nil)
       (setq ess-eldoc-show-on-symbol t)
