@@ -311,23 +311,6 @@
        :commands (try))
    #+END_SRC
 
-** Undo-tree
-   Emacs undo system is incredibly powerful but a bit confusing. This package has a great visualization system that helps out, bound to =C-x u= by default. Originally, =C-z= minimizes emacs. That's stupid, so let's make it undo instead like a sane person. Note that redo is bound
-
-   I've turned this off, as I'm experiencing a weird bug and trying to find the cause!
-
-   #+BEGIN_SRC emacs-lisp :tangle no
-     (use-package undo-tree
-       :ensure t
-       :diminish undo-tree-mode
-       :bind
-       ("C-z" . undo-tree-undo)
-       ("C-?" . undo-tree-redo)
-       ("C-x u" . undo-tree-visualize)
-       :config
-       (global-undo-tree-mode))
-   #+END_SRC
-
 ** Zooming
    Using this hydra, I can press =f2= and then =g= or =l= to zoom in/out
 
