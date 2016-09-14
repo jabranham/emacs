@@ -1522,14 +1522,14 @@ I end sentences with a single space.
    Here are some packages that make interacting with github a bit better:
 *** Gists
     
-   #+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp :tangle no
      (use-package gist
        :ensure t
        :commands (gist-list))
    #+END_SRC
 *** Pull Requests
 
-    #+BEGIN_SRC emacs-lisp
+    #+BEGIN_SRC emacs-lisp :tangle no
       (use-package magit-gh-pulls
         :ensure t
         :config
@@ -1537,7 +1537,7 @@ I end sentences with a single space.
     #+END_SRC
 *** Issues
 
-    #+BEGIN_SRC emacs-lisp
+    #+BEGIN_SRC emacs-lisp :tangle no
       (use-package github-issues
         :ensure t
         :commands (github-issues))
