@@ -1820,14 +1820,16 @@ I use [[https://github.com/skeeto/elfeed][elfeed]] to manage some RSS links:
      ("q" . bjm/elfeed-save-db-and-bury))
     :init
     ;; thanks - http://pragmaticemacs.com/emacs/read-your-rss-feeds-in-emacs-with-elfeed/
-    ;;functions to support syncing .elfeed between machines
-    ;;makes sure elfeed reads index from disk before launching
+    ;; though slightly modified
+    ;; functions to support syncing .elfeed between machines
+    ;; makes sure elfeed reads index from disk before launching
     (defun bjm/elfeed-load-db-and-open ()
-      "Wrapper to load the elfeed db from disk before opening"
+      "Load the elfeed db from disk before opening."
       (interactive)
       (elfeed-db-load)
       (elfeed)
-      (elfeed-search-update--force))
+      (elfeed-search-update--force)
+      (elfeed-update))
     ;;write to disk when quiting
     (defun bjm/elfeed-save-db-and-bury ()
       "Wrapper to save the elfeed db to disk before burying buffer"
