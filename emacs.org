@@ -396,6 +396,14 @@
        (mc/mark-next-like-this mc/mark-previous-like-this mc/mark-all-like-this mc/edit-lines mc/edit-beginnings-of-lines mc/edit-ends-of-lines))
    #+END_SRC
 
+** Browser
+
+Use Emacs' built in =eww= broswer by default. If a webpage requires more, I can switch to the system default by tapping =&=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq browse-url-browser-function #'eww-browse-url)
+#+END_SRC
+
 ** Miscellaneous 
    Here are a bunch of things I want emacs to do (or not) but don't seem to fit in other sections.
 *** Replace selected text
