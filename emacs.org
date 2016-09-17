@@ -374,7 +374,7 @@
    #+BEGIN_SRC emacs-lisp
      (use-package system-packages
        :load-path "~/code/system-packages"
-       :bind ("<f7>" . hydra/system-packages/body) 
+       :bind ("<f5>" . hydra/system-packages/body) 
        :config
        (defhydra hydra/system-packages ()
          "Manage system packages"
@@ -1798,4 +1798,59 @@ I end sentences with a single space.
                 "flag:unread"
                 " AND maildir:\"/INBOX\""))))
    #+END_SRC
+
+* Feed reader
+
+I use [[https://github.com/skeeto/elfeed][elfeed]] to manage some RSS links:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package elfeed
+    :ensure t
+    :bind
+    (("<f7>" . bjm/elfeed-load-db-and-open)
+     :map elfeed-search-mode-map
+     ("q" . bjm/elfeed-save-db-and-bury))
+    :init
+    ;; thanks - http://pragmaticemacs.com/emacs/read-your-rss-feeds-in-emacs-with-elfeed/
+    ;;functions to support syncing .elfeed between machines
+    ;;makes sure elfeed reads index from disk before launching
+    (defun bjm/elfeed-load-db-and-open ()
+      "Wrapper to load the elfeed db from disk before opening"
+      (interactive)
+      (elfeed-db-load)
+      (elfeed)
+      (elfeed-search-update--force))
+    ;;write to disk when quiting
+    (defun bjm/elfeed-save-db-and-bury ()
+      "Wrapper to save the elfeed db to disk before burying buffer"
+      (interactive)
+      (elfeed-db-save)
+      (quit-window))
+    :config
+    (setq elfeed-db-directory "~/Dropbox/.elfeed")
+    (setq-default elfeed-search-filter "@1-week-ago +unread ")
+  
+    ;; This lets me get the http links to entries with org-capture
+    ;; easily.
+    (defun elfeed-entry-as-html-link ()
+      "Store an http link to an elfeed entry"
+      (when (equal major-mode 'elfeed-show-mode)
+        (let ((description (elfeed-entry-title elfeed-show-entry))
+              (link (elfeed-entry-link elfeed-show-entry)))
+          (org-store-link-props
+           :type "http"
+           :link link
+           :description description))))
+    (add-hook 'org-store-link-functions #'elfeed-entry-as-html-link))
+#+END_SRC
+
+[[https://github.com/remyhonig/elfeed-org][elfeed-org]] lets me store my subscriptions in a more sane way:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package elfeed-org
+    :ensure t
+    :config
+    (elfeed-org))
+#+END_SRC
+
 
