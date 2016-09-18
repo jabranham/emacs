@@ -1153,6 +1153,12 @@ Helm can mange the spell checking that we do.
    #+END_SRC
 * Shells
   I use =shell-mode= for things I need to do in the terminal/shell. It's not as fully-featured as bash or zsh, but it's good enough for most things. There's always =term-mode= for when I actually need bash.
+
+
+  #+BEGIN_SRC emacs-lisp
+    (global-set-key (kbd "C-c M-e") #'shell)
+  #+END_SRC
+
 ** Fix for dumb terminal
    Shell-mode uses a "dumb" terminal. Sometimes that's annoying, but this fixes the worst of that:
 
@@ -1168,22 +1174,13 @@ Helm can mange the spell checking that we do.
        (interactive);; "Prompt\n shell name:")
        (let ((shell-name (read-string "shell name: " nil)))
          (shell (concat "*" shell-name "*"))))
-     (global-set-key (kbd "C-c M-E") 'create-shell)
+     (global-set-key (kbd "C-c M-E") #'create-shell)
    #+END_SRC
 
 ** Make urls clickable
 
    #+BEGIN_SRC emacs-lisp
      (add-hook 'shell-mode-hook 'goto-address-mode)
-   #+END_SRC
-
-** Shell-pop
-   Use ~C-c M-e~ to pop up a little shell
-   #+BEGIN_SRC emacs-lisp
-     (use-package shell-pop
-       :ensure t
-       :bind
-       ("C-c M-e" . shell-pop))
    #+END_SRC
 
 ** Bash completion 
