@@ -52,6 +52,7 @@
 
     #+BEGIN_SRC emacs-lisp
       (setq custom-file (concat user-emacs-directory "customize.el"))
+      (load (concat user-emacs-directory "customize.el"))
     #+END_SRC
 ** UTF-8
    Pretty please use utf-8 for all the things:
@@ -406,7 +407,6 @@ Use Emacs' built in =eww= broswer by default. If a webpage requires more, I can 
 
 *** Prettify symbols
 Prettify-symbols-mode will 
-
 
 #+BEGIN_SRC emacs-lisp
   (global-prettify-symbols-mode)
