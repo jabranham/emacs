@@ -496,7 +496,7 @@ Prettify-symbols-mode will
 
 *** Start maximized
     #+BEGIN_SRC emacs-lisp
-      (add-to-list 'default-frame-alist '(fullscreen . maximized)) 
+      (toggle-frame-fullscreen)
     #+END_SRC
 
 *** Better defaults 
@@ -749,7 +749,6 @@ Prettify-symbols-mode will
              ((or 1 4) (insert value))
              (-1 (message value))))))
    #+END_SRC
-
 ** Insert file name
 
    This function ([[http://pragmaticemacs.com/emacs/insert-file-name/][credit]]) lets me insert a file name easily. Defaults to relative patph, use the universal argument to get the absolute path.
