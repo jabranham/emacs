@@ -1,7 +1,7 @@
 ;;; init.el --- Where all the magic begins
 
 (if (version< emacs-version "25.1") ; Minimum version 
-    (error "Your Emacs is too old -- this config requires v%s or higher"))
+    (error "Your Emacs is too old -- this config requires v25.1 or higher"))
 
 ;; This file loads Org-mode and then loads the rest of our Emacs
 ;; initialization from Emacs lisp embedded in emacs.org.
