@@ -48,6 +48,11 @@
       (setq read-file-name-completion-ignore-case t)
     #+END_SRC
 
+    Write customization elsewhere: 
+
+    #+BEGIN_SRC emacs-lisp
+      (setq custom-file (concat user-emacs-directory "customize.el"))
+    #+END_SRC
 ** UTF-8
    Pretty please use utf-8 for all the things:
 
