@@ -1383,18 +1383,14 @@ I end sentences with a single space.
   AuCTeX is better than the built in latex mode; let's use it. It's good out of the box, but I like to use latexmk so that I don't have to remember to rerun the file X times to get references right.
 
   #+BEGIN_SRC emacs-lisp
-    (use-package auctex
-      :ensure t
-      :mode ("\\.tex\\'" . latex-mode)
-      :commands (latex-mode LaTeX-mode plain-tex-mode)
-      :init
-      (progn
-        (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-        (setq TeX-auto-save t
-              TeX-parse-self t
-              reftex-plug-into-AUCTeX t
-              TeX-PDF-mode t))
-      (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode)
+    (use-package tex-site
+      :ensure auctex
+      :config
+      (add-hook 'LaTeX-mode-hook #'LaTeX-math-mode)
+      (setq TeX-auto-save t
+            TeX-parse-self t
+            reftex-plug-into-AUCTeX t)
+      (add-hook 'LaTeX-mode-hook #'TeX-PDF-mode)
       (setq TeX-source-correlate-method 'synctex)
       (setq TeX-source-correlate-mode t)
       (eval-after-load "tex"
