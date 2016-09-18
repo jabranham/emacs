@@ -149,14 +149,6 @@
    #+END_SRC
 
 
-*** TODO Remove when emacs 25 is released because this is included
-    Sometimes I uncompress .zip files from within emacs. This lets me do it in dired with ~Z~
-
-    #+BEGIN_SRC emacs-lisp
-      (eval-after-load "dired-aux"
-        '(add-to-list 'dired-compress-file-suffixes 
-                      '("\\.zip\\'" ".zip" "unzip")))
-    #+END_SRC
 
     Finally, I like the ability to quickly narrow the list of files I'm looking at using dired. This package lets me do that:
 
