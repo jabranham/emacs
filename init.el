@@ -11,7 +11,6 @@
 
 ;; add MELPA, Org, and ELPY
 (require 'package)
-(setq package-enable-at-startup nil)
 (setq package-archives
       '(("elpy" . "https://jorgenschaefer.github.io/packages/")
         ("melpa" . "https://melpa.org/packages/")
