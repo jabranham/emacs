@@ -398,6 +398,15 @@ Use Emacs' built in =eww= broswer by default. If a webpage requires more, I can 
 
 ** Miscellaneous 
    Here are a bunch of things I want emacs to do (or not) but don't seem to fit in other sections.
+
+*** Prettify symbols
+Prettify-symbols-mode will 
+
+
+#+BEGIN_SRC emacs-lisp
+  (global-prettify-symbols-mode)
+#+END_SRC
+
 *** Replace selected text
     Emacs by default doesn't replace selected text if you start typing over it. Since that's the behavior of virtually all other programs, let's make emacs do that too:
 
