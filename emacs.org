@@ -793,6 +793,7 @@ Prettify-symbols-mode will
 #+BEGIN_SRC emacs-lisp
   (use-package ivy
     :ensure t
+    :diminish ivy-mode
     :bind
     ("C-M-z" . ivy-resume)
     :config
@@ -800,7 +801,6 @@ Prettify-symbols-mode will
     (setq ivy-count-format "")
     (ivy-mode 1))
 #+END_SRC
-
 
  #+BEGIN_SRC emacs-lisp
    (use-package swiper
