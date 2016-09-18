@@ -507,7 +507,7 @@ Prettify-symbols-mode will
     #+BEGIN_SRC emacs-lisp
       (use-package saveplace
         :config
-        (setq-default save-place t))
+        (save-place-mode))
     #+END_SRC
 
     I like having the menu-bar, but not if I'm in terminal. I don't really want the toolbar or the scroll bars, though.
