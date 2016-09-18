@@ -1390,7 +1390,6 @@ I end sentences with a single space.
       :commands (latex-mode LaTeX-mode plain-tex-mode)
       :init
       (progn
-        (add-hook 'LaTeX-mode-hook 'visual-line-mode)
         (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
         (setq TeX-auto-save t
               TeX-parse-self t
