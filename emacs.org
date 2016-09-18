@@ -562,13 +562,10 @@ Prettify-symbols-mode will
 
     #+END_SRC
 
-    Better search defaults:
+    Use regex searches by default:
 
     #+BEGIN_SRC emacs-lisp
-      (global-set-key (kbd "C-s") 'isearch-forward-regexp)
-      (global-set-key (kbd "C-r") 'isearch-backward-regexp)
-      (global-set-key (kbd "C-M-s") 'isearch-forward)
-      (global-set-key (kbd "C-M-r") 'isearch-backward)
+      (setq search-default-mode t)
     #+END_SRC
 
     A few final modifications: 
