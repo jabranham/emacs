@@ -825,8 +825,6 @@ Prettify-symbols-mode will
      (use-package ivy-bibtex
        :ensure t
        :init
-       (defvar my/notes-template
-         "* TODO %y - %t\n :PROPERTIES:\n  :Custom_ID: %k\n  :AUTHOR: %9a\n  :JOURNAL: %j\n  :YEAR: %y\n  :VOLUME: %v\n  :PAGES: %p\n  :DOI: %D\n  :URL: %U\n :END:\n")
        :config
        (setq bibtex-completion-bibliography "~/Dropbox/bibliography/references.bib"
              bibtex-completion-library-path "~/Dropbox/bibliography/bibtex-pdfs"
@@ -949,16 +947,17 @@ Prettify-symbols-mode will
 ** References (org-ref) 
    I use org-ref to manage my references. 
    #+BEGIN_SRC emacs-lisp
-     (use-package org-ref
+     (use-package org-ref 
        :ensure t
        :init
+       (setq org-ref-completion-library 'org-ref-ivy-cite)
+       (defvar my/notes-template
+         "* TODO %y - %t\n :PROPERTIES:\n  :Custom_ID: %k\n  :AUTHOR: %9a\n  :JOURNAL: %j\n  :YEAR: %y\n  :VOLUME: %v\n  :PAGES: %p\n  :DOI: %D\n  :URL: %U\n :END:\n")
        (setq org-ref-bibliography-notes "~/Dropbox/bibliography/notes.org"
              org-ref-default-bibliography '("~/Dropbox/bibliography/references.bib")
              org-ref-pdf-directory  "~/Dropbox/bibliography/bibtex-pdfs"
              org-ref-default-citation-link "autocite")
        :config
-       (setq org-ref-completion-library 'org-ref-ivy-cite)
-       (org-ref-ivy-cite-completion)
        (bind-key* "C-c C-r"  #'org-ref-ivy-insert-cite-link)
        (use-package doi-utils)
        (use-package org-ref-isbn)
@@ -1392,7 +1391,7 @@ I end sentences with a single space.
 
   You will need to change ~reftex-default-bibliography~ to wherever you keep your main .bib file.
 
-  There are other reference setup options in [[Helm]] and [[Org]]
+  There are other reference setup options in [[Ivy]] and [[Org]]
 
   #+BEGIN_SRC emacs-lisp
     (use-package reftex
