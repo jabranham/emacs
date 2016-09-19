@@ -833,7 +833,23 @@ Prettify-symbols-mode will
              bibtex-completion-notes-template-one-file
              "\n* TODO ${year} - ${title}\n  :PROPERTIES:\n  :Custom_ID: ${=key=}\n  :AUTHOR: ${author}\n  :JOURNAL: ${journal}\n  :YEAR: ${year}\n  :VOLUME: ${volume}\n  :PAGES: ${pages}\n  :DOI: ${doi}\n  :URL: ${url}\n :END:\n"
              )
-       (setq bibtex-completion-cite-commands '("autocite" "textcite" "citep" "citet" "citeauthor" "citeyear" "Citep" "Citet")))
+       (setq bibtex-completion-cite-commands '("autocite" "textcite" "citep" "citet" "citeauthor" "citeyear" "Citep" "Citet"))
+
+       ;; The default action is to view pdf, here we change that to insert
+       ;; citation code from https://github.com/tmalsburg/helm-bibtex
+       (defun ivy-bibtex (&optional arg)
+         "Search BibTeX entries using ivy.
+
+     With a prefix ARG the cache is invalidated and the bibliography
+     reread."
+         (interactive "P")
+         (when arg
+           (setq bibtex-completion-bibliography-hash ""))
+         (bibtex-completion-init)
+         (ivy-read "BibTeX Items: "
+                   (bibtex-completion-candidates 'ivy-bibtex-candidates-formatter)
+                   :caller 'ivy-bibtex
+                   :action 'bibtex-completion-insert-citation)))
    #+END_SRC
 * Projectile 
    Projectile makes using projects easier in emacs. It also plays well with helm, so let's set that up.
