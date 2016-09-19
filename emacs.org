@@ -290,7 +290,7 @@
 ** Passwords
    I use [[https://www.passwordstore.org/][pass]] to manage all my passwords and login info. This lets me easily access it from within emacs:
 
-   #+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp :tangle no
      (when (executable-find "pass")
        (use-package helm-pass
          :load-path "~/code/helm-pass"
