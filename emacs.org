@@ -173,7 +173,6 @@
        :ensure spaceline
        :config
        (spaceline-emacs-theme)
-       (spaceline-helm-mode)
        (spaceline-toggle-buffer-encoding-abbrev-off))
    #+END_SRC
 ** Which-key
