@@ -380,8 +380,7 @@
          ("U" system-packages-uninstall "uninstall")
          ("u" system-packages-update "update")
          ("l" system-packages-list-installed-packages "list installed")
-         ("O" system-packages-remove-orphaned "remove orphans")
-         ("e" helm-list-elisp-packages "emacs packages")))
+         ("O" system-packages-remove-orphaned "remove orphans")))
    #+END_SRC
 
 ** Multiple cursors 
