@@ -267,7 +267,7 @@
      (use-package avy
        :ensure t
        :bind
-       ("M-s" . avy-goto-word-1))
+       ("C-M-g" . avy-goto-word-1))
    #+END_SRC
 
 ** Help windows
