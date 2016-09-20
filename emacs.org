@@ -494,7 +494,7 @@ Prettify-symbols-mode will
 
 *** Start maximized
     #+BEGIN_SRC emacs-lisp
-      (toggle-frame-fullscreen)
+      (toggle-frame-maximized)
     #+END_SRC
 
 *** Better defaults 
