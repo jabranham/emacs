@@ -851,7 +851,7 @@ Prettify-symbols-mode will
                    :action 'bibtex-completion-insert-citation)))
    #+END_SRC
 * Projectile 
-   Projectile makes using projects easier in emacs. It also plays well with helm, so let's set that up.
+Projectile makes using projects easier in emacs. It also plays well with ivy, so let's set that up.
 
    #+BEGIN_SRC emacs-lisp
      (use-package projectile
@@ -863,7 +863,11 @@ Prettify-symbols-mode will
          (magit-status)
          (call-interactively #'magit-fetch-current))
        (setq projectile-completion-system 'ivy)
-       (projectile-global-mode))
+       (projectile-global-mode)
+       (use-package counsel-projectile
+         :ensure t
+         :config
+         (counsel-projectile-on)))
    #+END_SRC
 
 * Org
