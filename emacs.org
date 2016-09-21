@@ -1121,6 +1121,7 @@ Helm can mange the spell checking that we do.
            org-catch-invisible-edits 'error ; don't let me edit things I can't see
            org-hide-leading-stars t) ; hides extra stars in headers
      (setq org-log-done t)
+     (setq org-goto-interface (quote outline-path-completion))
      (use-package htmlize
        :ensure t)
    #+END_SRC
