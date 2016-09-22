@@ -54,6 +54,9 @@
       (setq custom-file (concat user-emacs-directory "customize.el"))
       (load (concat user-emacs-directory "customize.el"))
     #+END_SRC
+
+    
+
 ** UTF-8
    Pretty please use utf-8 for all the things:
 
@@ -1153,6 +1156,13 @@ Helm can mange the spell checking that we do.
    #+BEGIN_SRC emacs-lisp
      (setq org-special-ctrl-a/e t)
    #+END_SRC
+*** Org-eww
+Org-eww lets me capture eww webpages with org-mode
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-eww)
+#+END_SRC
+
 * Shells
   I use =shell-mode= for things I need to do in the terminal/shell. It's not as fully-featured as bash or zsh, but it's good enough for most things. There's always =term-mode= for when I actually need bash.
 
