@@ -17,6 +17,7 @@
 ** People                                                            :people:
 *** [[http://jabranham.com/feed.xml][jabranham]]
 *** [[http://brendanapfeld.com/atom.xml][bapfeld]]
+*** [[http://thomasleeper.com/feed.xml][leeper]]
 ** Life                                                                :life:
 *** [[http://feeds.feedburner.com/CapitalMetroblog][capitalmetro]]
 ** Comics                                                            :comics:
