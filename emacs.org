@@ -283,7 +283,6 @@
    #+BEGIN_SRC emacs-lisp
      (setq help-window-select t)
    #+END_SRC
-
 ** popwin
    [[https://github.com/m2ym/popwin-el][popwin]] describes itself as freeing me from the hell of annoying buffers. Let's see if that's true:
 
@@ -501,7 +500,7 @@ Prettify-symbols-mode will
 
 *** Start maximized
     #+BEGIN_SRC emacs-lisp
-      (toggle-frame-maximized)
+      (add-hook 'after-init-hook #'(lambda () (toggle-frame-maximized)))
     #+END_SRC
 
 *** Better defaults 
@@ -1138,7 +1137,6 @@ Org-eww lets me capture eww webpages with org-mode
 
 * Shells
   I use =shell-mode= for things I need to do in the terminal/shell. It's not as fully-featured as bash or zsh, but it's good enough for most things. There's always =term-mode= for when I actually need bash.
-
 
   #+BEGIN_SRC emacs-lisp
     (global-set-key (kbd "C-c M-e") #'shell)
