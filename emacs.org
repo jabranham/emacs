@@ -54,6 +54,9 @@
       (setq custom-file (concat user-emacs-directory "customize.el"))
       (load (concat user-emacs-directory "customize.el"))
     #+END_SRC
+
+    
+
 ** UTF-8
    Pretty please use utf-8 for all the things:
 
@@ -79,15 +82,19 @@
    Emacs has some awful scrolling by default. This gets rid of that. 
 
    #+BEGIN_SRC emacs-lisp
-     (use-package smooth-scrolling ; stops emacs nonsense default scrolling
-       :ensure t
-       :init
-       (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ; one line at a time
-       (setq mouse-wheel-progressive-speed nil) ; don't accelerate scrolling
-       (setq mouse-wheel-follow-mouse 't) ; scroll window under mouse
-       (setq scroll-step 1)) ; keyboard scroll one line at a time
-
+     (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ; one line at a time
+     (setq mouse-wheel-progressive-speed nil) ; don't accelerate scrolling
+     (setq mouse-wheel-follow-mouse 't) ; scroll window under mouse
+     (setq scroll-step 1) ; keyboard scroll one line at a time
+     (setq view-read-only t) ; open read only buffers in view-mode
+     ;; the defaults C-v and M-v scroll a full page, which is too much.
+     ;; rebind to a half page:
+     (use-package view
+       :bind
+       ("C-v" . View-scroll-half-page-forward)
+       ("M-v" . View-scroll-half-page-backward))
    #+END_SRC
+
 ** Smart parens
    I'm not good at keeping track of parentheses. This makes me slightly better at it. It also keeps track of other things that should "match" like {}, [], "", ``'' (in latex mode), etc.
 
@@ -1122,6 +1129,13 @@ Projectile makes using projects easier in emacs. It also plays well with ivy, so
    #+BEGIN_SRC emacs-lisp
      (setq org-special-ctrl-a/e t)
    #+END_SRC
+*** Org-eww
+Org-eww lets me capture eww webpages with org-mode
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-eww)
+#+END_SRC
+
 * Shells
   I use =shell-mode= for things I need to do in the terminal/shell. It's not as fully-featured as bash or zsh, but it's good enough for most things. There's always =term-mode= for when I actually need bash.
 
