@@ -82,15 +82,19 @@
    Emacs has some awful scrolling by default. This gets rid of that. 
 
    #+BEGIN_SRC emacs-lisp
-     (use-package smooth-scrolling ; stops emacs nonsense default scrolling
-       :ensure t
-       :init
-       (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ; one line at a time
-       (setq mouse-wheel-progressive-speed nil) ; don't accelerate scrolling
-       (setq mouse-wheel-follow-mouse 't) ; scroll window under mouse
-       (setq scroll-step 1)) ; keyboard scroll one line at a time
-
+     (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ; one line at a time
+     (setq mouse-wheel-progressive-speed nil) ; don't accelerate scrolling
+     (setq mouse-wheel-follow-mouse 't) ; scroll window under mouse
+     (setq scroll-step 1) ; keyboard scroll one line at a time
+     (setq view-read-only t) ; open read only buffers in view-mode
+     ;; the defaults C-v and M-v scroll a full page, which is too much.
+     ;; rebind to a half page:
+     (use-package view
+       :bind
+       ("C-v" . View-scroll-half-page-forward)
+       ("M-v" . View-scroll-half-page-backward))
    #+END_SRC
+
 ** Smart parens
    I'm not good at keeping track of parentheses. This makes me slightly better at it. It also keeps track of other things that should "match" like {}, [], "", ``'' (in latex mode), etc.
 
