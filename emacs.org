@@ -991,14 +991,14 @@ Projectile makes using projects easier in emacs. It also plays well with ivy, so
        :ensure t
        :init
        (setq org-ref-completion-library 'org-ref-ivy-cite)
-       (defvar my/notes-template
-         "* TODO %y - %t\n :PROPERTIES:\n  :Custom_ID: %k\n  :AUTHOR: %9a\n  :JOURNAL: %j\n  :YEAR: %y\n  :VOLUME: %v\n  :PAGES: %p\n  :DOI: %D\n  :URL: %U\n :END:\n")
        (setq org-ref-bibliography-notes "~/Dropbox/bibliography/notes.org"
              org-ref-default-bibliography '("~/Dropbox/bibliography/references.bib")
              org-ref-pdf-directory  "~/Dropbox/bibliography/bibtex-pdfs"
              org-ref-default-citation-link "autocite")
        :config
-       (bind-key* "C-c C-r"  #'org-ref-ivy-insert-cite-link)
+       (defvar my/notes-template
+         "* TODO %y - %t\n :PROPERTIES:\n  :Custom_ID: %k\n  :AUTHOR: %9a\n  :JOURNAL: %j\n  :YEAR: %y\n  :VOLUME: %v\n  :PAGES: %p\n  :DOI: %D\n  :URL: %U\n :END:\n")  
+       (setq org-ref-note-title-format my/notes-template)
        (use-package doi-utils)
        (use-package org-ref-isbn)
        (use-package org-ref-latex))
