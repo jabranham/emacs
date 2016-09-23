@@ -803,6 +803,8 @@ Prettify-symbols-mode will
     :config
     (setq ivy-use-virtual-buffers t)
     (setq ivy-count-format "")
+    (setq ivy-re-builders-alist
+          '((t . ivy--regex-ignore-order)))
     (ivy-mode 1))
 #+END_SRC
 
