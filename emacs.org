@@ -830,7 +830,8 @@ Prettify-symbols-mode will
    #+BEGIN_SRC emacs-lisp
      (use-package ivy-bibtex
        :ensure t
-       :init
+       :bind*
+       ("C-c C-r" . ivy-bibtex)
        :config
        (setq bibtex-completion-bibliography "~/Dropbox/bibliography/references.bib"
              bibtex-completion-library-path "~/Dropbox/bibliography/bibtex-pdfs"
@@ -854,7 +855,20 @@ Prettify-symbols-mode will
          (ivy-read "BibTeX Items: "
                    (bibtex-completion-candidates 'ivy-bibtex-candidates-formatter)
                    :caller 'ivy-bibtex
-                   :action 'bibtex-completion-insert-citation)))
+                   :action 'bibtex-completion-insert-citation))
+
+       ;; temporary fix so that I can bind C-c C-r globally yet still have
+       ;; ivy-bibtex insert autocite: citations in org-mode
+       (defun bibtex-completion-format-citation-org-autocite (keys)
+         "Formatter for org autocite references."
+         (s-join ", "
+                 (--map (format "autocite:%s" it) keys)))
+       (setq bibtex-completion-format-citation-functions
+             '((org-mode . bibtex-completion-format-citation-org-autocite)
+               (latex-mode . bibtex-completion-format-citation-cite)
+               (markdown-mode . bibtex-completion-format-citation-pandoc-citeproc)
+               (default . bibtex-completion-format-citation-default)))
+       )
    #+END_SRC
 * Projectile 
 Projectile makes using projects easier in emacs. It also plays well with ivy, so let's set that up.
