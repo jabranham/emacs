@@ -202,10 +202,10 @@
    This package will assign a number to each window, then I can use ~M-1~ through ~M-0~ to switch to these numbers.
 
    #+BEGIN_SRC emacs-lisp
-     (use-package window-numbering
+     (use-package ace-window
        :ensure t
-       :config
-       (window-numbering-mode))
+       :bind ; overrides some useless face font locking
+       ("M-o" . ace-window))
    #+END_SRC
 
 ** Keyfreq
