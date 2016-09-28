@@ -577,12 +577,17 @@ Prettify-symbols-mode will
       (fset 'yes-or-no-p 'y-or-n-p)
     #+END_SRC
 
-    We can use shift-mouse for selecting from point:
+    Also, don't ask me when I try to create a new file. Just create it.
 
     #+BEGIN_SRC emacs-lisp
-      (define-key global-map (kbd "<S-down-mouse-1>") 'mouse-save-then-kill)
-
+      (setq confirm-nonexistent-file-or-buffer nil)
     #+END_SRC
+
+      We can use shift-mouse for selecting from point:
+
+      #+BEGIN_SRC emacs-lisp
+        (define-key global-map (kbd "<S-down-mouse-1>") 'mouse-save-then-kill)
+      #+END_SRC
 
     Use regex searches by default:
 
