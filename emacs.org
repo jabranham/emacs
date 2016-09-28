@@ -830,15 +830,6 @@ Prettify-symbols-mode will
     (ivy-mode 1))
 #+END_SRC
 
- #+BEGIN_SRC emacs-lisp
-   (use-package swiper
-     :ensure t
-     :bind
-     ("C-s" . swiper)
-     )
-#+END_SRC
-
-
 #+BEGIN_SRC emacs-lisp
   (use-package counsel
     :ensure t
