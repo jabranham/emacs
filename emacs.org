@@ -180,7 +180,6 @@
        :ensure spaceline
        :config
        (spaceline-emacs-theme)
-       (spaceline-helm-mode)
        (spaceline-toggle-buffer-encoding-abbrev-off))
    #+END_SRC
 ** Which-key
@@ -275,7 +274,7 @@
      (use-package avy
        :ensure t
        :bind
-       ("M-s" . avy-goto-word-1))
+       ("C-M-g" . avy-goto-word-1))
    #+END_SRC
 
 ** Help windows
@@ -284,7 +283,6 @@
    #+BEGIN_SRC emacs-lisp
      (setq help-window-select t)
    #+END_SRC
-
 ** popwin
    [[https://github.com/m2ym/popwin-el][popwin]] describes itself as freeing me from the hell of annoying buffers. Let's see if that's true:
 
@@ -300,9 +298,9 @@
 
    #+BEGIN_SRC emacs-lisp
      (when (executable-find "pass")
-       (use-package helm-pass
-         :load-path "~/code/helm-pass"
-         :commands (helm-pass)
+       (use-package password-store
+         :ensure t
+         :commands (password-store-copy password-store-edit)
          :config
          (setq password-store-password-length 20)))
    #+END_SRC
@@ -388,8 +386,7 @@
          ("U" system-packages-uninstall "uninstall")
          ("u" system-packages-update "update")
          ("l" system-packages-list-installed-packages "list installed")
-         ("O" system-packages-remove-orphaned "remove orphans")
-         ("e" helm-list-elisp-packages "emacs packages")))
+         ("O" system-packages-remove-orphaned "remove orphans")))
    #+END_SRC
 
 ** Multiple cursors 
@@ -516,7 +513,7 @@ Prettify-symbols-mode will
 
 *** Start maximized
     #+BEGIN_SRC emacs-lisp
-      (toggle-frame-fullscreen)
+      (add-hook 'after-init-hook #'(lambda () (toggle-frame-maximized)))
     #+END_SRC
 
 *** Better defaults 
@@ -808,40 +805,88 @@ Prettify-symbols-mode will
 
      (global-set-key (kbd "<f11>") #'my/find-emacs-file)
    #+END_SRC
-* Helm
-  Helm is a incremental completion and selection narrowing framework for emacs. It's super powerful and super customizable, much like the rest of emacs. Let's load it up! I also set up my keybindings here.
+* Ivy
 
-  #+BEGIN_SRC emacs-lisp
-    (use-package helm-config
-      :ensure helm
-      :diminish helm-mode
-      :bind
-      ("C-c h" . helm-command-prefix)
-      ("M-x" . helm-M-x)
-      ("M-y" . helm-show-kill-ring)
-      ("C-x b" . helm-mini)
-      ("C-x C-f" . helm-find-files)
-      ("C-x f" . helm-find-files)
-      ("C-M-z" . helm-resume)
-      ("C-M-g" . helm-google-suggest)
-      :config
-      (define-key global-map [remap list-buffers] 'helm-buffers-list)
-      (define-key global-map [remap dabbrev-expand] 'helm-dabbrev)
-      (progn
-        (helm-mode 1)
-        (helm-adaptive-mode 1)
-        (helm-push-mark-mode 1))
-      (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to do persistent action
-      (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
-      (when (executable-find "curl")
-        (setq helm-net-prefer-curl t))
-      (setq helm-split-window-in-side-p t)
-      (setq helm-ff-file-name-history-use-recentf t)
-      (setq helm-mode-fuzzy-match t)
-      (setq helm-completion-in-region-fuzzy-match t))
-  #+END_SRC
-** Projectile 
-   Projectile makes using projects easier in emacs. It also plays well with helm, so let's set that up.
+#+BEGIN_SRC emacs-lisp
+  (use-package ivy
+    :ensure t
+    :diminish ivy-mode
+    :bind
+    ("C-M-z" . ivy-resume)
+    :config
+    (setq ivy-use-virtual-buffers t)
+    (setq ivy-count-format "")
+    (setq ivy-re-builders-alist
+          '((t . ivy--regex-ignore-order)))
+    (ivy-mode 1))
+#+END_SRC
+
+ #+BEGIN_SRC emacs-lisp
+   (use-package swiper
+     :ensure t
+     :bind
+     ("C-s" . swiper)
+     )
+#+END_SRC
+
+
+#+BEGIN_SRC emacs-lisp
+  (use-package counsel
+    :ensure t
+    :bind
+    ("M-x" . counsel-M-x)
+    ("C-x C-f" . counsel-find-file)
+    ("C-h f" . counsel-describe-function)
+    ("C-h v" . counsel-describe-variable)
+    ("M-y" . counsel-yank-pop))
+#+END_SRC
+
+** Ivy and references (ivy-bibtex)
+   #+BEGIN_SRC emacs-lisp
+     (use-package ivy-bibtex
+       :ensure t
+       :bind*
+       ("C-c C-r" . ivy-bibtex)
+       :config
+       (setq bibtex-completion-bibliography "~/Dropbox/bibliography/references.bib"
+             bibtex-completion-library-path "~/Dropbox/bibliography/bibtex-pdfs"
+             bibtex-completion-notes-path "~/Dropbox/bibliography/notes.org"
+             bibtex-completion-notes-template-one-file
+             "\n* TODO ${year} - ${title}\n  :PROPERTIES:\n  :Custom_ID: ${=key=}\n  :AUTHOR: ${author}\n  :JOURNAL: ${journal}\n  :YEAR: ${year}\n  :VOLUME: ${volume}\n  :PAGES: ${pages}\n  :DOI: ${doi}\n  :URL: ${url}\n :END:\n"
+             )
+       (setq bibtex-completion-cite-commands '("autocite" "textcite" "citep" "citet" "citeauthor" "citeyear" "Citep" "Citet"))
+
+       ;; The default action is to view pdf, here we change that to insert
+       ;; citation code from https://github.com/tmalsburg/helm-bibtex
+       (defun ivy-bibtex (&optional arg)
+         "Search BibTeX entries using ivy.
+
+     With a prefix ARG the cache is invalidated and the bibliography
+     reread."
+         (interactive "P")
+         (when arg
+           (setq bibtex-completion-bibliography-hash ""))
+         (bibtex-completion-init)
+         (ivy-read "BibTeX Items: "
+                   (bibtex-completion-candidates 'ivy-bibtex-candidates-formatter)
+                   :caller 'ivy-bibtex
+                   :action 'bibtex-completion-insert-citation))
+
+       ;; temporary fix so that I can bind C-c C-r globally yet still have
+       ;; ivy-bibtex insert autocite: citations in org-mode
+       (defun bibtex-completion-format-citation-org-autocite (keys)
+         "Formatter for org autocite references."
+         (s-join ", "
+                 (--map (format "autocite:%s" it) keys)))
+       (setq bibtex-completion-format-citation-functions
+             '((org-mode . bibtex-completion-format-citation-org-autocite)
+               (latex-mode . bibtex-completion-format-citation-cite)
+               (markdown-mode . bibtex-completion-format-citation-pandoc-citeproc)
+               (default . bibtex-completion-format-citation-default)))
+       )
+   #+END_SRC
+* Projectile 
+Projectile makes using projects easier in emacs. It also plays well with ivy, so let's set that up.
 
    #+BEGIN_SRC emacs-lisp
      (use-package projectile
@@ -852,77 +897,14 @@ Prettify-symbols-mode will
          "Git fetch."
          (magit-status)
          (call-interactively #'magit-fetch-current))
-       (use-package helm-projectile
+       (setq projectile-completion-system 'ivy)
+       (projectile-global-mode)
+       (use-package counsel-projectile
          :ensure t
          :config
-         (setq projectile-completion-system 'helm)
-         (projectile-global-mode)
-         (helm-projectile-on)))
-   #+END_SRC
-** Helm and references (helm-bibtex)
-   #+BEGIN_SRC emacs-lisp
-     (use-package helm-bibtex
-       :ensure t
-       :init
-       (defvar my/notes-template
-         "* TODO %y - %t\n :PROPERTIES:\n  :Custom_ID: %k\n  :AUTHOR: %9a\n  :JOURNAL: %j\n  :YEAR: %y\n  :VOLUME: %v\n  :PAGES: %p\n  :DOI: %D\n  :URL: %U\n :END:\n")
-       :config
-       (setq bibtex-completion-bibliography "~/Dropbox/bibliography/references.bib"
-             bibtex-completion-library-path "~/Dropbox/bibliography/bibtex-pdfs"
-             bibtex-completion-notes-path "~/Dropbox/bibliography/notes.org"
-             helm-bibtex-full-frame nil
-             bibtex-completion-notes-template-one-file
-             "\n* TODO ${year} - ${title}\n  :PROPERTIES:\n  :Custom_ID: ${=key=}\n  :AUTHOR: ${author}\n  :JOURNAL: ${journal}\n  :YEAR: ${year}\n  :VOLUME: ${volume}\n  :PAGES: ${pages}\n  :DOI: ${doi}\n  :URL: ${url}\n :END:\n"
-             )
-       (setq bibtex-completion-cite-commands '("autocite" "textcite" "citep" "citet" "citeauthor" "citeyear" "Citep" "Citet")))
+         (counsel-projectile-on)))
    #+END_SRC
 
-** Helm and email
-   #+BEGIN_SRC emacs-lisp
-     (when (executable-find "mu")
-       (use-package helm-mu
-         :bind
-         ("C-c m m" . helm-mu)
-         ("C-c m c" . helm-mu-contacts)
-         :ensure t))
-   #+END_SRC
-** Helm and spellcheck
-Helm can mange the spell checking that we do. 
-   #+BEGIN_SRC emacs-lisp
-     (use-package helm-flyspell
-       :ensure t
-       :config
-       (define-key flyspell-mode-map (kbd "C-x I") 'helm-flyspell-correct))
-   #+END_SRC
-** Helm and autocompletion
-   Helm can play well with company, which we use for autocompletion.
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package helm-company
-       :ensure t
-       :config
-       (eval-after-load 'company
-         '(progn
-            (define-key company-mode-map (kbd "C-;") 'helm-company)
-            (define-key company-active-map (kbd "C-;") 'helm-company))))
-   #+END_SRC
-** Helm and syntax checking
-   We use flycheck for syntax checking. Helm can be integrated into this.
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package helm-flycheck
-       :ensure t
-       :config
-       (eval-after-load 'flycheck
-         '(define-key flycheck-mode-map (kbd "C-c ! h") 'helm-flycheck)))
-
-   #+END_SRC
-** Helm and org 
-   Use helm to easily navigate org headers:
-
-   #+BEGIN_SRC emacs-lisp
-     (bind-key "C-c C-j" 'helm-org-in-buffer-headings org-mode-map) ;; was org-goto
-   #+END_SRC
 * Org
   Org mode is a great thing. I use it for writing academic papers, managing my schedule, managing my references and notes, writing presentations, writing lecture slides, and pretty much anything else. This file is written in org-mode.
 
@@ -1019,17 +1001,19 @@ Helm can mange the spell checking that we do.
 
 ** References (org-ref) 
    I use org-ref to manage my references. 
-
    #+BEGIN_SRC emacs-lisp
-     (use-package org-ref
+     (use-package org-ref 
        :ensure t
        :init
+       (setq org-ref-completion-library 'org-ref-ivy-cite)
        (setq org-ref-bibliography-notes "~/Dropbox/bibliography/notes.org"
              org-ref-default-bibliography '("~/Dropbox/bibliography/references.bib")
              org-ref-pdf-directory  "~/Dropbox/bibliography/bibtex-pdfs"
              org-ref-default-citation-link "autocite")
        :config
-       (bind-key* "C-c C-r"  #'org-ref-helm-insert-cite-link)
+       (defvar my/notes-template
+         "* TODO %y - %t\n :PROPERTIES:\n  :Custom_ID: %k\n  :AUTHOR: %9a\n  :JOURNAL: %j\n  :YEAR: %y\n  :VOLUME: %v\n  :PAGES: %p\n  :DOI: %D\n  :URL: %U\n :END:\n")  
+       (setq org-ref-note-title-format my/notes-template)
        (use-package doi-utils)
        (use-package org-ref-isbn)
        (use-package org-ref-latex))
@@ -1182,7 +1166,6 @@ Org-eww lets me capture eww webpages with org-mode
 
 * Shells
   I use =shell-mode= for things I need to do in the terminal/shell. It's not as fully-featured as bash or zsh, but it's good enough for most things. There's always =term-mode= for when I actually need bash.
-
 
   #+BEGIN_SRC emacs-lisp
     (global-set-key (kbd "C-c M-e") #'shell)
@@ -1470,7 +1453,7 @@ I end sentences with a single space.
 
   You will need to change ~reftex-default-bibliography~ to wherever you keep your main .bib file.
 
-  There are other reference setup options in [[Helm]] and [[Org]]
+  There are other reference setup options in [[Ivy]] and [[Org]]
 
   #+BEGIN_SRC emacs-lisp
     (use-package reftex
@@ -1530,6 +1513,7 @@ I end sentences with a single space.
        :bind
        ("C-x g" . magit-status)
        :config
+       (setq magit-completing-read-function 'ivy-completing-read)
        (setq magit-push-always-verify nil)
        (setq magit-diff-refine-hunk 'all)
        (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1))
@@ -1540,30 +1524,15 @@ I end sentences with a single space.
    #+BEGIN_SRC emacs-lisp
      (add-to-list 'auto-mode-alist '("\\.gitconfig" . conf-mode))
    #+END_SRC
-** Github
-   Here are some packages that make interacting with github a bit better:
-*** Gists
-    
-   #+BEGIN_SRC emacs-lisp :tangle no
-     (use-package gist
-       :ensure t
-       :commands (gist-list))
-   #+END_SRC
-*** Pull Requests
+*** Git timemachine
 
-    #+BEGIN_SRC emacs-lisp :tangle no
-      (use-package magit-gh-pulls
-        :ensure t
-        :config
-        (add-hook 'magit-mode-hook #'turn-on-magit-gh-pulls))
-    #+END_SRC
-*** Issues
 
-    #+BEGIN_SRC emacs-lisp :tangle no
-      (use-package github-issues
-        :ensure t
-        :commands (github-issues))
-    #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package git-timemachine
+    :ensure t
+    :commands (git-timemachine))
+#+END_SRC
+
 * Webpage editing
 ** HTML and friends
    Web-mode takes care of a lot of html annoyances: 
