@@ -48,11 +48,10 @@
       (setq read-file-name-completion-ignore-case t)
     #+END_SRC
 
-    Write customization elsewhere: 
+    Write customization elsewhere, don't load it.
 
     #+BEGIN_SRC emacs-lisp
       (setq custom-file (concat user-emacs-directory "customize.el"))
-      (load (concat user-emacs-directory "customize.el"))
     #+END_SRC
 
     Delete my files by moving them to the trash. I'm human and occasionally delete things that I actually want later:
