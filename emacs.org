@@ -1607,6 +1607,13 @@ I end sentences with a single space.
          (setq mu4e-use-fancy-chars t)
          (setq mu4e-headers-skip-duplicates t)
          (setq mu4e-attachment-dir "~/Downloads")
+         (add-hook 'mu4e-view-mode-hook #'visual-line-mode)
+         ;; turn off autofill mode in mu4e compose
+         (defun autofill-off-visual-on ()
+           "Turn off auto-fill-mode and turn on visual-mode"
+           (auto-fill-mode -1)
+           (visual-line-mode))
+         (add-hook 'mu4e-compose-mode-hook #'autofill-off-visual-on)
          (use-package gnus-dired
            ;; make the `gnus-dired-mail-buffers' function also work on
            ;; message-mode derived modes, such as mu4e-compose-mode
