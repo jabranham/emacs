@@ -409,6 +409,15 @@ Use Emacs' built in =eww= broswer by default. If a webpage requires more, I can 
   (setq browse-url-browser-function #'eww-browse-url)
 #+END_SRC
 
+By default, =M-s M-w= searches for text in the region. I change it to search for text in region if active, prompt otherwise:
+#+BEGIN_SRC emacs-lisp
+  (defun jab/eww-search (orig-fun &rest args)
+    (if (region-active-p) (apply orig-fun args)
+      (eww (read-string "Query: "))))
+  (advice-add 'eww-search-words :around #'jab/eww-search)
+#+END_SRC
+
+
 ** Miscellaneous 
    Here are a bunch of things I want emacs to do (or not) but don't seem to fit in other sections.
 
