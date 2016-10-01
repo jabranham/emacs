@@ -356,14 +356,10 @@
        :ensure t
        :config
        (add-hook 'ess-mode-hook #'aggressive-indent-mode)
-       (add-hook 'python-mode-hook #'aggressive-indent-mode)
-       (add-hook 'css-mode-hook #'aggressive-indent-mode)
-       (add-hook 'scss-mode-hook #'aggressive-indent-mode)
-       (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode))
+       (add-hook 'prog-mode-hook #'aggressive-indent-mode))
    #+END_SRC
 
 ** System packages
-   
    This is a collection of functions I wrote to help me manage installed system packages with emacs. You can find the package [[https://github.com/jabranham/system-packages][on github]]
 
    #+BEGIN_SRC emacs-lisp
