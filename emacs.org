@@ -382,12 +382,11 @@
    #+BEGIN_SRC emacs-lisp
      (use-package multiple-cursors
        :ensure t
-       :commands
-       (mc/mark-next-like-this mc/mark-previous-like-this mc/mark-all-like-this mc/edit-lines mc/edit-beginnings-of-lines mc/edit-ends-of-lines))
+       :bind
+       ("C-c m c l" . mc/edit-lines)
+       ("C-c m c a" . mc/mark-all-like-this))
    #+END_SRC
-
 ** Browser
-
 Use Emacs' built in =eww= broswer by default. If a webpage requires more, I can switch to the system default by tapping =&=:
 
 #+BEGIN_SRC emacs-lisp
