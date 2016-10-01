@@ -237,13 +237,12 @@
    #+BEGIN_SRC emacs-lisp
      (use-package server
        :if window-system
-       :init
+       :config
        (unless (server-running-p)
          (add-hook 'after-init-hook #'server-start t)))
    #+END_SRC
 ** Crux
    [[https://github.com/bbatsov/crux/blob/master/crux.el][Crux]] is a collection of useful extensions. Here I bind some of the more useful functions:
-
 
    #+BEGIN_SRC emacs-lisp
      (use-package crux
