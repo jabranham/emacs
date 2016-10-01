@@ -6,7 +6,6 @@
   Change some of emacs's defaults because they suck:
   #+BEGIN_SRC emacs-lisp
     (setq inhibit-startup-message t ; disable start screen
-          global-font-lock-mode t ; font lock (syntax highlighting) everywhere
           font-lock-maximum-decoration t) ; lots of color
   #+END_SRC
 
