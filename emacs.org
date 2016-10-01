@@ -554,19 +554,6 @@ Prettify-symbols-mode will
                                            (dired-directory dired-directory "%b"))))
     #+END_SRC
 
-    We can also define ~C-M-<backspace>~ to kill back to the first non-whitespace character on a line:
-
-    #+BEGIN_SRC emacs-lisp
-      (defun sanityinc/kill-back-to-indentation ()
-        "Kill from point back to the first non-whitespace character on the line."
-        (interactive)
-        (let ((prev-pos (point)))
-          (back-to-indentation)
-          (kill-region (point) prev-pos)))
-
-      (bind-key "C-M-<backspace>" 'sanityinc/kill-back-to-indentation)
-    #+END_SRC
-
     Because I'm lazy, I want to just type y or n instead of spelling out yes/no.
 
     #+BEGIN_SRC emacs-lisp
