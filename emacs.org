@@ -808,6 +808,13 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
        :ensure t
        :bind*
        ("C-c C-r" . ivy-bibtex)
+       :init
+       ;; Set up how keys should look - authoryear
+       (setq bibtex-autokey-titleword-length 0
+             bibtex-autokey-titleword-separator ""
+             bibtex-autokey-titlewords 0
+             bibtex-autokey-year-length 4
+             bibtex-autokey-year-title-separator "")
        :config
        (setq bibtex-completion-bibliography "~/Dropbox/bibliography/references.bib"
              bibtex-completion-library-path "~/Dropbox/bibliography/bibtex-pdfs"
@@ -1359,6 +1366,32 @@ I end sentences with a single space.
         (message (replace-match "" nil nil word-count))))
   #+END_SRC
 
+** Reftex
+I use =ivy-bibtex= to manage my references, but ReFTeX is still great to have around for cross-references in latex files. 
+
+You will need to change ~reftex-default-bibliography~ to wherever you keep your main .bib file.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package reftex
+    :commands turn-on-reftex
+    :init
+    (setq reftex-cite-format 
+          '((?\C-m . "\\cite[]{%l}")
+            (?t . "\\citet{%l}")
+            (?p . "\\citep[]{%l}")
+            (?a . "\\autocite{%l}")
+            (?A . "\\textcite{%l}")
+            (?P . "[@%l]")
+            (?T . "@%l [p. ]")
+            (?x . "[]{%l}")
+            (?X . "{%l}")))
+    (setq reftex-default-bibliography '("~/Dropbox/bibliography/references.bib"))
+    (setq reftex-bibliography-commands '("bibliography" "nobibliography" "addbibresource"))
+    (setq reftex-extra-bindings t)
+    :config
+    (add-hook 'LaTeX-mode-hook #'turn-on-reftex))
+#+END_SRC
+
 * Polymode (for knitr)
   Polymode is a (relatively new) way of working with multiple major modes. This is especially helpful if we want to use latex or markdown together with R code.
 
@@ -1378,39 +1411,6 @@ I end sentences with a single space.
           (require 'poly-markdown)
           (R-mode)
           (poly-markdown+r-mode))))
-  #+END_SRC
-
-* References 
-  RefTeX takes care of referencing things. You can use it with ~C-[~ most places. I also use it in org mode, but we need to bind it to a different key since that's taken. Finally, I like to use natbib, biblatex, and pandoc-flavored markdown for references, so I set up reftex to understand that.
-
-  You will need to change ~reftex-default-bibliography~ to wherever you keep your main .bib file.
-
-  There are other reference setup options in [[Ivy]] and [[Org]]
-
-  #+BEGIN_SRC emacs-lisp
-    (use-package reftex
-      :commands turn-on-reftex
-      :init
-      (setq reftex-cite-format 
-            '((?\C-m . "\\cite[]{%l}")
-              (?t . "\\citet{%l}")
-              (?p . "\\citep[]{%l}")
-              (?a . "\\autocite{%l}")
-              (?A . "\\textcite{%l}")
-              (?P . "[@%l]")
-              (?T . "@%l [p. ]")
-              (?x . "[]{%l}")
-              (?X . "{%l}")))
-      (setq bibtex-autokey-titleword-length 0
-            bibtex-autokey-titleword-separator ""
-            bibtex-autokey-titlewords 0
-            bibtex-autokey-year-length 4
-            bibtex-autokey-year-title-separator "")
-      (setq reftex-default-bibliography '("~/Dropbox/bibliography/references.bib"))
-      (setq reftex-bibliography-commands '("bibliography" "nobibliography" "addbibresource"))
-      (setq reftex-extra-bindings t)
-      :config
-      (add-hook 'LaTeX-mode-hook 'turn-on-reftex))
   #+END_SRC
 
 * Spell Check
