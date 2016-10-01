@@ -1407,30 +1407,25 @@ You will need to change ~reftex-default-bibliography~ to wherever you keep your 
   #+END_SRC
 
 * Spell Check
-  Flyspell checks for spelling on the fly. I use aspell instead of ispell because it's better. :-) You may need to install it separately, though I didn't need to. If you want to use non-english words, you can tell it so with ~ispell-local-dictionary~ variable.
+Flyspell checks for spelling on the fly. I use aspell instead of ispell because it's better. :-) You may need to install it separately, though I didn't need to. If you want to use non-english words, you can tell it so with ~ispell-local-dictionary~ variable. 
 
   #+BEGIN_SRC emacs-lisp
     (use-package flyspell
       :ensure t
       :diminish flyspell-mode
-      :init
-      (setq flyspell-sort-corrections nil)
-      (autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
       :config
       (setq ispell-program-name "aspell")
       (setq ispell-list-command "--list")
       (add-hook 'text-mode-hook 'turn-on-flyspell)
-      (add-hook 'LaTeX-mode-hook 'turn-on-flyspell)
-      (add-hook 'markdown-mode-hook 'turn-on-flyspell)
-      (add-hook 'org-mode-hook 'turn-on-flyspell)
-      (add-hook 'prog-mode-hook 'flyspell-prog-mode))
+      (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+      (add-hook 'ess-mode-hook 'flyspell-prog-mode))
   #+END_SRC
 * Version control
   #+BEGIN_SRC emacs-lisp
     (setq vc-make-backup-files t)
   #+END_SRC
 ** Git & Magit
-   Magit is better than the command line for git. I don't modify much. I just bind it to both and =C-x g=. I also set it up that it will run alone in the frame, then restore your previous window configuration when you exit.
+Magit is better than the command line for git. I don't modify much. I just bind it to =C-x g=. I also set it up that it will run alone in the frame, then restore your previous window configuration when you exit.
 
    #+BEGIN_SRC emacs-lisp
      (use-package magit ; for git
