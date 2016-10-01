@@ -605,10 +605,6 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
          :ensure t
          :config
          (company-statistics-mode))
-       (use-package company-auctex
-         :ensure t
-         :config
-         (company-auctex-init))
        (use-package company-math
          :ensure t
          :config
