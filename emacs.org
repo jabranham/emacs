@@ -1253,15 +1253,8 @@ Org-eww lets me capture eww webpages with org-mode
       :ensure t
       :diminish whitespace-cleanup-mode
       :config
-      (add-hook 'haskell-mode-hook 'whitespace-cleanup-mode)
-      (add-hook 'emacs-lisp-mode-hook 'whitespace-cleanup-mode)
-      (add-hook 'lisp-mode-hook 'whitespace-cleanup-mode)
-      (add-hook 'scheme-mode-hook 'whitespace-cleanup-mode)
-      (add-hook 'ess-mode-hook 'whitespace-cleanup-mode)
-      (add-hook 'erlang-mode-hook 'whitespace-cleanup-mode)
-      (add-hook 'clojure-mode-hook 'whitespace-cleanup-mode)
-      (add-hook 'ruby-mode-hook 'whitespace-cleanup-mode)
-      (add-hook 'stan-mode-hook 'whitespace-cleanup-mode))
+      (add-hook 'prog-mode-hook #'whitespace-cleanup-mode)
+      (add-hook 'ess-mode-hook #'whitespace-cleanup-mode))
   #+END_SRC
 
 * Text Misc
