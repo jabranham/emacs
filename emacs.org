@@ -419,7 +419,7 @@ By default, =M-s M-w= searches for text in the region. I change it to search for
                "culpa qui officia deserunt mollit anim id est laborum."))
    #+END_SRC
 *** Prettify symbols
-Prettify-symbols-mode will 
+Prettify-symbols-mode will replace some symbols (like "lambda") with their prettier cousins (like \lambda). 
 
 #+BEGIN_SRC emacs-lisp
   (global-prettify-symbols-mode)
@@ -449,7 +449,7 @@ Prettify-symbols-mode will
     Also, I like the current line to be highlighted. Makes it easy to see where I am:
 
     #+BEGIN_SRC emacs-lisp
-      (global-hl-line-mode t)
+      (global-hl-line-mode)
     #+END_SRC
 *** Garbage collection
     The default value for garbage collection in emacs is quite low. Let's override that when we're using the minibuffer:
@@ -475,7 +475,7 @@ Prettify-symbols-mode will
     #+END_SRC
 
 *** Resize windows
-    We can resize windows now! Though this doesn't work in org-mode for whatever reason....
+    We can resize windows now! 
      #+BEGIN_SRC emacs-lisp
        (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
        (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
@@ -509,7 +509,7 @@ Prettify-symbols-mode will
 
 *** Start maximized
     #+BEGIN_SRC emacs-lisp
-      (add-hook 'after-init-hook #'(lambda () (toggle-frame-maximized)))
+      (add-hook 'after-init-hook (lambda () (toggle-frame-maximized)))
     #+END_SRC
 
 *** Better defaults 
@@ -523,7 +523,7 @@ Prettify-symbols-mode will
         (save-place-mode))
     #+END_SRC
 
-    I like having the menu-bar, but not if I'm in terminal. I don't really want the toolbar or the scroll bars, though.
+    Get rid of menu-bar, toolbar, and the scroll bars
     #+BEGIN_SRC emacs-lisp
       (menu-bar-mode -1)
       (tool-bar-mode -1)
