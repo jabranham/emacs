@@ -390,7 +390,12 @@
 Use Emacs' built in =eww= broswer by default. If a webpage requires more, I can switch to the system default by tapping =&=:
 
 #+BEGIN_SRC emacs-lisp
-  (setq browse-url-browser-function #'eww-browse-url)
+  (setq browse-url-browser-function
+        '((".*login.utexas.*" . browse-url-firefox)
+          (".*utdirect.*utexas.*" . browse-url-firefox)
+          (".*youtube.*" . browse-url-firefox)
+          (".*youtu.be*" . browse-url-firefox)
+          ("." . eww-browse-url)))
 #+END_SRC
 
 By default, =M-s M-w= searches for text in the region. I change it to search for text in region if active, prompt otherwise:
