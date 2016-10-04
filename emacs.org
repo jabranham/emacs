@@ -432,6 +432,7 @@ Rebind =C-;= to =comment-line= (from =comment-dwim=):
 Prettify-symbols-mode will replace some symbols (like "lambda") with their prettier cousins (like \lambda). 
 
 #+BEGIN_SRC emacs-lisp
+  (setq prettify-symbols-unprettify-at-point 'right-edge)
   (global-prettify-symbols-mode)
 #+END_SRC
 
