@@ -406,7 +406,6 @@ By default, =M-s M-w= searches for text in the region. I change it to search for
   (advice-add 'eww-search-words :around #'jab/eww-search)
 #+END_SRC
 
-
 ** Miscellaneous 
    Here are a bunch of things I want emacs to do (or not) but don't seem to fit in other sections.
 
@@ -423,6 +422,12 @@ By default, =M-s M-w= searches for text in the region. I change it to search for
                "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
                "culpa qui officia deserunt mollit anim id est laborum."))
    #+END_SRC
+
+Rebind =C-;= to =comment-line= (from =comment-dwim=):
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-;") #'comment-line)
+#+END_SRC
 *** Prettify symbols
 Prettify-symbols-mode will replace some symbols (like "lambda") with their prettier cousins (like \lambda). 
 
