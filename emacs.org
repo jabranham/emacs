@@ -197,8 +197,8 @@
        (which-key-mode))
    #+END_SRC
 
-** Window numbering
-   This package will assign a number to each window, then I can use ~M-1~ through ~M-0~ to switch to these numbers.
+** Window switching 
+I can use =ace-window= to quickly jump from window to window
 
    #+BEGIN_SRC emacs-lisp
      (use-package ace-window
