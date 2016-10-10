@@ -311,15 +311,11 @@ I can use =ace-window= to quickly jump from window to window
 
    I've turned this off, as I'm experiencing a weird bug and trying to find the cause!
 
-   #+BEGIN_SRC emacs-lisp :tangle no
+   #+BEGIN_SRC emacs-lisp
      (use-package undo-tree
        :ensure t
        :diminish undo-tree-mode
-       :bind
-       ("C-z" . undo-tree-undo)
-       ("C-?" . undo-tree-redo)
-       ("C-x u" . undo-tree-visualize)
-       :config
+       :init
        (global-undo-tree-mode))
    #+END_SRC
 
