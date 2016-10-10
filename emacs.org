@@ -1198,7 +1198,8 @@ Org-eww lets me capture eww webpages with org-mode
         (insert "%>%")
         (ess-newline-and-indent))
       (define-key ess-mode-map (kbd "M-p") #'my/add-pipe)
-      (define-key ess-mode-map (kbd "C-h h") #'ess-help))
+      (define-key ess-mode-map (kbd "C-h h") #'ess-help)
+      (define-key inferior-ess-mode-map (kbd "C-h h") #'ess-help))
   #+END_SRC
 
 * Python
