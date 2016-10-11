@@ -355,8 +355,7 @@ I can use =ace-window= to quickly jump from window to window
      (use-package aggressive-indent
        :ensure t
        :config
-       (add-hook 'ess-mode-hook #'aggressive-indent-mode)
-       (add-hook 'prog-mode-hook #'aggressive-indent-mode))
+       (global-aggressive-indent-mode))
    #+END_SRC
 
 ** System packages
