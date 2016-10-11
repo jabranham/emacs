@@ -1496,6 +1496,15 @@ Magit is better than the command line for git. I don't modify much. I just bind 
    #+BEGIN_SRC emacs-lisp
      (add-to-list 'auto-mode-alist '("\\.gitconfig" . conf-mode))
    #+END_SRC
+
+*** Github
+This package integrates magit with github. It relies on having [[https://hub.github.com/][hub]] installed already. 
+#+BEGIN_SRC emacs-lisp
+  (use-package magithub
+    :ensure t
+    :if (executable-find "hub")
+    :after magit)
+#+END_SRC
 *** Git timemachine
 
 
