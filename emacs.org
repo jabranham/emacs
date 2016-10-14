@@ -839,6 +839,7 @@ This function ([[http://pragmaticemacs.com/emacs/insert-file-name/][credit]]) le
              bibtex-autokey-year-length 4
              bibtex-autokey-year-title-separator "")
        (setq bibtex-align-at-equal-sign t)
+       (setq bibtex-files '("~/Dropbox/bibliography/references.bib"))
        :config
        (setq bibtex-completion-bibliography "~/Dropbox/bibliography/references.bib"
              bibtex-completion-library-path "~/Dropbox/bibliography/bibtex-pdfs"
