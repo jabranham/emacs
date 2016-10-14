@@ -29,3 +29,4 @@
 *** [[http://feeds2.feedburner.com/blogspot/Egta][chrome]]
 *** [[http://feeds.feedburner.com/OfficialAndroidBlog][android]]
 *** [[http://feeds.feedburner.com/blogspot/MKuf][google]]
+*** [[https://www.archlinux.org/feeds/news/][arch]]linux
