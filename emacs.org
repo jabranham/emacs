@@ -130,15 +130,15 @@
    #+END_SRC
 
 ** File finder (Dired)
-   Emacs can act as your file finder/explorer. Dired is the built-in way to do this, but we can extend its capabilities a bit. In particular, I like to modify what information is shown by default.
+   Emacs can act as your file finder/explorer. Dired is the built-in way to do this.
 
    #+BEGIN_SRC emacs-lisp
-     (use-package dired+
-       :ensure t
-       :config
-       (setq dired-auto-revert-buffer t)
-       (setq dired-dwim-target t)
-       (setq dired-recursive-copies (quote always)))
+     (setq dired-auto-revert-buffer t)
+     (setq dired-dwim-target t)
+     (setq dired-recursive-copies (quote always))
+     ;; Hide details (owner, permissions) in dired
+     (add-hook 'dired-mode-hook 
+               (lambda () (dired-hide-details-mode 1)))
    #+END_SRC
 
    Here I sort dired buffers with directories (folders) first, then everything else:
@@ -162,19 +162,6 @@
 
      (add-hook 'find-file-not-found-functions #'make-parent-directory)
    #+END_SRC
-
-
-
-    Finally, I like the ability to quickly narrow the list of files I'm looking at using dired. This package lets me do that:
-
-    #+BEGIN_SRC emacs-lisp
-      (use-package dired-narrow
-        :bind
-        (:map dired-mode-map
-              ("C-c n". dired-narrow-fuzzy))
-        :ensure t)
-    #+END_SRC
-
 ** Modeline
    The default modeline is nice enough, but this one is much better looking:
 
