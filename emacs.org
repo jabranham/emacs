@@ -239,8 +239,6 @@ I can use =ace-window= to quickly jump from window to window
        (("C-x i" . crux-ispell-word-then-abbrev)
         ("C-c e" . crux-sudo-edit)
         :map prog-mode-map
-        ("C-a" . crux-move-beginning-of-line)
-        :map ess-mode-map
         ("C-a" . crux-move-beginning-of-line))
        :config
        (setq save-abbrevs 'silently)
@@ -1198,6 +1196,9 @@ Org-eww lets me capture eww webpages with org-mode
     (use-package ess-site 
       :ensure ess
       :diminish eldoc-mode
+      :bind
+      (:map ess-mode-map
+            ("C-a" . crux-move-beginning-of-line))
       :config
       (add-hook 'ess-mode-hook
                 (lambda ()
