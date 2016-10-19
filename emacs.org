@@ -852,24 +852,37 @@ This function ([[http://pragmaticemacs.com/emacs/insert-file-name/][credit]]) le
                (default . bibtex-completion-format-citation-default)))
        )
    #+END_SRC
+
+** Ivy and makefiles
+I can setup ivy to deal with makefiles easily: 
+
+#+BEGIN_SRC emacs-lisp
+  (use-package helm-make
+    :ensure t
+    :bind
+    ("C-c p c" . helm-make-projectile)
+    :init
+    (setq helm-make-completion-method 'ivy))
+#+END_SRC
 * Projectile 
 Projectile makes using projects easier in emacs. It also plays well with ivy, so let's set that up.
 
-   #+BEGIN_SRC emacs-lisp
-     (use-package projectile
-       :ensure t
-       :diminish projectile-mode
-       :config
-       (def-projectile-commander-method ?F
-         "Git fetch."
-         (magit-status)
-         (call-interactively #'magit-fetch-current))
-       (setq projectile-completion-system 'ivy)
-       (projectile-global-mode)
-       (use-package counsel-projectile
-         :ensure t
-         :config
-         (counsel-projectile-on)))
+#+BEGIN_SRC emacs-lisp
+  (use-package projectile
+    :ensure t
+    :diminish projectile-mode
+    :config
+    (def-projectile-commander-method ?F
+      "Git fetch."
+      (magit-status)
+      (call-interactively #'magit-fetch-current))
+    (setq projectile-completion-system 'ivy)
+    (projectile-global-mode)
+    (define-key projectile-command-map (kbd "c") #'helm-make-projectile)
+    (use-package counsel-projectile
+      :ensure t
+      :config
+      (counsel-projectile-on)))
    #+END_SRC
 
 * Org
@@ -1503,7 +1516,6 @@ This package integrates magit with github. It relies on having [[https://hub.git
     :ensure t
     :commands (git-timemachine))
 #+END_SRC
-
 * Webpage editing
 ** HTML and friends
    Web-mode takes care of a lot of html annoyances: 
