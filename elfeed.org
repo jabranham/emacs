@@ -9,6 +9,7 @@
 *** [[http://www.annualreviews.org/action/showFeed?ui=0&mi=7m9ixw&ai=rx&jc=polisci&type=etoc&feed=rss][annual review]]
 *** [[http://rss.sciencedirect.com/publication/science/02613794][electoral studies]]
 *** [[http://rap.sagepub.com/rss/current.xml][R&P]]
+*** [[http://onlinelibrary.wiley.com/rss/journal/10.1111/(ISSN)1541-0072][PSJ]]
 ** Emacs                                                              :emacs:
 *** [[http://planet.emacsen.org/atom.xml][planet emacsen]]
 ** R                                                                      :R:
