@@ -136,8 +136,9 @@
      (setq dired-auto-revert-buffer t)
      (setq dired-dwim-target t)
      (setq dired-recursive-copies (quote always))
+     (setq dired-recursive-deletes (quote always))
      ;; Hide details (owner, permissions) in dired
-     (add-hook 'dired-mode-hook 
+     (add-hook 'dired-mode-hook
                (lambda () (dired-hide-details-mode 1)))
    #+END_SRC
 
