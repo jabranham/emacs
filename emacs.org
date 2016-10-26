@@ -1093,6 +1093,17 @@ Projectile makes using projects easier in emacs. It also plays well with ivy, so
      (setq org-refile-use-outline-path t)
      (setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
    #+END_SRC
+
+** Pomodoro
+
+*** Alerts
+I like to use system alerts, which are more visible than just sending it to Emacs's *Messages* buffer. I probably need to do this with add-to-list or something but this works for now:
+
+#+BEGIN_SRC emacs-lisp
+  (setq alert-user-configuration (quote ((((:category . "org-pomodoro")) libnotify nil))))
+#+END_SRC
+
+
 ** Misc
    Here are a few miscellaneous things that make org mode better. 
    #+BEGIN_SRC emacs-lisp
