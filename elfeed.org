@@ -13,6 +13,7 @@
 *** [[http://apr.sagepub.com/rss/current.xml][APR]]
 ** Emacs                                                              :emacs:
 *** [[http://planet.emacsen.org/atom.xml][planet emacsen]]
+*** [[https://github.com/syl20bnr/spacemacs/releases.atom][spacemacs]]
 ** R                                                                      :R:
 *** [[https://rweekly.org/atom.xml][rweekly]]
 *** [[https://blog.rstudio.org/feed/][rstudio]]
