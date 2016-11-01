@@ -636,7 +636,7 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
        :ensure t
        :diminish yas-minor-mode
        :config
-       (add-hook 'term-mode-hook (lambda() (yas-minor-mode -1)))
+       (add-hook 'term-mode-hook (lambda () (yas-minor-mode -1)))
        (define-key yas-minor-mode-map (kbd "C-c &") nil)
        (yas-global-mode))
    #+END_SRC
@@ -1052,7 +1052,7 @@ Projectile makes using projects easier in emacs. It also plays well with ivy, so
 
    #+BEGIN_SRC emacs-lisp
      (add-hook 'org-mode-hook
-               (lambda()
+               (lambda ()
                  (local-unset-key (kbd "C-c ["))))
    #+END_SRC
 
@@ -1568,7 +1568,7 @@ This package integrates magit with github. It relies on having [[https://hub.git
        :if (executable-find "mu")
        :bind
        (("<f1>" . my-mu4e-start)
-        ("C-x m" . 'mu4e-compose-new)
+        ("C-x m" . mu4e-compose-new)
         :map mu4e-headers-mode-map
         ("d" . mu4e-headers-mark-for-delete)
         :map mu4e-view-mode-map
@@ -1576,6 +1576,7 @@ This package integrates magit with github. It relies on having [[https://hub.git
         :map mu4e-main-mode-map
         ("q" . mu4e-quit-session))
        :init
+       (setq mu4e-maildir "~/.mail")
        (add-hook 'after-init-hook
                  (lambda () (mu4e t))) ; starts mu4e silently when emacs starts
        :config
@@ -1814,7 +1815,10 @@ This package integrates magit with github. It relies on having [[https://hub.git
          (setq mu4e-alert-interesting-mail-query
                (concat
                 "flag:unread"
-                " AND maildir:\"/INBOX\""))))
+                " AND "
+                " maildir:\"/utexas/INBOX\""
+                " OR maildir:\"/gmail/INBOX\""
+                " AND flag:unread"))))
    #+END_SRC
 
 * Feed reader
@@ -1849,7 +1853,7 @@ I use [[https://github.com/skeeto/elfeed][elfeed]] to manage some RSS links:
     :config
     (setq elfeed-db-directory "~/Dropbox/.elfeed")
     (setq-default elfeed-search-filter "@1-week-ago +unread ")
-  
+
     ;; This lets me get the http links to entries with org-capture
     ;; easily.
     (defun elfeed-entry-as-html-link ()
