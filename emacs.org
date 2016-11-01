@@ -1095,18 +1095,32 @@ Projectile makes using projects easier in emacs. It also plays well with ivy, so
    #+END_SRC
 
 ** Pomodoro
+I can use =org-pomodoro= for a [[http://pomodorotechnique.com/][pomodoro]]. By default, it works in 25-minute work blocks and 5 minute breaks after. The fourth break is longer - 20 minutes by default.
 
-*** Alerts
 I like to use system alerts, which are more visible than just sending it to Emacs's *Messages* buffer. I probably need to do this with add-to-list or something but this works for now:
 
 #+BEGIN_SRC emacs-lisp
   (use-package org-pomodoro
     :ensure t
+    :commands (org-pomodoro)
     :config
     (setq alert-user-configuration (quote ((((:category . "org-pomodoro")) libnotify nil)))))
-
 #+END_SRC
 
+** org-projectile
+[[https://github.com/IvanMalison/org-projectile][org-projectile]] nicely integrates org mode with projects tracked in projectile. 
+
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-projectile
+    :ensure t
+    :bind (("C-c n p" . org-projectile:project-todo-completing-read)
+           ("C-c c" . org-capture))
+    :config
+    (progn
+      (setq org-projectile:projects-file (concat org-directory "todo.org"))
+      (add-to-list 'org-capture-templates (org-projectile:project-todo-entry "p"))))
+#+END_SRC
 
 ** Misc
    Here are a few miscellaneous things that make org mode better. 
