@@ -965,7 +965,7 @@ Projectile makes using projects easier in emacs. It also plays well with ivy, so
         "Insert a `SRC-CODE-TYPE' type source code block in org-mode."
         (interactive
          (let ((src-code-types
-                '("emacs-lisp" "python" "sh"  "css" "calc" "R" "sass" "latex" "lisp" "matlab" "org")))
+                '("emacs-lisp" "python" "sh" "calc" "R" "latex" "org")))
            (list (ido-completing-read "Source code type: " src-code-types))))
         (progn
           (newline-and-indent)
@@ -1021,55 +1021,52 @@ Projectile makes using projects easier in emacs. It also plays well with ivy, so
    Here's where I set which files are added to org-agenda, which controls org's global todo list, scheduling, and agenda features. I use Dropbox to keep these files in sync across computers.
 
    #+BEGIN_SRC emacs-lisp
-     (setq org-directory "~/Dropbox/org/")
-     (setq org-agenda-files (list (concat org-directory "todo.org")
-                                  "~/Dropbox/bibliography/notes.org"))
-   #+END_SRC
-
-   I also don't want finished TODO items to appear in my agenda:
-   #+BEGIN_SRC emacs-lisp
-     (setq org-agenda-skip-deadline-if-done t
-           org-agenda-skip-scheduled-if-done t
-           org-deadline-warning-days 3)
-   #+END_SRC
-
-   Finally, set up some nice global keybindings for accessing the agenda:
-
-   #+BEGIN_SRC emacs-lisp
-     (define-key global-map "\C-ca" 'org-agenda)
-     (global-set-key (kbd "C-'") 'org-cycle-agenda-files)
-   #+END_SRC
-
-   Finally, set up org-agenda to open in the current window:
-
-
-   #+BEGIN_SRC emacs-lisp
-     (setq org-agenda-window-setup 'current-window)
-   #+END_SRC
-
-   By default, org binds =C-c [= to =org-agenda-file-to-front=, which I find annoying. This removes that:
-
-
-   #+BEGIN_SRC emacs-lisp
-     (add-hook 'org-mode-hook
-               (lambda ()
-                 (local-unset-key (kbd "C-c ["))))
-   #+END_SRC
+     (use-package org-agenda
+       :bind
+       (("C-c a" . org-aganda)
+        ("C-'" . org-cycle-agenda-files))
+       :init
+       (setq org-directory "~/Dropbox/org/")
+       ;; set up org agenda files for the agenda
+       (setq org-agenda-files (list (concat org-directory "todo.org")
+                                    "~/Dropbox/bibliography/notes.org"))
+       ;; remove C-c [ from adding org file to front of agenda
+       (add-hook 'org-mode-hook
+                 (lambda ()
+                   (local-unset-key (kbd "C-c ["))))
+       :config
+       (setq org-agenda-skip-deadline-if-done t ; remove done deadlines from agenda
+             org-agenda-skip-scheduled-if-done t ; remove done scheduled from agenda
+             org-deadline-warning-days 3) ; warn me 3 days before a deadline
+       (setq org-agenda-window-setup 'current-window ; use current window for agenda
+             ;; restore previous config after I'm done
+             org-agenda-restore-windows-after-quit t) 
+       )
+#+END_SRC
 
 ** Capture
-   
+I use org-capture to create short notes about all kinds of things. I can capture emails to remember for later, quick thoughts for later, RSS feeds (see [[Feed reader]]), really anything. 
 
-   #+BEGIN_SRC emacs-lisp
-     (setq org-default-notes-file (concat org-directory "todo.org"))
-     (define-key global-map "\C-cc" 'org-capture)
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package org-capture
+    :bind
+    ("C-c c" . org-capture)
+    :init
+    (setq org-default-notes-file (concat org-directory "todo.org")))
+#+END_SRC
+*** Org-eww
+Org-eww lets me capture eww webpages with org-mode
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-eww)
+#+END_SRC
 
 *** Firefox
+This line is necessary for the [[https://addons.mozilla.org/en-US/firefox/addon/org-mode-capture/][org-mode capture]] extension for Firefox. 
 
-
-    #+BEGIN_SRC emacs-lisp
-      (require 'org-protocol)
-    #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (require 'org-protocol)
+#+END_SRC
 
 *** Capture templates
 
@@ -1123,6 +1120,15 @@ I like to use system alerts, which are more visible than just sending it to Emac
       (add-to-list 'org-capture-templates (org-projectile:project-todo-entry "p"))))
 #+END_SRC
 
+** Better bullets
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-bullets
+    :ensure t
+    :config
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+#+END_SRC
+
 ** Misc
    Here are a few miscellaneous things that make org mode better. 
    #+BEGIN_SRC emacs-lisp
@@ -1133,6 +1139,7 @@ I like to use system alerts, which are more visible than just sending it to Emac
            org-hide-emphasis-markers t ; make words italic or bold, hide / and *
            org-catch-invisible-edits 'error ; don't let me edit things I can't see
            org-hide-leading-stars t) ; hides extra stars in headers
+     (setq org-startup-with-inline-images t) ; show inline images
      (setq org-log-done t)
      (setq org-goto-interface (quote outline-path-completion))
      (setq org-ellipsis "⬎")
@@ -1151,13 +1158,6 @@ I like to use system alerts, which are more visible than just sending it to Emac
 
    #+END_SRC
 
-   Follow links when I hit =RET= on them:
-
-   #+BEGIN_SRC emacs-lisp
-     (setq org-return-follows-link t)
-   #+END_SRC
-
-
    #+BEGIN_SRC emacs-lisp
      (setq org-image-actual-width '(300))
    #+END_SRC
@@ -1167,12 +1167,6 @@ I like to use system alerts, which are more visible than just sending it to Emac
    #+BEGIN_SRC emacs-lisp
      (setq org-special-ctrl-a/e t)
    #+END_SRC
-*** Org-eww
-Org-eww lets me capture eww webpages with org-mode
-
-#+BEGIN_SRC emacs-lisp
-  (use-package org-eww)
-#+END_SRC
 
 * Shells
   
