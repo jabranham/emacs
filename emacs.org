@@ -1603,6 +1603,18 @@ This package integrates magit with github. It relies on having [[https://hub.git
         ("q" . mu4e-quit-session))
        :init
        (setq mu4e-maildir "~/.mail")
+       ;; Start mu4e in fullscreen
+       (defun my-mu4e-start ()
+         (interactive)
+         (window-configuration-to-register :mu4e-fullscreen)
+         (mu4e)
+         (delete-other-windows))
+       ;; Restore previous window configuration
+       (defun mu4e-quit-session ()
+         "Restores the previous window configuration and kills the mu4e buffer"
+         (interactive)
+         (kill-buffer)
+         (jump-to-register :mu4e-fullscreen))
        (add-hook 'after-init-hook
                  (lambda () (mu4e t))) ; starts mu4e silently when emacs starts
        :config
@@ -1670,6 +1682,7 @@ This package integrates magit with github. It relies on having [[https://hub.git
        (setq mu4e-use-fancy-chars t)
        (setq mu4e-headers-skip-duplicates t)
        (setq mu4e-attachment-dir "~/Downloads")
+       (setq mu4e-completing-read-function 'completing-read)
        (add-hook 'mu4e-view-mode-hook #'visual-line-mode)
        ;; turn off autofill mode in mu4e compose
        (defun autofill-off-visual-on ()
@@ -1677,6 +1690,9 @@ This package integrates magit with github. It relies on having [[https://hub.git
          (auto-fill-mode -1)
          (visual-line-mode))
        (add-hook 'mu4e-compose-mode-hook #'autofill-off-visual-on)
+       ;; use aV to open message in browser
+       (add-to-list 'mu4e-view-actions
+                    '("ViewInBrowser" . mu4e-action-view-in-browser) t)
        (use-package gnus-dired
          ;; make the `gnus-dired-mail-buffers' function also work on
          ;; message-mode derived modes, such as mu4e-compose-mode
@@ -1698,29 +1714,14 @@ This package integrates magit with github. It relies on having [[https://hub.git
          ;; when mail is sent, automatically convert org body to HTML
          :config
          (setq org-mu4e-convert-to-html t))
-       ;; need to do org-mu4e-compose-org-mode
-       ;; and include #+OPTIONS: tex:imagemagick
-       ;; then send while in headers for this to work properly
-       ;; Start mu4e in fullscreen
-       (defun my-mu4e-start ()
-         (interactive)
-         (window-configuration-to-register :mu4e-fullscreen)
-         (mu4e)
-         (delete-other-windows))
-       ;; Restore previous window configuration
-       (defun mu4e-quit-session ()
-         "Restores the previous window configuration and kills the mu4e buffer"
-         (interactive)
-         (kill-buffer)
-         (jump-to-register :mu4e-fullscreen))
-       (use-package mu4e-contrib
+       (use-package mu4e-maildirs-extension
+         :ensure t
          :config
-         ;; html2text command from eww browser
-         (setq mu4e-html2text-command 'mu4e-shr2text)
-         ;; use aV to open message in browser
-         (add-to-list 'mu4e-view-actions
-                      '("ViewInBrowser" . mu4e-action-view-in-browser) t))
-       )
+         (setq mu4e-maildirs-extension-custom-list
+               '("/utexas/INBOX"
+                 "/gmail/INBOX"))
+         (mu4e-maildirs-extension-load))
+       ) ; finishes use-package mu4e
    #+END_SRC
 ** Helper for yasnippet
 
