@@ -9,13 +9,6 @@
           font-lock-maximum-decoration t) ; lots of color
   #+END_SRC
 
-  Tell emacs a bit about ourselves: 
-  #+BEGIN_SRC emacs-lisp
-    (setq
-     user-mail-address "branham@utexas.edu"
-     user-full-name  "Alex Branham")
-  #+END_SRC
-
   I use ~desktop-clear~ to get rid of buffers and other things every now and then. Let's bind it to f12:
 
   #+BEGIN_SRC emacs-lisp
