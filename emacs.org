@@ -1119,7 +1119,7 @@ I like to use system alerts, which are more visible than just sending it to Emac
   (use-package org-bullets
     :ensure t
     :config
-    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+    (add-hook 'org-mode-hook #'org-bullets-mode))
 #+END_SRC
 
 ** Misc
