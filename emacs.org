@@ -1535,11 +1535,27 @@ Magit is better than the command line for git. I don't modify much. I just bind 
        (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1))
    #+END_SRC
 
-   Need to let emacs know that =.gitconfig= is a unix config file:
+Modes for git files:
 
-   #+BEGIN_SRC emacs-lisp
-     (add-to-list 'auto-mode-alist '("\\.gitconfig" . conf-mode))
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package gitattributes-mode
+    :defer t
+    :ensure t)
+  (use-package gitconfig-mode
+    :defer t
+    :ensure t)
+  (use-package gitignore-mode
+    :defer t
+    :ensure t)
+#+END_SRC
+
+And to step through the history of a file:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package git-timemachine
+    :ensure t
+    :commands (git-timemachine))
+#+END_SRC
 
 *** Github
 This package integrates magit with github. It relies on having [[https://hub.github.com/][hub]] installed already. 
@@ -1549,14 +1565,7 @@ This package integrates magit with github. It relies on having [[https://hub.git
     :if (executable-find "hub")
     :after magit)
 #+END_SRC
-*** Git timemachine
 
-
-#+BEGIN_SRC emacs-lisp
-  (use-package git-timemachine
-    :ensure t
-    :commands (git-timemachine))
-#+END_SRC
 * Webpage editing
 ** HTML and friends
    Web-mode takes care of a lot of html annoyances: 
