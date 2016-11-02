@@ -1174,11 +1174,44 @@ Org-eww lets me capture eww webpages with org-mode
 #+END_SRC
 
 * Shells
-  I use =shell-mode= for things I need to do in the terminal/shell. It's not as fully-featured as bash or zsh, but it's good enough for most things. There's always =term-mode= for when I actually need bash.
+  
+** Eshell 
+Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machines, plus it can evaluate elisp. 
 
-  #+BEGIN_SRC emacs-lisp
-    (global-set-key (kbd "C-c M-e") #'shell)
-  #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package eshell
+    :defer t
+    :commands (eshell)
+    :config
+    (setq eshell-cmpl-cycle-completions nil
+          ;; auto truncate after 20k lines
+          eshell-buffer-maximum-lines 20000
+          ;; history size
+          eshell-history-size 350
+          ;; no duplicates in history
+          eshell-hist-ignoredups t
+          ;; my prompt is easy enough to see
+          eshell-highlight-prompt nil
+          ;; treat 'echo' like shell echo
+          eshell-plain-echo-behavior t)
+    (use-package eshell-prompt-extras
+      :ensure t
+      :init
+      (setq eshell-prompt-function #'epe-theme-lambda)))
+#+END_SRC
+
+** Shell pop
+
+#+BEGIN_SRC emacs-lisp
+  (use-package shell-pop
+    :ensure t
+    :bind ("C-c M-e" . shell-pop)
+    :init
+    (setq shell-pop-window-position 'bottom
+          shell-pop-window-height 33
+          shell-pop-full-span t
+          shell-pop-shell-type '("eshell" "*eshell*" (eshell))))
+#+END_SRC
 
 ** Fix for dumb terminal
    Shell-mode uses a "dumb" terminal. Sometimes that's annoying, but this fixes the worst of that:
@@ -1187,31 +1220,10 @@ Org-eww lets me capture eww webpages with org-mode
      (setenv "PAGER" "cat")
    #+END_SRC
 
-** create new shell
-   It's a bit hard to get a second shell, so we can use this function to create a second shell by renaming it:
-   #+BEGIN_SRC emacs-lisp
-     (defun create-shell ()
-       "creates a shell with a given name"
-       (interactive);; "Prompt\n shell name:")
-       (let ((shell-name (read-string "shell name: " nil)))
-         (shell (concat "*" shell-name "*"))))
-     (global-set-key (kbd "C-c M-E") #'create-shell)
-   #+END_SRC
-
 ** Make urls clickable
 
    #+BEGIN_SRC emacs-lisp
      (add-hook 'shell-mode-hook 'goto-address-mode)
-   #+END_SRC
-
-** Bash completion 
-   We can get bash completion in shell-mode! Among other things, I get tab-completion for aliases I've set up in my .bashrc file.
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package bash-completion
-       :ensure t
-       :config
-       (bash-completion-setup))
    #+END_SRC
 
 ** Shell misc
