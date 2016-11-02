@@ -1114,6 +1114,7 @@ I like to use system alerts, which are more visible than just sending it to Emac
 #+BEGIN_SRC emacs-lisp
   (use-package org-projectile
     :ensure t
+    :after org-capture
     :bind (("C-c n p" . org-projectile:project-todo-completing-read)
            ("C-c c" . org-capture))
     :config
