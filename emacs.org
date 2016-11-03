@@ -1732,6 +1732,16 @@ This package integrates magit with github. It relies on having [[https://hub.git
          ;; when mail is sent, automatically convert org body to HTML
          :config
          (setq org-mu4e-convert-to-html t))
+       (use-package mu4e-contrib
+         :config
+         ;; Use eww to render HTML messages: 
+         (setq mu4e-html2text-command 'mu4e-shr2text)
+         (add-hook 'mu4e-view-mode-hook
+                   (lambda ()
+                     ;; try to emulate some of the eww key-bindings
+                     (local-set-key (kbd "<tab>") 'shr-next-link)
+                     (local-set-key (kbd "<backtab>") 'shr-previous-link)))
+         )
        (use-package mu4e-maildirs-extension
          :ensure t
          :config
