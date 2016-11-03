@@ -1251,6 +1251,7 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
       (:map ess-mode-map
             ("C-a" . crux-move-beginning-of-line))
       :config
+      (setq ess-nuke-trailing-whitespace-p t)
       (add-hook 'ess-mode-hook
                 (lambda ()
                   (ess-set-style 'RStudio)))
