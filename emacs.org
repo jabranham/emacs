@@ -800,39 +800,42 @@ This function ([[http://pragmaticemacs.com/emacs/insert-file-name/][credit]]) le
 
      (global-set-key (kbd "<f11>") #'my/find-emacs-file)
    #+END_SRC
-* Ivy
+* Helm
 
 #+BEGIN_SRC emacs-lisp
-  (use-package ivy
+  (use-package helm
     :ensure t
-    :diminish ivy-mode
+    :diminish helm-mode
     :bind
-    ("C-M-z" . ivy-resume)
+    (("M-x" . helm-M-x)
+     ("C-x C-f" . helm-find-files)
+     ("M-y" . helm-show-kill-ring)
+     ("C-M-z" . helm-resume)
+     ("C-x b" . helm-buffers-list)
+     ("M-s M-g" . helm-google-suggest)
+     :map helm-map
+     ("<tab>" . helm-execute-persistent-action)
+     ("C-i" . helm-execute-persistent-action)
+     ("C-z" . helm-select-action))
+    :init
+    (progn
+      (require 'helm-config)
+      )
     :config
-    (setq ivy-use-virtual-buffers t)
-    (setq ivy-count-format "")
-    (setq ivy-re-builders-alist
-          '((t . ivy--regex-ignore-order)))
-    (ivy-mode 1))
+    (when (executable-find "curl")
+      (setq helm-net-prefer-curl t))
+    (setq helm-split-window-default-side 'below)
+    (setq helm-split-window-in-side-p t)
+    (setq helm-display-header-line nil)
+    (setq helm-echo-input-in-header-line t)
+    (helm-autoresize-mode)
+    (helm-mode))
 #+END_SRC
 
-#+BEGIN_SRC emacs-lisp
-  (use-package counsel
-    :ensure t
-    :bind
-    ("M-x" . counsel-M-x)
-    ("C-x C-f" . counsel-find-file)
-    ("C-h f" . counsel-describe-function)
-    ("C-h v" . counsel-describe-variable)
-    ("M-y" . counsel-yank-pop))
-#+END_SRC
-
-** Ivy and references (ivy-bibtex)
+** Helm and references (helm-bibtex)
    #+BEGIN_SRC emacs-lisp
-     (use-package ivy-bibtex
+     (use-package helm-bibtex
        :ensure t
-       :bind*
-       ("C-c C-r" . ivy-bibtex)
        :init
        ;; Set up how keys should look - authoryear
        (setq bibtex-autokey-titleword-length 0
@@ -849,36 +852,20 @@ This function ([[http://pragmaticemacs.com/emacs/insert-file-name/][credit]]) le
              bibtex-completion-notes-template-one-file
              "\n* TODO ${year} - ${title}\n  :PROPERTIES:\n  :Custom_ID: ${=key=}\n  :AUTHOR: ${author}\n  :JOURNAL: ${journal}\n  :YEAR: ${year}\n  :VOLUME: ${volume}\n  :PAGES: ${pages}\n  :DOI: ${doi}\n  :URL: ${url}\n :END:\n"
              )
-       (setq bibtex-completion-cite-commands '("autocite" "textcite" "citep" "citet" "citeauthor" "citeyear" "Citep" "Citet"))
-       (setq ivy-bibtex-default-action #'ivy-bibtex-insert-citation)
-
-       ;; temporary fix so that I can bind C-c C-r globally yet still have
-       ;; ivy-bibtex insert autocite: citations in org-mode
-       (defun bibtex-completion-format-citation-org-autocite (keys)
-         "Formatter for org autocite references."
-         (s-join ", "
-                 (--map (format "autocite:%s" it) keys)))
-       (setq bibtex-completion-format-citation-functions
-             '((org-mode . bibtex-completion-format-citation-org-autocite)
-               (latex-mode . bibtex-completion-format-citation-cite)
-               (markdown-mode . bibtex-completion-format-citation-pandoc-citeproc)
-               (default . bibtex-completion-format-citation-default)))
-       )
+       (setq bibtex-completion-cite-commands '("autocite" "textcite" "citep" "citet" "citeauthor" "citeyear" "Citep" "Citet")))
    #+END_SRC
 
-** Ivy and makefiles
-I can setup ivy to deal with makefiles easily: 
+** Helm and makefiles
+I can setup helm to deal with makefiles easily: 
 
 #+BEGIN_SRC emacs-lisp
   (use-package helm-make
     :ensure t
     :bind
-    ("C-c p c" . helm-make-projectile)
-    :init
-    (setq helm-make-completion-method 'ivy))
+    ("C-c p c" . helm-make-projectile))
 #+END_SRC
 * Projectile 
-Projectile makes using projects easier in emacs. It also plays well with ivy, so let's set that up.
+Projectile makes using projects easier in emacs. It also plays well with helm, so let's set that up.
 
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
@@ -889,13 +876,12 @@ Projectile makes using projects easier in emacs. It also plays well with ivy, so
       "Git fetch."
       (magit-status)
       (call-interactively #'magit-fetch-current))
-    (setq projectile-completion-system 'ivy)
     (projectile-global-mode)
     (define-key projectile-command-map (kbd "c") #'helm-make-projectile)
-    (use-package counsel-projectile
+    (use-package helm-projectile
       :ensure t
       :config
-      (counsel-projectile-on)))
+      (helm-projectile-on)))
    #+END_SRC
 
 * Org
@@ -997,8 +983,10 @@ Projectile makes using projects easier in emacs. It also plays well with ivy, so
    #+BEGIN_SRC emacs-lisp
      (use-package org-ref 
        :ensure t
+       :bind*
+       ("C-c C-r" . org-ref-helm-insert-cite-link)
        :init
-       (setq org-ref-completion-library 'org-ref-ivy-cite)
+       (setq org-ref-completion-library 'org-ref-helm-bibtex)
        (setq org-ref-bibliography-notes "~/Dropbox/bibliography/notes.org"
              org-ref-default-bibliography '("~/Dropbox/bibliography/references.bib")
              org-ref-pdf-directory  "~/Dropbox/bibliography/bibtex-pdfs"
@@ -1466,7 +1454,7 @@ I end sentences with a single space.
   #+END_SRC
 
 ** Reftex
-I use =ivy-bibtex= to manage my references, but ReFTeX is still great to have around for cross-references in latex files. 
+I use =helm-bibtex= to manage my references, but ReFTeX is still great to have around for cross-references in latex files. 
 
 You will need to change ~reftex-default-bibliography~ to wherever you keep your main .bib file.
 
@@ -1539,7 +1527,6 @@ Magit is better than the command line for git. I don't modify much. I just bind 
        :bind
        ("C-x g" . magit-status)
        :config
-       (setq magit-completing-read-function 'ivy-completing-read)
        (setq magit-push-always-verify nil)
        (setq magit-diff-refine-hunk 'all) ; get highlighted word diffs
        (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1))
