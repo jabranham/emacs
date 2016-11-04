@@ -645,6 +645,7 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
      (use-package yasnippet
        :ensure t
        :diminish yas-minor-mode
+       :after hippie-exp
        :init
        ;; disable yas minor mode map
        ;; use hippie-expand instead
