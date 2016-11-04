@@ -94,8 +94,8 @@
    I'm not good at keeping track of parentheses. This makes me slightly better at it. It also keeps track of other things that should "match" like {}, [], "", ``'' (in latex mode), etc.
 
    #+BEGIN_SRC emacs-lisp
-     (use-package smartparens-config
-       :ensure smartparens
+     (use-package smartparens
+       :ensure t
        :diminish smartparens-mode
        :commands (smartparens-global-strict-mode)
        :bind
@@ -103,6 +103,8 @@
        ("C-M-e" . sp-end-of-sexp)
        ("M-]" . sp-unwrap-sexp) ; C-M-SPC is bound to mark-sexp
        :init
+       (require 'smartparens-config)
+       :config
        (smartparens-global-strict-mode)
        (show-smartparens-global-mode))
    #+END_SRC
