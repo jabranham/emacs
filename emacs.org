@@ -1890,6 +1890,22 @@ This package integrates magit with github. It relies on having [[https://hub.git
                 " AND flag:unread"))))
    #+END_SRC
 
+** Helm and emails (helm-mu)
+I can use helm to help me search emails and contacts:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package helm-mu
+    :ensure t
+    :bind
+    (("M-s m" . helm-mu)
+     ("M-s c" . helm-mu-contacts)
+     :map mu4e-main-mode-map
+     ("s" . helm-mu)
+     :map mu4e-headers-mode-map
+     ("s" . helm-mu)
+     :map mu4e-view-mode-map
+     ("s" . helm-mu)))
+#+END_SRC
 * Feed reader
 
 I use [[https://github.com/skeeto/elfeed][elfeed]] to manage some RSS links:
