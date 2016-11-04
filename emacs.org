@@ -166,7 +166,8 @@
        :ensure spaceline
        :config
        (spaceline-emacs-theme)
-       (spaceline-toggle-buffer-encoding-abbrev-off))
+       (spaceline-toggle-buffer-encoding-abbrev-off)
+       (add-hook 'after-init-hook #'spaceline-toggle-minor-modes-off))
    #+END_SRC
 ** Which-key
    [[https://github.com/justbur/emacs-which-key][Which key]] shows key bindings for incomplete commands (prefixes).
