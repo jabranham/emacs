@@ -1521,6 +1521,15 @@ Flyspell checks for spelling on the fly. I use aspell instead of ispell because 
   #+BEGIN_SRC emacs-lisp
     (setq vc-make-backup-files t)
   #+END_SRC
+** Diff highlights 
+
+#+BEGIN_SRC emacs-lisp
+  (use-package git-gutter+
+    :ensure t
+    :init
+    (global-git-gutter+-mode))
+#+END_SRC
+
 ** Git & Magit
 Magit is better than the command line for git. I don't modify much. I just bind it to =C-x g=. I also set it up that it will run alone in the frame, then restore your previous window configuration when you exit.
 
