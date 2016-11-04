@@ -295,7 +295,10 @@ I can use =ace-window= to quickly jump from window to window
        :ensure t
        :diminish undo-tree-mode
        :init
-       (global-undo-tree-mode))
+       (global-undo-tree-mode)
+       :config
+       (setq undo-tree-visualizer-timestamps t)
+       (setq undo-tree-visualizer-diff t))
    #+END_SRC
 
 ** Zooming
