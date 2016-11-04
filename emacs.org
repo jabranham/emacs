@@ -869,6 +869,17 @@ I can setup helm to deal with makefiles easily:
     :bind
     ("C-c p c" . helm-make-projectile))
 #+END_SRC
+** Helm and passwords 
+I wrote [[https://github.com/jabranham/helm-pass][helm-pass]] to make it easy to manage passwords with helm and [[https://www.passwordstore.org/][pass]]. 
+
+
+#+BEGIN_SRC emacs-lisp
+  (use-package helm-pass
+    :load-path "~/code/helm-pass"
+    :bind
+    ("M-s p" . helm-pass))
+#+END_SRC
+
 * Projectile 
 Projectile makes using projects easier in emacs. It also plays well with helm, so let's set that up.
 
