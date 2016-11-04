@@ -961,7 +961,7 @@ Projectile makes using projects easier in emacs. It also plays well with helm, s
         (interactive
          (let ((src-code-types
                 '("emacs-lisp" "python" "sh" "calc" "R" "latex" "org")))
-           (list (ido-completing-read "Source code type: " src-code-types))))
+           (list (completing-read "Source code type: " src-code-types))))
         (progn
           (newline-and-indent)
           (insert (format "#+BEGIN_SRC %s\n" src-code-type))
