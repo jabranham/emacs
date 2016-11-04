@@ -1166,7 +1166,7 @@ I like to use system alerts, which are more visible than just sending it to Emac
        :ensure t)
    #+END_SRC
 
-   For whatever reason, I have to explicitely tell org how to open pdf links. I use pdf-tools, which is loaded in [[file:load-behavior.org][load-behavior]]. If pdf-tools isn't installed, it will use doc-view (the default in emacs) instead.
+   For whatever reason, I have to explicitely tell org how to open pdf links. I use pdf-tools, which is loaded in [[pdf viewer]]. If pdf-tools isn't installed, it will use doc-view (the default in emacs) instead.
 
    #+BEGIN_SRC emacs-lisp
      (setq org-file-apps
