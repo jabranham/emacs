@@ -917,12 +917,6 @@ Projectile makes using projects easier in emacs. It also plays well with helm, s
      (use-package ox-md)
    #+END_SRC
 
-   I use xelatexmk so that org uses xelatex by default. I really like the [[https://github.com/matze/mtheme][metropolis beamer theme.]]
-
-   #+BEGIN_SRC emacs-lisp
-     (setq org-latex-pdf-process (list "latexmk -f -shell-escape -xelatex %f"))
-   #+END_SRC
-
    This makes org export smart quotes so that it uses ~``word``~ style quotes for latex export:
 
    #+BEGIN_SRC emacs-lisp
@@ -933,22 +927,6 @@ Projectile makes using projects easier in emacs. It also plays well with helm, s
 
    #+BEGIN_SRC emacs-lisp
      (setq org-export-allow-bind-keywords t)
-   #+END_SRC
-
-   Remove =<...>= from timestamps when exporting to latex. [[http://stackoverflow.com/questions/23297422/org-mode-timestamp-format-when-exported][Thanks]]
-
-   #+BEGIN_SRC emacs-lisp
-     (defun my/org-export-filter-timestamp-remove-brackets (timestamp backend info)
-       "removes relevant brackets from a timestamp"
-       (cond
-        ((org-export-derived-backend-p backend 'latex)
-         (replace-regexp-in-string "[<>]\\|[][]" "" timestamp))
-        ((org-export-derived-backend-p backend 'html)
-         (replace-regexp-in-string "&[lg]t;\\|[][]" "" timestamp))))
-
-     (eval-after-load 'ox '(add-to-list
-                            'org-export-filter-timestamp-functions
-                            'my/org-export-filter-timestamp-remove-brackets))
    #+END_SRC
 
 ** Code blocks (org-babel)
