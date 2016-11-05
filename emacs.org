@@ -398,6 +398,15 @@ I can use =ace-window= to quickly jump from window to window
        ("C-c m c l" . mc/edit-lines)
        ("C-c m c a" . mc/mark-all-like-this))
    #+END_SRC
+** Expand region
+I can use ~C-=~ to expand the region incrementally:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package expand-region
+    :ensure t
+    :bind ("C-=" . er/expand-region))
+#+END_SRC
+
 ** Browser
 Use Emacs' built in =eww= broswer by default. If a webpage requires more, I can switch to the system default by tapping =&=:
 
