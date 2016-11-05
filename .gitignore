@@ -37,3 +37,4 @@ games/
 /.twittering-mode-icons.gz
 var/*
 /.mc-lists.el
+/.cache/*
