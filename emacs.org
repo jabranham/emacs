@@ -406,7 +406,6 @@ I can use ~C-=~ to expand the region incrementally:
     :ensure t
     :bind ("C-=" . er/expand-region))
 #+END_SRC
-
 ** Browser
 Use Emacs' built in =eww= broswer by default. If a webpage requires more, I can switch to the system default by tapping =&=:
 
@@ -1538,7 +1537,9 @@ Flyspell checks for spelling on the fly. I use aspell instead of ispell because 
   (use-package git-gutter+
     :ensure t
     :init
-    (global-git-gutter+-mode))
+    (global-git-gutter+-mode)
+    :config
+    (setq git-gutter+-modified-sign "¤"))
 #+END_SRC
 
 ** Git & Magit
