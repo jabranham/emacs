@@ -196,7 +196,7 @@ This ensures Emacs has the same PATH as the rest of my system:
    #+END_SRC
 
 ** Window switching 
-I can use =ace-window= to quickly jump from window to window
+I can use =window-numbering= to quickly jump from window to window
 
    #+BEGIN_SRC emacs-lisp
      (use-package window-numbering
