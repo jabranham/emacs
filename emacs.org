@@ -1578,6 +1578,14 @@ And to step through the history of a file:
     :commands (git-timemachine))
 #+END_SRC
 
+I autocommit a few files, like notes and todo:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package git-auto-commit-mode
+    :ensure t )
+#+END_SRC
+
+
 *** Github
 This package integrates magit with github. It relies on having [[https://hub.github.com/][hub]] installed already. 
 #+BEGIN_SRC emacs-lisp
@@ -1961,7 +1969,6 @@ I use [[https://github.com/skeeto/elfeed][elfeed]] to manage some RSS links:
 #+END_SRC
 * Stack Exchange 
 Stack Exchange is the place to go to get questions answered. This lets me search it from within Emacs. It also sets it up to use =sx.el= to open stack exchange links (instead of eww or firefox):
-
 
 #+BEGIN_SRC emacs-lisp
   (use-package sx
