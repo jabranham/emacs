@@ -1937,6 +1937,19 @@ I use [[https://github.com/skeeto/elfeed][elfeed]] to manage some RSS links:
     :config
     (elfeed-org))
 #+END_SRC
+* Stack Exchange 
+Stack Exchange is the place to go to get questions answered. This lets me search it from within Emacs. It also sets it up to use =sx.el= to open stack exchange links (instead of eww or firefox):
+
+
+#+BEGIN_SRC emacs-lisp
+  (use-package sx
+    :ensure t
+    :bind ("M-s x" . sx-search)
+    :commands (sx-search sx-open-link)
+    :init
+    (push '(".*stackexchange.*" . sx-open-link) browse-url-browser-function)
+    (push '(".*stackoverflow.*" . sx-open-link) browse-url-browser-function))
+#+END_SRC
 
 * Ledger
 [[http://ledger-cli.org/][Ledger]] is a program that I use to keep track of finances. Emacs, of course, can handle it quite nicely. 
