@@ -81,6 +81,8 @@
      (setq mouse-wheel-progressive-speed nil) ; don't accelerate scrolling
      (setq mouse-wheel-follow-mouse 't) ; scroll window under mouse
      (setq scroll-step 1) ; keyboard scroll one line at a time
+     (setq scroll-preserve-screen-position t)
+     (setq scroll-conservatively 101)
      (setq view-read-only t) ; open read only buffers in view-mode
      ;; the defaults C-v and M-v scroll a full page, which is too much.
      ;; rebind to a half page:
