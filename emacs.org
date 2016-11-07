@@ -1220,7 +1220,7 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
     (setq shell-pop-window-position 'bottom
           shell-pop-window-height 33
           shell-pop-full-span t
-          shell-pop-shell-type '("eshell" "*eshell*" (eshell))))
+          shell-pop-shell-type '("eshell" "*eshell*" (lambda nil (eshell)))))
 #+END_SRC
 
 ** Fix for dumb terminal
