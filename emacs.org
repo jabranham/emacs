@@ -886,7 +886,10 @@ I can setup helm to deal with makefiles easily:
   (use-package helm-make
     :ensure t
     :bind
-    ("C-c p c" . helm-make-projectile))
+    ("C-c p c" . helm-make-projectile)
+    :init
+    ;; scroll the compile buffer just until an error occurs
+    (setq compilation-scroll-output 'first-error))
 #+END_SRC
 ** Helm and passwords 
 I wrote [[https://github.com/jabranham/helm-pass][helm-pass]] to make it easy to manage passwords with helm and [[https://www.passwordstore.org/][pass]]. 
