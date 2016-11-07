@@ -1956,7 +1956,7 @@ I use [[https://github.com/skeeto/elfeed][elfeed]] to manage some RSS links:
            :type "http"
            :link link
            :description description))))
-    (add-hook 'org-store-link-functions #'elfeed-entry-as-html-link))
+    (org-link-set-parameters "elfeed" :follow #'browse-url :store #'elfeed-entry-as-html-link))
 #+END_SRC
 
 [[https://github.com/remyhonig/elfeed-org][elfeed-org]] lets me store my subscriptions in a more sane way:
