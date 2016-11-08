@@ -119,6 +119,7 @@ This ensures Emacs has the same PATH as the rest of my system:
        :init
        (require 'smartparens-config)
        :config
+       (add-hook 'inferior-ess-mode-hook #'smartparens-strict-mode)
        (smartparens-global-strict-mode)
        (show-smartparens-global-mode))
    #+END_SRC
