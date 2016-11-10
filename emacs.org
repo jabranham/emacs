@@ -1352,7 +1352,7 @@ I end sentences with a single space.
   Turn on visual line mode for nice line wrapping
 
   #+BEGIN_SRC emacs-lisp
-    (add-hook 'text-mode-hook #'turn-on-visual-line-mode)
+    (global-visual-line-mode)
   #+END_SRC
 
   Now that I've turned on ~visual-line-mode~, I want it to respect indentation. This does so:
@@ -1360,6 +1360,7 @@ I end sentences with a single space.
   #+BEGIN_SRC emacs-lisp
     (use-package adaptive-wrap
       :ensure t
+      :disabled t
       :config
       (when (fboundp 'adaptive-wrap-prefix-mode)
         (defun my-activate-adaptive-wrap-prefix-mode ()
