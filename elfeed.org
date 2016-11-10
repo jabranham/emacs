@@ -14,6 +14,7 @@
 ** Emacs                                                              :emacs:
 *** [[http://planet.emacsen.org/atom.xml][planet emacsen]]
 *** [[https://github.com/syl20bnr/spacemacs/releases.atom][spacemacs]]
+*** [[https://github.com/djcb/mu/releases.atom][mu4e]]
 ** R                                                                      :R:
 *** [[https://rweekly.org/atom.xml][rweekly]]
 *** [[https://blog.rstudio.org/feed/][rstudio]]
