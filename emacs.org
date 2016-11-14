@@ -444,6 +444,12 @@ By default, =M-s M-w= searches for text in the region. I change it to search for
                "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
                "culpa qui officia deserunt mollit anim id est laborum."))
    #+END_SRC
+*** Mouse avoid
+Oftentimes the mouse just gets in the way. Since I rarely use the mouse, let's banish it to the upper right corner whenever I type a key in Emacs:
+
+#+BEGIN_SRC emacs-lisp
+  (mouse-avoidance-mode 'banish)
+#+END_SRC
 
 *** Prettify symbols
 Prettify-symbols-mode will replace some symbols (like "lambda") with their prettier cousins (like \lambda). 
