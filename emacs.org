@@ -40,17 +40,30 @@
       (setq read-file-name-completion-ignore-case t)
     #+END_SRC
 
-    Write customization elsewhere, don't load it.
-
-    #+BEGIN_SRC emacs-lisp
-      (setq custom-file (concat user-emacs-directory "customize.el"))
-    #+END_SRC
-
     Delete my files by moving them to the trash. I'm human and occasionally delete things that I actually want later:
 
     #+BEGIN_SRC emacs-lisp
       (setq delete-by-moving-to-trash t)
     #+END_SRC
+
+Finally, I set up a cache folder in my =.emacs.d= folder so that it's not quite as crowded:
+
+#+BEGIN_SRC emacs-lisp
+  (defvar my/emacs-cache (concat user-emacs-directory ".cache/")
+    "Folder to store cache files in.
+
+  Should end with a forward slash.")
+#+END_SRC
+
+Save a few misc files in the =.cache= directory:
+
+#+BEGIN_SRC emacs-lisp
+  (setq custom-file (concat my/emacs-cache "customize.el"))
+  (setq bookmark-default-file (concat my/emacs-cache "bookmarks"))
+  (setq recentf-save-file (concat my/emacs-cache "recentf"))
+  (setq nsm-settings-file (concat my/emacs-cache "network-security.data"))
+#+END_SRC
+
 ** Exec path from shell
 This ensures Emacs has the same PATH as the rest of my system:
 
@@ -252,6 +265,8 @@ I can use =window-numbering= to quickly jump from window to window
         ("C-c e" . crux-sudo-edit)
         :map prog-mode-map
         ("C-a" . crux-move-beginning-of-line))
+       :init
+       (setq abbrev-file-name (concat my/emacs-cache "abbrev_defs"))
        :config
        (setq save-abbrevs 'silently)
        (setq-default abbrev-mode t))
@@ -395,6 +410,8 @@ I can use =window-numbering= to quickly jump from window to window
    #+BEGIN_SRC emacs-lisp
      (use-package multiple-cursors
        :ensure t
+       :init
+       (setq mc/list-file (concat my/emacs-cache "mc-lists.el"))
        :bind
        ("C-c m c l" . mc/edit-lines)
        ("C-c m c a" . mc/mark-all-like-this))
@@ -426,6 +443,12 @@ By default, =M-s M-w= searches for text in the region. I change it to search for
     (if (region-active-p) (apply orig-fun args)
       (eww (read-string "Query: "))))
   (advice-add 'eww-search-words :around #'jab/eww-search)
+#+END_SRC
+** Tramp 
+Store tramp files in the cache:
+
+#+BEGIN_SRC emacs-lisp
+  (setq tramp-persistency-file-name (concat my/emacs-cache "tramp"))
 #+END_SRC
 
 ** Miscellaneous 
@@ -539,6 +562,8 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
 
     #+BEGIN_SRC emacs-lisp
       (use-package saveplace
+        :init
+        (setq save-place-file (concat my/emacs-cache "places"))
         :config
         (save-place-mode))
     #+END_SRC
@@ -607,8 +632,7 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
               require-final-newline t
               visible-bell t
               load-prefer-newer t
-              ediff-window-setup-function 'ediff-setup-windows-plain
-              save-place-file (concat user-emacs-directory "places"))
+              ediff-window-setup-function 'ediff-setup-windows-plain)
     #+END_SRC
 * Auto completion
 ** Company mode
@@ -633,7 +657,8 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
        (use-package company-statistics
          :ensure t
          :config
-         (setq company-statistics-file (concat user-emacs-directory ".cache/company-statistics-cache.el"))
+         (setq company-statistics-file
+               (concat my/emacs-cache "company-statistics-cache.el"))
          (company-statistics-mode))
        (use-package company-math
          :ensure t
@@ -850,6 +875,7 @@ This function ([[http://pragmaticemacs.com/emacs/insert-file-name/][credit]]) le
      ("C-z" . helm-select-action))
     :init
     (progn
+      (setq helm-adaptive-history-file (concat my/emacs-cache "helm-adaptive-history"))
       (require 'helm-config)
       )
     :config
@@ -916,6 +942,9 @@ Projectile makes using projects easier in emacs. It also plays well with helm, s
   (use-package projectile
     :ensure t
     :diminish projectile-mode
+    :init
+    (setq projectile-cache-file (concat my/emacs-cache "projectile.cache"))
+    (setq projectile-known-projects-file (concat my/emacs-cache "projectile-bookmarks.eld"))
     :config
     (def-projectile-commander-method ?F
       "Git fetch."
@@ -1178,7 +1207,6 @@ I like to use system alerts, which are more visible than just sending it to Emac
    #+BEGIN_SRC emacs-lisp
      (setq org-latex-create-formula-image-program 'imagemagick)
    #+END_SRC
-
 
 * Shells
   
