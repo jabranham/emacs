@@ -1017,25 +1017,6 @@ Projectile makes using projects easier in emacs. It also plays well with helm, s
        (use-package org-ref-latex))
    #+END_SRC
 
-** Latex
-   Cdlatex lets me write latex in org-mode. It's particularly useful for math. [[https://www.gnu.org/software/emacs/manual/html_node/org/CDLaTeX-mode.html][doc]]
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package cdlatex
-       :ensure t
-       :diminish org-cdlatex-mode
-       :config
-       (progn
-         (add-hook 'org-mode-hook 'org-cdlatex-mode)))
-   #+END_SRC
-
-   Org can preview latex fragments with =C-c C-x C-l= but it uses dvipng by default. Let's switch it to imagemagick:
-
-
-   #+BEGIN_SRC emacs-lisp
-     (setq org-latex-create-formula-image-program 'imagemagick)
-   #+END_SRC
-
 ** Agenda 
    Here's where I set which files are added to org-agenda, which controls org's global todo list, scheduling, and agenda features. I use Dropbox to keep these files in sync across computers.
 
@@ -1186,6 +1167,12 @@ I like to use system alerts, which are more visible than just sending it to Emac
    #+BEGIN_SRC emacs-lisp
      (setq org-special-ctrl-a/e t)
    #+END_SRC
+
+   Org can preview latex fragments with =C-c C-x C-l= but it uses dvipng by default. Let's switch it to imagemagick:
+   #+BEGIN_SRC emacs-lisp
+     (setq org-latex-create-formula-image-program 'imagemagick)
+   #+END_SRC
+
 
 * Shells
   
@@ -1496,6 +1483,18 @@ You will need to change ~reftex-default-bibliography~ to wherever you keep your 
     :config
     (add-hook 'LaTeX-mode-hook #'turn-on-reftex))
 #+END_SRC
+
+** Latex math
+   Cdlatex lets me write latex in org-mode. It's particularly useful for math. [[https://www.gnu.org/software/emacs/manual/html_node/org/CDLaTeX-mode.html][doc]]
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package cdlatex
+       :ensure t
+       :diminish org-cdlatex-mode
+       :config
+       (progn
+         (add-hook 'org-mode-hook 'org-cdlatex-mode)))
+   #+END_SRC
 
 * Polymode (for knitr)
   Polymode is a (relatively new) way of working with multiple major modes. This is especially helpful if we want to use latex or markdown together with R code.
