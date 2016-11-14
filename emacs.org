@@ -219,31 +219,6 @@ I can use =window-numbering= to quickly jump from window to window
        (window-numbering-mode))
    #+END_SRC
 
-** Keyfreq
-   This is a neat package that keeps track of which commands you're using. You can then assign your most-used commands to more accessible keybindings.
-   #+BEGIN_SRC emacs-lisp
-     (use-package keyfreq
-       :ensure t
-       :config
-       (setq keyfreq-excluded-commands
-             '(self-insert-command
-               org-self-insert-command
-               delete-backward-char
-               pdf-view-next-page-command
-               yas-expand
-               pdf-view-scroll-up-or-next-page
-               org-delete-backward-char
-               mouse-drag-region
-               LaTeX-insert-left-brace
-               mouse-drag-region
-               newline
-               abort-recursive-edit
-               previous-line
-               next-line))
-       (keyfreq-mode 1)
-       (keyfreq-autosave-mode 1))
-   #+END_SRC
-
 ** Server
    Start the server:
    #+BEGIN_SRC emacs-lisp
