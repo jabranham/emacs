@@ -961,7 +961,7 @@ Projectile makes using projects easier in emacs. It also plays well with helm, s
         (latex . t)
         (python . t)
         (R . t)
-        (sh . t)))
+        (shell . t)))
      (setq org-confirm-babel-evaluate nil)
      (setq org-src-window-setup 'current-window)
    #+END_SRC
