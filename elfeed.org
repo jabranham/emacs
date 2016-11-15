@@ -11,6 +11,7 @@
 *** [[http://rap.sagepub.com/rss/current.xml][R&P]]
 *** [[http://onlinelibrary.wiley.com/rss/journal/10.1111/(ISSN)1541-0072][PSJ]]
 *** [[http://apr.sagepub.com/rss/current.xml][APR]]
+*** [[http://www.tandfonline.com/action/showFeed?type=etoc&feed=rss&jc=rjpp20][Journal of Euro Public Policy]]
 ** Emacs                                                              :emacs:
 *** [[http://planet.emacsen.org/atom.xml][planet emacsen]]
 *** [[https://github.com/syl20bnr/spacemacs/releases.atom][spacemacs]]
