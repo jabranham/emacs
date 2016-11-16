@@ -219,6 +219,15 @@ I can use =window-numbering= to quickly jump from window to window
        (window-numbering-mode))
    #+END_SRC
 
+** Transpose frame
+I can use this package to swap the window layout easily:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package transpose-frame
+    :ensure t
+    :commands (transpose-frame))
+#+END_SRC
+
 ** Server
    Start the server:
    #+BEGIN_SRC emacs-lisp
@@ -686,61 +695,6 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
        (yas-global-mode))
    #+END_SRC
 * Functions
-** Jekyll functions
-   I use ~jekyll-publish-draft~ to move a post from _drafts/ to _posts/ which publishes it to my blog. Inspiration from [[http://pasoev.github.io/programming/2015/10/31/jekyll-posts-emacs-capture/][here]]
-
-   #+BEGIN_SRC emacs-lisp
-     (defun today-is ()
-       "Return current year-month-day."
-       (format-time-string "%Y-%m-%d"))
-
-     (defun jekyll-drafts ()
-       (let ((default-directory
-               (concat (projectile-project-root) "_drafts")))
-         (file-expand-wildcards "*.md")))
-
-     (defun jekyll-publish-draft (post)
-       "Mark one of the posts from the Jekyll drafts directory as published.
-        This actually means moving the post from the _drafts to the _posts 
-        directory."
-       (interactive
-        (list (completing-read "Post to publish: "
-                               (jekyll-drafts) nil t "")))
-       (copy-file (concat (projectile-project-root) "_drafts/" post)
-                  (concat (projectile-project-root) "_posts/" (today-is) "-" post))
-       (delete-file (concat (projectile-project-root) "_drafts/" post)))
-
-   #+END_SRC
-
-** Swap horizontal and vertical windows
-   Sometimes I want horizontal windows to be vertical or vice versa. This lets me make that happen:
-
-   #+BEGIN_SRC emacs-lisp
-     (defun toggle-window-split ()
-       (interactive)
-       (if (= (count-windows) 2)
-           (let* ((this-win-buffer (window-buffer))
-                  (next-win-buffer (window-buffer (next-window)))
-                  (this-win-edges (window-edges (selected-window)))
-                  (next-win-edges (window-edges (next-window)))
-                  (this-win-2nd (not (and (<= (car this-win-edges)
-                                              (car next-win-edges))
-                                          (<= (cadr this-win-edges)
-                                              (cadr next-win-edges)))))
-                  (splitter
-                   (if (= (car this-win-edges)
-                          (car (window-edges (next-window))))
-                       'split-window-horizontally
-                     'split-window-vertically)))
-             (delete-other-windows)
-             (let ((first-win (selected-window)))
-               (funcall splitter)
-               (if this-win-2nd (other-window 1))
-               (set-window-buffer (selected-window) this-win-buffer)
-               (set-window-buffer (next-window) next-win-buffer)
-               (select-window first-win)
-               (if this-win-2nd (other-window 1))))))
-   #+END_SRC
 ** Splitting windows
    These functions make splitting windows behave more like I want it to. This way, calling ~C-x 2~ or ~C-x 3~ both splits the window /and/ shows the last buffer.
 
