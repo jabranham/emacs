@@ -435,6 +435,17 @@ Use Emacs' built in =eww= broswer by default. If a webpage requires more, I can 
           ("." . eww-browse-url)))
 #+END_SRC
 
+=eww-lnum= makes following links a little easier:
+#+BEGIN_SRC emacs-lisp
+  (use-package eww-lnum
+    :ensure t
+    :after eww
+    :bind
+    (:map eww-mode-map
+          ("f" . eww-lnum-follow)
+          ("F" . eww-lnum-universal)))
+#+END_SRC
+
 By default, =M-s M-w= searches for text in the region. I change it to search for text in region if active, prompt otherwise:
 #+BEGIN_SRC emacs-lisp
   (defun jab/eww-search (orig-fun &rest args)
