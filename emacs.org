@@ -204,6 +204,7 @@ This ensures Emacs has the same PATH as the rest of my system:
      (use-package which-key
        :ensure t
        :diminish which-key-mode
+       :commands which-key-mode
        :defer 10
        :config
        (which-key-mode))
@@ -1395,6 +1396,7 @@ I end sentences with a single space.
       (setq TeX-auto-save t
             TeX-parse-self t
             reftex-plug-into-AUCTeX t)
+      (add-hook 'LaTeX-mode-hook 'reftex-mode)
       (add-hook 'LaTeX-mode-hook #'TeX-PDF-mode)
       (setq TeX-source-correlate-method 'synctex)
       (setq TeX-source-correlate-mode t)
