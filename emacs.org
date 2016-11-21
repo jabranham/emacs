@@ -1675,7 +1675,7 @@ This package integrates magit with github. It relies on having [[https://hub.git
                                                                       :to "alex.branham@gmail.com")))
                   :vars '((user-mail-address . "alex.branham@gmail.com")
                           (user-full-name . "Alex Branham")
-                          (mu4e-compose-signature . (""))
+                          (mu4e-compose-signature . "")
                           (mu4e-drafts-folder . "/gmail/[Gmail]/.Drafts")
                           (mu4e-sent-folder . "/gmail/[Gmail]/.Sent Mail")
                           (mu4e-trash-folder . "/gmail/[Gmail]/.Trash")))))
