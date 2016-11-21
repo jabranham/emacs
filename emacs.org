@@ -163,6 +163,7 @@ This ensures Emacs has the same PATH as the rest of my system:
      ;; Hide details (owner, permissions) in dired
      (add-hook 'dired-mode-hook
                (lambda () (dired-hide-details-mode 1)))
+     (bind-key "l" #'dired-up-directory dired-mode-map)
    #+END_SRC
 
    Here I sort dired buffers with directories (folders) first, then everything else:
