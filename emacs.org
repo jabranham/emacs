@@ -799,6 +799,15 @@ This function ([[http://pragmaticemacs.com/emacs/insert-file-name/][credit]]) le
 
      (global-set-key (kbd "<f11>") #'my/find-emacs-file)
    #+END_SRC
+** Update arch repos
+Use the fastest repo:
+
+#+BEGIN_SRC emacs-lisp
+  (defun update_arch_repos ()
+    "Update pacman mirrorlist to use the fastest 5 mirrors."
+    (async-shell-command "sudo reflector --sort rate --save /etc/pacman.d/mirrorlist -c 'United States' -f 5 -l 5"))
+#+END_SRC
+
 * Helm
 
 #+BEGIN_SRC emacs-lisp
