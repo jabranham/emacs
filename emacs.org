@@ -587,7 +587,8 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
 
 *** Start maximized
     #+BEGIN_SRC emacs-lisp
-      (add-hook 'after-init-hook (lambda () (toggle-frame-maximized)))
+      (add-to-list 'default-frame-alist '(fullscreen . maximized))
+
     #+END_SRC
 
 *** Better defaults 
