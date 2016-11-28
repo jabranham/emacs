@@ -1252,9 +1252,10 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
       (add-hook 'ess-mode-hook
                 (lambda ()
                   (ess-set-style 'RStudio)))
-      (setq ess-eval-visibly 'nowait)
-      (setq ess-ask-for-ess-directory nil)
-      (setq ess-eldoc-show-on-symbol t)
+      (setq ess-eval-visibly 'nowait) ; don't hog Emacs
+      (setq ess-ask-for-ess-directory nil) ; don't ask for dir when starting a process
+      (setq ess-eldoc-show-on-symbol t) ; show eldoc on symbol instead of only inside of parens
+      (setq ess-use-ido nil) ; rely on helm instead of ido
       (setq ess-pdf-viewer-pref "emacsclient")
       (defun my/add-pipe ()
         "Adds a pipe operator %>% with one space to the left and then
