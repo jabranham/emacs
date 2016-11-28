@@ -285,7 +285,7 @@ I can use this package to swap the window layout easily:
      (use-package avy
        :ensure t
        :bind
-       ("C-M-g" . avy-goto-word-1))
+       ("C-M-g" . avy-goto-char-timer))
    #+END_SRC
 
 ** Help windows
