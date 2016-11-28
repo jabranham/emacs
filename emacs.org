@@ -241,6 +241,24 @@ I can use =window-numbering= to quickly jump from window to window
        (window-numbering-mode))
    #+END_SRC
 
+** Frame management
+
+#+BEGIN_SRC emacs-lisp
+  (if (daemonp)
+      (progn
+        (defun my/save-if-last-frame (frame)
+          (when (eq 1 (cl-count-if
+                       (lambda (f)
+                         (eq
+                          (frame-parameter f 'display)
+                          (frame-parameter frame 'display)))
+                       (visible-frame-list)))
+            (save-some-buffers)))
+
+        (add-to-list 'delete-frame-functions #'my/save-if-last-frame)))
+
+#+END_SRC
+
 ** Transpose frame
 I can use this package to swap the window layout easily:
 
