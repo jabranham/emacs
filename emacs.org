@@ -1228,7 +1228,8 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
 ** Make urls clickable
 
    #+BEGIN_SRC emacs-lisp
-     (add-hook 'shell-mode-hook 'goto-address-mode)
+     (add-hook 'shell-mode-hook #'goto-address-mode)
+     (add-hook 'eshell-mode-hook #'goto-address-mode)
    #+END_SRC
 
 ** Shell misc
