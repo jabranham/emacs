@@ -95,7 +95,15 @@ This ensures Emacs has the same PATH as the rest of my system:
        :ensure t
        :defer t
        :init
-       (load-theme 'spacemacs-dark t))
+       (defvar my/theme 'spacemacs-dark
+         "The theme I'm using.")
+       (defun my/load-theme (frame)
+         (select-frame frame)
+         (load-theme my/theme t))
+
+       (if (daemonp)
+           (add-hook 'after-make-frame-functions #'my/load-theme)
+         (load-theme my/theme t)))
    #+END_SRC
 ** Color words describing colors
 Rainbow-mode makes it so that for example #0000ff is displayed in white with a blue background. 
