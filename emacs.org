@@ -670,8 +670,7 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
        :init
        (add-hook 'after-init-hook #'global-company-mode)
        :config
-       (setq company-minimum-prefix-length 2
-             company-idle-delay 0.2)
+       (setq company-minimum-prefix-length 2)
        (use-package company-statistics
          :ensure t
          :config
