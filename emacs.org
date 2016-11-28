@@ -129,6 +129,15 @@ Rainbow-mode makes it so that for example #0000ff is displayed in white with a b
        ("M-v" . View-scroll-half-page-backward))
    #+END_SRC
 
+   This provides a visual cue whenever Emacs scrolls so it's easier to keep my place:
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package on-screen
+       :ensure t
+       :config
+       (on-screen-global-mode))
+   #+END_SRC
+
 ** Smart parens
    I'm not good at keeping track of parentheses. This makes me slightly better at it. It also keeps track of other things that should "match" like {}, [], "", ``'' (in latex mode), etc.
 
