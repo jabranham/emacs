@@ -168,7 +168,7 @@ Rainbow-mode makes it so that for example #0000ff is displayed in white with a b
        (use-package pdf-tools
          :ensure t
          :config
-         (pdf-tools-install)
+         (pdf-tools-install t)
          (setq TeX-view-program-selection '((output-pdf "pdf-tools")))
          (setq TeX-view-program-list '(("pdf-tools" "TeX-pdf-tools-sync-view")))))
    #+END_SRC
