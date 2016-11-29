@@ -1,7 +1,8 @@
 #+author: J. Alexander Branham
 #+STARTUP: indent
 #+title: Emacs settings
-
+* Intro
+This file contains my Emacs configuration. I usually run Emacs as a daemon using a [[http://git.savannah.gnu.org/cgit/emacs.git/commit/?id=181bd848eb9662759f076b31a32f6588e9eb58b4][systemd service]]; the configuration is loaded upon login. To start a new frame, I call =emacsclient -c=. 
 * Behavior 
   Change some of emacs's defaults because they suck:
   #+BEGIN_SRC emacs-lisp
@@ -511,6 +512,16 @@ Store tramp files in the cache:
                "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
                "culpa qui officia deserunt mollit anim id est laborum."))
    #+END_SRC
+
+*** Enable disabled commands
+Emacs thinks that some new users may find some commands confusing, so they're disabled by default. I use these every now and then, so let's enable them by default: 
+
+#+BEGIN_SRC emacs-lisp
+  (put 'downcase-region 'disabled nil)
+  (put 'upcase-region 'disabled nil)
+  (put 'narrow-to-region 'disabled nil)
+#+END_SRC
+
 *** Mouse avoid
 Oftentimes the mouse just gets in the way. Since I rarely use the mouse, let's banish it to the upper right corner whenever I type a key in Emacs:
 
