@@ -1235,6 +1235,11 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
    #+BEGIN_SRC emacs-lisp
      (setq comint-scroll-to-bottom-on-input 'this)
    #+END_SRC
+Get aliases that are setup in =.bash_profile=:
+#+BEGIN_SRC emacs-lisp
+  (setq shell-command-switch "-ic")
+#+END_SRC
+
 * R (with ESS)
   ESS (Emacs Speaks Statistics) is a [[http://ess.r-project.org/][great project]] and makes Emacs speak with R.
 
