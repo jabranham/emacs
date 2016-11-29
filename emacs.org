@@ -177,7 +177,7 @@ Rainbow-mode makes it so that for example #0000ff is displayed in white with a b
        (use-package pdf-tools
          :ensure t
          :config
-         (pdf-tools-install)
+         (pdf-tools-install t)
          (setq TeX-view-program-selection '((output-pdf "pdf-tools")))
          (setq TeX-view-program-list '(("pdf-tools" "TeX-pdf-tools-sync-view")))))
    #+END_SRC
@@ -228,6 +228,14 @@ Rainbow-mode makes it so that for example #0000ff is displayed in white with a b
        (spaceline-toggle-buffer-encoding-abbrev-off)
        (add-hook 'after-init-hook #'spaceline-toggle-minor-modes-off))
    #+END_SRC
+*** Mode icons
+I can make the modeline a little fancier by using icons like the [[http://orgmode.org/img/org-mode-unicorn-logo.png][org mode icon]] rather than text like "Org":
+#+BEGIN_SRC emacs-lisp
+  (use-package mode-icons
+    :ensure t
+    :config
+    (mode-icons-mode))
+#+END_SRC
 ** Which-key
    [[https://github.com/justbur/emacs-which-key][Which key]] shows key bindings for incomplete commands (prefixes).
 
