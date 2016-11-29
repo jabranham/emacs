@@ -710,8 +710,6 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
 
    Yasnippet by default checks for snippets in two places: a path relative to yasnippet.el (these are the default snippets that come with the package). If I want to make my own, I can put then in ~.emacs.d/snippets~ and it should find them there as well.
   
-   You can use the tab key to expand a snippet once you've typed in the "key". It's pretty smart in that if tab fails for yasnippet, it then checks for whatever tab was originally bound to.
-
    #+BEGIN_SRC emacs-lisp
      (use-package yasnippet
        :ensure t
