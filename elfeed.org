@@ -30,6 +30,7 @@
 ** Comics                                                            :comics:
 *** [[http://xkcd.com/atom.xml][xkcd]]
 *** [[http://www.phdcomics.com/gradfeed.php][phdcomics]]
+*** [[http://legogradstudent.tumblr.com/rss][lego_grad_student]]
 ** Tech                                                                :tech:
 *** [[http://feeds.feedburner.com/OfficialGmailBlog][gmail]]                                                            
 *** [[http://feeds2.feedburner.com/blogspot/Egta][chrome]]
