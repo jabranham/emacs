@@ -219,6 +219,16 @@ Rainbow-mode makes it so that for example #0000ff is displayed in white with a b
        (spaceline-toggle-buffer-encoding-abbrev-off)
        (add-hook 'after-init-hook #'spaceline-toggle-minor-modes-off))
    #+END_SRC
+   Also, we can substitute the [[http://fontawesome.io/icon/code-fork/][code fork]] from [[http://fontawesome.io/icon/code-fork/][font awesome]] (which you'll need to have installed) to have a pretty symbol instead of "git:branch"
+#+BEGIN_SRC emacs-lisp
+  (defun my-vc-git-mode-line-string (orig-fn &rest args)
+    "Replace Git in modeline with font-awesome git icon via ORIG-FN and ARGS."
+    (let ((str (apply orig-fn args)))
+      (concat [#xF126] ":" (substring-no-properties str 4))))
+
+  (advice-add #'vc-git-mode-line-string :around #'my-vc-git-mode-line-string)
+#+END_SRC
+
 *** Mode icons
 I can make the modeline a little fancier by using icons like the [[http://orgmode.org/img/org-mode-unicorn-logo.png][org mode icon]] rather than text like "Org":
 #+BEGIN_SRC emacs-lisp
