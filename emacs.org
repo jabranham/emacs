@@ -1470,6 +1470,10 @@ I end sentences with a single space.
       (push ".synctex.gz" dired-latex-unclean-extensions)
       (push ".fdb_latexmk" dired-latex-unclean-extensions)
       (push ".fls" dired-latex-unclean-extensions)
+      (push "\\.fdb_latexmk" LaTeX-clean-intermediate-suffixes)
+      (push "\\.fls" LaTeX-clean-intermediate-suffixes)
+      (push "\\.synctex.gz" LaTeX-clean-intermediate-suffixes)
+      (setq TeX-clean-confirm nil)
       )
   #+END_SRC
 
