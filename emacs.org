@@ -1070,7 +1070,7 @@ I use org-capture to create short notes about all kinds of things. I can capture
 
 #+BEGIN_SRC emacs-lisp
   (use-package org-capture
-    :bind
+    :bind*
     ("C-c c" . org-capture)
     :init
     (setq org-default-notes-file (concat org-directory "todo.org")))
