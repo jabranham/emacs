@@ -1147,6 +1147,7 @@ I like to use system alerts, which are more visible than just sending it to Emac
   (use-package org-bullets
     :ensure t
     :config
+    (setq org-bullets-bullet-list '("◉" "○ ""►" "•" "•")) ; Default is '("◉" "○" "✸" "✿")
     (add-hook 'org-mode-hook #'org-bullets-mode))
 #+END_SRC
 
