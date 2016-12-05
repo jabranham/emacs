@@ -1185,6 +1185,7 @@ I like to use system alerts, which are more visible than just sending it to Emac
   (use-package org-bullets
     :ensure t
     :config
+    (setq org-bullets-bullet-list '("◉" "○ ""►" "•" "•")) ; Default is '("◉" "○" "✸" "✿")
     (add-hook 'org-mode-hook #'org-bullets-mode))
 #+END_SRC
 
@@ -1229,7 +1230,7 @@ I like to use system alerts, which are more visible than just sending it to Emac
 
    Org can preview latex fragments with =C-c C-x C-l= but it uses dvipng by default. Let's switch it to imagemagick:
    #+BEGIN_SRC emacs-lisp
-     (setq org-latex-create-formula-image-program 'imagemagick)
+     (setq org-preview-latex-default-process 'imagemagick)
    #+END_SRC
 
 * Shells
