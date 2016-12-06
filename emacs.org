@@ -1471,14 +1471,14 @@ I end sentences with a single space.
       (push ".synctex.gz" dired-latex-unclean-extensions)
       (push ".fdb_latexmk" dired-latex-unclean-extensions)
       (push ".fls" dired-latex-unclean-extensions)
-      (push "\\.fdb_latexmk" LaTeX-clean-intermediate-suffixes)
-      (push "\\.fls" LaTeX-clean-intermediate-suffixes)
-      (push "\\.synctex.gz" LaTeX-clean-intermediate-suffixes)
+      ;; (push "\\.fdb_latexmk" LaTeX-clean-intermediate-suffixes)
+      ;; (push "\\.fls" LaTeX-clean-intermediate-suffixes)
+      ;; (push "\\.synctex.gz" LaTeX-clean-intermediate-suffixes)
       (setq TeX-clean-confirm nil)
       ;; turn on and enable folding by default:
-      (add-hook 'LaTeX-mode-hook (lambda ()
-                                   (TeX-fold-mode 1)))
-      (add-hook 'find-file-hook 'TeX-fold-buffer t)
+      ;; (add-hook 'LaTeX-mode-hook (lambda ()
+      ;;                              (TeX-fold-mode 1)))
+      ;; (add-hook 'find-file-hook 'TeX-fold-buffer t)
       )
   #+END_SRC
 
