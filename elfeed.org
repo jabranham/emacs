@@ -17,6 +17,7 @@
 *** [[https://github.com/syl20bnr/spacemacs/releases.atom][spacemacs]]
 *** [[https://github.com/djcb/mu/releases.atom][mu4e]]
 *** [[https://github.com/emacs-ess/ESS/releases.atom][ESS]]
+*** [[https://github.com/magit/magit/releases.atom][magit]]
 ** R                                                                      :R:
 *** [[https://rweekly.org/atom.xml][rweekly]]
 *** [[https://blog.rstudio.org/feed/][rstudio]]
