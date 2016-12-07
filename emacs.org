@@ -2030,5 +2030,11 @@ Stack Exchange is the place to go to get questions answered. This lets me search
   (use-package ledger-mode
     :ensure t
     :if (executable-find "ledger")
-    :mode ("\\.ledger$" . ledger-mode))
+    :mode ("\\.ledger$" . ledger-mode)
+    :config
+    (setq ledger-reports '(("on-hand" "ledger -f finances.ledger bal \"(Checking|Liabilities)\"")
+                           ("bal" "ledger -f %(ledger-file) bal")
+                           ("reg" "ledger -f %(ledger-file) reg")
+                           ("payee" "ledger -f %(ledger-file) reg @%(payee)")
+                           ("account" "ledger -f %(ledger-file) reg %(account)"))))
 #+END_SRC
