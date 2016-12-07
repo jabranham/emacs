@@ -1262,6 +1262,7 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
   #+BEGIN_SRC emacs-lisp
     (use-package ess-site 
       :ensure ess
+      :pin melpa-stable
       :diminish eldoc-mode
       :bind
       (:map ess-mode-map
@@ -1592,6 +1593,7 @@ Magit is better than the command line for git. I don't modify much. I just bind 
    #+BEGIN_SRC emacs-lisp
      (use-package magit ; for git
        :ensure t
+       :pin melpa-stable
        :bind
        ("C-x g" . magit-status)
        :config
