@@ -1300,6 +1300,7 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
   #+BEGIN_SRC emacs-lisp
     (use-package ess-site 
       :ensure ess
+      :pin melpa-stable
       :diminish eldoc-mode
       :bind
       (:map ess-mode-map
@@ -1630,6 +1631,7 @@ Magit is better than the command line for git. I don't modify much. I just bind 
    #+BEGIN_SRC emacs-lisp
      (use-package magit ; for git
        :ensure t
+       :pin melpa-stable
        :bind
        ("C-x g" . magit-status)
        :config
@@ -2068,5 +2070,11 @@ Stack Exchange is the place to go to get questions answered. This lets me search
   (use-package ledger-mode
     :ensure t
     :if (executable-find "ledger")
-    :mode ("\\.ledger$" . ledger-mode))
+    :mode ("\\.ledger$" . ledger-mode)
+    :config
+    (setq ledger-reports '(("on-hand" "ledger -f finances.ledger bal \"(Checking|Liabilities)\"")
+                           ("bal" "ledger -f %(ledger-file) bal")
+                           ("reg" "ledger -f %(ledger-file) reg")
+                           ("payee" "ledger -f %(ledger-file) reg @%(payee)")
+                           ("account" "ledger -f %(ledger-file) reg %(account)"))))
 #+END_SRC
