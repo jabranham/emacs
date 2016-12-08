@@ -89,6 +89,15 @@ This ensures Emacs has the same PATH as the rest of my system:
      (set-buffer-file-coding-system 'utf-8)
      (set-default-coding-systems 'utf-8)
    #+END_SRC
+
+** Info+
+Emacs' info manual is /amazing/. This makes it even better.
+#+BEGIN_SRC emacs-lisp
+  (use-package info+
+    :defer t
+    :after info)
+#+END_SRC
+
 ** Theme
    By default, emacs starts with a blindingly white theme. Let's get rid of that pronto.
    #+BEGIN_SRC emacs-lisp
