@@ -18,6 +18,12 @@
 *** [[http://www.nowpublishers.com/feed/QJPS][QJPS]]
 *** [[http://onlinelibrary.wiley.com/rss/journal/10.1111/(ISSN)1475-6765][EJPR]]
 *** [[http://onlinelibrary.wiley.com/rss/journal/10.1111/(ISSN)1467-9221][Pol psych]]
+*** [[https://zapier.com/engine/rss/1846337/alex/][cambridge]]
+    Cambridge doesn't have RSS feeds for the journals they publish, so
+    I set up a service where I can sign up for cambridge's emails, but
+    send them to this service, which then publishes them as an RSS
+    feed. Currently, this is APSR, BJPS, EPSR, Perspectives, Political
+    Analysis, PSRM, and PS.
 ** Emacs                                                              :emacs:
 *** [[http://planet.emacsen.org/atom.xml][planet emacsen]]
 *** [[https://github.com/syl20bnr/spacemacs/releases.atom][spacemacs]]
