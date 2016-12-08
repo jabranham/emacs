@@ -990,6 +990,7 @@ Projectile makes using projects easier in emacs. It also plays well with helm, s
     (use-package helm-projectile
       :ensure t
       :config
+      (setq projectile-completion-system 'helm)
       (helm-projectile-on)))
    #+END_SRC
 
