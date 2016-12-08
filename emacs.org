@@ -1570,9 +1570,12 @@ I end sentences with a single space.
       ;; (push "\\.synctex.gz" LaTeX-clean-intermediate-suffixes)
       (setq TeX-clean-confirm nil)
       ;; turn on and enable folding by default:
-      ;; (add-hook 'LaTeX-mode-hook (lambda ()
-      ;;                              (TeX-fold-mode 1)))
-      ;; (add-hook 'find-file-hook 'TeX-fold-buffer t)
+      (push '("[r]" ("autocite" "autoref")) TeX-fold-macro-spec-list)
+      (push '("[i]" ("input")) TeX-fold-macro-spec-list)
+      (setq TeX-fold-auto t)
+      (add-hook 'LaTeX-mode-hook (lambda ()
+                                   (TeX-fold-mode 1)
+                                   (TeX-fold-buffer))) 
       )
   #+END_SRC
 
