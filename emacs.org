@@ -244,7 +244,9 @@ Rainbow-mode makes it so that for example #0000ff is displayed in white with a b
      (use-package spaceline-config
        :ensure spaceline
        :config
-       (spaceline-emacs-theme)
+       (spaceline-spacemacs-theme)
+       (spaceline-helm-mode)
+       (spaceline-info-mode)
        (spaceline-toggle-buffer-encoding-abbrev-off)
        (add-hook 'after-init-hook #'spaceline-toggle-minor-modes-off))
    #+END_SRC
