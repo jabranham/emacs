@@ -1724,13 +1724,38 @@ I autocommit a few files, like notes and todo:
 
 
 *** Github
-This package integrates magit with github. It relies on having [[https://hub.github.com/][hub]] installed already. 
+
+**** Gists
 #+BEGIN_SRC emacs-lisp
-  (use-package magithub
+  (use-package gist
     :ensure t
-    :if (executable-find "hub")
-    :after magit)
+    :commands (gist-list))
 #+END_SRC
+
+**** Github clone
+#+BEGIN_SRC emacs-lisp
+  (use-package github-clone
+    :ensure t
+    :commands (github-clone github-clone-fork-remote))
+#+END_SRC
+
+**** Github pull requests
+#+BEGIN_SRC emacs-lisp
+  (use-package magit-gh-pulls
+    :ensure t
+    :after magit
+    :bind
+    (:map magit-mode-map
+          ("#" . my/load-pull-requests))
+    :init
+    (defun my/load-pull-requests ()
+      "Starts magit-gh-pulls."
+      (interactive)
+      (magit-gh-pulls-mode)
+      (magit-gh-pulls-popup)))
+#+END_SRC
+
+#+RESULTS:
 
 * Webpage editing
 ** HTML and friends
