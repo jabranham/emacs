@@ -106,6 +106,17 @@ This ensures Emacs has the same PATH as the rest of my system:
            (add-hook 'after-make-frame-functions #'my/load-theme)
          (load-theme my/theme t)))
    #+END_SRC
+** Highlight numbers
+I like to see numbers in code:
+#+BEGIN_SRC emacs-lisp
+  (use-package highlight-numbers          
+    :ensure t
+    :commands (highlight-numbers-mode)
+    :init
+    (add-hook 'prog-mode-hook #'highlight-numbers-mode)
+    (add-hook 'ess-mode-hook #'highlight-numbers-mode))
+#+END_SRC
+
 ** Color words describing colors
 Rainbow-mode makes it so that for example #0000ff is displayed in white with a blue background. 
 
