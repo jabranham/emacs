@@ -880,7 +880,6 @@ Use the fastest repo:
     "Update pacman mirrorlist to use the fastest 5 mirrors."
     (async-shell-command "sudo reflector --sort rate --save /etc/pacman.d/mirrorlist -c 'United States' -f 5 -l 5"))
 #+END_SRC
-
 * Helm
 
 #+BEGIN_SRC emacs-lisp
@@ -1077,6 +1076,58 @@ Projectile makes using projects easier in emacs. It also plays well with helm, s
        (use-package org-ref-isbn)
        (use-package org-ref-latex))
    #+END_SRC
+
+*** Org-ref-bibtex
+Org-ref-bibtex is a package (contained in org-ref, so no need for an =:ensure t=) that helps me manage my bib file(s). I add the =my/fix-journal-name= function to always put in the full name of the journal. I also add it to the cleaning hook so that it's taken care of for me more or less automatically.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-ref-bibtex
+    :config
+    (defun my/add-to-journal-list (element)
+      (push element org-ref-bibtex-journal-abbreviations))
+    (mapc #'my/add-to-journal-list
+          '(("APSR" "American Political Science Review" "Am Polit Sci Rev")
+            ("APSR" "American Political Science Review" "The American Political Science Review")
+            ("AJPS" "American Journal of Political Science" "Am Jour Polit Sci")
+            ("AJPS" "American Journal of Political Science" "Am J Political Science")
+            ("JOP" "Journal of Politics" "The Journal of Politics")
+            ("JOP" "Journal of Politics" "J of Pol")
+            ("jop" "Journal of Politics" "J of Pol")
+            ("EPSR" "European Political Science Review" "Eur. Pol. Sci. Rev.") 
+            ("JoC" "Journal of Communication" "J Communication") 
+            ("PoP" "Perspectives on Politics" "Perspect. polit.")))
+
+    (defun my/fix-journal-name (&optional key start end)
+      "Replace journal name in a bibtex entry with the full name.
+    The strings are defined in
+    `org-ref-bibtex-journal-abbreviations'. The optional arguments
+    KEY, START and END allow you to use this with
+    `bibtex-map-entries'"
+      (interactive)
+      (bibtex-beginning-of-entry)
+      (when
+          (string= "article"
+                   (downcase
+                    (cdr (assoc "=type=" (bibtex-parse-entry)))))
+        (let* ((initial-names (mapcar
+                               (lambda (row)
+                                 (cons  (nth 0 row) (nth 1 row)))
+                               org-ref-bibtex-journal-abbreviations))
+               (abbrev-names (mapcar
+                              (lambda (row)
+                                (cons  (nth 2 row) (nth 1 row)))
+                              org-ref-bibtex-journal-abbreviations))
+               (journal (s-trim (bibtex-autokey-get-field "journal")))
+               (bstring (or
+                         (cdr (assoc journal initial-names))
+                         (cdr (assoc journal abbrev-names))))) 
+          (when bstring
+            (bibtex-set-field "journal" bstring)
+            (bibtex-fill-entry)))))
+
+    (add-hook 'org-ref-clean-bibtex-entry-hook #'my/fix-journal-name)
+    ); ends use-package org-ref-bibtex
+#+END_SRC
 
 ** Agenda 
    Here's where I set which files are added to org-agenda, which controls org's global todo list, scheduling, and agenda features. I use Dropbox to keep these files in sync across computers.
