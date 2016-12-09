@@ -1446,9 +1446,10 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
 
   Elpy is a ton of customizations for python. Note that I had to add it to ~package-archives~ in [[file:init.el]]. Load it up:
 
-  #+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp 
     (use-package elpy
       :ensure t
+      :pin melpa-stable
       :init
       (progn
         (elpy-enable))
@@ -1457,7 +1458,6 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
         (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
         (add-hook 'elpy-mode-hook 'flycheck-mode)))
   #+END_SRC
-
 * Stan
   Stan is a Bayesian modeling language. Emacs has a mode for it (of course!)
 
