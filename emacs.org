@@ -1856,10 +1856,14 @@ I autocommit a few files, like notes and todo:
        :bind
        (("<f1>" . my-mu4e-start)
         ("C-x m" . mu4e-compose-new)
+        ("<f9>" . my/work-inbox)
+        ("<f10>" . my/personal-inbox)
         :map mu4e-headers-mode-map
         ("d" . mu4e-headers-mark-for-delete)
+        ("q" . mu4e-quit-session)
         :map mu4e-view-mode-map
         ("d" . mu4e-view-mark-for-delete)
+        ("q" . mu4e-quit-session)
         :map mu4e-main-mode-map
         ("q" . mu4e-quit-session))
        :init
@@ -1878,6 +1882,15 @@ I autocommit a few files, like notes and todo:
          (jump-to-register :mu4e-fullscreen))
        (add-hook 'after-init-hook
                  (lambda () (mu4e t))) ; starts mu4e silently when emacs starts
+       (defun my/work-inbox ()
+         "Jump to work email"
+         (interactive)
+         (mu4e~headers-jump-to-maildir "/utexas/INBOX"))
+       (defun my/personal-inbox ()
+         "Jump to work email"
+         (interactive)
+         (mu4e~headers-jump-to-maildir "/gmail/INBOX"))
+
        :config
        (setq mu4e-contexts
              `( ,(make-mu4e-context
@@ -1919,6 +1932,8 @@ I autocommit a few files, like notes and todo:
                                        ("/utexas/[Gmail]/.Sent Mail"   . ?s)
                                        ("/utexas/[Gmail]/.All Mail" . ?a)
                                        ("/gmail/INBOX" . ?g)))
+       ;; don't ask me to quit, just quit
+       (setq mu4e-confirm-quit nil)
        (setq mail-user-agent 'mu4e-user-agent)
        ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
        (setq mu4e-sent-messages-behavior 'delete)
@@ -1994,6 +2009,7 @@ I autocommit a few files, like notes and todo:
          (mu4e-maildirs-extension-load))
        ) ; finishes use-package mu4e
    #+END_SRC
+
 ** Helper for yasnippet
 
    This function helps with an expandable snippet. [[http://pragmaticemacs.com/emacs/email-templates-in-mu4e-with-yasnippet/][link]]
