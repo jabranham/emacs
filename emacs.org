@@ -903,6 +903,40 @@ Use the fastest repo:
     "Update pacman mirrorlist to use the fastest 5 mirrors."
     (async-shell-command "sudo reflector --sort rate --save /etc/pacman.d/mirrorlist -c 'United States' -f 5 -l 5"))
 #+END_SRC
+** Narrowing
+Emacs has a great system to "narrow" a buffer to just a smaller bit. This is useful in a whole bunch of unexpected ways. For example, if a function will do something to a whole buffer but you only want to apply it to part, you can just narrow to that bit of the buffer. Or narrow just to one org subtree when you have a massive org document. The narrow commands are a bit confusing by default. This cleans them up a bit and makes it more intuitive to use. I got this from [[http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html][this post]] (modified a bit).
+#+BEGIN_SRC emacs-lisp
+  (defun narrow-or-widen-dwim (p)
+    "Widen if buffer is narrowed, narrow-dwim otherwise.
+  Dwim means: region, org-src-block, org-subtree, or
+  defun, whichever applies first. Narrowing to
+  org-src-block actually calls `org-edit-src-code'.
+
+  With prefix P, don't widen, just narrow even if buffer
+  is already narrowed."
+    (interactive "P")
+    (declare (interactive-only))
+    (cond ((and (buffer-narrowed-p) (not p)) (widen))
+          ((region-active-p)
+           (narrow-to-region (region-beginning)
+                             (region-end)))
+          ((derived-mode-p 'org-mode)
+           (cond ((ignore-errors (org-narrow-to-block) t))
+                 (t (org-narrow-to-subtree))))
+          ((derived-mode-p 'latex-mode)
+           (LaTeX-narrow-to-environment))
+          (t (narrow-to-defun))))
+
+  ;; This line actually replaces Emacs' entire narrowing
+  ;; keymap, that's how much I like this command. Only
+  ;; copy it if that's what you want.
+  (define-key ctl-x-map "n" #'narrow-or-widen-dwim)
+  (add-hook 'LaTeX-mode-hook
+            (lambda ()
+              (define-key LaTeX-mode-map "\C-xn"
+                nil)))
+
+#+END_SRC
 * Helm
 
 #+BEGIN_SRC emacs-lisp
