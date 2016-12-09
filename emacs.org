@@ -95,6 +95,7 @@ Emacs' info manual is /amazing/. This makes it even better.
 #+BEGIN_SRC emacs-lisp
   (use-package info+
     :defer t
+    :ensure t
     :after info)
 #+END_SRC
 
