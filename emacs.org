@@ -245,6 +245,7 @@ Rainbow-mode makes it so that for example #0000ff is displayed in white with a b
      (use-package spaceline-config
        :ensure spaceline
        :config
+       (setq spaceline-window-numbers-unicode t)
        (spaceline-spacemacs-theme)
        (spaceline-helm-mode)
        (spaceline-info-mode)
