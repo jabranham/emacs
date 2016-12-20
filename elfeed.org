@@ -51,3 +51,4 @@
 *** [[http://feeds.feedburner.com/OfficialAndroidBlog][android]]
 *** [[http://feeds.feedburner.com/blogspot/MKuf][google]]
 *** [[https://www.archlinux.org/feeds/news/][arch]]linux
+*** [[https://github.com/spf13/hugo/releases.atom][hugo]]
