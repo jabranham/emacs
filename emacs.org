@@ -1242,16 +1242,32 @@ This line is necessary for the [[https://addons.mozilla.org/en-US/firefox/addon/
 #+END_SRC
 
 *** Capture templates
+I use this function in the ledger capture templates to turn 2016-01-30 into 2016/01/30:
+#+BEGIN_SRC emacs-lisp
+  (defun my/read-date ()
+    "Parse date for capturing ledger entries via org mode"
+    (replace-regexp-in-string "-" "/" (org-read-date)))
+#+END_SRC
 
-    #+BEGIN_SRC emacs-lisp
-      (setq org-capture-templates
-            (quote (
-                    ("s" "store" entry (file+headline (concat org-directory "todo.org") "Tasks")
-                     "* TODO %?\n %a \n %i")
-                    ("t" "task" entry (file+headline (concat org-directory "todo.org") "Tasks")
-                     "* TODO %? \n %i")
-                    ("x" "firefox" entry (file+headline (concat org-directory "todo.org") "Firefox")
-                     "* TODO %c" :immediate-finish t))))
+And now for the capture templates themselves. It's a bit complicated, but [[http://orgmode.org/manual/Capture-templates.html][the manual]] does a great job explaining: 
+  #+BEGIN_SRC emacs-lisp
+    (setq org-capture-templates
+          (quote (
+                  ("s" "store" entry (file+headline (concat org-directory "todo.org") "Tasks")
+                   "* TODO %?\n %a \n %i")
+                  ("t" "task" entry (file+headline (concat org-directory "todo.org") "Tasks")
+                   "* TODO %? \n %i")
+                  ("x" "firefox" entry (file+headline (concat org-directory "todo.org") "Firefox")
+                   "* TODO %c" :immediate-finish t)
+                  ("l" "Ledger entries")
+                  ("lc" "citi" plain (file "~/Dropbox/Finances/finances.ledger")
+                   "%(my/read-date) %^{Payee} 
+        Expenses:%^{Expense category}       $ %^{Amount}
+        Liabilities:Citi mastercard" :empty-lines 1 :immediate-finish t)
+                  ("ld" "pay with checking" plain (file "~/Dropbox/Finances/finances.ledger")
+                   "%(my/read-date) %^{Payee} 
+        Expenses:%^{Expense category}       $ %^{Amount}
+        Assets:Checking" :empty-lines 1 :immediate-finish t))))
     #+END_SRC
 
 ** Refile
@@ -2237,6 +2253,7 @@ Stack Exchange is the place to go to get questions answered. This lets me search
     :mode ("\\.ledger$" . ledger-mode)
     :config
     (setq ledger-post-amount-alignment-column 70)
+    (setq ledger-post-amount-alignment-at :decimal)
     (setq ledger-reports '(("on-hand" "ledger -f finances.ledger bal \"(Checking|Liabilities)\"")
                            ("bal" "ledger -f %(ledger-file) bal")
                            ("reg" "ledger -f %(ledger-file) reg")
