@@ -3,7 +3,7 @@
 #+title: Emacs settings
 * Intro
 This file contains my Emacs configuration. I usually run Emacs as a daemon using a [[http://git.savannah.gnu.org/cgit/emacs.git/commit/?id=181bd848eb9662759f076b31a32f6588e9eb58b4][systemd service]]; the configuration is loaded upon login. To start a new frame, I call =emacsclient -c=. I've setup a desktop file to make that easier (and so I don't have to fire up a terminal to run Emacs). This seems to work better if all the packages are installed already, which is the case unless my =elpa/= folder got deleted or I'm setting up a new machine. To do that, I can just stop the systemd service and start Emacs normally.
-* Behavior 
+* Behavior
   Change some of emacs's defaults because they suck:
   #+BEGIN_SRC emacs-lisp
     (setq inhibit-startup-message t ; disable start screen
@@ -473,12 +473,12 @@ I can use this package to swap the window layout easily:
        :config
        (defhydra hydra/system-packages ()
          "Manage system packages"
-         ("i" system-packages-install "install")
-         ("s" system-packages-search "search")
-         ("U" system-packages-uninstall "uninstall")
-         ("u" system-packages-update "update")
-         ("l" system-packages-list-installed-packages "list installed")
-         ("O" system-packages-remove-orphaned "remove orphans")))
+         ("i" system-packages-install "install" :exit t)
+         ("s" system-packages-search "search" :exit t)
+         ("U" system-packages-uninstall "uninstall" :exit t)
+         ("u" system-packages-update "update" :exit t)
+         ("l" system-packages-list-installed-packages "list installed" :exit t)
+         ("O" system-packages-remove-orphaned "remove orphans" :exit t)))
    #+END_SRC
 
 ** Multiple cursors 
