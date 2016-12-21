@@ -984,6 +984,21 @@ Emacs has a great system to "narrow" a buffer to just a smaller bit. This is use
              bibtex-autokey-year-title-separator "")
        (setq bibtex-align-at-equal-sign t)
        (setq bibtex-files '("~/Dropbox/bibliography/references.bib"))
+       (defun bibtex-generate-autokey ()
+         "This overwrites the bibtex-generate-autokey function that comes with Emacs. 
+
+       I want my keys to be formatted: authornameYEAR, then a letter if there is already an entry that matches authornameYEAR."
+         (let* ((names (bibtex-autokey-get-names))
+                (year (bibtex-autokey-get-year))
+                (existing-keys (bibtex-parse-keys))
+                key)
+           (setq key (format "%s%s" names year))
+           (let ((ret key))
+             (cl-loop for c
+                      from ?b to ?z
+                      while (assoc ret existing-keys)
+                      do (setq ret (format "%s%c" key c)))
+             ret)))
        :config
        (setq bibtex-completion-bibliography "~/Dropbox/bibliography/references.bib"
              bibtex-completion-library-path "~/Dropbox/bibliography/bibtex-pdfs"
@@ -1183,6 +1198,32 @@ Projectile makes using projects easier in emacs. It also plays well with helm, s
                (bibtex-fill-entry)))))
 
        (add-hook 'org-ref-clean-bibtex-entry-hook #'my/fix-journal-name)
+
+       ;; I needed to change the order of things in this function. Probably
+       ;; safe to submit a PR but I'll wait a while to see if I get any odd
+       ;; behavior
+       (defun orcb-key ()
+         "Replace the key in the entry."
+         ;; first we delete the existing key
+         (bibtex-beginning-of-entry)
+         (re-search-forward bibtex-entry-maybe-empty-head)
+         (if (match-beginning bibtex-key-in-head)
+             (delete-region (match-beginning bibtex-key-in-head)
+                            (match-end bibtex-key-in-head)))
+         (let ((key (funcall org-ref-clean-bibtex-key-function
+                             (bibtex-generate-autokey))))
+           ;; check if the key is in the buffer
+           (when (save-excursion
+                   (bibtex-search-entry key))
+             (save-excursion
+               (bibtex-search-entry key)
+               (bibtex-copy-entry-as-kill)
+               (switch-to-buffer-other-window "*duplicate entry*")
+               (bibtex-yank))
+             (setq key (bibtex-read-key "Duplicate Key found, edit: " key)))
+           (insert key)
+           (kill-new key)))
+
 
        (use-package doi-utils)
        (use-package org-ref-isbn)
