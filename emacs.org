@@ -13,19 +13,19 @@ This file contains my Emacs configuration. I usually run Emacs as a daemon using
   I use ~desktop-clear~ to get rid of buffers and other things every now and then. Let's bind it to f12:
 
   #+BEGIN_SRC emacs-lisp
-    (global-set-key (kbd "<f12>") #'desktop-clear)
+    (bind-key "<f12>" #'desktop-clear)
   #+END_SRC
 
   C-x C-c is originally bound to kill emacs. I accidentally type this from time to time which is super-frustrating. Get rid of it:
 
   #+BEGIN_SRC emacs-lisp
-    (global-unset-key (kbd "C-x C-c"))
+    (unbind-key "C-x C-c")
   #+END_SRC
   
   In my world, =C-z= is undo, not minimize emacs:
 
   #+BEGIN_SRC emacs-lisp
-    (global-set-key (kbd "C-z") #'undo)
+    (bind-key "C-z" #'undo)
   #+END_SRC
 
     I don't work much with emacs-lisp, so the scratch buffer shouldn't be in emacs-lisp mode:
@@ -455,7 +455,7 @@ I can use this package to swap the window layout easily:
        ("r" buf-move-right "right")
        ("d" buf-move-down "down")
        ("u" buf-move-up "up"))
-     (global-set-key (kbd "C-c m b") 'hydra-window/body)
+     (bind-key "C-c m b" #'hydra-window/body)
    #+END_SRC
 
 ** Auto indent
@@ -493,11 +493,14 @@ I can use this package to swap the window layout easily:
    #+BEGIN_SRC emacs-lisp
      (use-package multiple-cursors
        :ensure t
+       :commands (mc/edit-lines mc/mark-all-like-this)
        :init
        (setq mc/list-file (concat my/emacs-cache "mc-lists.el"))
-       :bind
-       ("C-c m c l" . mc/edit-lines)
-       ("C-c m c a" . mc/mark-all-like-this))
+       :config
+       (bind-keys :prefix "C-c m c"
+                  :prefix-map multi-cursors-map
+                  ("C-c m c l" . mc/edit-lines)
+                  ("C-c m c a" . mc/mark-all-like-this)))
    #+END_SRC
 ** Expand region
 I can use ~C-=~ to expand the region incrementally:
@@ -565,8 +568,8 @@ Store tramp files in the cache:
 *** Zooming
 Everywhere else you can zoom with =C--= and =C-+=. Let's make Emacs follow that convention:
 #+BEGIN_SRC emacs-lisp
-  (bind-key "C-+" 'text-scale-increase)
-  (bind-key "C--" 'text-scale-decrease)
+  (bind-keys ("C-+" . text-scale-increase)
+             ("C--" . text-scale-decrease))
 #+END_SRC
 *** Enable disabled commands
 Emacs thinks that some new users may find some commands confusing, so they're disabled by default. I use these every now and then, so let's enable them by default: 
@@ -630,34 +633,34 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
 *** Resize windows
     We can resize windows now! 
      #+BEGIN_SRC emacs-lisp
-       (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
-       (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
-       (global-set-key (kbd "S-C-<down>") 'shrink-window)
-       (global-set-key (kbd "S-C-<up>") 'enlarge-window)
+       (bind-keys ("S-C-<left>" . shrink-window-horizontally)
+                  ("S-C-<right>" . enlarge-window-horizontally)
+                  ("S-C-<down>" . shrink-window)
+                  ("S-C-<up>" . enlarge-window))
      #+END_SRC
 *** Move around quickly
     You can ~C-n~ and whatnot to go by line, but sometimes I want to move a bit more quickly than that. Using ~C-S-n~ will now let me:
 
     #+BEGIN_SRC emacs-lisp
-      (global-set-key (kbd "C-S-n")
-                      (lambda ()
-                        (interactive)
-                        (ignore-errors (next-line 5))))
+      (bind-key "C-S-n"
+                (lambda ()
+                  (interactive)
+                  (ignore-errors (next-line 5))))
 
-      (global-set-key (kbd "C-S-p")
-                      (lambda ()
-                        (interactive)
-                        (ignore-errors (previous-line 5))))
+      (bind-key "C-S-p"
+                (lambda ()
+                  (interactive)
+                  (ignore-errors (previous-line 5))))
 
-      (global-set-key (kbd "C-S-f")
-                      (lambda ()
-                        (interactive)
-                        (ignore-errors (forward-char 5))))
+      (bind-key "C-S-f"
+                (lambda ()
+                  (interactive)
+                  (ignore-errors (forward-char 5))))
 
-      (global-set-key (kbd "C-S-b")
-                      (lambda ()
-                        (interactive)
-                        (ignore-errors (backward-char 5))))
+      (bind-key "C-S-b"
+                (lambda ()
+                  (interactive)
+                  (ignore-errors (backward-char 5))))
     #+END_SRC
 
 *** Start maximized
@@ -725,7 +728,7 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
       We can use shift-mouse for selecting from point:
 
       #+BEGIN_SRC emacs-lisp
-        (define-key global-map (kbd "<S-down-mouse-1>") 'mouse-save-then-kill)
+        (bind-key "<S-down-mouse-1>" #'mouse-save-then-kill)
       #+END_SRC
 
     Use regex searches by default:
@@ -815,7 +818,7 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
        :config
        (push 'yas-hippie-try-expand hippie-expand-try-functions-list)
        (add-hook 'term-mode-hook (lambda () (yas-minor-mode -1)))
-       (define-key yas-minor-mode-map (kbd "C-c &") nil)
+       (unbind-key "C-c &" yas-minor-mode-map)
        (yas-global-mode))
    #+END_SRC
 * Functions
@@ -836,8 +839,8 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
        (split-window-horizontally)
        (other-window 1 nil)
        (if (= prefix 1) (switch-to-next-buffer)))
-     (bind-key "C-x 2" 'my/vsplit-last-buffer)
-     (bind-key "C-x 3" 'my/hsplit-last-buffer)
+     (bind-keys ("C-x 2" . my/vsplit-last-buffer)
+                ("C-x 3" . my/hsplit-last-buffer))
    #+END_SRC
 ** Calc
    From [[https://www.reddit.com/r/emacs/comments/445w6s/whats_some_small_thing_in_your_dotemacs_that_you/][this reddit thread]]
@@ -907,7 +910,7 @@ This function ([[http://pragmaticemacs.com/emacs/insert-file-name/][credit]]) le
        (interactive)
        (find-file (concat user-emacs-directory "emacs.org")))
 
-     (global-set-key (kbd "<f11>") #'my/find-emacs-file)
+     (bind-key "<f11>" #'my/find-emacs-file)
    #+END_SRC
 ** Update arch repos
 Use the fastest repo:
@@ -944,12 +947,7 @@ Emacs has a great system to "narrow" a buffer to just a smaller bit. This is use
   ;; This line actually replaces Emacs' entire narrowing
   ;; keymap, that's how much I like this command. Only
   ;; copy it if that's what you want.
-  (define-key ctl-x-map "n" #'narrow-or-widen-dwim)
-  (add-hook 'LaTeX-mode-hook
-            (lambda ()
-              (define-key LaTeX-mode-map "\C-xn"
-                nil)))
-
+  (bind-key* "C-x n" #'narrow-or-widen-dwim)
 #+END_SRC
 * Helm
 Helm. A [[https://tuhdo.github.io/helm-intro.html][package in a league of its own]]. 
@@ -1052,7 +1050,7 @@ Projectile makes using projects easier in emacs. It also plays well with helm, s
       (magit-status)
       (call-interactively #'magit-fetch-current))
     (projectile-global-mode)
-    (define-key projectile-command-map (kbd "c") #'helm-make-projectile)
+    (bind-key "c" #'helm-make-projectile projectile-command-map)
     (use-package helm-projectile
       :ensure t
       :config
@@ -1066,8 +1064,12 @@ Projectile makes using projects easier in emacs. It also plays well with helm, s
   Define =C-c l= to =org-store-link=: 
 
   #+BEGIN_SRC emacs-lisp
-    (define-key global-map "\C-cl" 'org-store-link)
+    (bind-key "C-c l" #'org-store-link)
   #+END_SRC
+  This is my default notes file:
+#+BEGIN_SRC emacs-lisp
+  (setq org-default-notes-file (concat org-directory "todo.org"))
+#+END_SRC
 
 ** Exporting
    HTML and latex shown by default, let's add markdown:
@@ -1128,9 +1130,8 @@ Projectile makes using projects easier in emacs. It also plays well with helm, s
           (previous-line 2)
           (org-edit-src-code)))
 
-      (define-key org-mode-map (kbd "C-c s a") 'my/org-insert-src-block)
+      (bind-key "C-c s a" #'my/org-insert-src-block org-mode-map)
     #+END_SRC
-
 ** References (org-ref) 
    I use org-ref to manage my references. 
    #+BEGIN_SRC emacs-lisp
@@ -1250,9 +1251,7 @@ Projectile makes using projects easier in emacs. It also plays well with helm, s
        (setq org-agenda-files (list (concat org-directory "todo.org")
                                     "~/Dropbox/bibliography/notes.org"))
        ;; remove C-c [ from adding org file to front of agenda
-       (add-hook 'org-mode-hook
-                 (lambda ()
-                   (local-unset-key (kbd "C-c ["))))
+       (unbind-key "C-c [" org-mode-map)
        :config
        (setq org-agenda-skip-deadline-if-done t ; remove done deadlines from agenda
              org-agenda-skip-scheduled-if-done t ; remove done scheduled from agenda
@@ -1270,11 +1269,9 @@ I use org-capture to create short notes about all kinds of things. I can capture
   (use-package org-capture
     :bind*
     ("C-c c" . org-capture)
-    :init
-    (setq org-default-notes-file (concat org-directory "todo.org")))
     :bind
-    (:map org-capture-mode
-     ("C-c C-r" . my/org-capture-refile-and-jump))
+    (:map org-capture-mode-map
+          ("C-c C-j" . my/org-capture-refile-and-jump))
     :config
     (defun my/org-capture-refile-and-jump ()
       (interactive)
@@ -1488,7 +1485,8 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
       :diminish eldoc-mode
       :bind
       (:map ess-mode-map
-            ("C-a" . crux-move-beginning-of-line))
+            ("C-a" . crux-move-beginning-of-line)
+            ("M-p" . my/add-pipe))
       :config
       (setq ess-nuke-trailing-whitespace-p t)
       (add-hook 'ess-mode-hook
@@ -1505,8 +1503,7 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
         (interactive)
         (just-one-space 1)
         (insert "%>%")
-        (ess-newline-and-indent))
-      (define-key ess-mode-map (kbd "M-p") #'my/add-pipe))
+        (ess-newline-and-indent)))
   #+END_SRC
 
 * Python
@@ -1624,8 +1621,7 @@ I end sentences with a single space.
                  fill-column)))
           (call-interactively #'fill-paragraph)))
 
-      (global-set-key [remap fill-paragraph]
-                      #'endless/fill-or-unfill)
+      (bind-key [remap fill-paragraph] #'endless/fill-or-unfill)
   #+END_SRC
 
 
@@ -1937,6 +1933,8 @@ I autocommit a few files, like notes and todo:
         :map mu4e-view-mode-map
         ("d" . mu4e-view-mark-for-delete)
         ("q" . mu4e-quit-session)
+        ("<tab>" . shr-next-link)
+        ("<backtab>" . shr-previous-link)
         :map mu4e-main-mode-map
         ("q" . mu4e-quit-session))
        :init
@@ -2081,11 +2079,6 @@ I autocommit a few files, like notes and todo:
          :config
          ;; Use eww to render HTML messages: 
          (setq mu4e-html2text-command 'mu4e-shr2text)
-         (add-hook 'mu4e-view-mode-hook
-                   (lambda ()
-                     ;; try to emulate some of the eww key-bindings
-                     (local-set-key (kbd "<tab>") 'shr-next-link)
-                     (local-set-key (kbd "<backtab>") 'shr-previous-link)))
          )
        (use-package mu4e-maildirs-extension
          :ensure t
