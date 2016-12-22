@@ -377,12 +377,25 @@ I can use this package to swap the window layout easily:
    I use [[https://www.passwordstore.org/][pass]] to manage all my passwords and login info. This lets me easily access it from within emacs:
 
    #+BEGIN_SRC emacs-lisp
-     (when (executable-find "pass")
-       (use-package password-store
-         :ensure t
-         :commands (password-store-copy password-store-edit)
-         :config
-         (setq password-store-password-length 20)))
+     (use-package password-store
+       :ensure t
+       :if (executable-find "pass")
+       :commands (password-store-copy password-store-edit password-store-generate)
+       :bind
+       ("M-s p" . hydra-password-store/body)
+       :config
+       (setq password-store-password-length 20)
+       (with-eval-after-load "hydra"
+         (defhydra hydra-password-store ()
+           "
+     _c_: copy,      _e_: edit,   _n_: new
+     _F_: pull,      _p_: push
+     "
+           ("F" (lambda () (interactive) (async-shell-command "pass git pull")))
+           ("p" (lambda () (interactive) (async-shell-command "pass git push")))
+           ("c" password-store-copy :exit t)
+           ("e" password-store-edit :exit t)
+           ("n" password-store-generate :exit t))))
    #+END_SRC
 ** Try
    This package lets me try out other packages before installing them by installing them to tmp:
@@ -1021,17 +1034,6 @@ I can setup helm to deal with makefiles easily:
     ;; scroll the compile buffer just until an error occurs
     (setq compilation-scroll-output 'first-error))
 #+END_SRC
-** Helm and passwords 
-I wrote [[https://github.com/jabranham/helm-pass][helm-pass]] to make it easy to manage passwords with helm and [[https://www.passwordstore.org/][pass]]. 
-
-
-#+BEGIN_SRC emacs-lisp
-  (use-package helm-pass
-    :load-path "~/code/helm-pass"
-    :bind
-    ("M-s p" . helm-pass))
-#+END_SRC
-
 * Projectile 
 Projectile makes using projects easier in emacs. It also plays well with helm, so let's set that up.
 
