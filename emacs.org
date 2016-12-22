@@ -1136,6 +1136,7 @@ Projectile makes using projects easier in emacs. It also plays well with helm, s
    #+BEGIN_SRC emacs-lisp
      (use-package org-ref-core
        :ensure org-ref
+       :demand t ; make sure this gets loaded since I use it all the time
        :bind*
        (("C-c C-r" . org-ref-helm-insert-cite-link)
         :map bibtex-mode-map
