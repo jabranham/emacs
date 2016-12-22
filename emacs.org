@@ -965,6 +965,7 @@ Emacs has a great system to "narrow" a buffer to just a smaller bit. This is use
      ("C-x b" . helm-buffers-list)
      ("M-s M-g" . helm-google-suggest)
      ("M-o" . helm-semantic-or-imenu)
+     ("C-h SPC" . helm-all-mark-rings)
      :map helm-map
      ("<tab>" . helm-execute-persistent-action)
      ("C-i" . helm-execute-persistent-action)
