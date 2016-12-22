@@ -114,7 +114,10 @@ Emacs' info manual is /amazing/. This makes it even better.
 
        (if (daemonp)
            (add-hook 'after-make-frame-functions #'my/load-theme)
-         (load-theme my/theme t)))
+         (load-theme my/theme t))
+       :config
+       ;; make diff chunks stand out a bit more: 
+       (set-face-background 'magit-diff-hunk-heading-highlight "#5d4d7a"))
    #+END_SRC
 ** Highlight numbers
 I like to see numbers in code:
