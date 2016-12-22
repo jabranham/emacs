@@ -1698,11 +1698,6 @@ I end sentences with a single space.
       ;; (push "\\.fls" LaTeX-clean-intermediate-suffixes)
       ;; (push "\\.synctex.gz" LaTeX-clean-intermediate-suffixes)
       (setq TeX-clean-confirm nil)
-      ;; turn on and enable folding by default:
-      (add-hook 'LaTeX-mode-hook (lambda ()
-                                   (TeX-fold-mode 1)
-                                   (TeX-fold-buffer)))
-      (setq TeX-fold-auto t)
       )
   #+END_SRC
 
