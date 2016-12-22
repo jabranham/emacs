@@ -952,7 +952,7 @@ Emacs has a great system to "narrow" a buffer to just a smaller bit. This is use
 
 #+END_SRC
 * Helm
-
+Helm. A [[https://tuhdo.github.io/helm-intro.html][package in a league of its own]]. 
 #+BEGIN_SRC emacs-lisp
   (use-package helm
     :ensure t
