@@ -1271,6 +1271,14 @@ I use org-capture to create short notes about all kinds of things. I can capture
     ("C-c c" . org-capture)
     :init
     (setq org-default-notes-file (concat org-directory "todo.org")))
+    :bind
+    (:map org-capture-mode
+     ("C-c C-r" . my/org-capture-refile-and-jump))
+    :config
+    (defun my/org-capture-refile-and-jump ()
+      (interactive)
+      (org-capture-refile)
+      (org-refile-goto-last-stored)))
 #+END_SRC
 *** Org-eww
 Org-eww lets me capture eww webpages with org-mode
