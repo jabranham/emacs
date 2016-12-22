@@ -423,18 +423,12 @@ I can use this package to swap the window layout easily:
        (setq undo-tree-visualizer-diff t))
    #+END_SRC
 
-** Zooming
-   Using this hydra, I can press =f2= and then =g= or =l= to zoom in/out
+** Hydra
+[[https://github.com/abo-abo/hydra][Hydra]] is a nice package that lets you set up menus for related (or not) commands. 
 
    #+BEGIN_SRC emacs-lisp
      (use-package hydra
-       :ensure t
-       :config
-       (defhydra hydra-zoom ()
-         "zoom"
-         ("g" text-scale-increase "in")
-         ("l" text-scale-decrease "out"))
-       (global-set-key (kbd "<f2>") 'hydra-zoom/body))
+       :ensure t)
    #+END_SRC
 
 ** Move buffers
@@ -568,6 +562,12 @@ Store tramp files in the cache:
                "culpa qui officia deserunt mollit anim id est laborum."))
    #+END_SRC
 
+*** Zooming
+Everywhere else you can zoom with =C--= and =C-+=. Let's make Emacs follow that convention:
+#+BEGIN_SRC emacs-lisp
+  (bind-key "C-+" 'text-scale-increase)
+  (bind-key "C--" 'text-scale-decrease)
+#+END_SRC
 *** Enable disabled commands
 Emacs thinks that some new users may find some commands confusing, so they're disabled by default. I use these every now and then, so let's enable them by default: 
 
