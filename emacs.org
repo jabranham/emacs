@@ -217,7 +217,9 @@ Rainbow-mode makes it so that for example #0000ff is displayed in white with a b
      ;; Hide details (owner, permissions) in dired
      (add-hook 'dired-mode-hook
                (lambda () (dired-hide-details-mode 1)))
-     (bind-key "l" #'dired-up-directory dired-mode-map)
+     (bind-key "l" #'dired-up-directory dired-mode-map) ; use l to go up in dired
+     ;; show human readable file sizes:
+     (setq dired-listing-switches "-alh")
    #+END_SRC
 
    Here I sort dired buffers with directories (folders) first, then everything else:
