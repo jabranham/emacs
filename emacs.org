@@ -1440,10 +1440,10 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
           eshell-highlight-prompt nil
           ;; treat 'echo' like shell echo
           eshell-plain-echo-behavior t)
-    (use-package eshell-prompt-extras
+    (use-package eshell-git-prompt
       :ensure t
-      :init
-      (setq eshell-prompt-function #'epe-theme-lambda)))
+      :config
+      (eshell-git-prompt-use-theme 'powerline)))
 #+END_SRC
 
 ** Shell pop
