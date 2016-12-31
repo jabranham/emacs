@@ -3,6 +3,13 @@
 #+title: Emacs settings
 * Intro
 This file contains my Emacs configuration. I usually run Emacs as a daemon using a [[http://git.savannah.gnu.org/cgit/emacs.git/commit/?id=181bd848eb9662759f076b31a32f6588e9eb58b4][systemd service]]; the configuration is loaded upon login. To start a new frame, I call =emacsclient -c=. I've setup a desktop file to make that easier (and so I don't have to fire up a terminal to run Emacs). This seems to work better if all the packages are installed already, which is the case unless my =elpa/= folder got deleted or I'm setting up a new machine. To do that, I can just stop the systemd service and start Emacs normally.
+** Always demand
+The [[https://github.com/jwiegley/use-package][use-package]] package, which I ensured was installed in [[file:init.el][init.el]], is a convenient way of keeping track of packages. It also really cleverly delays loading packages until they're actually needed, thus (greatly) reducing Emacs's startup time. However, I usually run Emacs as a [[http://git.savannah.gnu.org/cgit/emacs.git/commit/?id=181bd848eb9662759f076b31a32f6588e9eb58b4][systemd unit]]. Since that's the case, I'd really rather Emacs just go ahead and load everything up:
+#+BEGIN_SRC emacs-lisp
+  (if (daemonp)
+      (setq use-package-always-demand t))
+#+END_SRC
+
 * Behavior
   Change some of emacs's defaults because they suck:
   #+BEGIN_SRC emacs-lisp
@@ -94,7 +101,6 @@ This ensures Emacs has the same PATH as the rest of my system:
 Emacs' info manual is /amazing/. This makes it even better.
 #+BEGIN_SRC emacs-lisp
   (use-package info+
-    :defer t
     :ensure t
     :after info)
 #+END_SRC
@@ -136,7 +142,6 @@ Rainbow-mode makes it so that for example #0000ff is displayed in white with a b
 #+BEGIN_SRC emacs-lisp
   (use-package rainbow-mode
     :ensure t
-    :defer 10
     :config
     (add-hook 'prog-mode-hook #'rainbow-mode)
     (add-hook 'ess-mode-hook #'rainbow-mode)
@@ -283,7 +288,6 @@ I can make the modeline a little fancier by using icons like the [[http://orgmod
        :ensure t
        :diminish which-key-mode
        :commands which-key-mode
-       :defer 10
        :config
        (which-key-mode))
    #+END_SRC
@@ -1426,7 +1430,6 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
 
 #+BEGIN_SRC emacs-lisp
   (use-package eshell
-    :defer t
     :commands (eshell)
     :config
     (setq eshell-cmpl-cycle-completions nil
@@ -1832,13 +1835,10 @@ Modes for git files:
 
 #+BEGIN_SRC emacs-lisp
   (use-package gitattributes-mode
-    :defer t
     :ensure t)
   (use-package gitconfig-mode
-    :defer t
     :ensure t)
   (use-package gitignore-mode
-    :defer t
     :ensure t)
 #+END_SRC
 
