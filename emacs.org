@@ -1325,12 +1325,12 @@ And now for the capture templates themselves. It's a bit complicated, but [[http
                   ("l" "Ledger entries")
                   ("lc" "citi" plain (file "~/Dropbox/Finances/finances.ledger")
                    "%(my/read-date) %^{Payee} 
-        Expenses:%^{Expense category}       $ %^{Amount}
-        Liabilities:Citi mastercard" :empty-lines 1 :immediate-finish t)
+        expenses:%^{Expense category}       $ %^{Amount}
+        liabilities:citi mastercard" :empty-lines 1 :immediate-finish t)
                   ("ld" "pay with checking" plain (file "~/Dropbox/Finances/finances.ledger")
                    "%(my/read-date) %^{Payee} 
-        Expenses:%^{Expense category}       $ %^{Amount}
-        Assets:Checking" :empty-lines 1 :immediate-finish t))))
+        expenses:%^{Expense category}       $ %^{Amount}
+        assets:checking" :empty-lines 1 :immediate-finish t))))
     #+END_SRC
 
 ** Refile
@@ -2308,9 +2308,10 @@ Stack Exchange is the place to go to get questions answered. This lets me search
     :config
     (setq ledger-post-amount-alignment-column 70)
     (setq ledger-post-amount-alignment-at :decimal)
-    (setq ledger-reports '(("on-hand" "ledger -f finances.ledger bal \"(Checking|Liabilities)\"")
+    (setq ledger-reports '(("on-hand" "ledger -f finances.ledger bal \"(checking|liabilities)\"")
                            ("bal" "ledger -f %(ledger-file) bal")
                            ("reg" "ledger -f %(ledger-file) reg")
                            ("payee" "ledger -f %(ledger-file) reg @%(payee)")
                            ("account" "ledger -f %(ledger-file) reg %(account)"))))
 #+END_SRC
+
