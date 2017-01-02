@@ -1249,7 +1249,9 @@ Projectile makes using projects easier in emacs. It also plays well with helm, s
      (use-package org-agenda
        :bind
        (("C-c a" . org-agenda)
-        ("C-'" . org-cycle-agenda-files))
+        ("C-'" . org-cycle-agenda-files) ; quickly access agenda files
+        :map org-agenda-mode-map
+        ("x" . my/org-agenda-mark-done)) ; overrides org-exit
        :init
        (setq org-directory "~/Dropbox/org/")
        ;; set up org agenda files for the agenda
@@ -1263,7 +1265,12 @@ Projectile makes using projects easier in emacs. It also plays well with helm, s
              org-deadline-warning-days 3) ; warn me 3 days before a deadline
        (setq org-agenda-window-setup 'current-window ; use current window for agenda
              ;; restore previous config after I'm done
-             org-agenda-restore-windows-after-quit t) 
+             org-agenda-restore-windows-after-quit t)
+       (defun my/org-agenda-mark-done (&optional arg)
+         "Mark current TODO as DONE. 
+     See `org-agenda-todo' for more details."
+         (interactive "P")
+         (org-agenda-todo "DONE"))
        )
 #+END_SRC
 
