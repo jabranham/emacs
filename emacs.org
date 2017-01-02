@@ -1321,16 +1321,7 @@ And now for the capture templates themselves. It's a bit complicated, but [[http
                   ("t" "task" entry (file+headline (concat org-directory "todo.org") "Tasks")
                    "* TODO %? \n %i")
                   ("x" "firefox" entry (file+headline (concat org-directory "todo.org") "Firefox")
-                   "* TODO %c" :immediate-finish t)
-                  ("l" "Ledger entries")
-                  ("lc" "citi" plain (file "~/Dropbox/Finances/finances.ledger")
-                   "%(my/read-date) %^{Payee} 
-        expenses:%^{Expense category}       $ %^{Amount}
-        liabilities:citi mastercard" :empty-lines 1 :immediate-finish t)
-                  ("ld" "pay with checking" plain (file "~/Dropbox/Finances/finances.ledger")
-                   "%(my/read-date) %^{Payee} 
-        expenses:%^{Expense category}       $ %^{Amount}
-        assets:checking" :empty-lines 1 :immediate-finish t))))
+                   "* TODO %c" :immediate-finish t))))
     #+END_SRC
 
 ** Refile
@@ -2305,10 +2296,35 @@ Stack Exchange is the place to go to get questions answered. This lets me search
     :ensure t
     :if (executable-find "ledger")
     :mode ("\\.ledger$" . ledger-mode)
+    :demand t ; so that the capture templates get loaded
+    :init
+    (defvar my/ledger-file
+      (expand-file-name "~/Dropbox/Finances/finances.ledger")
+      "Where the ledger journal is kept.")
+    (defun my/ledger-file ()
+      "Find ledger journal file."
+      (interactive)
+      (find-file my/ledger-file))
     :config
+    (setq org-capture-templates
+          (append org-capture-templates
+                  '(("l" "Ledger entries")
+                    ("li" "income" plain (file "~/Dropbox/Finances/finances.ledger")
+                     "%(my/read-date) %^{From?} 
+      assets:checking       $ %^{Amount}
+      income:salary" :empty-lines 1 :immediate-finish t)
+                    ("lc" "citi" plain (file "~/Dropbox/Finances/finances.ledger")
+                     "%(my/read-date) %^{Payee} 
+      expenses:%^{Expense category}       $ %^{Amount}
+      liabilities:citi mastercard" :empty-lines 1 :immediate-finish t)
+                    ("ld" "pay with checking" plain (file "~/Dropbox/Finances/finances.ledger")
+                     "%(my/read-date) %^{Payee} 
+      expenses:%^{Expense category}       $ %^{Amount}
+      assets:checking" :empty-lines 1 :immediate-finish t))))
+
     (setq ledger-post-amount-alignment-column 70)
     (setq ledger-post-amount-alignment-at :decimal)
-    (setq ledger-reports '(("on-hand" "ledger -f finances.ledger bal \"(checking|liabilities)\"")
+    (setq ledger-reports '(("on-hand" "ledger -f %(ledger-file) bal \"(checking|liabilities)\"")
                            ("bal" "ledger -f %(ledger-file) bal")
                            ("reg" "ledger -f %(ledger-file) reg")
                            ("payee" "ledger -f %(ledger-file) reg @%(payee)")
