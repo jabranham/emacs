@@ -1543,7 +1543,7 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
         (interactive "P")
         (save-excursion
           (let ((end (progn
-                       (ess-beginning-of-pipe-or-end-of-line)
+                       (my/ess-beginning-of-pipe-or-end-of-line)
                        (point)))
                 (beg (progn (backward-paragraph)
                             (ess-skip-blanks-forward 'multiline)
