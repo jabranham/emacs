@@ -1501,7 +1501,8 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
       :bind
       (:map ess-mode-map
             ("C-a" . crux-move-beginning-of-line)
-            ("M-p" . my/add-pipe))
+            ("M-p" . my/add-pipe)
+            ("C-|" . my/ess-eval-pipe-through-line))
       :config
       (setq ess-nuke-trailing-whitespace-p t)
       (add-hook 'ess-mode-hook
@@ -1518,7 +1519,36 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
         (interactive)
         (just-one-space 1)
         (insert "%>%")
-        (ess-newline-and-indent)))
+        (ess-newline-and-indent))
+      ;; I sometimes want to evaluate just part of a piped sequence. The
+      ;; following lets me do so without needing to insert blank lines or
+      ;; something:
+      (defun my/ess-beginning-of-pipe-or-end-of-line ()
+        "Find point position of end of line or beginning of pipe %>%"
+        (if (search-forward "%>%" (line-end-position) t)
+            (let ((pos (progn
+                         (beginning-of-line)
+                         (search-forward "%>%" (line-end-position))
+                         (backward-char 3)
+                         (point))))
+              (goto-char pos))
+          (end-of-line)))
+
+      (defun my/ess-eval-pipe-through-line (vis)
+        "Like `ess-eval-paragraph' but only evaluates up to the pipe on this line.
+
+    If no pipe, evaluate paragraph through the end of current line.
+
+    Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
+        (interactive "P")
+        (save-excursion
+          (let ((end (progn
+                       (ess-beginning-of-pipe-or-end-of-line)
+                       (point)))
+                (beg (progn (backward-paragraph)
+                            (ess-skip-blanks-forward 'multiline)
+                            (point))))
+            (ess-eval-region beg end vis)))))
   #+END_SRC
 
 * Python
