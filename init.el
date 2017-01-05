@@ -11,8 +11,7 @@
 ;; add MELPA, Org, and ELPY
 (require 'package)
 (setq package-archives
-      '(("elpy" . "https://jorgenschaefer.github.io/packages/")
-        ("melpa" . "https://melpa.org/packages/")
+      '(("melpa" . "https://melpa.org/packages/")
         ("melpa-stable" . "https://stable.melpa.org/packages/")
         ("gnu" . "https://elpa.gnu.org/packages/")
         ("org" . "http://orgmode.org/elpa/")))

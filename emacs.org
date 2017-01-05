@@ -1559,16 +1559,14 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
       :interpreter "python")
   #+END_SRC
 
-  Elpy is a ton of customizations for python. Note that I had to add it to ~package-archives~ in [[file:init.el]]. Load it up:
+  Elpy is a ton of customizations for python. Load it up:
 
   #+BEGIN_SRC emacs-lisp 
     (use-package elpy
       :ensure t
       :pin melpa-stable
-      :init
-      (progn
-        (elpy-enable))
       :config
+      (elpy-enable)
       (when (require 'flycheck nil t)
         (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
         (add-hook 'elpy-mode-hook 'flycheck-mode)))
