@@ -1260,7 +1260,8 @@ Projectile makes using projects easier in emacs. It also plays well with helm, s
        (setq org-directory "~/Dropbox/org/")
        ;; set up org agenda files for the agenda
        (setq org-agenda-files (list (concat org-directory "todo.org")
-                                    (concat org-directory "notes.org")))
+                                    (concat org-directory "notes.org")
+                                    (concat org-directory "refile.txt")))
        ;; remove C-c [ from adding org file to front of agenda
        (unbind-key "C-c [" org-mode-map)
        :config
@@ -1275,6 +1276,12 @@ Projectile makes using projects easier in emacs. It also plays well with helm, s
      See `org-agenda-todo' for more details."
          (interactive "P")
          (org-agenda-todo "DONE"))
+       (setq org-agenda-custom-commands
+             '((" " "Agenda"
+                ((agenda "" nil)
+                 (tags "REFILE"
+                       ((org-agenda-overriding-header "Tasks to Refile")
+                        (org-tags-match-list-sublevels nil)))))))
        )
 #+END_SRC
 
@@ -1320,13 +1327,13 @@ And now for the capture templates themselves. It's a bit complicated, but [[http
   #+BEGIN_SRC emacs-lisp
     (setq org-capture-templates
           (quote (
-                  ("s" "store" entry (file+headline (concat org-directory "todo.org") "Tasks")
+                  ("s" "store" entry (file (concat org-directory "refile.txt"))
                    "* TODO %?\n %a \n %i")
-                  ("t" "task" entry (file+headline (concat org-directory "todo.org") "Tasks")
+                  ("t" "task" entry (file (concat org-directory "refile.txt"))
                    "* TODO %? \n %i")
                   ("n" "note" entry (file (concat org-directory "notes.org"))
                    "* %?\n %i")
-                  ("x" "firefox" entry (file+headline (concat org-directory "todo.org") "Firefox")
+                  ("x" "firefox" entry (file (concat org-directory "refile.txt"))
                    "* TODO %c" :immediate-finish t))))
     #+END_SRC
 
