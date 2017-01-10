@@ -1317,13 +1317,6 @@ This line is necessary for the [[https://addons.mozilla.org/en-US/firefox/addon/
 #+END_SRC
 
 *** Capture templates
-I use this function in the ledger capture templates to turn 2016-01-30 into 2016/01/30:
-#+BEGIN_SRC emacs-lisp
-  (defun my/read-date ()
-    "Parse date for capturing ledger entries via org mode"
-    (replace-regexp-in-string "-" "/" (org-read-date)))
-#+END_SRC
-
 And now for the capture templates themselves. It's a bit complicated, but [[http://orgmode.org/manual/Capture-templates.html][the manual]] does a great job explaining: 
   #+BEGIN_SRC emacs-lisp
     (setq org-capture-templates
@@ -2375,20 +2368,22 @@ Stack Exchange is the place to go to get questions answered. This lets me search
           (append org-capture-templates
                   '(("l" "Ledger entries")
                     ("li" "income" plain (file "~/Dropbox/Finances/finances.ledger")
-                     "%(my/read-date) %^{From?} 
+                     "%(org-read-date) %^{From?} 
       assets:checking       $ %^{Amount}
       income:salary" :empty-lines 1 :immediate-finish t)
                     ("lc" "citi" plain (file "~/Dropbox/Finances/finances.ledger")
-                     "%(my/read-date) %^{Payee} 
+                     "%(org-read-date) %^{Payee} 
       expenses:%^{Expense category}       $ %^{Amount}
       liabilities:citi mastercard" :empty-lines 1 :immediate-finish t)
                     ("ld" "pay with checking" plain (file "~/Dropbox/Finances/finances.ledger")
-                     "%(my/read-date) %^{Payee} 
+                     "%(org-read-date) %^{Payee} 
       expenses:%^{Expense category}       $ %^{Amount}
       assets:checking" :empty-lines 1 :immediate-finish t))))
-
     (setq ledger-post-amount-alignment-column 70)
     (setq ledger-post-amount-alignment-at :decimal)
+    ;; There is a correct way to write dates:
+    ;; https://xkcd.com/1179/
+    (setq ledger-use-iso-dates t)
     (setq ledger-reports '(("on-hand" "ledger -f %(ledger-file) bal \"(checking|liabilities)\"")
                            ("bal" "ledger -f %(ledger-file) bal")
                            ("reg" "ledger -f %(ledger-file) reg")
