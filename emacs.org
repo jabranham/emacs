@@ -1358,7 +1358,6 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally
                    "* %?\n\n%^T\n\n:PROPERTIES:\n\n:END:\n\n"))
     ;; sync the gcal file when I call org-agenda or capture something:
     (add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync) ))
-    (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync) ))
     ;; org-gcal--notify is broken, fix it:
     (defun new/org-gcal--notify (title mes)
       (message "org-gcal::%s - %s" title mes))
