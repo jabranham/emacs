@@ -1472,6 +1472,10 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
           eshell-hist-ignoredups t
           ;; my prompt is easy enough to see
           eshell-highlight-prompt nil
+          ;; when I cd somewhere, about 90% of the time I follow with ls, so just go ahead and always do that:
+          eshell-list-files-after-cd t
+          ;; also list all files w/ more info & human-readable filesizes:
+          eshell-ls-initial-args "-lah"
           ;; treat 'echo' like shell echo
           eshell-plain-echo-behavior t)
     (use-package eshell-git-prompt
