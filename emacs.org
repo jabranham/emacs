@@ -509,8 +509,8 @@ I can use this package to swap the window layout easily:
        :config
        (bind-keys :prefix "C-c m c"
                   :prefix-map multi-cursors-map
-                  ("C-c m c l" . mc/edit-lines)
-                  ("C-c m c a" . mc/mark-all-like-this)))
+                  ("l" . mc/edit-lines)
+                  ("a" . mc/mark-all-like-this)))
    #+END_SRC
 ** Expand region
 I can use ~C-=~ to expand the region incrementally:
