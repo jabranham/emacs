@@ -2377,6 +2377,10 @@ Stack Exchange is the place to go to get questions answered. This lets me search
                      "%(org-read-date) %^{Payee} 
       expenses:%^{Expense category}       $ %^{Amount}
       liabilities:citi mastercard" :empty-lines 1 :immediate-finish t)
+                    ("lo" "capital one" plain (file "~/Dropbox/Finances/finances.ledger")
+                     "%(org-read-date) %^{Payee} 
+      expenses:%^{Expense category}       SEK %^{Amount}
+      liabilities:capital one credit" :empty-lines 1 :immediate-finish t)
                     ("ld" "pay with checking" plain (file "~/Dropbox/Finances/finances.ledger")
                      "%(org-read-date) %^{Payee} 
       expenses:%^{Expense category}       $ %^{Amount}
