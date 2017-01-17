@@ -2288,11 +2288,9 @@ I autocommit a few files, like notes and todo:
     (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)
     (setq mu4e-alert-interesting-mail-query
           (concat
-           "flag:unread"
-           " AND "
-           " maildir:\"/utexas/INBOX\""
-           " OR maildir:\"/gmail/INBOX\""
-           " OR maildir:\"/gu/INBOX\"")))
+           "flag:unread AND maildir:\"/utexas/INBOX\""
+           " OR flag:unread AND maildir:\"/gmail/INBOX\""
+           " OR flag:unread AND maildir:\"/gu/INBOX\"")))
    #+END_SRC
 
 ** Helm and emails (helm-mu)
