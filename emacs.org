@@ -1992,6 +1992,7 @@ I autocommit a few files, like notes and todo:
         ("C-x m" . mu4e-compose-new)
         ("<f9>" . my/work-inbox)
         ("<f10>" . my/personal-inbox)
+        ("<f8>" . my/gu-inbox)
         :map mu4e-headers-mode-map
         ("d" . mu4e-headers-mark-for-delete)
         ("q" . mu4e-quit-session)
@@ -2024,6 +2025,12 @@ I autocommit a few files, like notes and todo:
          (interactive)
          (mu4e~headers-jump-to-maildir "/utexas/INBOX")
          (delete-other-windows))
+       (defun my/gu-inbox ()
+         "Jump to work email"
+         (window-configuration-to-register :mu4e-fullscreen)
+         (interactive)
+         (mu4e~headers-jump-to-maildir "/gu/INBOX")
+         (delete-other-windows))
        (defun my/personal-inbox ()
          "Jump to work email"
          (interactive)
@@ -2031,9 +2038,6 @@ I autocommit a few files, like notes and todo:
          (mu4e~headers-jump-to-maildir "/gmail/INBOX")
          (delete-other-windows))
        :config
-       (setq send-mail-function 'smtpmail-send-it)
-       (setq message-send-mail-ggfunction 'smtpmail-send-it)
-       (setq smtpmail-stream-type 'starttls)
        (setq mu4e-contexts
              `( ,(make-mu4e-context
                   :name "utexas"
@@ -2041,8 +2045,7 @@ I autocommit a few files, like notes and todo:
                   ;; leave-func not defined
                   :match-func (lambda (msg)
                                 (when msg
-                                  (mu4e-message-contact-field-matches msg
-                                                                      :to "branham@utexas.edu")))
+                                  (mu4e-message-contact-field-matches msg :to "branham@utexas.edu")))
                   :vars '((mu4e-drafts-folder           . "/utexas/[Gmail]/.Drafts")
                           (mu4e-sent-folder             . "/utexas/[Gmail]/.Sent Mail")
                           (mu4e-trash-folder            . "/utexas/[Gmail]/.Trash")
@@ -2052,6 +2055,9 @@ I autocommit a few files, like notes and todo:
                           (smtpmail-default-smtp-server . "smtp.gmail.com")
                           (smtpmail-smtp-server         . "smtp.gmail.com")
                           (smtpmail-smtp-service        . 587)
+                          (send-mail-function           . smtpmail-send-it)
+                          (message-send-mail-ggfunction . smtpmail-send-it)
+                          (smtpmail-stream-type         . starttls)
                           (mu4e-compose-signature       . (concat
                                                            "J. Alexander Branham\n"
                                                            "PhD Candidate\n"
@@ -2060,20 +2066,41 @@ I autocommit a few files, like notes and todo:
                                                            "https://www.jabranham.com"
                                                            "\n"))))
                 ,(make-mu4e-context
+                  :name "gu"
+                  :enter-func (lambda () (mu4e-message "Switch to gu context"))
+                  ;; leave-func not defined
+                  :match-func (lambda (msg)
+                                (when msg
+                                  (mu4e-message-contact-field-matches msg :to "james.alexander.branham@gu.se")))
+                  :vars '((mu4e-drafts-folder           . "/gu/[Gmail]/.Drafts")
+                          (mu4e-sent-folder             . "/gu/[Gmail]/.Sent Mail")
+                          (mu4e-trash-folder            . "/gu/[Gmail]/.Trash")
+                          (user-mail-address            . "james.alexander.branham@gu.se")
+                          (user-full-name               . "Alex Branham")
+                          (smtpmail-smtp-user           . "james.alexander.branham@gu.se")
+                          (smtpmail-smtp-server         . "localhost"); using davmail to access the Exchange server
+                          (smtpmail-default-smtp-server . "localhost")
+                          (send-mail-function           . smtpmail-send-it)
+                          (message-send-mail-ggfunction . smtpmail-send-it)
+                          (smtpmail-stream-type         . plain)
+                          (smtpmail-smtp-service        . 1025)))
+                ,(make-mu4e-context
                   :name "gmail"
                   :enter-func (lambda () (mu4e-message "Switch to gmail context"))
                   ;; leave-func not defined
                   :match-func (lambda (msg)
                                 (when msg
-                                  (mu4e-message-contact-field-matches msg
-                                                                      :to "alex.branham@gmail.com")))
+                                  (mu4e-message-contact-field-matches msg :to "alex.branham@gmail.com")))
                   :vars '((user-mail-address            . "alex.branham@gmail.com")
                           (user-full-name               . "Alex Branham")
                           (smtpmail-smtp-user           . "alex.branham@gmail.com")
                           (smtpmail-default-smtp-server . "smtp.gmail.com")
                           (smtpmail-smtp-server         . "smtp.gmail.com")
                           (smtpmail-smtp-service        . 587)
-                          (mu4e-compose-signature       . "")
+                          (send-mail-function           . smtpmail-send-it)
+                          (message-send-mail-ggfunction . smtpmail-send-it)
+                          (smtpmail-stream-type         . starttls)
+                          (mu4e-compose-signature-auto-include . nil)
                           (mu4e-drafts-folder           . "/gmail/[Gmail]/.Drafts")
                           (mu4e-sent-folder             . "/gmail/[Gmail]/.Sent Mail")
                           (mu4e-trash-folder            . "/gmail/[Gmail]/.Trash")))))
@@ -2095,7 +2122,7 @@ I autocommit a few files, like notes and todo:
        ;; then, when you want archive some messages, move them to
        ;; the 'All Mail' folder by pressing ``ma''.
        ;; something about ourselves
-       (setq mu4e-user-mail-address-list '("branham@utexas.edu" "alex.branham@gmail.com"))
+       (setq mu4e-user-mail-address-list '("branham@utexas.edu" "alex.branham@gmail.com" "james.alexander.branham@gu.se"))
        (setq mu4e-compose-dont-reply-to-self t) ; don't reply to self
        (setq mu4e-compose-complete-only-after "2015-01-01")
        (setq mu4e-view-show-addresses t)
@@ -2154,6 +2181,7 @@ I autocommit a few files, like notes and todo:
          (mu4e-maildirs-extension-load))
        ) ; finishes use-package mu4e
    #+END_SRC
+
 
 ** Helper for yasnippet
 
@@ -2264,7 +2292,7 @@ I autocommit a few files, like notes and todo:
            " AND "
            " maildir:\"/utexas/INBOX\""
            " OR maildir:\"/gmail/INBOX\""
-           " AND flag:unread")))
+           " OR maildir:\"/gu/INBOX\"")))
    #+END_SRC
 
 ** Helm and emails (helm-mu)
