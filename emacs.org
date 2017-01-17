@@ -2085,8 +2085,8 @@ I autocommit a few files, like notes and todo:
                           (smtpmail-stream-type         . plain)
                           (smtpmail-smtp-service        . 1025)))
                 ,(make-mu4e-context
-                  :name "gmail"
-                  :enter-func (lambda () (mu4e-message "Switch to gmail context"))
+                  :name "personal"
+                  :enter-func (lambda () (mu4e-message "Switch to personal context"))
                   ;; leave-func not defined
                   :match-func (lambda (msg)
                                 (when msg
