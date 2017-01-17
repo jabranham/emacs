@@ -2072,9 +2072,9 @@ I autocommit a few files, like notes and todo:
                   :match-func (lambda (msg)
                                 (when msg
                                   (mu4e-message-contact-field-matches msg :to "james.alexander.branham@gu.se")))
-                  :vars '((mu4e-drafts-folder           . "/gu/[Gmail]/.Drafts")
-                          (mu4e-sent-folder             . "/gu/[Gmail]/.Sent Mail")
-                          (mu4e-trash-folder            . "/gu/[Gmail]/.Trash")
+                  :vars '((mu4e-drafts-folder           . "/gu/Drafts")
+                          (mu4e-sent-folder             . "/gu/Sent")
+                          (mu4e-trash-folder            . "/gu/Trash")
                           (user-mail-address            . "james.alexander.branham@gu.se")
                           (user-full-name               . "Alex Branham")
                           (smtpmail-smtp-user           . "james.alexander.branham@gu.se")
