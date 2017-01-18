@@ -2375,7 +2375,17 @@ Stack Exchange is the place to go to get questions answered. This lets me search
     (push '(".*stackexchange.*" . sx-open-link) browse-url-browser-function)
     (push '(".*stackoverflow.*" . sx-open-link) browse-url-browser-function))
 #+END_SRC
-
+* Wolfram alpha
+Yes, Emacs can search and display results from wolfram alpha. 
+Who /wouldn't/ want their text editor to do so?
+#+BEGIN_SRC emacs-lisp
+  (use-package wolfram
+    :ensure t
+    :bind
+    ("M-s q" . wolfram-alpha)
+    :config
+    (setq wolfram-alpha-app-id (password-store--run "api/wolframalpha")))
+#+END_SRC
 * Ledger
 [[http://ledger-cli.org/][Ledger]] is a program that I use to keep track of finances. Emacs, of course, can handle it quite nicely. 
 #+BEGIN_SRC emacs-lisp
