@@ -1085,6 +1085,10 @@ Projectile makes using projects easier in emacs. It also plays well with helm, s
 #+BEGIN_SRC emacs-lisp
   (setq org-default-notes-file (concat org-directory "todo.org"))
 #+END_SRC
+Finally, I rebind =C-c C-r= to look at my reference list globally (see org-ref below), which overrides the default binding of =org-reveal=. However, that command is quite useful, so let's bind it to =C-c r=:
+#+BEGIN_SRC emacs-lisp
+  (bind-key "C-c r" #'org-reveal org-mode-map)
+#+END_SRC
 
 ** Exporting
    HTML and latex shown by default, let's add markdown:
