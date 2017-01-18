@@ -2177,11 +2177,11 @@ I autocommit a few files, like notes and todo:
          :config
          (setq mu4e-maildirs-extension-custom-list
                '("/utexas/INBOX"
-                 "/gmail/INBOX"))
+                 "/gmail/INBOX"
+                 "/gu/INBOX"))
          (mu4e-maildirs-extension-load))
        ) ; finishes use-package mu4e
    #+END_SRC
-
 
 ** Helper for yasnippet
 
