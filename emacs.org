@@ -720,12 +720,11 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
                  (line-beginning-position 2)))))
     #+END_SRC
 
-    This will set the frame name to the name of the file, so you can see what file you've got selected in the menu bar.
+    This will set the frame name to show the current date and time:
 
     #+BEGIN_SRC emacs-lisp
       (setq frame-title-format
-            '("Emacs - " (buffer-file-name "%f"
-                                           (dired-directory dired-directory "%b"))))
+            '(:eval (format-time-string " %a %b %-d, %H:%M")))
     #+END_SRC
 
     Because I'm lazy, I want to just type y or n instead of spelling out yes/no.
