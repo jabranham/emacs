@@ -353,7 +353,7 @@ I can use this package to swap the window layout easily:
         :map prog-mode-map
         ("C-a" . crux-move-beginning-of-line))
        :init
-       (setq abbrev-file-name (concat my/emacs-cache "abbrev_defs"))
+       (setq abbrev-file-name (concat user-emacs-directory "snippets/abbrev_defs"))
        :config
        (setq save-abbrevs 'silently)
        (setq-default abbrev-mode t))
