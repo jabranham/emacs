@@ -1387,22 +1387,6 @@ I like to use system alerts, which are more visible than just sending it to Emac
     (setq alert-user-configuration (quote ((((:category . "org-pomodoro")) libnotify nil)))))
 #+END_SRC
 
-** org-projectile
-[[https://github.com/IvanMalison/org-projectile][org-projectile]] nicely integrates org mode with projects tracked in projectile. 
-
-
-#+BEGIN_SRC emacs-lisp
-  (use-package org-projectile
-    :ensure t
-    :after org-capture
-    :bind (("C-c n p" . org-projectile:project-todo-completing-read)
-           ("C-c c" . org-capture))
-    :config
-    (progn
-      (setq org-projectile:projects-file (concat org-directory "todo.org"))
-      (add-to-list 'org-capture-templates (org-projectile:project-todo-entry "p"))))
-#+END_SRC
-
 ** Better bullets
 
 #+BEGIN_SRC emacs-lisp
