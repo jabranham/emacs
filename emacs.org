@@ -1,6 +1,7 @@
 #+author: J. Alexander Branham
 #+STARTUP: indent
 #+title: Emacs settings
+#+PROPERTY: header-args :results silent
 * Intro
 This file contains my Emacs configuration. I usually run Emacs as a daemon using a [[http://git.savannah.gnu.org/cgit/emacs.git/commit/?id=181bd848eb9662759f076b31a32f6588e9eb58b4][systemd service]]; the configuration is loaded upon login. To start a new frame, I call =emacsclient -c=. I've setup a desktop file to make that easier (and so I don't have to fire up a terminal to run Emacs). This seems to work better if all the packages are installed already, which is the case unless my =elpa/= folder got deleted or I'm setting up a new machine. To do that, I can just stop the systemd service and start Emacs normally.
 ** Always demand
