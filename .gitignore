@@ -1,11 +1,8 @@
 auto-save-list/
 backups/
 elpa/
-/places
-url/
-eshell/
-games/
-/.sx/*
+url/*
+eshell/*
 /emacs.el
 var/*
 /.cache/*
