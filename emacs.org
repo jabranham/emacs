@@ -390,6 +390,7 @@ I can use this package to swap the window layout easily:
      (use-package password-store
        :ensure t
        :if (executable-find "pass")
+       :demand t
        :commands (password-store-copy password-store-edit password-store-generate)
        :bind
        ("M-s p" . hydra-password-store/body)
@@ -1350,7 +1351,6 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally
 #+BEGIN_SRC emacs-lisp
   (use-package org-gcal
     :ensure t
-    :after password-store
     :init
     (setq org-gcal-token-file (concat my/emacs-cache ".org-gcal-token"))
     :config
