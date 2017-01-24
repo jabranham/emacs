@@ -157,9 +157,12 @@
   '(
     ("convienent" "convenient" nil 0)
     ("criticise" "criticize" nil 0)
+    ("educaiton" "education" nil 0)
     ("excpetion" "exception" nil 0)
     ("familarity" "familiarity" nil 0)
-    ("tihs" "this" nil 0)
+    ("intrepretation" "interpretation" nil 0)
+    ("sincerally" "sincerely" nil 0)
+    ("tihs" "this" nil 1)
     ("ubt" "but" nil 0)
    ))
 
@@ -250,6 +253,18 @@
 (define-abbrev-table 'magit-stashes-mode-abbrev-table '())
 
 (define-abbrev-table 'magit-status-mode-abbrev-table '())
+
+(define-abbrev-table 'makefile-automake-mode-abbrev-table '())
+
+(define-abbrev-table 'makefile-bsdmake-mode-abbrev-table '())
+
+(define-abbrev-table 'makefile-gmake-mode-abbrev-table '())
+
+(define-abbrev-table 'makefile-imake-mode-abbrev-table '())
+
+(define-abbrev-table 'makefile-makepp-mode-abbrev-table '())
+
+(define-abbrev-table 'makefile-mode-abbrev-table '())
 
 (define-abbrev-table 'markdown-mode-abbrev-table '())
 
