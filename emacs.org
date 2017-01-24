@@ -528,8 +528,8 @@ I can use ~C-=~ to expand the region incrementally:
     :ensure t
     :bind ("C-=" . er/expand-region))
 #+END_SRC
-** Browser
-Use Emacs' built in =eww= broswer by default. If a webpage requires more, I can switch to the system default by tapping =&=:
+** Browser (eww)
+Use Emacs' built in =eww= broswer (the Emacs Web Wowser!) by default. 
 
 #+BEGIN_SRC emacs-lisp
   (setq browse-url-browser-function
@@ -539,6 +539,11 @@ Use Emacs' built in =eww= broswer by default. If a webpage requires more, I can 
           (".*youtube.*" . browse-url-firefox)
           (".*youtu.be*" . browse-url-firefox)
           ("." . eww-browse-url)))
+#+END_SRC
+
+If a webpage requires more than eww can handle, I can switch to the system default by tapping =&= or =0=:
+#+BEGIN_SRC emacs-lisp
+  (bind-key "0" #'eww-browse-with-external-browser eww-mode-map)
 #+END_SRC
 
 =eww-lnum= makes following links a little easier:
