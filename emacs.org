@@ -1463,10 +1463,7 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
 
 #+BEGIN_SRC emacs-lisp
   (use-package eshell
-    :commands (eshell)
-    :bind
-    (:map eshell-mode-map
-          ("M-r" . helm-eshell-history))
+    :commands (eshell)  
     :config
     (setq eshell-cmpl-cycle-completions nil
           ;; auto truncate after 20k lines
@@ -1483,6 +1480,13 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
           eshell-ls-initial-args "-lah"
           ;; treat 'echo' like shell echo
           eshell-plain-echo-behavior t)
+    ;; for whatever reason, I can't seem to bind these keys with the
+    ;; normal :bind mechanism use-package provides. Here's a wonky
+    ;; workaround.
+    (add-hook 'eshell-mode-hook (lambda ()
+                                  (progn
+                                    (unbind-key "M-s" eshell-mode-map)
+                                    (bind-key "M-r" #'helm-eshell-history eshell-mode-map))))
     (use-package eshell-git-prompt
       :ensure t
       :config
