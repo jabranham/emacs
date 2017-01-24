@@ -543,7 +543,10 @@ Use Emacs' built in =eww= broswer (the Emacs Web Wowser!) by default.
 
 If a webpage requires more than eww can handle, I can switch to the system default by tapping =&= or =0=:
 #+BEGIN_SRC emacs-lisp
-  (bind-key "0" #'eww-browse-with-external-browser eww-mode-map)
+  (use-package eww
+    :bind
+    (:map eww-mode-map
+	  ("0" . eww-browse-with-external-browser)))
 #+END_SRC
 
 =eww-lnum= makes following links a little easier:
