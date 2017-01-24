@@ -1413,6 +1413,7 @@ I like to use system alerts, which are more visible than just sending it to Emac
    #+BEGIN_SRC emacs-lisp
      (setq org-pretty-entities          t ; UTF8 all the things!  
            org-support-shift-select     t ; holding shift and moving point should select things
+           org-M-RET-may-split-line     nil ; M-RET may never split a line
            org-enforce-todo-dependencies t ; can't finish parent before children
            org-enforce-todo-checkbox-dependencies t ; can't finish parent before children
            org-hide-emphasis-markers t ; make words italic or bold, hide / and *
