@@ -232,6 +232,7 @@ Rainbow-mode makes it so that for example #0000ff is displayed in white with a b
    Emacs can act as your file finder/explorer. Dired is the built-in way to do this.
 
    #+BEGIN_SRC emacs-lisp
+     (dired-async-mode) ; do dired actions asynchronously 
      (setq dired-auto-revert-buffer t)
      (setq dired-dwim-target t)
      (setq dired-recursive-copies (quote always))
