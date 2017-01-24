@@ -1433,13 +1433,16 @@ I like to use system alerts, which are more visible than just sending it to Emac
    #+END_SRC
 
 * Shells
-  
+
 ** Eshell 
 Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machines, plus it can evaluate elisp. 
 
 #+BEGIN_SRC emacs-lisp
   (use-package eshell
     :commands (eshell)
+    :bind
+    (:map eshell-mode-map
+          ("M-r" . helm-eshell-history))
     :config
     (setq eshell-cmpl-cycle-completions nil
           ;; auto truncate after 20k lines
