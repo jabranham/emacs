@@ -226,20 +226,10 @@ Rainbow-mode makes it so that for example #0000ff is displayed in white with a b
      (add-hook 'dired-mode-hook
                (lambda () (dired-hide-details-mode 1)))
      (bind-key "l" #'dired-up-directory dired-mode-map) ; use l to go up in dired
-     ;; show human readable file sizes:
-     (setq dired-listing-switches "-alh")
-   #+END_SRC
-
-   Here I sort dired buffers with directories (folders) first, then everything else:
-
-   #+BEGIN_SRC emacs-lisp
-     (defadvice dired-readin (after dired-after-updating-hook first () activate)
-       "Sort dired listings with directories first before adding marks."
-       (save-excursion
-         (let (buffer-read-only)
-           (forward-line 2) ;; beyond dir. header
-           (sort-regexp-fields t "^.*$" "[ ]*." (point) (point-max)))
-         (set-buffer-modified-p nil)))
+     ;; -l: long listing format REQUIRED in dired-listing-switches
+     ;; -a: show everything (including dotfiles)
+     ;; -h: human-readable file sizes
+     (setq dired-listing-switches "-alh --group-directories-first")
    #+END_SRC
 
    This lets me make directories on the fly similar to =mkdir -p=. [[http://mbork.pl/2016-07-25_Making_directories_on_the_fly][Thanks!]]
