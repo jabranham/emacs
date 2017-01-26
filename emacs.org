@@ -2409,6 +2409,21 @@ Who /wouldn't/ want their text editor to do so?
     :config
     (setq wolfram-alpha-app-id (password-store--run "api/wolframalpha")))
 #+END_SRC
+* Google translate
+I can query [[https://translate.google.com][Google translate]] from within Emacs. Especially useful since I'm in Sweden at the moment and receive a bunch of emails in Swedish:
+#+BEGIN_SRC emacs-lisp
+  (use-package google-translate
+    :ensure t
+    :bind
+    (:map mu4e-view-mode-map
+          ("C-c C-t" . google-translate-at-point))
+    :config
+    (setq google-translate-default-target-language "en")
+    ;; It won't ask for the input language. If I need it to, call the
+    ;; translation command with a C-u prefix:
+    (setq google-translate-default-source-language "sv"))
+#+END_SRC
+
 * Ledger
 [[http://ledger-cli.org/][Ledger]] is a program that I use to keep track of finances. Emacs, of course, can handle it quite nicely. 
 #+BEGIN_SRC emacs-lisp
