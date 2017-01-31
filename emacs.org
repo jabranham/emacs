@@ -335,7 +335,7 @@ I can use =window-numbering= to quickly jump from window to window
 
 #+END_SRC
 
-** Transpose frame
+** Transposing
 I can use this package to swap the window layout easily:
 
 #+BEGIN_SRC emacs-lisp
@@ -344,6 +344,19 @@ I can use this package to swap the window layout easily:
     :commands (transpose-frame))
 #+END_SRC
 
+And then I can setup a nice transpose keymap. Note that transpose-words is also bound to =M-t=.
+
+#+BEGIN_SRC emacs-lisp
+  (bind-keys :prefix "C-t"
+             :prefix-map transpose-map
+             ("f" . transpose-frame)
+             ("c" . transpose-chars)
+             ("w" . transpose-words)
+             ("l" . transpose-lines)
+             ("p" . transpose-paragraphs)
+             ("s" . transpose-sentences)
+             ("x" . transpose-sexps))
+#+END_SRC
 ** Server
    Start the server:
    #+BEGIN_SRC emacs-lisp
