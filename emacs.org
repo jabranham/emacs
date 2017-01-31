@@ -233,6 +233,13 @@ Rainbow-mode makes it so that for example #0000ff is displayed in white with a b
 
    #+BEGIN_SRC emacs-lisp
      (dired-async-mode) ; do dired actions asynchronously 
+     ;; For whatever reason, the default for this *doesn't* log it to
+     ;; *Messages*. Instead, it just displays the notification in the mode
+     ;; line for 3 seconds, but if you type something it immediately goes
+     ;; away. So just log it to *Messages* like a sane person instead:
+     (setq dired-async-message-function
+           (lambda (text face &rest args)
+             (message (format "Finished %s" (apply #'format text args)))))
      (setq dired-auto-revert-buffer t)
      (setq dired-dwim-target t)
      (setq dired-recursive-copies (quote always))
