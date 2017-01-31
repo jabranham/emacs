@@ -2166,6 +2166,12 @@ I autocommit a few files, like notes and todo:
        (setq mu4e-headers-skip-duplicates t)
        (setq mu4e-attachment-dir "~/Downloads")
        (setq mu4e-completing-read-function 'completing-read)
+       ;; next two are from:
+       ;; http://pragmaticemacs.com/emacs/customise-the-reply-quote-string-in-mu4e/ :
+       ;; customize the reply-quote-string
+       (setq message-citation-line-format "On %a %d %b %Y at %R, %f wrote:\n")
+       ;; choose to use the formatted string
+       (setq message-citation-line-function 'message-insert-formatted-citation-line)
        (add-hook 'mu4e-view-mode-hook #'visual-line-mode)
        ;; turn off autofill mode in mu4e compose
        (defun autofill-off-visual-on ()
@@ -2252,12 +2258,13 @@ I autocommit a few files, like notes and todo:
          ;;get name in FROM field if available, but only if there is only
          ;;one name in TO field
          (if (< (length email-list) 2)
-             (when (string-match "^\\([^ ,\n]+\\).+writes:$" str)
-               (progn (setq email-name2 (match-string 1 str))
-                      ;;prefer name in FROM field if TO field has "@"
-                      (when (string-match "@" email-name)
-                        (setq email-name email-name2))
-                      )))
+             (when (string-match "^On.+, \\([^ ,\n]+\\).+wrote:$" str)
+               (progn
+                 (setq email-name2 (match-string 1 str))
+                 ;;prefer name in FROM field if TO field has "@"
+                 (when (string-match "@" email-name)
+                   (setq email-name email-name2))
+                 )))
          email-name))
    #+END_SRC
 
