@@ -34,7 +34,7 @@ If you want to use my setup, you can download this file and put it in
 ~/.emacs.d. Or (even better), clone this git repo with:
 
 #+BEGIN_EXAMPLE
-git clone git@github.com:gluesniffmonkey/emacs.git ~/.emacs.d
+git clone https://github.com/jabranham/emacs.git ~/.emacs.d
 #+END_EXAMPLE
 
 Take a moment and look through the various load-XXX.org files. There
