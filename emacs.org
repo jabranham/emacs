@@ -1326,7 +1326,10 @@ Finally, I rebind =C-c C-r= to look at my reference list globally (see org-ref b
                 ((agenda "" nil)
                  (tags "REFILE"
                        ((org-agenda-overriding-header "Tasks to Refile")
-                        (org-tags-match-list-sublevels nil)))))))
+                        (org-tags-match-list-sublevels nil)))
+                 (todo ""
+                       ((org-agenda-overriding-header "Unscheduled Tasks")
+                        (org-agenda-skip-function '(org-agenda-skip-entry-if 'timestamp))))))))
        )
 #+END_SRC
 
