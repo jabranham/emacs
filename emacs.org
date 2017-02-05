@@ -1572,6 +1572,8 @@ Use Emacs as the =$EDITOR= environmental variable:
       :bind
       (:map ess-mode-map
             ("C-a" . crux-move-beginning-of-line)
+            ("M-=" . ess-insert-S-assign)
+            ("_"   . self-insert-command)
             ("M-p" . my/add-pipe)
             ("C-|" . my/ess-eval-pipe-through-line))
       :config
