@@ -1393,6 +1393,7 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally
 #+BEGIN_SRC emacs-lisp
   (use-package org-gcal
     :ensure t
+    :defer 10 ; necessary to let me unlock gpg keyring
     :init
     (setq org-gcal-token-file (concat my/emacs-cache "org-gcal/.org-gcal-token"))
     (setq org-gcal-dir (concat my/emacs-cache "org-gcal"))
