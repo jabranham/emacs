@@ -2437,6 +2437,7 @@ Who /wouldn't/ want their text editor to do so?
 #+BEGIN_SRC emacs-lisp
   (use-package wolfram
     :ensure t
+    :defer 20 ; necessary to let me unlock gpg keyring
     :bind
     ("M-s q" . wolfram-alpha)
     :config
