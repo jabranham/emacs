@@ -2231,6 +2231,13 @@ I autocommit a few files, like notes and todo:
        (setq mu4e-headers-skip-duplicates t)
        (setq mu4e-attachment-dir "~/Downloads")
        (setq mu4e-completing-read-function 'completing-read)
+       ;; Use iso date format:
+       (setq mu4e-headers-date-format "%F")
+       (setq mu4e-headers-fields
+             '((:human-date    .  11) 
+               (:flags         .   6)
+               (:from          .  22)
+               (:subject       .  nil)))
        ;; next two are from:
        ;; http://pragmaticemacs.com/emacs/customise-the-reply-quote-string-in-mu4e/ :
        ;; customize the reply-quote-string
