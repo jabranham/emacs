@@ -13,17 +13,17 @@
 (setq package-archives
       '(("melpa" . "https://melpa.org/packages/")
         ("melpa-stable" . "https://stable.melpa.org/packages/")
-        ("gnu" . "https://elpa.gnu.org/packages/")
-        ("org" . "http://orgmode.org/elpa/")))
+        ("gnu" . "https://elpa.gnu.org/packages/")))
 (package-initialize)
 
-;; Bootstrap 'use-package' and 'org-mode
+;; Bootstrap use-package
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
-(unless (package-installed-p 'org-plus-contrib)
+;; Get the latest version of org from gnu elpa:
+(unless (package-installed-p 'org (version-to-list "8.3"))
   (package-refresh-contents)
-  (package-install 'org-plus-contrib))
+  (package-install (cadr (assq 'org package-archive-contents))))
 
 (eval-when-compile
   (require 'use-package))
