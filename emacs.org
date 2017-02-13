@@ -2153,6 +2153,7 @@ I autocommit a few files, like notes and todo:
                           (send-mail-function           . smtpmail-send-it)
                           (message-send-mail-ggfunction . smtpmail-send-it)
                           (smtpmail-stream-type         . starttls)
+                          (mu4e-compose-signature-auto-include . t)
                           (mu4e-compose-signature       . (concat
                                                            "J. Alexander Branham\n"
                                                            "PhD Candidate\n"
@@ -2178,7 +2179,15 @@ I autocommit a few files, like notes and todo:
                           (send-mail-function           . smtpmail-send-it)
                           (message-send-mail-ggfunction . smtpmail-send-it)
                           (smtpmail-stream-type         . plain)
-                          (smtpmail-smtp-service        . 1025)))
+                          (smtpmail-smtp-service        . 1025)
+                          (mu4e-compose-signature-auto-include . t)
+                          (mu4e-compose-signature       . (concat
+                                                           "J. Alexander Branham\n"
+                                                           "Research Associate\n"
+                                                           "Department of Political Science\n"
+                                                           "Göteborgs Universitet\n"
+                                                           "https://www.jabranham.com"
+                                                           "\n"))))
                 ,(make-mu4e-context
                   :name "personal"
                   :enter-func (lambda () (mu4e-message "Switch to personal context"))
