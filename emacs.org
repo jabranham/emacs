@@ -2552,7 +2552,7 @@ I can query [[https://translate.google.com][Google translate]] from within Emacs
     ;; There is a correct way to write dates:
     ;; https://xkcd.com/1179/
     (setq ledger-use-iso-dates t)
-    (setq ledger-reports '(("on-hand" "ledger -f %(ledger-file) bal \"(checking|liabilities)\"")
+    (setq ledger-reports '(("on-hand" "ledger -f %(ledger-file) bal \"(assets:cash|checking|liabilities)\"")
                            ("bal" "ledger -f %(ledger-file) bal")
                            ("reg" "ledger -f %(ledger-file) reg")
                            ("payee" "ledger -f %(ledger-file) reg @%(payee)")
