@@ -155,6 +155,7 @@
 
 (define-abbrev-table 'global-abbrev-table
   '(
+    ("arcipeligo" "archipelago" nil 0)
     ("convienent" "convenient" nil 0)
     ("criticise" "criticize" nil 0)
     ("educaiton" "education" nil 0)
