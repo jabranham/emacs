@@ -8,7 +8,7 @@
 #+DATE:      Spring 2016
 #+startup: beamer
 #+LaTeX_CLASS: beamer
-#+LATEX_CMD: xelatex
+#+LATEX_COMPILER: xelatex
 #+OPTIONS: toc:nil H:2
 #+LATEX_CLASS_OPTIONS: [colorlinks, urlcolor=blue, aspectratio=169]
 #+BEAMER_THEME: metropolis[titleformat=smallcaps, progressbar=frametitle] 
