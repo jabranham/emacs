@@ -39,6 +39,8 @@
 *** [[http://jabranham.com/feed.xml][jabranham]]
 *** [[http://brendanapfeld.com/atom.xml][bapfeld]]
 *** [[http://thomasleeper.com/feed.xml][leeper]]
+** News                                                               :news:
+*** [[http://feeds.washingtonpost.com/rss/rss_monkey-cage][monkey cage]]
 ** Life                                                                :life:
 *** [[http://feeds.feedburner.com/CapitalMetroblog][capitalmetro]]
 ** Comics                                                            :comics:
