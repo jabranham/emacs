@@ -263,6 +263,19 @@ Rainbow-mode makes it so that for example #0000ff is displayed in white with a b
 
      (add-hook 'find-file-not-found-functions #'make-parent-directory)
    #+END_SRC
+
+By default, dired asks you if you want to delete the dired buffer if you delete the folder. I can't think of a reason I'd ever want to do that, so just automate it:
+#+BEGIN_SRC emacs-lisp
+  (define-advice dired-clean-up-after-deletion
+      (:around (old-fun &rest r) kill-dired-buffer-quietly)
+    (define-advice y-or-n-p (:around (old-fun prompt) just-yes)
+      (if (string-prefix-p "Kill Dired buffer" prompt)
+          t
+        (funcall old-fun prompt)))
+    (unwind-protect (apply old-fun r)
+      (advice-remove 'y-or-n-p #'y-or-n-p@just-yes)))
+#+END_SRC
+
 ** Modeline
    The default modeline is nice enough, but this one is much better looking:
 
