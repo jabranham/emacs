@@ -170,8 +170,9 @@
     ("repsonsiveness" "responsiveness" nil 0)
     ("sincerally" "sincerely" nil 0)
     ("taht" "that" nil 0)
-    ("teh" "the" nil 0)
+    ("teh" "the" nil 1)
     ("tihs" "this" nil 1)
+    ("travelling" "traveling" nil 0)
     ("ubt" "but" nil 0)
    ))
 
@@ -360,6 +361,14 @@
 (define-abbrev-table 'stan-mode-abbrev-table
   '(
    ))
+
+(define-abbrev-table 'sx-compose-mode-abbrev-table '())
+
+(define-abbrev-table 'sx-inbox-mode-abbrev-table '())
+
+(define-abbrev-table 'sx-question-list-mode-abbrev-table '())
+
+(define-abbrev-table 'sx-question-mode-abbrev-table '())
 
 (define-abbrev-table 'tablist-mode-abbrev-table '())
 
