@@ -1640,7 +1640,9 @@ Use Emacs as the =$EDITOR= environmental variable:
             ("M-=" . ess-insert-S-assign)
             ("_"   . self-insert-command)
             ("M-p" . my/add-pipe)
-            ("C-|" . my/ess-eval-pipe-through-line))
+            ("C-|" . my/ess-eval-pipe-through-line)
+            :map inferior-ess-mode-map
+            ("_"   . self-insert-command))
       :config
       (setq ess-nuke-trailing-whitespace-p t)
       (add-hook 'ess-mode-hook
