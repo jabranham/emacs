@@ -518,7 +518,8 @@ And then I can setup a nice transpose keymap. Note that transpose-words is also 
        :ensure t
        :config
        (global-aggressive-indent-mode)
-       (add-to-list 'aggressive-indent-excluded-modes 'inferior-ess-mode))
+       ;; (add-to-list 'aggressive-indent-excluded-modes 'inferior-ess-mode)
+       )
    #+END_SRC
 
 ** System packages
