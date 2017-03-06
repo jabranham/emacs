@@ -2113,7 +2113,6 @@ I autocommit a few files, like notes and todo:
         ("q" . mu4e-quit-session)
         :map mu4e-view-mode-map
         ("d" . mu4e-view-mark-for-delete)
-        ("q" . mu4e-quit-session)
         ("<tab>" . shr-next-link)
         ("<backtab>" . shr-previous-link)
         :map mu4e-main-mode-map
