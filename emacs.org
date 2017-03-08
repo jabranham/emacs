@@ -1738,8 +1738,9 @@ Emacs can handle csv files with ease:
       :diminish flycheck-mode
       :config
       (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
+      ;; I don't care if code is commented out in R:
+      (setq flycheck-lintr-linters "with_defaults(commented_code_linter = NULL)")
       (add-hook 'after-init-hook #'global-flycheck-mode))
-
   #+END_SRC
 
   Electric operator will turn ~a=10*5+2~ into ~a = 10 * 5 + 2~, so let's enable it for R:
