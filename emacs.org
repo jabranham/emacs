@@ -2170,7 +2170,8 @@ I autocommit a few files, like notes and todo:
                   ;; leave-func not defined
                   :match-func (lambda (msg)
                                 (when msg
-                                  (mu4e-message-contact-field-matches msg :to "james.alexander.branham@gu.se")))
+                                  (mu4e-message-contact-field-matches msg :to '("james.alexander.branham@gu.se"
+                                                                                "polalla@pol.gu.se"))))
                   :vars '((mu4e-drafts-folder           . "/gu/Drafts")
                           (mu4e-sent-folder             . "/gu/Sent")
                           (mu4e-refile-folder           . "/gu/Archive")
