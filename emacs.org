@@ -1366,6 +1366,7 @@ Finally, I rebind =C-c C-r= to look at my reference list globally (see org-ref b
         ("C-'" . org-cycle-agenda-files) ; quickly access agenda files
         :map org-agenda-mode-map
         ("r" . org-agenda-refile) ; overrides org-agenda-redo, which I use "g" for anyway
+        ("s" . org-agenda-schedule) ; overrides saving all org buffers, also bound to C-x C-s
         ("x" . my/org-agenda-mark-done)) ; overrides org-exit
        :init
        (setq org-directory "~/Dropbox/org/")
