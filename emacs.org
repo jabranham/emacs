@@ -1429,18 +1429,20 @@ This line is necessary for the [[https://addons.mozilla.org/en-US/firefox/addon/
 
 *** Capture templates
 And now for the capture templates themselves. It's a bit complicated, but [[http://orgmode.org/manual/Capture-templates.html][the manual]] does a great job explaining: 
-  #+BEGIN_SRC emacs-lisp
-    (setq org-capture-templates
-          (quote (
-                  ("s" "store" entry (file (concat org-directory "refile.txt"))
-                   "* TODO %?\n %a \n %i")
-                  ("t" "task" entry (file (concat org-directory "refile.txt"))
-                   "* TODO %? \n %i")
-                  ("n" "note" entry (file (concat org-directory "notes.org"))
-                   "* %?\n %i")
-                  ("x" "firefox" entry (file (concat org-directory "refile.txt"))
-                   "* TODO %c" :immediate-finish t))))
-    #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (setq org-capture-templates
+        (quote (
+                ("s" "store" entry (file (concat org-directory "refile.txt"))
+                 "* TODO %?\n %a \n %i")
+                ("t" "task" entry (file (concat org-directory "refile.txt"))
+                 "* TODO %? \n %i")
+                ("n" "note" entry (file (concat org-directory "notes.org"))
+                 "* %?\n %i")
+                ("p" "Protocol" entry (file (concat org-directory "refile.txt"))
+                 "* TODO [[%:link][%:description]]\n%i" :immediate-finish t)
+                ("L" "Protocol Link" entry (file (concat org-directory "refile.txt"))
+                 "* TODO [[%:link][%:description]]" :immediate-finish t))))
+#+END_SRC
 
 ** Refile
    Org-refile lets me quickly move around headings in org files. It plays nicely with org-capture, which I use to turn emails into TODOs easily (among other things, of course)
