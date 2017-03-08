@@ -194,6 +194,7 @@ Rainbow-mode makes it so that for example #0000ff is displayed in white with a b
        :init
        (require 'smartparens-config)
        :config
+       (setq sp-show-pair-from-inside t)
        ;; Org-mode
        (sp-with-modes
            'org-mode
