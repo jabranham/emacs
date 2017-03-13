@@ -553,6 +553,7 @@ And then I can setup a nice transpose keymap. Note that transpose-words is also 
        (bind-keys :prefix "C-c m c"
                   :prefix-map multi-cursors-map
                   ("l" . mc/edit-lines)
+                  ("n" . mc/mark-next-like-this)
                   ("a" . mc/mark-all-like-this)))
    #+END_SRC
 ** Expand region
