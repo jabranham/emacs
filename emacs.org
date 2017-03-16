@@ -637,6 +637,12 @@ Tramp struggles with escaping things properly (dired in particular has issues wi
                "culpa qui officia deserunt mollit anim id est laborum."))
    #+END_SRC
 
+*** Make script files executable automatically
+Emacs can set file permissions automatically. Make scripts executable so I don't have to remember to do so:
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'after-save-hook
+            'executable-make-buffer-file-executable-if-script-p)
+#+END_SRC
 *** Zooming
 Everywhere else you can zoom with =C--= and =C-+=. Let's make Emacs follow that convention:
 #+BEGIN_SRC emacs-lisp
