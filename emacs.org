@@ -615,7 +615,12 @@ Don't leave histfiles everywhere:
   (setq tramp-histfile-override t)
   #+END_SRC
 
-Tramp struggles with escaping things properly (dired in particular has issues with spaces/special characters; this is fixed if you build Emacs from the master branch of the git repo), this fixes it for me:
+Use ssh by default:
+#+BEGIN_SRC emacs-lisp
+  (setq tramp-default-method "ssh")
+#+END_SRC
+
+  Tramp struggles with escaping things properly (dired in particular has issues with spaces/special characters; this is fixed if you build Emacs from the master branch of the git repo; Emacs 26), this fixes it for me:
 #+BEGIN_SRC emacs-lisp
   (push "QUOTING_STYLE=literal" tramp-remote-process-environment)
 #+END_SRC
