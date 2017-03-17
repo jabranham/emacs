@@ -541,6 +541,14 @@ And then I can setup a nice transpose keymap. Note that transpose-words is also 
          ("O" system-packages-remove-orphaned "remove orphans" :exit t)))
    #+END_SRC
 
+** PKGBUILD
+Arch linux uses PKGBUILD files to describe built information for packages. This provides an Emacs mode:
+#+BEGIN_SRC emacs-lisp
+  (use-package pkgbuild-mode
+    :ensure t
+    :mode ("/PKGBUILD$" . pkgbuild-mode))
+#+END_SRC
+
 ** Multiple cursors 
    Emacs can support multiple cursors. I don't use this much, but it's super handy when I do need it:
    #+BEGIN_SRC emacs-lisp
