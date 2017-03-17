@@ -2463,7 +2463,7 @@ I can use helm to help me search emails and contacts:
      :map mu4e-view-mode-map
      ("s" . helm-mu)))
 #+END_SRC
-* Feed reader
+* RSS Feed reader 
 
 I use [[https://github.com/skeeto/elfeed][elfeed]] to manage some RSS links:
 
@@ -2493,6 +2493,11 @@ I use [[https://github.com/skeeto/elfeed][elfeed]] to manage some RSS links:
       (elfeed-db-save)
       (quit-window))
     :config
+    ;; Emacs has a bug which causes it to use 100% CPU when some (large)
+    ;; images are loaded. Since some RSS feeds I follow have large gifs,
+    ;; this can be quite annoying. I'll just disable images in elfeed
+    ;; until this is fixed upstream:
+    (add-hook 'elfeed-show-mode-hook (lambda () (setq shr-inhibit-images t)))
     (setq elfeed-db-directory "~/Dropbox/.elfeed")
     ;; This lets me get the http links to entries with org-capture
     ;; easily.
