@@ -1510,8 +1510,36 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally
 	  org-gcal-client-secret (password-store--run "emacs/emacs-gcal-client-secret")
 	  org-gcal-file-alist '(("alex.branham@gmail.com" .  "~/Dropbox/org/gcal.org")))
     (add-to-list 'org-agenda-files (concat org-directory "gcal.org") t)
-    ;; ;; sync the gcal file when I call org-agenda
-    (add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync))))
+    ;; I can add to google-calendar with org-capture
+    (add-to-list 'org-capture-templates
+                 '("a" "Appointment" entry (file  "~/Dropbox/org/gcal.org")
+                   "* %?\n  %^T"))
+    (defvar sync-calendar-timer nil)
+    (defun sync-calendar-with-delay ()
+      "Sync my google calendar after 60 second of inactive time.
+  I combine this with run-with-timer to sync my google calendar every 15 minutes or so, depending on Emacs usage."
+      (when sync-calendar-timer
+        (cancel-timer sync-calendar-timer))
+      (setq sync-calendar-timer
+            (run-with-idle-timer 60 nil #'org-gcal-fetch)))
+    (add-hook 'after-init-hook
+              (lambda () (run-with-timer 0 (* 15 60) #'sync-calendar-with-delay)))
+    ;; Stolen from spacemacs:
+    (defun google-calendar/sync-cal-after-capture ()
+      "Sync calendar after a event was added with org-capture.
+  The function can be run automatically with the 'org-capture-after-finalize-hook'."
+      (when-let ((cal-files (mapcar 'f-expand (mapcar 'cdr org-gcal-file-alist)))
+                 (capture-target (f-expand (car (cdr (org-capture-get :target)))))
+                 (cal-file-exists (and (mapcar 'f-file? cal-files)))
+                 (capture-target-isfile (eq (car (org-capture-get :target)) 'file))
+                 (capture-target-is-cal-file (member capture-target cal-files)))
+        (org-gcal-refresh-token)
+        (org-gcal-post-at-point)))
+    (add-hook 'org-capture-after-finalize-hook 'google-calendar/sync-cal-after-capture)
+    ;; fix bug in org-cal--notify
+    (defun new/org-gcal--notify (title mes)
+      (message "org-gcal::%s - %s" title mes))
+    (fset 'org-gcal--notify 'new/org-gcal--notify))
     #+END_SRC
 ** Pomodoro
 I can use =org-pomodoro= for a [[http://pomodorotechnique.com/][pomodoro]]. By default, it works in 25-minute work blocks and 5 minute breaks after. The fourth break is longer - 20 minutes by default.
