@@ -1277,7 +1277,7 @@ Finally, I rebind =C-c C-r= to look at my reference list globally (see org-ref b
 
       (bind-key "C-c s a" #'my/org-insert-src-block org-mode-map)
     #+END_SRC
-** References (org-ref) 
+** References (org-ref)
    I use org-ref to manage my references. 
    #+BEGIN_SRC emacs-lisp
      (use-package org-ref-core
@@ -1381,8 +1381,7 @@ Finally, I rebind =C-c C-r= to look at my reference list globally (see org-ref b
        (use-package org-ref-latex)
        ) ; ends use-package org-ref
    #+END_SRC
-
-** Agenda 
+** Agenda
    Here's where I set which files are added to org-agenda, which controls org's global todo list, scheduling, and agenda features. I use Dropbox to keep these files in sync across computers.
 
    #+BEGIN_SRC emacs-lisp
@@ -1493,7 +1492,6 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally
 #+BEGIN_SRC emacs-lisp
   (use-package org-gcal
     :ensure t
-    :defer 10 ; necessary to let me unlock gpg keyring
     :init
     (setq org-gcal-token-file (concat my/emacs-cache "org-gcal/.org-gcal-token"))
     (setq org-gcal-dir (concat my/emacs-cache "org-gcal"))
@@ -1501,17 +1499,10 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally
     (setq org-gcal-client-id (password-store--run "emacs/emacs-gcal-client-id")
 	  org-gcal-client-secret (password-store--run "emacs/emacs-gcal-client-secret")
 	  org-gcal-file-alist '(("alex.branham@gmail.com" .  "~/Dropbox/org/gcal.org")))
-    (add-to-list 'org-agenda-files (concat org-directory "gcal.org") t)
-    (add-to-list 'org-capture-templates
-                 '("a" "Appointment" entry (file  "~/Dropbox/org/gcal.org" )
-                   "* %?\n\n%^T\n\n:PROPERTIES:\n\n:END:\n\n"))
-    ;; sync the gcal file when I call org-agenda or capture something:
-    (add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync) ))
-    ;; org-gcal--notify is broken, fix it:
-    (defun new/org-gcal--notify (title mes)
-      (message "org-gcal::%s - %s" title mes))
-    (fset 'org-gcal--notify 'new/org-gcal--notify))
-#+END_SRC
+    (add-to-list 'org-agenda-files (concat org-directory "gcal.org") t) 
+    ;; ;; sync the gcal file when I call org-agenda
+    (add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync))))
+    #+END_SRC
 ** Pomodoro
 I can use =org-pomodoro= for a [[http://pomodorotechnique.com/][pomodoro]]. By default, it works in 25-minute work blocks and 5 minute breaks after. The fourth break is longer - 20 minutes by default.
 
