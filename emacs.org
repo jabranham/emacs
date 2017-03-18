@@ -1216,6 +1216,16 @@ Finally, I rebind =C-c C-r= to look at my reference list globally (see org-ref b
   (bind-key "C-c r" #'org-reveal org-mode-map)
 #+END_SRC
 
+** Calendar
+Not technically part of org, but I'll stick the calendar config here since I mainly use it along with org-agenda (config'ed below)
+#+BEGIN_SRC emacs-lisp
+  (use-package calendar
+    ;; built-in, :ensure t not necessary
+    :config
+    (calendar-set-date-style 'iso)
+    (setq calendar-date-display-form calendar-iso-date-display-form))
+#+END_SRC
+
 ** Exporting
    HTML and latex shown by default, let's add markdown:
 
