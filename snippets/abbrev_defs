@@ -5,6 +5,8 @@
 
 (define-abbrev-table 'Info-edit-mode-abbrev-table '())
 
+(define-abbrev-table 'Man-mode-abbrev-table '())
+
 (define-abbrev-table 'Rd-mode-abbrev-table
   '(
     ("`ag" "\\arguments" nil 0)
@@ -161,6 +163,7 @@
     ("educaiton" "education" nil 0)
     ("equivilently" "equivalently" nil 0)
     ("excpetion" "exception" nil 0)
+    ("expidited" "expedited" nil 0)
     ("explicitely" "explicitly" nil 0)
     ("familarity" "familiarity" nil 0)
     ("htis" "this" nil 0)
@@ -315,6 +318,8 @@
   '(
    ))
 
+(define-abbrev-table 'pkgbuild-mode-abbrev-table '())
+
 (define-abbrev-table 'plain-tex-mode-abbrev-table '())
 
 (define-abbrev-table 'poly-fallback-mode-abbrev-table '())
@@ -370,6 +375,8 @@
 (define-abbrev-table 'sx-question-list-mode-abbrev-table '())
 
 (define-abbrev-table 'sx-question-mode-abbrev-table '())
+
+(define-abbrev-table 'systemd-mode-abbrev-table '())
 
 (define-abbrev-table 'tablist-mode-abbrev-table '())
 
