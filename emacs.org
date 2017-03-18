@@ -1795,12 +1795,10 @@ Emacs can handle csv files with ease:
   Whitespace is evil. Let's get rid of as much as possible. But we don't want to do this with files that already had whitespace (from someone else's project, for example). This mode will call ~whitespace-cleanup~ before buffers are saved (but smartly)!
 
   #+BEGIN_SRC emacs-lisp
-    (use-package whitespace-cleanup-mode 
+    (use-package ws-butler
       :ensure t
-      :diminish whitespace-cleanup-mode
       :config
-      (add-hook 'prog-mode-hook #'whitespace-cleanup-mode)
-      (add-hook 'ess-mode-hook #'whitespace-cleanup-mode))
+      (ws-butler-global-mode))
   #+END_SRC
 
 * Text Misc
