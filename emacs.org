@@ -30,7 +30,7 @@ The [[https://github.com/jwiegley/use-package][use-package]] package, which I en
   #+BEGIN_SRC emacs-lisp
     (unbind-key "C-x C-c")
   #+END_SRC
-  
+
   In my world, =C-z= is undo, not minimize emacs:
 
   #+BEGIN_SRC emacs-lisp
@@ -124,14 +124,14 @@ Emacs' info manual is /amazing/. This makes it even better.
            (add-hook 'after-make-frame-functions #'my/load-theme)
          (load-theme my/theme t))
        :config
-       ;; make diff chunks stand out a bit more: 
+       ;; make diff chunks stand out a bit more:
        (set-face-background 'magit-diff-hunk-heading-highlight "#5d4d7a")
        (set-face-attribute 'org-agenda-date-today nil :height 2.0))
    #+END_SRC
 ** Highlight numbers
 I like to see numbers in code:
 #+BEGIN_SRC emacs-lisp
-  (use-package highlight-numbers          
+  (use-package highlight-numbers
     :ensure t
     :commands (highlight-numbers-mode)
     :init
@@ -140,7 +140,7 @@ I like to see numbers in code:
 #+END_SRC
 
 ** Color words describing colors
-Rainbow-mode makes it so that for example #0000ff is displayed in white with a blue background. 
+Rainbow-mode makes it so that for example #0000ff is displayed in white with a blue background.
 
 #+BEGIN_SRC emacs-lisp
   (use-package rainbow-mode
@@ -152,7 +152,7 @@ Rainbow-mode makes it so that for example #0000ff is displayed in white with a b
 #+END_SRC
 
 ** Scrolling
-   Emacs has some awful scrolling by default. This gets rid of that. 
+   Emacs has some awful scrolling by default. This gets rid of that.
 
    #+BEGIN_SRC emacs-lisp
      (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ; one line at a time
@@ -219,7 +219,7 @@ Rainbow-mode makes it so that for example #0000ff is displayed in white with a b
 
    NOTE: ~pdf-tools~ only officially supports gnu/linux operating systems. I think that it will work on macs as well, but you may have to finagle it a bit. Regardless, I tell emacs to only use it if the OS is linux based.
 
-   #+BEGIN_SRC emacs-lisp 
+   #+BEGIN_SRC emacs-lisp
      (when (eq system-type 'gnu/linux)
        (use-package pdf-tools
          :ensure t
@@ -233,7 +233,7 @@ Rainbow-mode makes it so that for example #0000ff is displayed in white with a b
    Emacs can act as your file finder/explorer. Dired is the built-in way to do this.
 
    #+BEGIN_SRC emacs-lisp
-     (dired-async-mode) ; do dired actions asynchronously 
+     (dired-async-mode) ; do dired actions asynchronously
      ;; For whatever reason, the default for this *doesn't* log it to
      ;; *Messages*. Instead, it just displays the notification in the mode
      ;; line for 3 seconds, but if you type something it immediately goes
@@ -321,7 +321,7 @@ I can make the modeline a little fancier by using icons like the [[http://orgmod
        (which-key-mode))
    #+END_SRC
 
-** Window switching 
+** Window switching
 I can use =window-numbering= to quickly jump from window to window
 
    #+BEGIN_SRC emacs-lisp
@@ -476,7 +476,7 @@ And then I can setup a nice transpose keymap. Note that transpose-words is also 
    #+END_SRC
 
 ** Hydra
-[[https://github.com/abo-abo/hydra][Hydra]] is a nice package that lets you set up menus for related (or not) commands. 
+[[https://github.com/abo-abo/hydra][Hydra]] is a nice package that lets you set up menus for related (or not) commands.
 
    #+BEGIN_SRC emacs-lisp
      (use-package hydra
@@ -530,7 +530,7 @@ And then I can setup a nice transpose keymap. Note that transpose-words is also 
    #+BEGIN_SRC emacs-lisp
      (use-package system-packages
        :load-path "~/code/system-packages"
-       :bind ("<f5>" . hydra/system-packages/body) 
+       :bind ("<f5>" . hydra/system-packages/body)
        :config
        (defhydra hydra/system-packages ()
          "Manage system packages"
@@ -555,7 +555,7 @@ Arch linux uses PKGBUILD files to describe built information for packages. This 
     :ensure t)
 #+END_SRC
 
-** Multiple cursors 
+** Multiple cursors
    Emacs can support multiple cursors. I don't use this much, but it's super handy when I do need it:
    #+BEGIN_SRC emacs-lisp
      (use-package multiple-cursors
@@ -579,7 +579,7 @@ I can use ~C-=~ to expand the region incrementally:
     :bind ("C-=" . er/expand-region))
 #+END_SRC
 ** Browser (eww)
-Use Emacs' built in =eww= broswer (the Emacs Web Wowser!) by default. 
+Use Emacs' built in =eww= broswer (the Emacs Web Wowser!) by default.
 
 #+BEGIN_SRC emacs-lisp
   (setq browse-url-browser-function
@@ -617,7 +617,7 @@ By default, =M-s M-w= searches for text in the region. I change it to search for
       (eww (read-string "Query: "))))
   (advice-add 'eww-search-words :around #'jab/eww-search)
 #+END_SRC
-** Tramp 
+** Tramp
 Store tramp files in the cache:
 
 #+BEGIN_SRC emacs-lisp
@@ -639,10 +639,10 @@ Use ssh by default:
   (push "QUOTING_STYLE=literal" tramp-remote-process-environment)
 #+END_SRC
 
-** Miscellaneous 
+** Miscellaneous
    Here are a bunch of things I want emacs to do (or not) but don't seem to fit in other sections.
 
-   For when I need lots of text: 
+   For when I need lots of text:
    #+BEGIN_SRC emacs-lisp
      (defun lorem ()
        "Insert a lorem ipsum."
@@ -669,7 +669,7 @@ Everywhere else you can zoom with =C--= and =C-+=. Let's make Emacs follow that 
              ("C--" . text-scale-decrease))
 #+END_SRC
 *** Enable disabled commands
-Emacs thinks that some new users may find some commands confusing, so they're disabled by default. I use these every now and then, so let's enable them by default: 
+Emacs thinks that some new users may find some commands confusing, so they're disabled by default. I use these every now and then, so let's enable them by default:
 
 #+BEGIN_SRC emacs-lisp
   (put 'downcase-region 'disabled nil)
@@ -685,7 +685,7 @@ Oftentimes the mouse just gets in the way. Since I rarely use the mouse, let's b
 #+END_SRC
 
 *** Prettify symbols
-Prettify-symbols-mode will replace some symbols (like "lambda") with their prettier cousins (like \lambda). 
+Prettify-symbols-mode will replace some symbols (like "lambda") with their prettier cousins (like \lambda).
 
 #+BEGIN_SRC emacs-lisp
   (setq prettify-symbols-unprettify-at-point 'right-edge)
@@ -728,7 +728,7 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
     #+END_SRC
 
 *** Resize windows
-    We can resize windows now! 
+    We can resize windows now!
      #+BEGIN_SRC emacs-lisp
        (bind-keys ("S-C-<left>" . shrink-window-horizontally)
                   ("S-C-<right>" . enlarge-window-horizontally)
@@ -766,10 +766,10 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
 
     #+END_SRC
 
-*** Better defaults 
+*** Better defaults
     This is inspired by the [[https://github.com/technomancy/better-defaults][better defaults]] package, but I don't like everything in there.
 
-    Yes, please save my place when opening/closing files: 
+    Yes, please save my place when opening/closing files:
 
     #+BEGIN_SRC emacs-lisp
       (use-package saveplace
@@ -786,7 +786,7 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
       (scroll-bar-mode -1)
     #+END_SRC
 
-    Don't ever use tabs. Always use spaces. 
+    Don't ever use tabs. Always use spaces.
     #+BEGIN_SRC emacs-lisp
       (setq-default indent-tabs-mode nil)
     #+END_SRC
@@ -833,7 +833,7 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
       (setq search-default-mode t)
     #+END_SRC
 
-    A few final modifications: 
+    A few final modifications:
 
     #+BEGIN_SRC emacs-lisp
       (setq   save-interprogram-paste-before-kill t
@@ -846,10 +846,10 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
     #+END_SRC
 * Auto completion
 ** Company mode
-   Company mode provides autocompletion of text and code. 
+   Company mode provides autocompletion of text and code.
 
    #+BEGIN_SRC emacs-lisp
-     (use-package company 
+     (use-package company
        :ensure t
        :diminish company-mode
        :bind
@@ -897,11 +897,11 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
     ("M-/" . hippie-expand))
 #+END_SRC
 
-** Yasnippet 
+** Yasnippet
    Yasnippet allows you to type an abbreviation and then expand it into a template. We can look at yasnippet's documentation [[https://github.com/capitaomorte/yasnippet][on github]].
 
    Yasnippet by default checks for snippets in two places: a path relative to yasnippet.el (these are the default snippets that come with the package). If I want to make my own, I can put then in ~.emacs.d/snippets~ and it should find them there as well.
-  
+
    #+BEGIN_SRC emacs-lisp
      (use-package yasnippet
        :ensure t
@@ -1091,7 +1091,7 @@ Emacs has a great system to "narrow" a buffer to just a smaller bit. This is use
   (bind-key* "C-x n" #'narrow-or-widen-dwim)
 #+END_SRC
 * Helm
-Helm. A [[https://tuhdo.github.io/helm-intro.html][package in a league of its own]]. 
+Helm. A [[https://tuhdo.github.io/helm-intro.html][package in a league of its own]].
 #+BEGIN_SRC emacs-lisp
   (use-package helm
     :ensure t
@@ -1139,7 +1139,7 @@ Helm. A [[https://tuhdo.github.io/helm-intro.html][package in a league of its ow
        (setq bibtex-align-at-equal-sign t)
        (setq bibtex-files '("~/Dropbox/bibliography/references.bib"))
        (defun bibtex-generate-autokey ()
-         "This overwrites the bibtex-generate-autokey function that comes with Emacs. 
+         "This overwrites the bibtex-generate-autokey function that comes with Emacs.
 
        I want my keys to be formatted: authornameYEAR, then a letter if there is already an entry that matches authornameYEAR."
          (let* ((names (bibtex-autokey-get-names))
@@ -1164,7 +1164,7 @@ Helm. A [[https://tuhdo.github.io/helm-intro.html][package in a league of its ow
    #+END_SRC
 
 ** Helm and makefiles
-I can setup helm to deal with makefiles easily: 
+I can setup helm to deal with makefiles easily:
 
 #+BEGIN_SRC emacs-lisp
   (use-package helm-make
@@ -1202,7 +1202,7 @@ Projectile makes using projects easier in emacs. It also plays well with helm, s
 * Org
   Org mode is a great thing. I use it for writing academic papers, managing my schedule, managing my references and notes, writing presentations, writing lecture slides, and pretty much anything else. This file is written in org-mode.
 
-  Define =C-c l= to =org-store-link=: 
+  Define =C-c l= to =org-store-link=:
 
   #+BEGIN_SRC emacs-lisp
     (bind-key "C-c l" #'org-store-link)
@@ -1288,7 +1288,7 @@ Not technically part of org, but I'll stick the calendar config here since I mai
       (bind-key "C-c s a" #'my/org-insert-src-block org-mode-map)
     #+END_SRC
 ** References (org-ref)
-   I use org-ref to manage my references. 
+   I use org-ref to manage my references.
    #+BEGIN_SRC emacs-lisp
      (use-package org-ref-core
        :ensure org-ref
@@ -1326,8 +1326,8 @@ Not technically part of org, but I'll stick the calendar config here since I mai
                ("JOP" "Journal of Politics" "The Journal of Politics")
                ("JOP" "Journal of Politics" "J of Pol")
                ("jop" "Journal of Politics" "J of Pol")
-               ("EPSR" "European Political Science Review" "Eur. Pol. Sci. Rev.") 
-               ("JoC" "Journal of Communication" "J Communication") 
+               ("EPSR" "European Political Science Review" "Eur. Pol. Sci. Rev.")
+               ("JoC" "Journal of Communication" "J Communication")
                ("PoP" "Perspectives on Politics" "Perspect. polit.")))
 
        (defun my/fix-journal-name (&optional key start end)
@@ -1353,7 +1353,7 @@ Not technically part of org, but I'll stick the calendar config here since I mai
                   (journal (s-trim (bibtex-autokey-get-field "journal")))
                   (bstring (or
                             (cdr (assoc journal initial-names))
-                            (cdr (assoc journal abbrev-names))))) 
+                            (cdr (assoc journal abbrev-names)))))
              (when bstring
                (bibtex-set-field "journal" bstring)
                (bibtex-fill-entry)))))
@@ -1424,7 +1424,7 @@ Not technically part of org, but I'll stick the calendar config here since I mai
              '((daily today reqiure-timed) "" (800 1000 1200 1400 1600 1800 2000)))
        (setq org-agenda-current-time-string "--- NOW ---")
        (defun my/org-agenda-mark-done (&optional arg)
-         "Mark current TODO as DONE. 
+         "Mark current TODO as DONE.
      See `org-agenda-todo' for more details."
          (interactive "P")
          (org-agenda-todo "DONE"))
@@ -1441,7 +1441,7 @@ Not technically part of org, but I'll stick the calendar config here since I mai
 #+END_SRC
 
 ** Capture
-I use org-capture to create short notes about all kinds of things. I can capture emails to remember for later, quick thoughts for later, RSS feeds (see [[Feed reader]]), really anything. 
+I use org-capture to create short notes about all kinds of things. I can capture emails to remember for later, quick thoughts for later, RSS feeds (see [[Feed reader]]), really anything.
 
 #+BEGIN_SRC emacs-lisp
   (use-package org-capture
@@ -1464,14 +1464,14 @@ Org-eww lets me capture eww webpages with org-mode
 #+END_SRC
 
 *** Firefox
-This line is necessary for the [[https://addons.mozilla.org/en-US/firefox/addon/org-mode-capture/][org-mode capture]] extension for Firefox. 
+This line is necessary for the [[https://addons.mozilla.org/en-US/firefox/addon/org-mode-capture/][org-mode capture]] extension for Firefox.
 
 #+BEGIN_SRC emacs-lisp
   (require 'org-protocol)
 #+END_SRC
 
 *** Capture templates
-And now for the capture templates themselves. It's a bit complicated, but [[http://orgmode.org/manual/Capture-templates.html][the manual]] does a great job explaining: 
+And now for the capture templates themselves. It's a bit complicated, but [[http://orgmode.org/manual/Capture-templates.html][the manual]] does a great job explaining:
 #+BEGIN_SRC emacs-lisp
   (setq org-capture-templates
         (quote (
@@ -1509,7 +1509,7 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally
     (setq org-gcal-client-id (password-store--run "emacs/emacs-gcal-client-id")
 	  org-gcal-client-secret (password-store--run "emacs/emacs-gcal-client-secret")
 	  org-gcal-file-alist '(("alex.branham@gmail.com" .  "~/Dropbox/org/gcal.org")))
-    (add-to-list 'org-agenda-files (concat org-directory "gcal.org") t) 
+    (add-to-list 'org-agenda-files (concat org-directory "gcal.org") t)
     ;; ;; sync the gcal file when I call org-agenda
     (add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync))))
     #+END_SRC
@@ -1537,9 +1537,9 @@ I like to use system alerts, which are more visible than just sending it to Emac
 #+END_SRC
 
 ** Misc
-   Here are a few miscellaneous things that make org mode better. 
+   Here are a few miscellaneous things that make org mode better.
    #+BEGIN_SRC emacs-lisp
-     (setq org-pretty-entities          t ; UTF8 all the things!  
+     (setq org-pretty-entities          t ; UTF8 all the things!
            org-support-shift-select     t ; holding shift and moving point should select things
            org-M-RET-may-split-line     nil ; M-RET may never split a line
            org-enforce-todo-dependencies t ; can't finish parent before children
@@ -1570,8 +1570,8 @@ I like to use system alerts, which are more visible than just sending it to Emac
      (setq org-image-actual-width '(300))
    #+END_SRC
 
-   Make =C-a= and =C-e= work more like how I want: 
-   
+   Make =C-a= and =C-e= work more like how I want:
+
    #+BEGIN_SRC emacs-lisp
      (setq org-special-ctrl-a/e t)
    #+END_SRC
@@ -1583,12 +1583,12 @@ I like to use system alerts, which are more visible than just sending it to Emac
 
 * Shells
 
-** Eshell 
-Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machines, plus it can evaluate elisp. 
+** Eshell
+Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machines, plus it can evaluate elisp.
 
 #+BEGIN_SRC emacs-lisp
   (use-package eshell
-    :commands (eshell)  
+    :commands (eshell)
     :config
     (setq eshell-cmpl-cycle-completions nil
           ;; auto truncate after 20k lines
@@ -1667,7 +1667,7 @@ Use Emacs as the =$EDITOR= environmental variable:
   ESS (Emacs Speaks Statistics) is a [[http://ess.r-project.org/][great project]] and makes Emacs speak with R.
 
   #+BEGIN_SRC emacs-lisp
-    (use-package ess-site 
+    (use-package ess-site
       :ensure ess
       :pin melpa-stable
       :diminish eldoc-mode
@@ -1730,7 +1730,7 @@ Use Emacs as the =$EDITOR= environmental variable:
   #+END_SRC
 
 * Python
-  The package is called python, the mode is python-mode: 
+  The package is called python, the mode is python-mode:
   #+BEGIN_SRC emacs-lisp
     (use-package python
       :mode ("\\.py\\'". python-mode)
@@ -1739,7 +1739,7 @@ Use Emacs as the =$EDITOR= environmental variable:
 
   Elpy is a ton of customizations for python. Load it up:
 
-  #+BEGIN_SRC emacs-lisp 
+  #+BEGIN_SRC emacs-lisp
     (use-package elpy
       :ensure t
       :pin melpa-stable
@@ -1802,7 +1802,7 @@ Emacs can handle csv files with ease:
   #+END_SRC
 
 * Text Misc
-I end sentences with a single space. 
+I end sentences with a single space.
 
   #+BEGIN_SRC emacs-lisp
     (setq sentence-end-double-space nil)
@@ -1871,10 +1871,10 @@ I end sentences with a single space.
   #+END_SRC
 
 * Markdown
-  Markdown mode for Markdown editing! 
+  Markdown mode for Markdown editing!
 
   #+BEGIN_SRC emacs-lisp
-    (use-package markdown-mode 
+    (use-package markdown-mode
       :ensure t
       :commands (markdown-mode gfm-mode)
       :mode (("README\\.md\\'" . gfm-mode)
@@ -1941,7 +1941,7 @@ I end sentences with a single space.
   #+END_SRC
 
 ** Reftex
-I use =helm-bibtex= to manage my references, but ReFTeX is still great to have around for cross-references in latex files. 
+I use =helm-bibtex= to manage my references, but ReFTeX is still great to have around for cross-references in latex files.
 
 You will need to change ~reftex-default-bibliography~ to wherever you keep your main .bib file.
 
@@ -1949,7 +1949,7 @@ You will need to change ~reftex-default-bibliography~ to wherever you keep your 
   (use-package reftex
     :commands turn-on-reftex
     :init
-    (setq reftex-cite-format 
+    (setq reftex-cite-format
           '((?\C-m . "\\cite[]{%l}")
             (?t . "\\citet{%l}")
             (?p . "\\citep[]{%l}")
@@ -1982,7 +1982,7 @@ You will need to change ~reftex-default-bibliography~ to wherever you keep your 
   Polymode is a (relatively new) way of working with multiple major modes. This is especially helpful if we want to use latex or markdown together with R code.
 
   #+BEGIN_SRC emacs-lisp
-    (use-package polymode 
+    (use-package polymode
       :ensure t
       :mode
       ("\\.Snw" . poly-noweb+r-mode)
@@ -2000,7 +2000,7 @@ You will need to change ~reftex-default-bibliography~ to wherever you keep your 
   #+END_SRC
 
 * Spell Check
-Flyspell checks for spelling on the fly. I use aspell instead of ispell because it's better. :-) You may need to install it separately, though I didn't need to. If you want to use non-english words, you can tell it so with ~ispell-local-dictionary~ variable. 
+Flyspell checks for spelling on the fly. I use aspell instead of ispell because it's better. :-) You may need to install it separately, though I didn't need to. If you want to use non-english words, you can tell it so with ~ispell-local-dictionary~ variable.
 
   #+BEGIN_SRC emacs-lisp
     (use-package flyspell
@@ -2017,7 +2017,7 @@ Flyspell checks for spelling on the fly. I use aspell instead of ispell because 
   #+BEGIN_SRC emacs-lisp
     (setq vc-make-backup-files t)
   #+END_SRC
-** Diff highlights 
+** Diff highlights
 
 #+BEGIN_SRC emacs-lisp
   (use-package git-gutter+
@@ -2089,12 +2089,12 @@ I autocommit a few files, like notes and todo:
 
 * Webpage editing
 ** HTML and friends
-   Web-mode takes care of a lot of html annoyances: 
+   Web-mode takes care of a lot of html annoyances:
 
    #+BEGIN_SRC emacs-lisp
      (use-package web-mode
        :ensure t
-       :mode 
+       :mode
        ("\\.html?\\'" . web-mode)
        ("\\.scss?\\'" . web-mode)
        ("\\.erb\\'" . web-mode)
@@ -2105,7 +2105,7 @@ I autocommit a few files, like notes and todo:
    #+END_SRC
 
 ** CSS, SCSS
-   And CSS/SCSS is handled nicely by this package: 
+   And CSS/SCSS is handled nicely by this package:
 
    #+BEGIN_SRC emacs-lisp
      (use-package scss-mode
@@ -2284,7 +2284,7 @@ I autocommit a few files, like notes and todo:
        ;; Use iso date format:
        (setq mu4e-headers-date-format "%F")
        (setq mu4e-headers-fields
-             '((:human-date    .  11) 
+             '((:human-date    .  11)
                (:flags         .   6)
                (:from          .  22)
                (:subject       .  nil)))
@@ -2327,7 +2327,7 @@ I autocommit a few files, like notes and todo:
          (setq org-mu4e-convert-to-html t))
        (use-package mu4e-contrib
          :config
-         ;; Use eww to render HTML messages: 
+         ;; Use eww to render HTML messages:
          (setq mu4e-html2text-command 'mu4e-shr2text)
          )
        (use-package mu4e-maildirs-extension
@@ -2435,9 +2435,9 @@ I autocommit a few files, like notes and todo:
            (keyboard-quit))))
 
      (add-hook 'message-send-hook #'mbork/message-warn-if-no-attachments))
-#+END_SRC 
+#+END_SRC
 
-** Mail alerts 
+** Mail alerts
 #+BEGIN_SRC emacs-lisp
   (use-package mu4e-alert
     :ensure t
@@ -2540,7 +2540,7 @@ Stack Exchange is the place to go to get questions answered. This lets me search
     (setq sx-cache-directory (concat my/emacs-cache "sx")))
 #+END_SRC
 * Wolfram alpha
-Yes, Emacs can search and display results from wolfram alpha. 
+Yes, Emacs can search and display results from wolfram alpha.
 Who /wouldn't/ want their text editor to do so?
 #+BEGIN_SRC emacs-lisp
   (use-package wolfram
@@ -2567,7 +2567,7 @@ I can query [[https://translate.google.com][Google translate]] from within Emacs
 #+END_SRC
 
 * Ledger
-[[http://ledger-cli.org/][Ledger]] is a program that I use to keep track of finances. Emacs, of course, can handle it quite nicely. 
+[[http://ledger-cli.org/][Ledger]] is a program that I use to keep track of finances. Emacs, of course, can handle it quite nicely.
 #+BEGIN_SRC emacs-lisp
   (use-package ledger-mode
     :ensure t
@@ -2587,19 +2587,19 @@ I can query [[https://translate.google.com][Google translate]] from within Emacs
           (append org-capture-templates
                   '(("l" "Ledger entries")
                     ("li" "income" plain (file "~/Dropbox/Finances/finances.ledger")
-                     "%(org-read-date) %^{From?} 
+                     "%(org-read-date) %^{From?}
       assets:checking       $ %^{Amount}
       income:salary" :empty-lines 1 :immediate-finish t)
                     ("lc" "citi" plain (file "~/Dropbox/Finances/finances.ledger")
-                     "%(org-read-date) %^{Payee} 
+                     "%(org-read-date) %^{Payee}
       expenses:%^{Expense category}       $ %^{Amount}
       liabilities:citi mastercard" :empty-lines 1 :immediate-finish t)
                     ("lo" "capital one" plain (file "~/Dropbox/Finances/finances.ledger")
-                     "%(org-read-date) %^{Payee} 
+                     "%(org-read-date) %^{Payee}
       expenses:%^{Expense category}       SEK %^{Amount}
       liabilities:capital one credit" :empty-lines 1 :immediate-finish t)
                     ("ld" "pay with checking" plain (file "~/Dropbox/Finances/finances.ledger")
-                     "%(org-read-date) %^{Payee} 
+                     "%(org-read-date) %^{Payee}
       expenses:%^{Expense category}       $ %^{Amount}
       assets:checking" :empty-lines 1 :immediate-finish t))))
     (setq ledger-post-amount-alignment-column 70)
@@ -2613,4 +2613,3 @@ I can query [[https://translate.google.com][Google translate]] from within Emacs
                            ("payee" "ledger -f %(ledger-file) reg @%(payee)")
                            ("account" "ledger -f %(ledger-file) reg %(account)"))))
 #+END_SRC
-
