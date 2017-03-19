@@ -1514,16 +1514,46 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally
     (add-to-list 'org-capture-templates
                  '("a" "Appointment" entry (file  "~/Dropbox/org/gcal.org")
                    "* %?\n  %^T"))
-    (defvar sync-calendar-timer nil)
+    (defvar sync-calendar-timer-delay nil)
     (defun sync-calendar-with-delay ()
       "Sync my google calendar after 60 second of inactive time.
   I combine this with run-with-timer to sync my google calendar every 15 minutes or so, depending on Emacs usage."
+      (when sync-calendar-timer-delay
+        (cancel-timer sync-calendar-timer-delay))
+      (setq sync-calendar-timer-delay
+            (run-with-idle-timer 60 nil #'org-gcal-fetch)))
+    ;; sync calendar every 15ish minutes:
+    (defvar sync-calendar-timer nil)
+    (defun my/sync-calendar-start ()
+      "Start syncing the google calendar."
+      (interactive)
       (when sync-calendar-timer
         (cancel-timer sync-calendar-timer))
       (setq sync-calendar-timer
-            (run-with-idle-timer 60 nil #'org-gcal-fetch)))
-    (add-hook 'after-init-hook
-              (lambda () (run-with-timer 0 (* 15 60) #'sync-calendar-with-delay)))
+            (run-with-timer 0 (* 15 60) #'sync-calendar-with-delay)))
+    (defun my/sync-calendar-stop ()
+      "Stop syncing the google calendar."
+      (interactive)
+      (when sync-calendar-timer
+        (progn
+          (setq sync-calendar-timer (cancel-timer sync-calendar-timer))
+          (setq sync-calendar-timer-delay (cancel-timer sync-calendar-timer-delay)))))
+    ;; Start syncing the calendar when making a new frame:
+    (add-hook 'after-make-frame-functions #'my/sync-calendar)
+    ;; Stop if I close the last frame:
+    (if (daemonp)
+        (progn
+          (defun my/stop-sync-if-last-frame (frame)
+            (when (eq 1 (cl-count-if
+                         (lambda (f)
+                           (eq
+                            (frame-parameter f 'display)
+                            (frame-parameter frame 'display)))
+                         (visible-frame-list)))
+              (my/sync-calendar-stop)))
+
+          (add-to-list 'delete-frame-functions #'my/stop-sync-if-last-frame)))
+
     ;; Stolen from spacemacs:
     (defun google-calendar/sync-cal-after-capture ()
       "Sync calendar after a event was added with org-capture.
