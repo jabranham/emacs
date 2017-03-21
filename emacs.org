@@ -1539,7 +1539,7 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally
           (setq sync-calendar-timer (cancel-timer sync-calendar-timer))
           (setq sync-calendar-timer-delay (cancel-timer sync-calendar-timer-delay)))))
     ;; Start syncing the calendar when making a new frame:
-    (add-hook 'after-make-frame-functions #'my/sync-calendar)
+    (add-hook 'after-make-frame-functions #'my/sync-calendar-start)
     ;; Stop if I close the last frame:
     (if (daemonp)
         (progn
