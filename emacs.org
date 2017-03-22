@@ -1229,6 +1229,7 @@ Not technically part of org, but I'll stick the calendar config here since I mai
     ;; built-in, :ensure t not necessary
     :config
     (calendar-set-date-style 'iso)
+    (setq calendar-week-start-day 1)
     (setq calendar-date-display-form calendar-iso-date-display-form))
 #+END_SRC
 
