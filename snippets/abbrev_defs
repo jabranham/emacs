@@ -158,6 +158,7 @@
 (define-abbrev-table 'global-abbrev-table
   '(
     ("arcipeligo" "archipelago" nil 0)
+    ("auxillary" "auxiliary" nil 0)
     ("convienent" "convenient" nil 0)
     ("criticise" "criticize" nil 0)
     ("educaiton" "education" nil 0)
@@ -184,7 +185,13 @@
 
 (define-abbrev-table 'gnus-article-mode-abbrev-table '())
 
+(define-abbrev-table 'gnus-browse-mode-abbrev-table '())
+
+(define-abbrev-table 'gnus-category-mode-abbrev-table '())
+
 (define-abbrev-table 'gnus-group-mode-abbrev-table '())
+
+(define-abbrev-table 'gnus-score-mode-abbrev-table '())
 
 (define-abbrev-table 'gnus-sticky-article-mode-abbrev-table '())
 
@@ -268,6 +275,8 @@
 
 (define-abbrev-table 'magit-status-mode-abbrev-table '())
 
+(define-abbrev-table 'magit-submodule-list-mode-abbrev-table '())
+
 (define-abbrev-table 'makefile-automake-mode-abbrev-table '())
 
 (define-abbrev-table 'makefile-bsdmake-mode-abbrev-table '())
@@ -313,6 +322,8 @@
 (define-abbrev-table 'pdf-occur-buffer-mode-abbrev-table '())
 
 (define-abbrev-table 'pdf-outline-buffer-mode-abbrev-table '())
+
+(define-abbrev-table 'perl-mode-abbrev-table '())
 
 (define-abbrev-table 'pike-mode-abbrev-table
   '(
