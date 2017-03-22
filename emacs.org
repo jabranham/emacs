@@ -1215,7 +1215,10 @@ Projectile makes using projects easier in emacs. It also plays well with helm, s
   #+END_SRC
   This is my default notes file:
 #+BEGIN_SRC emacs-lisp
+  (setq org-directory "~/Dropbox/org/")
   (setq org-default-notes-file (concat org-directory "todo.org"))
+  (defconst my/org-inbox (concat org-directory "refile.txt"))
+  (defconst my/org-notes (concat org-directory "notes.org"))
 #+END_SRC
 Finally, I rebind =C-c C-r= to look at my reference list globally (see org-ref below), which overrides the default binding of =org-reveal=. However, that command is quite useful, so let's bind it to =C-c r=:
 #+BEGIN_SRC emacs-lisp
@@ -1385,11 +1388,10 @@ Not technically part of org, but I'll stick the calendar config here since I mai
         ("s" . org-agenda-schedule) ; overrides saving all org buffers, also bound to C-x C-s
         ("x" . my/org-agenda-mark-done)) ; overrides org-exit
        :init
-       (setq org-directory "~/Dropbox/org/")
        ;; set up org agenda files for the agenda
-       (setq org-agenda-files (list (concat org-directory "todo.org")
-                                    (concat org-directory "notes.org")
-                                    (concat org-directory "refile.txt")))
+       (setq org-agenda-files (list org-default-notes-file
+                                    my/org-inbox
+                                    my/org-notes))
        ;; remove C-c [ from adding org file to front of agenda
        (unbind-key "C-c [" org-mode-map)
        :config
@@ -1456,15 +1458,15 @@ And now for the capture templates themselves. It's a bit complicated, but [[http
 #+BEGIN_SRC emacs-lisp
   (setq org-capture-templates
         (quote (
-                ("s" "store" entry (file (concat org-directory "refile.txt"))
+                ("s" "store" entry (file my/org-inbox)
                  "* TODO %?\n %a \n %i")
-                ("t" "task" entry (file (concat org-directory "refile.txt"))
+                ("t" "task" entry (file  my/org-inbox)
                  "* TODO %? \n %i")
-                ("n" "note" entry (file (concat org-directory "notes.org"))
+                ("n" "note" entry (file my/org-notes)
                  "* %?\n %i")
-                ("p" "Protocol" entry (file (concat org-directory "refile.txt"))
+                ("p" "Protocol" entry (file my/org-inbox)
                  "* TODO [[%:link][%:description]]\n%i" :immediate-finish t)
-                ("L" "Protocol Link" entry (file (concat org-directory "refile.txt"))
+                ("L" "Protocol Link" entry (file my/org-inbox)
                  "* TODO [[%:link][%:description]]" :immediate-finish t))))
 #+END_SRC
 
@@ -1520,7 +1522,7 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally
           (setq sync-calendar-timer (cancel-timer sync-calendar-timer))
           (setq sync-calendar-timer-delay (cancel-timer sync-calendar-timer-delay)))))
     ;; Start syncing the calendar when making a new frame:
-    (add-hook 'after-make-frame-functions #'my/sync-calendar-start)
+    (add-hook 'after-init-hook #'my/sync-calendar-start)
     ;; Stop if I close the last frame:
     (if (daemonp)
         (progn
@@ -2625,19 +2627,19 @@ I can query [[https://translate.google.com][Google translate]] from within Emacs
     (setq org-capture-templates
           (append org-capture-templates
                   '(("l" "Ledger entries")
-                    ("li" "income" plain (file "~/Dropbox/Finances/finances.ledger")
+                    ("li" "income" plain (file my/ledger-file)
                      "%(org-read-date) %^{From?}
       assets:checking       $ %^{Amount}
       income:salary" :empty-lines 1 :immediate-finish t)
-                    ("lc" "citi" plain (file "~/Dropbox/Finances/finances.ledger")
+                    ("lc" "citi" plain (file my/ledger-file)
                      "%(org-read-date) %^{Payee}
       expenses:%^{Expense category}       $ %^{Amount}
       liabilities:citi mastercard" :empty-lines 1 :immediate-finish t)
-                    ("lo" "capital one" plain (file "~/Dropbox/Finances/finances.ledger")
+                    ("lo" "capital one" plain (file my/ledger-file)
                      "%(org-read-date) %^{Payee}
       expenses:%^{Expense category}       SEK %^{Amount}
       liabilities:capital one credit" :empty-lines 1 :immediate-finish t)
-                    ("ld" "pay with checking" plain (file "~/Dropbox/Finances/finances.ledger")
+                    ("ld" "pay with checking" plain (file my/ledger-file)
                      "%(org-read-date) %^{Payee}
       expenses:%^{Expense category}       $ %^{Amount}
       assets:checking" :empty-lines 1 :immediate-finish t))))
