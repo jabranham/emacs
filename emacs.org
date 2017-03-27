@@ -68,6 +68,11 @@ Save a few misc files in the =.cache= directory:
   (setq nsm-settings-file (concat my/emacs-cache "network-security.data"))
 #+END_SRC
 
+We can pop the mark back to where it used to be with =C-u C-SPC=. This lets us keep popping by hitting =C-SPC=:
+#+BEGIN_SRC emacs-lisp
+  (setq set-mark-command-repeat-pop t)
+#+END_SRC
+
 ** Exec path from shell
 This ensures Emacs has the same PATH as the rest of my system:
 
