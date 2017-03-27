@@ -50,12 +50,6 @@ The [[https://github.com/jwiegley/use-package][use-package]] package, which I en
       (setq read-file-name-completion-ignore-case t)
     #+END_SRC
 
-    Delete my files by moving them to the trash. I'm human and occasionally delete things that I actually want later:
-
-    #+BEGIN_SRC emacs-lisp
-      (setq delete-by-moving-to-trash t)
-    #+END_SRC
-
 Finally, I set up a cache folder in my =.emacs.d= folder so that it's not quite as crowded:
 
 #+BEGIN_SRC emacs-lisp
