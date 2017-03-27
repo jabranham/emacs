@@ -2534,10 +2534,6 @@ I use [[https://github.com/skeeto/elfeed][elfeed]] to manage some RSS links:
       (elfeed-db-save)
       (quit-window))
     :config
-    ;; Emacs has a bug which causes it to use 100% CPU when some (large)
-    ;; images are loaded. Since some RSS feeds I follow have large gifs,
-    ;; this can be quite annoying. I'll just disable images in elfeed
-    ;; until this is fixed upstream:
     (setq elfeed-db-directory "~/Dropbox/.elfeed")
     ;; This lets me get the http links to entries with org-capture
     ;; easily.
