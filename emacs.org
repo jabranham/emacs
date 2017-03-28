@@ -2649,3 +2649,12 @@ I can query [[https://translate.google.com][Google translate]] from within Emacs
                            ("payee" "ledger -f %(ledger-file) reg @%(payee)")
                            ("account" "ledger -f %(ledger-file) reg %(account)"))))
 #+END_SRC
+* End
+This is the end of init. If we've arrived here it means that Emacs has started, so might as well get a notification about that:
+#+BEGIN_SRC emacs-lisp
+  (if (daemonp)
+      (alert "Emacs has started!"
+             :title "Emacs"
+             :style 'libnotify
+             :severity 'trivial))
+#+END_SRC
