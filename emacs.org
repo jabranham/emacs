@@ -1553,6 +1553,24 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally
       (message "org-gcal::%s - %s" title mes))
     (fset 'org-gcal--notify 'new/org-gcal--notify))
     #+END_SRC
+** Appt
+Technically, =appt.el= isn't a part of org mode.
+But I use it pretty much exclusively to notify me of upcoming org items I've scheduled, so may as well set it up here.
+#+BEGIN_SRC emacs-lisp
+  (use-package appt
+    ;; no need for :ensure t since appt.el is built into Emacs
+    :config
+    (appt-activate 1) ; activate appt
+    (run-with-timer 0 (* 17 60) #'org-agenda-to-appt); add agenda items to appt on startup and every 17 minutes:
+    (setq appt-display-interval appt-message-warning-time) ; don't notify more than once
+    (defun my/appt-display (time-til time msg)
+      (alert (concat msg " in " time-til " minutes")
+             :title "Appt"
+             :style 'libnotify))
+    (setq appt-disp-window-function #'my/appt-display)
+    (setq appt-delete-window-function (lambda () t)))
+#+END_SRC
+
 ** Pomodoro
 I can use =org-pomodoro= for a [[http://pomodorotechnique.com/][pomodoro]]. By default, it works in 25-minute work blocks and 5 minute breaks after. The fourth break is longer - 20 minutes by default.
 
