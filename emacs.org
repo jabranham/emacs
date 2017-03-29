@@ -73,6 +73,16 @@ We can pop the mark back to where it used to be with =C-u C-SPC=. This lets us k
   (setq set-mark-command-repeat-pop t)
 #+END_SRC
 
+** Alerts
+Set it up so Emacs can send system notifications:
+#+BEGIN_SRC emacs-lisp
+  (use-package alert
+    :ensure t
+    :config
+    (if (executable-find "notify-send")
+        (setq alert-default-style 'libnotify)))
+#+END_SRC
+
 ** Exec path from shell
 This ensures Emacs has the same PATH as the rest of my system:
 
@@ -1565,8 +1575,7 @@ But I use it pretty much exclusively to notify me of upcoming org items I've sch
     (setq appt-display-interval appt-message-warning-time) ; don't notify more than once
     (defun my/appt-display (time-til time msg)
       (alert (concat msg " in " time-til " minutes")
-             :title "Appt"
-             :style 'libnotify))
+             :title "Appt"))
     (setq appt-disp-window-function #'my/appt-display)
     (setq appt-delete-window-function (lambda () t)))
 #+END_SRC
@@ -1580,8 +1589,7 @@ I like to use system alerts, which are more visible than just sending it to Emac
   (use-package org-pomodoro
     :ensure t
     :commands (org-pomodoro)
-    :config
-    (setq alert-user-configuration (quote ((((:category . "org-pomodoro")) libnotify nil)))))
+    )
 #+END_SRC
 
 ** Better bullets
@@ -2501,7 +2509,6 @@ I autocommit a few files, like notes and todo:
   (use-package mu4e-alert
     :ensure t
     :config
-    (mu4e-alert-set-default-style 'libnotify)
     (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
     (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)
     (setq mu4e-alert-interesting-mail-query
