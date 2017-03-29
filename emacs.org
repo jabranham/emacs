@@ -2511,6 +2511,7 @@ I autocommit a few files, like notes and todo:
     :config
     (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
     (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)
+    (setq mu4e-alert-email-notification-types '(subjects))
     (setq mu4e-alert-interesting-mail-query
           (concat
            "flag:unread AND maildir:\"/utexas/INBOX\""
