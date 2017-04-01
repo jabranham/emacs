@@ -1557,7 +1557,6 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally
                  (capture-target-is-cal-file (member capture-target cal-files)))
         (org-gcal-refresh-token)
         (org-gcal-post-at-point)))
-    (add-hook 'org-capture-after-finalize-hook 'google-calendar/sync-cal-after-capture)
     ;; fix bug in org-cal--notify
     (defun new/org-gcal--notify (title mes)
       (message "org-gcal::%s - %s" title mes))
@@ -1571,8 +1570,13 @@ But I use it pretty much exclusively to notify me of upcoming org items I've sch
     ;; no need for :ensure t since appt.el is built into Emacs
     :config
     (appt-activate 1) ; activate appt
+    (defun my/org-agenda-to-appt ()
+      "Clear old appts and add appts from org agenda"
+      (interactive)
+      (setq appt-time-msg-list nil)
+      (org-agenda-to-appt))
     ;; update appt after building agenda:
-    (add-hook 'org-agenda-finalize-hook #'org-agenda-to-appt)
+    (add-hook 'org-agenda-finalize-hook #'my/org-agenda-to-appt)
     (setq appt-display-interval appt-message-warning-time) ; don't notify more than once
     (defun my/appt-display (time-til time msg)
       (alert (concat msg " in " time-til " minutes")
