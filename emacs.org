@@ -1571,7 +1571,8 @@ But I use it pretty much exclusively to notify me of upcoming org items I've sch
     ;; no need for :ensure t since appt.el is built into Emacs
     :config
     (appt-activate 1) ; activate appt
-    (run-with-timer 0 (* 17 60) #'org-agenda-to-appt); add agenda items to appt on startup and every 17 minutes:
+    ;; update appt after building agenda:
+    (add-hook 'org-agenda-finalize-hook #'org-agenda-to-appt)
     (setq appt-display-interval appt-message-warning-time) ; don't notify more than once
     (defun my/appt-display (time-til time msg)
       (alert (concat msg " in " time-til " minutes")
