@@ -2326,6 +2326,11 @@ I autocommit a few files, like notes and todo:
                                        ("/utexas/[Gmail]/.Sent Mail"   . ?s)
                                        ("/utexas/[Gmail]/.All Mail" . ?a)
                                        ("/gmail/INBOX" . ?g)))
+       (add-to-list 'mu4e-bookmarks
+                    (make-mu4e-bookmark
+                     :name "All Inboxes"
+                     :query "maildir:/gmail/INBOX OR maildir:/utexas/INBOX OR maildir:/gu/INBOX"
+                     :key ?i))
        ;; don't ask me to quit, just quit
        (setq mu4e-confirm-quit nil)
        (setq mail-user-agent 'mu4e-user-agent)
