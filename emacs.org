@@ -879,7 +879,7 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
          :config
          (setq company-statistics-file
                (concat my/emacs-cache "company-statistics-cache.el"))
-         (company-statistics-mode))
+         (add-hook 'company-mode-hook #'company-statistics-mode))
        (use-package company-math
          :ensure t
          :config
