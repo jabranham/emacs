@@ -924,6 +924,10 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
        (setq yas-minor-mode-map (make-sparse-keymap))
        :config
        (push 'yas-hippie-try-expand hippie-expand-try-functions-list)
+       ;; If region selected, wrap snippet around it:
+       (setq yas-wrap-around-region t)
+       ;; If competing snippets, use completing-read (helm) to select:
+       (setq yas-prompt-functions '(yas-completing-prompt))
        (add-hook 'term-mode-hook (lambda () (yas-minor-mode -1)))
        (unbind-key "C-c &" yas-minor-mode-map)
        (yas-global-mode))
