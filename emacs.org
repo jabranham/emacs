@@ -1535,46 +1535,44 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally
     (add-to-list 'org-capture-templates
                  '("a" "Appointment" entry (file  "~/Dropbox/org/gcal.org")
                    "* %?\n  %^T"))
-    (defvar sync-calendar-timer-delay nil)
-    (defun sync-calendar-with-delay ()
-      "Sync my google calendar after 60 second of inactive time.
-  I combine this with run-with-timer to sync my google calendar every 15 minutes or so, depending on Emacs usage."
-      (when sync-calendar-timer-delay
-        (cancel-timer sync-calendar-timer-delay))
-      (setq sync-calendar-timer-delay
-            (run-with-idle-timer 60 nil #'org-gcal-fetch)))
-    ;; sync calendar every 15ish minutes:
-    (defvar sync-calendar-timer nil)
+    ;; Refresh calendars via org-gcal and automatically create appt-reminders.
+    ;; Appt will be refreshed any time an org file is saved after 10 seconds of idle.
+    ;; gcal will be synced after 1 minute of idle every 15 minutes.
+    ;; Start with `(my/sync-calendar-start)'
+    (defvar my/refresh-appt-timer nil
+      "Timer that `my/refresh-appt-with-delay' uses to reschedule itself, or nil.")
+    (defun my/refresh-appt-with-delay ()
+      (when my/refresh-appt-timer
+        (cancel-timer my/refresh-appt-timer))
+      (setq my/refresh-appt-timer
+            (run-with-idle-timer
+             10 nil
+             (lambda ()
+               (setq appt-time-msg-list nil)
+               (org-agenda-to-appt)
+               (message nil)))))
+
+    (defvar my/sync-calendar-timer nil
+      "Timer that `my/sync-calendar-with-delay' uses to reschedule itself, or nil.")
+    (defun my/sync-calendar-with-delay ()
+      (when my/sync-calendar-timer
+        (cancel-timer my/sync-calendar-timer))
+      (setq my/sync-calendar-timer
+            (run-with-idle-timer
+             60 nil
+             'org-gcal-fetch)))
+
     (defun my/sync-calendar-start ()
-      "Start syncing the google calendar."
-      (interactive)
-      (when sync-calendar-timer
-        (cancel-timer sync-calendar-timer))
-      (setq sync-calendar-timer
-            (run-with-timer 0 (* 15 60) #'sync-calendar-with-delay)))
-    (defun my/sync-calendar-stop ()
-      "Stop syncing the google calendar."
-      (interactive)
-      (when sync-calendar-timer
-        (progn
-          (setq sync-calendar-timer (cancel-timer sync-calendar-timer))
-          (setq sync-calendar-timer-delay (cancel-timer sync-calendar-timer-delay)))))
-    ;; Start syncing the calendar when making a new frame:
+      (add-hook 'after-save-hook
+                (lambda ()
+                  (when (eq major-mode 'org-mode)
+                    (my/refresh-appt-with-delay))))
+
+      (run-with-timer
+       0 (* 15 60)
+       'my/sync-calendar-with-delay))
+    ;; Start syncing when Emacs starts:
     (add-hook 'after-init-hook #'my/sync-calendar-start)
-    ;; Stop if I close the last frame:
-    (if (daemonp)
-        (progn
-          (defun my/stop-sync-if-last-frame (frame)
-            (when (eq 1 (cl-count-if
-                         (lambda (f)
-                           (eq
-                            (frame-parameter f 'display)
-                            (frame-parameter frame 'display)))
-                         (visible-frame-list)))
-              (my/sync-calendar-stop)))
-
-          (add-to-list 'delete-frame-functions #'my/stop-sync-if-last-frame)))
-
     ;; Stolen from spacemacs:
     (defun google-calendar/sync-cal-after-capture ()
       "Sync calendar after a event was added with org-capture.
@@ -1599,13 +1597,6 @@ But I use it pretty much exclusively to notify me of upcoming org items I've sch
     ;; no need for :ensure t since appt.el is built into Emacs
     :config
     (appt-activate 1) ; activate appt
-    (defun my/org-agenda-to-appt ()
-      "Clear old appts and add appts from org agenda"
-      (interactive)
-      (setq appt-time-msg-list nil)
-      (org-agenda-to-appt))
-    ;; update appt after building agenda:
-    (add-hook 'org-agenda-finalize-hook #'my/org-agenda-to-appt)
     (setq appt-display-interval appt-message-warning-time) ; don't notify more than once
     (defun my/appt-display (time-til time msg)
       (alert (concat msg " in " time-til " minutes")
