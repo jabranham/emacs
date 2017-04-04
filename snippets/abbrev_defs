@@ -157,6 +157,7 @@
 
 (define-abbrev-table 'global-abbrev-table
   '(
+    ("accurary" "accuracy" nil 0)
     ("arcipeligo" "archipelago" nil 0)
     ("auxillary" "auxiliary" nil 0)
     ("convienent" "convenient" nil 0)
@@ -169,6 +170,7 @@
     ("expidited" "expedited" nil 0)
     ("explicitely" "explicitly" nil 0)
     ("familarity" "familiarity" nil 0)
+    ("forcasting" "forecasting" nil 0)
     ("htis" "this" nil 0)
     ("intrepretation" "interpretation" nil 0)
     ("magniture" "magnitude" nil 0)
