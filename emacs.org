@@ -1438,6 +1438,9 @@ Not technically part of org, but I'll stick the calendar config here since I mai
        :config
        (setq org-agenda-skip-deadline-if-done t ; remove done deadlines from agenda
              org-agenda-skip-scheduled-if-done t ; remove done scheduled from agenda
+             ;; don't show scheduled if the deadline is visible unless it's
+             ;; also scheduled for today:
+             org-agenda-skip-scheduled-if-deadline-is-shown 'not-today
              org-deadline-warning-days 3) ; warn me 3 days before a deadline
        (setq org-agenda-window-setup 'current-window ; use current window for agenda
              ;; restore previous config after I'm done
