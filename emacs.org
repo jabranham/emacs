@@ -2682,6 +2682,9 @@ I can query [[https://translate.google.com][Google translate]] from within Emacs
       (interactive)
       (find-file my/ledger-file))
     :config
+    ;; disable company mode in ledger mode because ledger-mode comes
+    ;; with a great completion engine (magic TAB):
+    (add-hook 'ledger-mode-hook (lambda () (company-mode -1)))
     (setq org-capture-templates
           (append org-capture-templates
                   '(("l" "Ledger entries")
