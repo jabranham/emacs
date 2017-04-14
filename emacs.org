@@ -1357,6 +1357,9 @@ Not technically part of org, but I'll stick the calendar config here since I mai
          "* TODO %y - %t\n :PROPERTIES:\n  :Custom_ID: %k\n  :AUTHOR: %9a\n  :JOURNAL: %j\n  :YEAR: %y\n  :VOLUME: %v\n  :PAGES: %p\n  :DOI: %D\n  :URL: %U\n :END:\n")
        (setq org-ref-note-title-format my/notes-template)
 
+       ;; Cleanup nil entries from articles. I wrote this function and got a PR accepted! :-)
+       (add-hook 'org-ref-clean-bibtex-entry-hook #'orcb-clean-nil-opinionated t)
+
        ;; Org-ref-bibtex is a package (contained in org-ref, so no need for
        ;; an =:ensure t=) that helps me manage my bib file(s). I add the
        ;; my/fix-journal-name function to always put in the full name of
