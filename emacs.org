@@ -1523,6 +1523,22 @@ And now for the capture templates themselves. It's a bit complicated, but [[http
      (setq org-refile-use-outline-path t)
      (setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
    #+END_SRC
+** Appt
+Technically, =appt.el= isn't a part of org mode.
+But I use it pretty much exclusively to notify me of upcoming org items I've scheduled, so may as well set it up here.
+#+BEGIN_SRC emacs-lisp
+  (use-package appt
+    ;; no need for :ensure t since appt.el is built into Emacs
+    :demand t
+    :config
+    (appt-activate 1) ; activate appt
+    (setq appt-display-interval appt-message-warning-time) ; don't notify more than once
+    (defun my/appt-display (time-til time msg)
+      (alert (concat msg " in " time-til " minutes")
+             :title "Appt"))
+    (setq appt-disp-window-function #'my/appt-display)
+    (setq appt-delete-window-function (lambda () t)))
+#+END_SRC
 
 ** org-gcal
 I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally) sync with google calendar. Lots of ideas taken from [[https://cestlaz.github.io/posts/using-emacs-26-gcal/#.WG52MOtj0wE.reddit][here]].
@@ -1595,21 +1611,6 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally
       (message "org-gcal::%s - %s" title mes))
     (fset 'org-gcal--notify 'new/org-gcal--notify))
     #+END_SRC
-** Appt
-Technically, =appt.el= isn't a part of org mode.
-But I use it pretty much exclusively to notify me of upcoming org items I've scheduled, so may as well set it up here.
-#+BEGIN_SRC emacs-lisp
-  (use-package appt
-    ;; no need for :ensure t since appt.el is built into Emacs
-    :config
-    (appt-activate 1) ; activate appt
-    (setq appt-display-interval appt-message-warning-time) ; don't notify more than once
-    (defun my/appt-display (time-til time msg)
-      (alert (concat msg " in " time-til " minutes")
-             :title "Appt"))
-    (setq appt-disp-window-function #'my/appt-display)
-    (setq appt-delete-window-function (lambda () t)))
-#+END_SRC
 
 ** Pomodoro
 I can use =org-pomodoro= for a [[http://pomodorotechnique.com/][pomodoro]]. By default, it works in 25-minute work blocks and 5 minute breaks after. The fourth break is longer - 20 minutes by default.
