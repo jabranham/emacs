@@ -248,6 +248,7 @@ Rainbow-mode makes it so that for example #0000ff is displayed in white with a b
    Emacs can act as your file finder/explorer. Dired is the built-in way to do this.
 
    #+BEGIN_SRC emacs-lisp
+     (bind-key "C-x C-d" #'dired) ; overrides list-directory, which I never use
      (dired-async-mode) ; do dired actions asynchronously
      ;; For whatever reason, the default for this *doesn't* log it to
      ;; *Messages*. Instead, it just displays the notification in the mode
