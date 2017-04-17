@@ -317,14 +317,6 @@ By default, dired asks you if you want to delete the dired buffer if you delete 
   (advice-add #'vc-git-mode-line-string :around #'my-vc-git-mode-line-string)
 #+END_SRC
 
-*** Mode icons
-I can make the modeline a little fancier by using icons like the [[http://orgmode.org/img/org-mode-unicorn-logo.png][org mode icon]] rather than text like "Org":
-#+BEGIN_SRC emacs-lisp
-  (use-package mode-icons
-    :ensure t
-    :config
-    (mode-icons-mode))
-#+END_SRC
 ** Which-key
    [[https://github.com/justbur/emacs-which-key][Which key]] shows key bindings for incomplete commands (prefixes).
 
