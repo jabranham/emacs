@@ -2094,6 +2094,7 @@ Flyspell checks for spelling on the fly. I use aspell instead of ispell because 
 * Version control
   #+BEGIN_SRC emacs-lisp
     (setq vc-make-backup-files t)
+    (setq vc-follow-symlinks t) ; don't ask to follow symlinks
   #+END_SRC
 ** Diff highlights
 
