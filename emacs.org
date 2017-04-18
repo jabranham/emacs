@@ -2378,6 +2378,8 @@ I autocommit a few files, like notes and todo:
        (setq message-citation-line-format "On %a %d %b %Y at %R, %f wrote:\n")
        ;; choose to use the formatted string
        (setq message-citation-line-function 'message-insert-formatted-citation-line)
+       ;; disable visual-line-mode in mu4e-headers (one line should be one email)
+       (add-hook 'mu4e-headers-mode-hook (lambda () (visual-line-mode -1)))
        (add-hook 'mu4e-view-mode-hook #'visual-line-mode)
        ;; turn off autofill mode in mu4e compose
        (defun autofill-off-visual-on ()
