@@ -1413,6 +1413,7 @@ Not technically part of org, but I'll stick the calendar config here since I mai
        :init
        ;; set up org agenda files for the agenda
        (setq org-agenda-files '("~/Dropbox/org"))
+       (add-to-list 'org-agenda-files "~/Dropbox/org/refile.txt" t)
        ;; remove C-c [ from adding org file to front of agenda
        (unbind-key "C-c [" org-mode-map)
        :config
