@@ -440,22 +440,12 @@ And then I can setup a nice transpose keymap. Note that transpose-words is also 
        :ensure t
        :if (executable-find "pass")
        :demand t
-       :commands (password-store-copy password-store-edit password-store-generate)
-       :bind
-       ("M-s p" . hydra-password-store/body)
        :config
        (setq password-store-password-length 20)
-       (with-eval-after-load "hydra"
-         (defhydra hydra-password-store ()
-           "
-     _c_: copy,      _e_: edit,   _n_: new
-     _F_: pull,      _p_: push
-     "
-           ("F" (lambda () (interactive) (async-shell-command "pass git pull")))
-           ("p" (lambda () (interactive) (async-shell-command "pass git push")))
-           ("c" password-store-copy :exit t)
-           ("e" password-store-edit :exit t)
-           ("n" password-store-generate :exit t))))
+       (with-eval-after-load "helm" ; wait to load until helm is loaded
+         (use-package helm-pass
+           :load-path "~/code/helm-pass"
+           :bind ("M-s p" . helm-pass))))
    #+END_SRC
 ** Try
    This package lets me try out other packages before installing them by installing them to tmp:
