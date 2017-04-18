@@ -2117,7 +2117,6 @@ Magit is better than the command line for git. I don't modify much. I just bind 
        :bind
        ("C-x g" . magit-status)
        :config
-       (setq magit-push-always-verify nil)
        (setq magit-diff-refine-hunk 'all) ; get highlighted word diffs
        (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1))
    #+END_SRC
