@@ -312,7 +312,7 @@ By default, dired asks you if you want to delete the dired buffer if you delete 
   (defun my-vc-git-mode-line-string (orig-fn &rest args)
     "Replace Git in modeline with font-awesome git icon via ORIG-FN and ARGS."
     (let ((str (apply orig-fn args)))
-      (concat [#xF126] ":" (substring-no-properties str 4))))
+      (concat [#xF126] " " (substring-no-properties str 4))))
 
   (advice-add #'vc-git-mode-line-string :around #'my-vc-git-mode-line-string)
 #+END_SRC
