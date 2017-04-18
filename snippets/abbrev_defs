@@ -91,6 +91,8 @@
 
 (define-abbrev-table 'csv-mode-abbrev-table '())
 
+(define-abbrev-table 'dcl-mode-abbrev-table '())
+
 (define-abbrev-table 'debugger-mode-abbrev-table '())
 
 (define-abbrev-table 'diary-fancy-display-mode-abbrev-table '())
@@ -166,6 +168,7 @@
     ("discrepency" "discrepancy" nil 0)
     ("educaiton" "education" nil 0)
     ("emperical" "empirical" nil 0)
+    ("entirally" "entirely" nil 0)
     ("equivilently" "equivalently" nil 0)
     ("excpetion" "exception" nil 0)
     ("expidited" "expedited" nil 0)
@@ -185,7 +188,7 @@
     ("sincerally" "sincerely" nil 0)
     ("taht" "that" nil 0)
     ("teh" "the" nil 1)
-    ("tihs" "this" nil 2)
+    ("tihs" "this" nil 3)
     ("travelling" "traveling" nil 0)
     ("ubt" "but" nil 0)
    ))
