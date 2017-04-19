@@ -2003,6 +2003,8 @@ I end sentences with a single space.
       ;; (push "\\.fls" LaTeX-clean-intermediate-suffixes)
       ;; (push "\\.synctex.gz" LaTeX-clean-intermediate-suffixes)
       (setq TeX-clean-confirm nil)
+      ;; revert pdf from file after compilation finishes
+      (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
       )
   #+END_SRC
 
