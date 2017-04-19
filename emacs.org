@@ -198,16 +198,14 @@ Rainbow-mode makes it so that for example #0000ff is displayed in white with a b
    I'm not good at keeping track of parentheses. This makes me slightly better at it. It also keeps track of other things that should "match" like {}, [], "", ``'' (in latex mode), etc.
 
    #+BEGIN_SRC emacs-lisp
-     (use-package smartparens
-       :ensure t
+     (use-package smartparens-config
+       :ensure smartparens
        :diminish smartparens-mode
        :commands (smartparens-global-strict-mode)
        :bind
        ("C-M-a" . sp-beginning-of-sexp)
        ("C-M-e" . sp-end-of-sexp)
        ("M-]" . sp-unwrap-sexp) ; C-M-SPC is bound to mark-sexp
-       :init
-       (require 'smartparens-config)
        :config
        (setq sp-show-pair-from-inside t)
        ;; Org-mode
