@@ -1683,6 +1683,7 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
           eshell-ls-initial-args "-lah"
           ;; treat 'echo' like shell echo
           eshell-plain-echo-behavior t)
+    (setq eshell-scroll-to-bottom-on-input 'this)
    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
    ;; Aliases
    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
