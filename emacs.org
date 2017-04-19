@@ -1393,7 +1393,9 @@ Not technically part of org, but I'll stick the calendar config here since I mai
 
        (add-hook 'org-ref-clean-bibtex-entry-hook #'my/fix-journal-name)
 
-       (use-package doi-utils)
+       (use-package doi-utils
+         :config
+         (setq doi-utils-open-pdf-after-download t))
        (use-package org-ref-isbn)
        (use-package org-ref-latex)
        ) ; ends use-package org-ref
