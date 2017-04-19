@@ -1683,6 +1683,14 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
           eshell-ls-initial-args "-lah"
           ;; treat 'echo' like shell echo
           eshell-plain-echo-behavior t)
+   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   ;; Aliases
+   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    (eshell/alias "q" "eshell-life-is-too-much")
+    (defun eshell/restart-emacs ()
+      "Restart Emacs using systemd."
+      (insert "systemctl --user restart emacs")
+      (eshell-send-input))
     ;; for whatever reason, I can't seem to bind these keys with the
     ;; normal :bind mechanism use-package provides. Here's a wonky
     ;; workaround.
