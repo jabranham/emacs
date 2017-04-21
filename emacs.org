@@ -1687,7 +1687,6 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
    ;; Aliases
    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    (eshell/alias "q" "eshell-life-is-too-much")
     (defun eshell/restart-emacs ()
       "Restart Emacs using systemd."
       (insert "systemctl --user restart emacs")
