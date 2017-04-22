@@ -1412,8 +1412,9 @@ Not technically part of org, but I'll stick the calendar config here since I mai
         ("x" . my/org-agenda-mark-done)) ; overrides org-exit
        :init
        ;; set up org agenda files for the agenda
-       (setq org-agenda-files '("~/Dropbox/org"))
-       (add-to-list 'org-agenda-files "~/Dropbox/org/refile.txt" t)
+       (setq org-agenda-files (list org-default-notes-file
+                                    my/org-inbox
+                                    my/org-notes))
        ;; remove C-c [ from adding org file to front of agenda
        (unbind-key "C-c [" org-mode-map)
        :config
@@ -1533,6 +1534,7 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally
     (setq org-gcal-client-id (password-store--run "emacs/emacs-gcal-client-id")
 	  org-gcal-client-secret (password-store--run "emacs/emacs-gcal-client-secret")
 	  org-gcal-file-alist '(("alex.branham@gmail.com" .  "~/Dropbox/org/gcal.org")))
+    (add-to-list 'org-agenda-files (concat org-directory "gcal.org") t)
     ;; I can add to google-calendar with org-capture
     (add-to-list 'org-capture-templates
                  '("a" "Appointment" entry (file  "~/Dropbox/org/gcal.org")
