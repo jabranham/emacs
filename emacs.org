@@ -242,19 +242,28 @@ Rainbow-mode makes it so that for example #0000ff is displayed in white with a b
          (setq TeX-view-program-list '(("pdf-tools" "TeX-pdf-tools-sync-view")))))
    #+END_SRC
 
+** Async
+Async is written to let things be more async-y in Emacs. I use it for dired-async mode mostly.
+#+BEGIN_SRC emacs-lisp
+  (use-package async
+    :ensure t
+    :config
+    (setq dired-async-message-function
+          ;; For whatever reason, the default for this *doesn't* log it to
+          ;; *Messages*. Instead, it just displays the notification in the mode
+          ;; line for 3 seconds, but if you type something it immediately goes
+          ;; away. So just log it to *Messages* like a sane person instead:
+          (lambda (text face &rest args)
+            (message (format "Finished %s" (apply #'format text args)))))
+    ;; do dired actions asynchronously
+    (dired-async-mode))
+#+END_SRC
+
 ** File finder (Dired)
    Emacs can act as your file finder/explorer. Dired is the built-in way to do this.
 
    #+BEGIN_SRC emacs-lisp
      (bind-key "C-x C-d" #'dired) ; overrides list-directory, which I never use
-     (dired-async-mode) ; do dired actions asynchronously
-     ;; For whatever reason, the default for this *doesn't* log it to
-     ;; *Messages*. Instead, it just displays the notification in the mode
-     ;; line for 3 seconds, but if you type something it immediately goes
-     ;; away. So just log it to *Messages* like a sane person instead:
-     (setq dired-async-message-function
-           (lambda (text face &rest args)
-             (message (format "Finished %s" (apply #'format text args)))))
      (setq dired-auto-revert-buffer t)
      (setq dired-dwim-target t)
      (setq dired-recursive-copies (quote always))
