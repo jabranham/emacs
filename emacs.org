@@ -462,6 +462,9 @@ And then I can setup a nice transpose keymap. Note that transpose-words is also 
        :ensure t
        :if (executable-find "pass")
        :demand t
+       :init
+       (use-package auth-password-store
+         :ensure t)
        :config
        (setq password-store-password-length 20)
        (with-eval-after-load "helm" ; wait to load until helm is loaded
