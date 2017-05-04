@@ -454,6 +454,12 @@ And then I can setup a nice transpose keymap. Note that transpose-words is also 
        (popwin-mode 1))
    #+END_SRC
 
+** Encryption
+#+BEGIN_SRC emacs-lisp
+  (use-package epa
+    :config
+    (setq epa-pinentry-mode 'loopback))
+#+END_SRC
 ** Passwords
    I use [[https://www.passwordstore.org/][pass]] to manage all my passwords and login info. This lets me easily access it from within emacs:
 
