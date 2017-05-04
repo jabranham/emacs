@@ -2695,6 +2695,9 @@ I can query [[https://translate.google.com][Google translate]] from within Emacs
     :if (executable-find "ledger")
     :mode ("\\.ledger$" . ledger-mode)
     :demand t ; so that the capture templates get loaded
+    :bind
+    (:map ledger-mode-map
+          ("C-c r" . ledger-reconcile))
     :init
     (defvar my/ledger-file
       (expand-file-name "~/Dropbox/Finances/finances.ledger")
