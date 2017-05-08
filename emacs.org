@@ -1563,17 +1563,6 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally
        'my/sync-calendar-with-delay))
     ;; Start syncing when Emacs starts:
     (add-hook 'after-init-hook #'my/sync-calendar-start)
-    ;; Stolen from spacemacs:
-    (defun google-calendar/sync-cal-after-capture ()
-      "Sync calendar after a event was added with org-capture.
-  The function can be run automatically with the 'org-capture-after-finalize-hook'."
-      (when-let ((cal-files (mapcar 'f-expand (mapcar 'cdr org-gcal-file-alist)))
-                 (capture-target (f-expand (car (cdr (org-capture-get :target)))))
-                 (cal-file-exists (and (mapcar 'f-file? cal-files)))
-                 (capture-target-isfile (eq (car (org-capture-get :target)) 'file))
-                 (capture-target-is-cal-file (member capture-target cal-files)))
-        (org-gcal-refresh-token)
-        (org-gcal-post-at-point)))
     ;; fix bug in org-cal--notify
     (defun new/org-gcal--notify (title mes)
       (message "org-gcal::%s - %s" title mes))
