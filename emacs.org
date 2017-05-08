@@ -761,31 +761,6 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
                   ("S-C-<down>" . shrink-window)
                   ("S-C-<up>" . enlarge-window))
      #+END_SRC
-*** Move around quickly
-    You can ~C-n~ and whatnot to go by line, but sometimes I want to move a bit more quickly than that. Using ~C-S-n~ will now let me:
-
-    #+BEGIN_SRC emacs-lisp
-      (bind-key "C-S-n"
-                (lambda ()
-                  (interactive)
-                  (ignore-errors (next-line 5))))
-
-      (bind-key "C-S-p"
-                (lambda ()
-                  (interactive)
-                  (ignore-errors (previous-line 5))))
-
-      (bind-key "C-S-f"
-                (lambda ()
-                  (interactive)
-                  (ignore-errors (forward-char 5))))
-
-      (bind-key "C-S-b"
-                (lambda ()
-                  (interactive)
-                  (ignore-errors (backward-char 5))))
-    #+END_SRC
-
 *** Start maximized
     #+BEGIN_SRC emacs-lisp
       (add-to-list 'default-frame-alist '(fullscreen . maximized))
