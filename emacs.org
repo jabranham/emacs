@@ -1065,14 +1065,6 @@ This function ([[http://pragmaticemacs.com/emacs/insert-file-name/][credit]]) le
 
      (bind-key "<f11>" #'my/find-emacs-file)
    #+END_SRC
-** Update arch repos
-Use the fastest repo:
-
-#+BEGIN_SRC emacs-lisp
-  (defun update_arch_repos ()
-    "Update pacman mirrorlist to use the fastest 5 mirrors."
-    (async-shell-command "sudo reflector --sort rate --save /etc/pacman.d/mirrorlist -c 'United States' -f 5 -l 5"))
-#+END_SRC
 ** Narrowing
 Emacs has a great system to "narrow" a buffer to just a smaller bit. This is useful in a whole bunch of unexpected ways. For example, if a function will do something to a whole buffer but you only want to apply it to part, you can just narrow to that bit of the buffer. Or narrow just to one org subtree when you have a massive org document. The narrow commands are a bit confusing by default. This cleans them up a bit and makes it more intuitive to use. I got this from [[http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html][this post]] (modified a bit).
 #+BEGIN_SRC emacs-lisp
