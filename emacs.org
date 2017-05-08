@@ -593,6 +593,7 @@ Arch linux uses PKGBUILD files to describe built information for packages. This 
                   :prefix-map multi-cursors-map
                   ("l" . mc/edit-lines)
                   ("n" . mc/mark-next-like-this)
+                  ("p" . mc/mark-previous-like-this)
                   ("a" . mc/mark-all-like-this)))
    #+END_SRC
 ** Expand region
