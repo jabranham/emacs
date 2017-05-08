@@ -792,17 +792,6 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
       (setq-default indent-tabs-mode nil)
     #+END_SRC
 
-    Emacs "kills" and "yanks" instead of cutting and pasting. Using this, we can ~C-w~ and that will kill the active region (whatever you have selected). If you haven't selected anything, it'll kill the line it's on.
-    #+BEGIN_SRC emacs-lisp
-      ;; http://emacs-fu.blogspot.co.uk/2009/11/copying-lines-without-selecting-them.html
-      (defadvice kill-region (before slick-cut activate compile)
-        "When called interactively with no active region, kill a single line instead."
-        (interactive
-         (if mark-active (list (region-beginning) (region-end))
-           (list (line-beginning-position)
-                 (line-beginning-position 2)))))
-    #+END_SRC
-
     Because I'm lazy, I want to just type y or n instead of spelling out yes/no.
 
     #+BEGIN_SRC emacs-lisp
