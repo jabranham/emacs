@@ -200,7 +200,6 @@ Rainbow-mode makes it so that for example #0000ff is displayed in white with a b
    #+BEGIN_SRC emacs-lisp
      (use-package smartparens-config
        :ensure smartparens
-       :diminish smartparens-mode
        :commands (smartparens-global-strict-mode)
        :bind
        ("C-M-a" . sp-beginning-of-sexp)
@@ -330,7 +329,6 @@ By default, dired asks you if you want to delete the dired buffer if you delete 
    #+BEGIN_SRC emacs-lisp
      (use-package which-key
        :ensure t
-       :diminish which-key-mode
        :commands which-key-mode
        :config
        (which-key-mode))
@@ -416,7 +414,6 @@ And then I can setup a nice transpose keymap. Note that transpose-words is also 
    #+BEGIN_SRC emacs-lisp
      (use-package crux
        :ensure t
-       :diminish abbrev-mode
        :bind
        (("C-x i" . crux-ispell-word-then-abbrev)
         ("C-c e" . crux-sudo-edit)
@@ -493,7 +490,6 @@ And then I can setup a nice transpose keymap. Note that transpose-words is also 
    #+BEGIN_SRC emacs-lisp
      (use-package undo-tree
        :ensure t
-       :diminish undo-tree-mode
        :init
        (global-undo-tree-mode)
        :config
@@ -575,6 +571,7 @@ Arch linux uses PKGBUILD files to describe built information for packages. This 
 #+END_SRC
 *** systemd
 =systemd= keeps track of daemons running and the like.
+This adds syntax highlighting for it (Emacs can do a decent job out-of-the box with =conf-mode=)
 #+BEGIN_SRC emacs-lisp
   (use-package systemd
     :ensure t)
@@ -834,7 +831,6 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
    #+BEGIN_SRC emacs-lisp
      (use-package company
        :ensure t
-       :diminish company-mode
        :bind
        (:map company-active-map
              ("C-s" . company-search-candidates)
@@ -913,7 +909,6 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
    #+BEGIN_SRC emacs-lisp
      (use-package yasnippet
        :ensure t
-       :diminish yas-minor-mode
        :after hippie-exp
        :init
        ;; disable yas minor mode map
@@ -1099,7 +1094,6 @@ Helm. A [[https://tuhdo.github.io/helm-intro.html][package in a league of its ow
 #+BEGIN_SRC emacs-lisp
   (use-package helm
     :ensure t
-    :diminish helm-mode
     :bind
     (("M-x" . helm-M-x)
      ("C-x C-f" . helm-find-files)
@@ -1191,7 +1185,6 @@ Projectile makes using projects easier in emacs. It also plays well with helm, s
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
     :ensure t
-    :diminish projectile-mode
     :init
     (setq projectile-cache-file (concat my/emacs-cache "projectile.cache"))
     (setq projectile-known-projects-file (concat my/emacs-cache "projectile-bookmarks.eld"))
@@ -1459,7 +1452,7 @@ Org-eww lets me capture eww webpages with org-mode
 #+END_SRC
 
 *** Firefox
-This line is necessary for the [[https://addons.mozilla.org/en-US/firefox/addon/org-mode-capture/][org-mode capture]] extension for Firefox.
+This line is necessary for the [[https://addons.mozilla.org/en-US/firefox/addon/org-capture/][org capture]] extension for Firefox.
 
 #+BEGIN_SRC emacs-lisp
   (require 'org-protocol)
@@ -1733,7 +1726,6 @@ Use Emacs as the =$EDITOR= environmental variable:
     (use-package ess-site
       :ensure ess
       :pin melpa-stable
-      :diminish eldoc-mode
       :bind
       (:map ess-mode-map
             ("C-a" . crux-move-beginning-of-line)
@@ -1836,7 +1828,6 @@ Emacs can handle csv files with ease:
   #+BEGIN_SRC emacs-lisp
     (use-package flycheck ; checks for style and syntax
       :ensure t
-      :diminish flycheck-mode
       :config
       (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
       ;; I don't care if code is commented out in R:
@@ -2037,7 +2028,6 @@ You will need to change ~reftex-default-bibliography~ to wherever you keep your 
    #+BEGIN_SRC emacs-lisp
      (use-package cdlatex
        :ensure t
-       :diminish org-cdlatex-mode
        :config
        (progn
          (add-hook 'org-mode-hook 'org-cdlatex-mode)))
@@ -2070,7 +2060,6 @@ Flyspell checks for spelling on the fly. I use aspell instead of ispell because 
   #+BEGIN_SRC emacs-lisp
     (use-package flyspell
       :ensure t
-      :diminish flyspell-mode
       :config
       (setq ispell-program-name "aspell")
       (setq ispell-list-command "--list")
