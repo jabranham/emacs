@@ -362,7 +362,7 @@ This replaces =window-numbering= since =winum= can handle assigning numbers acro
    #+END_SRC
 
 ** Frame management
-
+Prompt me to save changed buffers if I'm closing the last frame (and Emacs is running as a daemon):
 #+BEGIN_SRC emacs-lisp
   (if (daemonp)
       (progn
