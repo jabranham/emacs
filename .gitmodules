@@ -1,3 +1,6 @@
 [submodule "pkg/helm-pass"]
 	path = pkg/helm-pass
 	url = git@github.com:jabranham/helm-pass.git
+[submodule "pkg/system-packages"]
+	path = pkg/system-packages
+	url = git@github.com:jabranham/system-packages.git
