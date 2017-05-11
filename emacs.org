@@ -1868,18 +1868,13 @@ I end sentences with a single space.
     (global-visual-line-mode)
   #+END_SRC
 
-  Now that I've turned on ~visual-line-mode~, I want it to respect indentation. This does so:
+  I like lines wrapping at around 70 characters. Fun nugget: the reason \LaTeX default margins look so huge isn't because the margins are too big. It's because [[https://www.johndcook.com/blog/2012/09/15/the-paper-is-too-big/][the paper is too big]].
 
-  #+BEGIN_SRC emacs-lisp
-    (use-package adaptive-wrap
-      :ensure t
-      :disabled t
-      :config
-      (when (fboundp 'adaptive-wrap-prefix-mode)
-        (defun my-activate-adaptive-wrap-prefix-mode ()
-          "Toggle `visual-line-mode' and `adaptive-wrap-prefix-mode' simultaneously."
-          (adaptive-wrap-prefix-mode (if visual-line-mode 1 -1)))
-        (add-hook 'visual-line-mode-hook #'my-activate-adaptive-wrap-prefix-mode)))
+#+BEGIN_SRC emacs-lisp
+  (use-package visual-fill-column
+    :ensure t
+    :config
+    (global-visual-fill-column-mode))
 #+END_SRC
 
   =fill-paragraph= is nice, but emacs weirdly lacks a convenient way to unfill paragraphs once they're filled. This command ([[http://endlessparentheses.com/fill-and-unfill-paragraphs-with-a-single-key.html][credit]]) fixes that.
