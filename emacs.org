@@ -122,7 +122,8 @@ Emacs' info manual is /amazing/. This makes it even better.
     :after info)
 #+END_SRC
 
-** Theme
+** Aesthetics
+*** Theme
    By default, emacs starts with a blindingly white theme. Let's get rid of that pronto.
    #+BEGIN_SRC emacs-lisp
      (use-package spacemacs-theme
@@ -143,6 +144,140 @@ Emacs' info manual is /amazing/. This makes it even better.
        (set-face-background 'magit-diff-hunk-heading-highlight "#5d4d7a")
        (set-face-attribute 'org-agenda-date-today nil :height 2.0))
    #+END_SRC
+*** Fonts
+Emacs was an editor originally designed for code, so it defaults to a fixed-width font for most things.
+It's perfectly capable of handling variable-pitch fonts, though.
+The built-in command =variable-pitch-mode= can do that for any buffer.
+However, I oftentimes work in a buffer (like this one) that mixes things that I'd prefer to be fixed-width (e.g. code) and variable width (this text).
+You can convince Emacs to use fixed-width for some faces and variable-width fonts for others, but you have to specify what faces should be what.
+Luckily, [[https://ogbe.net/emacsconfig.html][someone]] has already figured this out.
+I took their code and modified it slightly to work more like what I want:
+#+BEGIN_SRC emacs-lisp
+  (defvar serif-preserve-default-list nil
+    "A list holding the faces that preserve the default family and
+        height when TOGGLE-SERIF is used.")
+  (setq serif-preserve-default-list
+        '(;; org markup
+          org-block
+          org-code
+          org-latex-and-related
+          org-meta-line
+          org-verbatim
+          org-block-begin-line
+          ;; mail
+          message-header-name
+          message-header-to
+          message-header-cc
+          message-header-newsgroups
+          message-header-xheader
+          message-header-subject
+          message-header-other
+          mu4e-header-key-face
+          mu4e-header-value-face
+          mu4e-link-face
+          mu4e-contact-face
+          mu4e-compose-separator-face
+          mu4e-compose-header-face
+          ;; LaTeX markup
+          font-latex-math-face
+          font-latex-sedate-face
+          font-latex-warning-face
+          font-latex-sectioning-5-face
+          ;; syntax highlighting using font-lock
+          font-lock-builtin-face
+          font-lock-comment-delimiter-face
+          font-lock-comment-face
+          font-lock-constant-face
+          font-lock-doc-face
+          font-lock-function-name-face
+          font-lock-keyword-face
+          font-lock-negation-char-face
+          font-lock-preprocessor-face
+          font-lock-regexp-grouping-backslash
+          font-lock-regexp-grouping-construct
+          font-lock-string-face
+          font-lock-type-face
+          font-lock-variable-name-face
+          font-lock-warning-face))
+
+  (defun my/toggle-serif (&optional show-echo)
+    "Change the default face of the current buffer to use a serif family."
+    (interactive)
+    (when (display-graphic-p)  ;; this is only for graphical emacs
+      ;; the serif font familiy and height, save the default attributes
+      (let ((serif-fam "Ubuntu Serif")
+            (serif-height (round (* 1.2 (face-attribute 'default :height))))
+            (default-fam (face-attribute 'default :family))
+            (default-height (face-attribute 'default :height)))
+        (if (not (bound-and-true-p default-cookie))
+            (progn (make-local-variable 'default-cookie)
+                   (make-local-variable 'preserve-default-cookies-list)
+                   (setq preserve-default-cookies-list nil)
+                   ;; remap default face to serif
+                   (setq default-cookie
+                         (face-remap-add-relative
+                          'default :family serif-fam :height serif-height))
+                   ;; keep previously defined monospace fonts the same
+                   (dolist (face serif-preserve-default-list)
+                     (add-to-list 'preserve-default-cookies-list
+                                  (face-remap-add-relative
+                                   face :family default-fam :height default-height)))
+                   (setq cursor-type 'bar)
+                   (when show-echo (message "Turned on serif writing font.")))
+          ;; else undo changes
+          (progn (face-remap-remove-relative default-cookie)
+                 (dolist (cookie preserve-default-cookies-list)
+                   (face-remap-remove-relative cookie))
+                 (setq default-cookie nil)
+                 (setq preserve-default-cookies-list nil)
+                 (setq cursor-type t)
+                 (when show-echo (message "Restored default fonts.")))))))
+#+END_SRC
+
+Load the new function in text modes:
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'text-mode-hook #'my/toggle-serif)
+#+END_SRC
+
+*** Text wrapping
+
+Columns should wrap around 80ish characters. 70 is the default, which is just a tad too short I think:
+#+BEGIN_SRC emacs-lisp
+  (setq-default fill-column 80)
+#+END_SRC
+
+  Turn on visual line mode for nice line wrapping
+
+#+BEGIN_SRC emacs-lisp
+  (global-visual-line-mode)
+#+END_SRC
+
+I like lines wrapping at around 80 characters.
+Fun nugget: the reason \LaTeX default margins look so huge isn't because the margins are too big.
+It's because [[https://www.johndcook.com/blog/2012/09/15/the-paper-is-too-big/][the paper is too big]].
+
+#+BEGIN_SRC emacs-lisp
+  (use-package visual-fill-column
+    :ensure t
+    :config
+    (global-visual-fill-column-mode))
+#+END_SRC
+
+Define a mode that centers and fills the text:
+#+BEGIN_SRC emacs-lisp
+  (define-minor-mode my/center-and-fill-mode
+    "Center and fill the text for a nice visual effect." nil "C-F" nil
+    (progn
+      (setq visual-fill-column-center-text t)
+      (visual-line-mode)
+      (visual-fill-column-mode)))
+#+END_SRC
+
+Add hooks for that:
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'text-mode-hook #'my/center-and-fill-mode)
+#+END_SRC
+
 ** Highlight numbers
 I like to see numbers in code:
 #+BEGIN_SRC emacs-lisp
@@ -661,7 +796,54 @@ Use ssh by default:
 #+BEGIN_SRC emacs-lisp
   (push "QUOTING_STYLE=literal" tramp-remote-process-environment)
 #+END_SRC
+** Text Misc
+I end sentences with a single space.
 
+  #+BEGIN_SRC emacs-lisp
+    (setq sentence-end-double-space nil)
+  #+END_SRC
+
+  =fill-paragraph= is nice, but emacs weirdly lacks a convenient way to unfill paragraphs once they're filled. This command ([[http://endlessparentheses.com/fill-and-unfill-paragraphs-with-a-single-key.html][credit]]) fixes that.
+
+    #+BEGIN_SRC emacs-lisp
+      (defun endless/fill-or-unfill ()
+        "Like `fill-paragraph', but unfill if used twice."
+        (interactive)
+        (let ((fill-column
+               (if (eq last-command 'endless/fill-or-unfill)
+                   (progn (setq this-command nil)
+                          (point-max))
+                 fill-column)))
+          (call-interactively #'fill-paragraph)))
+
+      (bind-key [remap fill-paragraph] #'endless/fill-or-unfill)
+  #+END_SRC
+
+    Sometimes I type DOuble LEtters instead of Single Letter caps. This fixes that:
+  #+BEGIN_SRC emacs-lisp
+    (defun dcaps-to-scaps ()
+      "Convert word in DOuble CApitals to Single Capitals."
+      (interactive)
+      (and (= ?w (char-syntax (char-before)))
+           (save-excursion
+             (and (if (called-interactively-p)
+                      (skip-syntax-backward "w")
+                    (= -3 (skip-syntax-backward "w")))
+                  (let (case-fold-search)
+                    (looking-at "\\b[[:upper:]]\\{2\\}[[:lower:]]"))
+                  (capitalize-word 1)))))
+
+    (define-minor-mode dubcaps-mode
+      "Toggle `dubcaps-mode'.  Converts words in DOuble CApitals to
+    Single Capitals as you type."
+      :init-value nil
+      :lighter (" DC")
+      (if dubcaps-mode
+          (add-hook 'post-self-insert-hook #'dcaps-to-scaps nil 'local)
+        (remove-hook 'post-self-insert-hook #'dcaps-to-scaps 'local)))
+
+    (add-hook 'text-mode-hook #'dubcaps-mode)
+  #+END_SRC
 ** Miscellaneous
    Here are a bunch of things I want emacs to do (or not) but don't seem to fit in other sections.
 
@@ -1853,70 +2035,6 @@ Emacs can handle csv files with ease:
       :ensure t
       :config
       (ws-butler-global-mode))
-  #+END_SRC
-
-* Text Misc
-I end sentences with a single space.
-
-  #+BEGIN_SRC emacs-lisp
-    (setq sentence-end-double-space nil)
-  #+END_SRC
-
-  Turn on visual line mode for nice line wrapping
-
-  #+BEGIN_SRC emacs-lisp
-    (global-visual-line-mode)
-  #+END_SRC
-
-  I like lines wrapping at around 70 characters. Fun nugget: the reason \LaTeX default margins look so huge isn't because the margins are too big. It's because [[https://www.johndcook.com/blog/2012/09/15/the-paper-is-too-big/][the paper is too big]].
-
-#+BEGIN_SRC emacs-lisp
-  (use-package visual-fill-column
-    :ensure t
-    :config
-    (global-visual-fill-column-mode))
-#+END_SRC
-
-  =fill-paragraph= is nice, but emacs weirdly lacks a convenient way to unfill paragraphs once they're filled. This command ([[http://endlessparentheses.com/fill-and-unfill-paragraphs-with-a-single-key.html][credit]]) fixes that.
-
-    #+BEGIN_SRC emacs-lisp
-      (defun endless/fill-or-unfill ()
-        "Like `fill-paragraph', but unfill if used twice."
-        (interactive)
-        (let ((fill-column
-               (if (eq last-command 'endless/fill-or-unfill)
-                   (progn (setq this-command nil)
-                          (point-max))
-                 fill-column)))
-          (call-interactively #'fill-paragraph)))
-
-      (bind-key [remap fill-paragraph] #'endless/fill-or-unfill)
-  #+END_SRC
-
-
-  #+BEGIN_SRC emacs-lisp
-    (defun dcaps-to-scaps ()
-      "Convert word in DOuble CApitals to Single Capitals."
-      (interactive)
-      (and (= ?w (char-syntax (char-before)))
-           (save-excursion
-             (and (if (called-interactively-p)
-                      (skip-syntax-backward "w")
-                    (= -3 (skip-syntax-backward "w")))
-                  (let (case-fold-search)
-                    (looking-at "\\b[[:upper:]]\\{2\\}[[:lower:]]"))
-                  (capitalize-word 1)))))
-
-    (define-minor-mode dubcaps-mode
-      "Toggle `dubcaps-mode'.  Converts words in DOuble CApitals to
-    Single Capitals as you type."
-      :init-value nil
-      :lighter (" DC")
-      (if dubcaps-mode
-          (add-hook 'post-self-insert-hook #'dcaps-to-scaps nil 'local)
-        (remove-hook 'post-self-insert-hook #'dcaps-to-scaps 'local)))
-
-    (add-hook 'text-mode-hook #'dubcaps-mode)
   #+END_SRC
 
 * Markdown
