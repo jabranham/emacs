@@ -260,22 +260,7 @@ It's because [[https://www.johndcook.com/blog/2012/09/15/the-paper-is-too-big/][
   (use-package visual-fill-column
     :ensure t
     :config
-    (global-visual-fill-column-mode))
-#+END_SRC
-
-Define a mode that centers and fills the text:
-#+BEGIN_SRC emacs-lisp
-  (define-minor-mode my/center-and-fill-mode
-    "Center and fill the text for a nice visual effect." nil "C-F" nil
-    (progn
-      (setq visual-fill-column-center-text t)
-      (visual-line-mode)
-      (visual-fill-column-mode)))
-#+END_SRC
-
-Add hooks for that:
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'text-mode-hook #'my/center-and-fill-mode)
+    (add-hook 'text-mode-hook #'visual-fill-column-mode))
 #+END_SRC
 
 ** Highlight numbers
