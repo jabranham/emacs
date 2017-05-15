@@ -19,12 +19,6 @@ The [[https://github.com/jwiegley/use-package][use-package]] package, which I en
     (setq use-dialog-box nil) ; don't use popup boxes, just make the minibuffer ask
   #+END_SRC
 
-  I use ~desktop-clear~ to get rid of buffers and other things every now and then. Let's bind it to f12:
-
-  #+BEGIN_SRC emacs-lisp
-    (bind-key "<f12>" #'desktop-clear)
-  #+END_SRC
-
   C-x C-c is originally bound to kill emacs. I accidentally type this from time to time which is super-frustrating. Get rid of it:
 
   #+BEGIN_SRC emacs-lisp
