@@ -254,6 +254,8 @@ It's because [[https://www.johndcook.com/blog/2012/09/15/the-paper-is-too-big/][
   (use-package visual-fill-column
     :ensure t
     :config
+    (add-hook 'elfeed-show-mode-hook #'visual-fill-column-mode)
+    (add-hook 'mu4e-view-mode-hook #'visual-fill-column-mode)
     (add-hook 'text-mode-hook #'visual-fill-column-mode))
 #+END_SRC
 
