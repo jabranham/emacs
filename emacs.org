@@ -2225,8 +2225,9 @@ I autocommit a few files, like notes and todo:
   (use-package magithub
     :after magit
     :ensure t
-    :if (executable-find "hub")
-    :config (magithub-feature-autoinject t))
+    :config
+    (setq magithub-dir (concat my/emacs-cache "magithub"))
+    (magithub-feature-autoinject t))
     #+END_SRC
 
 **** Gists
