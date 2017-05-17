@@ -586,10 +586,10 @@ And then I can setup a nice transpose keymap. Note that transpose-words is also 
          :ensure t)
        :config
        (setq password-store-password-length 20)
-       (with-eval-after-load "helm" ; wait to load until helm is loaded
-         (use-package helm-pass
-           :load-path "pkg/helm-pass"
-           :bind ("M-s p" . helm-pass))))
+       (use-package helm-pass
+         :load-path "pkg/helm-pass"
+         :after 'helm
+         :bind ("M-s p" . helm-pass)))
    #+END_SRC
 ** Try
    This package lets me try out other packages before installing them by installing them to tmp:
