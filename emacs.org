@@ -19,6 +19,13 @@ The [[https://github.com/jwiegley/use-package][use-package]] package, which I en
     (setq use-dialog-box nil) ; don't use popup boxes, just make the minibuffer ask
   #+END_SRC
 
+Setup a personal keymap. I'll bind various things to this later on:
+#+BEGIN_SRC emacs-lisp
+  (bind-keys :prefix "<f1>"
+             :prefix-map my/map)
+#+END_SRC
+
+
   C-x C-c is originally bound to kill emacs. I accidentally type this from time to time which is super-frustrating. Get rid of it:
 
   #+BEGIN_SRC emacs-lisp
@@ -1221,7 +1228,7 @@ This function ([[http://pragmaticemacs.com/emacs/insert-file-name/][credit]]) le
        (interactive)
        (find-file (concat user-emacs-directory "emacs.org")))
 
-     (bind-key "<f11>" #'my/find-emacs-file)
+     (bind-key "e" #'my/find-emacs-file 'my/map)
    #+END_SRC
 ** Narrowing
 Emacs has a great system to "narrow" a buffer to just a smaller bit. This is useful in a whole bunch of unexpected ways. For example, if a function will do something to a whole buffer but you only want to apply it to part, you can just narrow to that bit of the buffer. Or narrow just to one org subtree when you have a massive org document. The narrow commands are a bit confusing by default. This cleans them up a bit and makes it more intuitive to use. I got this from [[http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html][this post]] (modified a bit).
@@ -1466,7 +1473,10 @@ Not technically part of org, but I'll stick the calendar config here since I mai
        :bind*
        (("C-c C-r" . org-ref-helm-insert-cite-link)
         :map bibtex-mode-map
-        ("C-c C-c" . org-ref-clean-bibtex-entry))
+        ("C-c C-c" . org-ref-clean-bibtex-entry)
+        :map my/map
+        ("r d" . doi-add-bibtex-entry)
+        ("r i" . isbn-to-bibtex))
        :init
        (setq org-ref-completion-library 'org-ref-helm-bibtex)
        (setq org-ref-bibliography-notes "~/Dropbox/bibliography/notes.org"
@@ -2273,8 +2283,7 @@ I autocommit a few files, like notes and todo:
      (use-package mu4e
        :if (executable-find "mu")
        :bind
-       (("<f1>" . my-mu4e-start)
-        ("C-x m" . mu4e-compose-new)
+       (("C-x m" . mu4e-compose-new)
         ("<f9>" . my/work-inbox)
         ("<f10>" . my/personal-inbox)
         ("<f8>" . my/gu-inbox)
@@ -2286,7 +2295,9 @@ I autocommit a few files, like notes and todo:
         ("<tab>" . shr-next-link)
         ("<backtab>" . shr-previous-link)
         :map mu4e-main-mode-map
-        ("q" . mu4e-quit-session))
+        ("q" . mu4e-quit-session)
+        :map my/map
+        ("m" . my-mu4e-start))
        :init
        (setq mu4e-maildir "~/.mail")
        ;; Start mu4e in fullscreen
@@ -2634,9 +2645,10 @@ I use [[https://github.com/skeeto/elfeed][elfeed]] to manage some RSS links:
   (use-package elfeed
     :ensure t
     :bind
-    (("<f7>" . bjm/elfeed-load-db-and-open)
-     :map elfeed-search-mode-map
-     ("q" . bjm/elfeed-save-db-and-bury))
+    (:map my/map
+          ("s" . bjm/elfeed-load-db-and-open)
+          :map elfeed-search-mode-map
+          ("q" . bjm/elfeed-save-db-and-bury))
     :init
     ;; thanks - http://pragmaticemacs.com/emacs/read-your-rss-feeds-in-emacs-with-elfeed/
     ;; though slightly modified
@@ -2729,7 +2741,9 @@ I can query [[https://translate.google.com][Google translate]] from within Emacs
     :demand t ; so that the capture templates get loaded
     :bind
     (:map ledger-mode-map
-          ("C-c r" . ledger-reconcile))
+          ("C-c r" . ledger-reconcile)
+          :map my/map
+          ("l" . my/ledger-file))
     :init
     (defvar my/ledger-file
       (expand-file-name "~/Dropbox/Finances/finances.ledger")
