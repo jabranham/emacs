@@ -159,8 +159,10 @@
 
 (define-abbrev-table 'global-abbrev-table
   '(
-    ("accurary" "accuracy" nil 0)
+    ("aacross" "across" nil 0)
+    ("accurary" "accuracy" nil 1)
     ("arcipeligo" "archipelago" nil 0)
+    ("artigicial" "artificial" nil 0)
     ("auxillary" "auxiliary" nil 0)
     ("committment" "commitment" nil 0)
     ("convienent" "convenient" nil 0)
@@ -177,9 +179,10 @@
     ("familarity" "familiarity" nil 0)
     ("forcasting" "forecasting" nil 0)
     ("gague" "gauge" nil 0)
-    ("hte" "the" nil 0)
+    ("hte" "the" nil 1)
     ("htis" "this" nil 0)
     ("ideosyncracies" "idiosyncrasies" nil 0)
+    ("imbalences" "imbalances" nil 0)
     ("incongruent" "congruent" nil 0)
     ("intrepretation" "interpretation" nil 0)
     ("inversly" "inversely" nil 0)
@@ -296,6 +299,8 @@
 
 (define-abbrev-table 'magit-submodule-list-mode-abbrev-table '())
 
+(define-abbrev-table 'magithub-issue-post-mode-abbrev-table '())
+
 (define-abbrev-table 'makefile-automake-mode-abbrev-table '())
 
 (define-abbrev-table 'makefile-bsdmake-mode-abbrev-table '())
@@ -359,6 +364,10 @@
 (define-abbrev-table 'process-menu-mode-abbrev-table '())
 
 (define-abbrev-table 'prog-mode-abbrev-table '())
+
+(define-abbrev-table 'ps-mode-abbrev-table '())
+
+(define-abbrev-table 'ps-run-mode-abbrev-table '())
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
