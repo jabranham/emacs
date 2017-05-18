@@ -1297,6 +1297,9 @@ Helm. A [[https://tuhdo.github.io/helm-intro.html][package in a league of its ow
    #+BEGIN_SRC emacs-lisp
      (use-package helm-bibtex
        :ensure t
+       :bind
+       (:map my/map
+             ("r b" . my/find-bib-file))
        :init
        ;; Set up how keys should look - authoryear
        (setq bibtex-autokey-titleword-length 0
@@ -1328,6 +1331,10 @@ Helm. A [[https://tuhdo.github.io/helm-intro.html][package in a league of its ow
                       do (setq ret (format "%s%c" key c)))
              ret)))
        :config
+       (defun my/find-bib-file ()
+         "Find my main bib file."
+         (interactive)
+         (find-file bibtex-completion-bibliography))
        (setq bibtex-completion-bibliography "~/Dropbox/bibliography/references.bib"
              bibtex-completion-library-path "~/Dropbox/bibliography/bibtex-pdfs"
              bibtex-completion-notes-path "~/Dropbox/bibliography/notes.org"
