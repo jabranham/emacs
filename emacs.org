@@ -1341,6 +1341,7 @@ Helm. A [[https://tuhdo.github.io/helm-intro.html][package in a league of its ow
              bibtex-completion-notes-template-one-file
              "\n* TODO ${year} - ${title}\n  :PROPERTIES:\n  :Custom_ID: ${=key=}\n  :AUTHOR: ${author}\n  :JOURNAL: ${journal}\n  :YEAR: ${year}\n  :VOLUME: ${volume}\n  :PAGES: ${pages}\n  :DOI: ${doi}\n  :URL: ${url}\n :END:\n"
              )
+       (setq bibtex-completion-cite-default-command 'autocite)
        (setq bibtex-completion-cite-commands '("autocite" "textcite" "citep" "citet" "citeauthor" "citeyear" "Citep" "Citet")))
    #+END_SRC
 
