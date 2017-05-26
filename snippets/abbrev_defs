@@ -191,6 +191,7 @@
     ("multipled" "multiplied" nil 0)
     ("occured" "occurred" nil 0)
     ("partisanshpi" "partisanship" nil 0)
+    ("phenomina" "phenomena" nil 0)
     ("prominance" "prominence" nil 0)
     ("publically" "publicly" nil 0)
     ("redundent" "redundant" nil 0)
@@ -248,6 +249,10 @@
 (define-abbrev-table 'java-mode-abbrev-table
   '(
    ))
+
+(define-abbrev-table 'js-jsx-mode-abbrev-table '())
+
+(define-abbrev-table 'js-mode-abbrev-table '())
 
 (define-abbrev-table 'julia-mode-abbrev-table '())
 
