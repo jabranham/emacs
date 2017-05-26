@@ -1701,7 +1701,7 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally
                    "* %?\n  %^T"))
     ;; Refresh calendars via org-gcal and automatically create appt-reminders.
     ;; Appt will be refreshed any time an org file is saved after 10 seconds of idle.
-    ;; gcal will be synced after 1 minute of idle every 15 minutes.
+    ;; gcal will be synced after 1 minute of idle every hour.
     ;; Start with `(my/sync-calendar-start)'
     (defvar my/refresh-appt-timer nil
       "Timer that `my/refresh-appt-with-delay' uses to reschedule itself, or nil.")
@@ -1733,7 +1733,7 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally
                     (my/refresh-appt-with-delay))))
 
       (run-with-timer
-       0 (* 15 60)
+       0 (* 60 60) ; every hour
        'my/sync-calendar-with-delay))
     ;; Start syncing when Emacs starts:
     (add-hook 'after-init-hook #'my/sync-calendar-start)
