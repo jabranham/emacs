@@ -2767,6 +2767,7 @@ I can query [[https://translate.google.com][Google translate]] from within Emacs
     ;; Disable variable-pitch fonts in ledger mode and ledger report mode:
     (add-hook 'ledger-mode-hook #'my/toggle-serif)
     (add-hook 'ledger-report-mode-hook #'my/toggle-serif)
+    (add-hook 'ledger-reconcile-mode-hook #'my/toggle-serif)
     (setq org-capture-templates
           (append org-capture-templates
                   '(("l" "Ledger entries")
