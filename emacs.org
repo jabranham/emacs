@@ -390,9 +390,6 @@ Async is written to let things be more async-y in Emacs. I use it for dired-asyn
      (setq dired-dwim-target t)
      (setq dired-recursive-copies (quote always))
      (setq dired-recursive-deletes (quote always))
-     ;; Hide details (owner, permissions) in dired
-     (add-hook 'dired-mode-hook
-               (lambda () (dired-hide-details-mode 1)))
      (bind-key "l" #'dired-up-directory dired-mode-map) ; use l to go up in dired
      ;; -l: long listing format REQUIRED in dired-listing-switches
      ;; -a: show everything (including dotfiles)
@@ -400,7 +397,22 @@ Async is written to let things be more async-y in Emacs. I use it for dired-asyn
      (setq dired-listing-switches "-alh --group-directories-first")
    #+END_SRC
 
-   This lets me make directories on the fly similar to =mkdir -p=. [[http://mbork.pl/2016-07-25_Making_directories_on_the_fly][Thanks!]]
+List directory sizes using ~du~:
+#+BEGIN_SRC emacs-lisp
+  (use-package dired-du
+    :ensure t
+    :bind
+    (:map dired-mode-map
+          ("S" . dired-du-mode))
+    :config
+    (setq dired-du-size-format t)
+    (defun my/dired-maybe-hide-details ()
+      "Hide details (owner, permissions, etc) in dired unless dired-du-mode is active."
+      (unless dired-du-mode (dired-hide-details-mode)))
+    (add-hook 'dired-mode-hook #'my/dired-maybe-hide-details))
+#+END_SRC
+
+  This lets me make directories on the fly similar to =mkdir -p=. [[http://mbork.pl/2016-07-25_Making_directories_on_the_fly][Thanks!]]
 
    #+BEGIN_SRC emacs-lisp
      (defun make-parent-directory ()
