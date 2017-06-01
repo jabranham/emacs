@@ -206,7 +206,7 @@ I took their code and modified it slightly to work more like what I want:
     (interactive)
     (when (display-graphic-p)  ;; this is only for graphical emacs
       ;; the serif font familiy and height, save the default attributes
-      (let ((serif-fam "Ubuntu Serif")
+      (let ((serif-fam "Noto Serif")
             (serif-height (round (* 1.2 (face-attribute 'default :height))))
             (default-fam (face-attribute 'default :family))
             (default-height (face-attribute 'default :height)))
