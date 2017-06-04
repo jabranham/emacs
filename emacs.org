@@ -237,7 +237,9 @@ I took their code and modified it slightly to work more like what I want:
 
 Load the new function in text modes:
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'text-mode-hook #'my/toggle-serif)
+  (add-hook 'org-mode-hook #'my/toggle-serif)
+  (add-hook 'latex-mode-hook #'my/toggle-serif)
+  (add-hook 'markdown-mode-hook #'my/toggle-serif)
 #+END_SRC
 
 *** Text wrapping
@@ -263,7 +265,9 @@ It's because [[https://www.johndcook.com/blog/2012/09/15/the-paper-is-too-big/][
     :config
     (add-hook 'elfeed-show-mode-hook #'visual-fill-column-mode)
     (add-hook 'mu4e-view-mode-hook #'visual-fill-column-mode)
-    (add-hook 'text-mode-hook #'visual-fill-column-mode))
+    (add-hook 'latex-mode-hook #'visual-fill-column-mode)
+    (add-hook 'org-mode-hook #'visual-fill-column-mode)
+    (add-hook 'markdown-mode-hook #'visual-fill-column-mode))
 #+END_SRC
 
 ** Highlight numbers
