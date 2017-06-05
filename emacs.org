@@ -449,6 +449,7 @@ By default, dired asks you if you want to delete the dired buffer if you delete 
        (spaceline-spacemacs-theme)
        (spaceline-helm-mode)
        (spaceline-info-mode)
+       (spaceline-toggle-projectile-root-on)
        (spaceline-toggle-buffer-encoding-abbrev-off)
        (add-hook 'after-init-hook #'spaceline-toggle-minor-modes-off))
    #+END_SRC
