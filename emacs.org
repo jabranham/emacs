@@ -2781,10 +2781,6 @@ I can query [[https://translate.google.com][Google translate]] from within Emacs
     ;; disable company mode in ledger mode because ledger-mode comes
     ;; with a great completion engine (magic TAB):
     (add-hook 'ledger-mode-hook (lambda () (company-mode -1)))
-    ;; Disable variable-pitch fonts in ledger mode and ledger report mode:
-    (add-hook 'ledger-mode-hook #'my/toggle-serif)
-    (add-hook 'ledger-report-mode-hook #'my/toggle-serif)
-    (add-hook 'ledger-reconcile-mode-hook #'my/toggle-serif)
     (setq org-capture-templates
           (append org-capture-templates
                   '(("l" "Ledger entries")
