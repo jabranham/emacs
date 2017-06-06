@@ -145,6 +145,8 @@
 
 (define-abbrev-table 'eww-mode-abbrev-table '())
 
+(define-abbrev-table 'exwm-mode-abbrev-table '())
+
 (define-abbrev-table 'flycheck-error-list-mode-abbrev-table '())
 
 (define-abbrev-table 'fundamental-mode-abbrev-table '())
@@ -165,6 +167,7 @@
   '(
     ("aacross" "across" nil 0)
     ("accurary" "accuracy" nil 1)
+    ("ambivilent" "ambivalent" nil 0)
     ("arcipeligo" "archipelago" nil 0)
     ("artigicial" "artificial" nil 0)
     ("auxillary" "auxiliary" nil 0)
@@ -209,7 +212,7 @@
     ("systme" "system" nil 0)
     ("taht" "that" nil 0)
     ("teh" "the" nil 2)
-    ("tihs" "this" nil 3)
+    ("tihs" "this" nil 4)
     ("travelling" "traveling" nil 0)
     ("ubt" "but" nil 0)
    ))
