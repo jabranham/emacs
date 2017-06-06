@@ -446,11 +446,17 @@ By default, dired asks you if you want to delete the dired buffer if you delete 
        :ensure spaceline
        :config
        (setq spaceline-window-numbers-unicode t)
-       (spaceline-spacemacs-theme)
+       (setq spaceline-workspace-numbers-unicode t)
+       ;; Display time and load average
+       (display-time-mode)
+       ;; Display battery info
+       (setq battery-mode-line-format  "  %p%")
+       (spaceline-toggle-battery-on)
        (spaceline-helm-mode)
        (spaceline-info-mode)
        (spaceline-toggle-projectile-root-on)
        (spaceline-toggle-buffer-encoding-abbrev-off)
+       (spaceline-spacemacs-theme)
        (add-hook 'after-init-hook #'spaceline-toggle-minor-modes-off))
    #+END_SRC
    Also, we can substitute the [[http://fontawesome.io/icon/code-fork/][code fork]] from [[http://fontawesome.io/icon/code-fork/][font awesome]] (which you'll need to have installed) to have a pretty symbol instead of "git:branch"
@@ -496,6 +502,7 @@ This replaces =window-numbering= since =winum= can handle assigning numbers acro
                (bind-key (kbd "M-9") #'winum-select-window-9 map)
                map))
        :config
+       (setq winum-auto-setup-mode-line nil)
        (winum-mode))
    #+END_SRC
 
