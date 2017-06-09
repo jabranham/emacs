@@ -334,20 +334,6 @@ Rainbow-mode makes it so that for example #0000ff is displayed in white with a b
        ("M-]" . sp-unwrap-sexp) ; C-M-SPC is bound to mark-sexp
        :config
        (setq sp-show-pair-from-inside t)
-       ;; Org-mode
-       (sp-with-modes
-           'org-mode
-         (sp-local-pair "*" "*"
-                        :actions '(insert wrap)
-                        :unless '(sp-point-after-word-p sp-point-at-bol-p)
-                        :wrap "C-*" :skip-match 'sp--org-skip-asterisk)
-         (sp-local-pair "_" "_" :unless '(sp-point-after-word-p) :wrap "C-_")
-         (sp-local-pair "/" "/" :unless '(sp-point-after-word-p)
-                        :post-handlers '(("[d1]" "SPC")))
-         (sp-local-pair "~" "~" :unless '(sp-point-after-word-p)
-                        :post-handlers '(("[d1]" "SPC")))
-         (sp-local-pair "=" "=" :unless '(sp-point-after-word-p)
-                        :post-handlers '(("[d1]" "SPC"))))
        (add-hook 'inferior-ess-mode-hook #'smartparens-strict-mode)
        (smartparens-global-strict-mode)
        (show-smartparens-global-mode))
