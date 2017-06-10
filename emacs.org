@@ -566,15 +566,6 @@ And then I can setup a nice transpose keymap. Note that transpose-words is also 
        (setq-default abbrev-mode t))
    #+END_SRC
 
-** Avy
-   Avy lets me jump anywhere on the screen super quickly. Just =M-S=, then one letter to jump to wherever you want:
-   #+BEGIN_SRC emacs-lisp
-     (use-package avy
-       :ensure t
-       :bind
-       ("C-M-g" . avy-goto-char-timer))
-   #+END_SRC
-
 ** Help windows
    You can use =C-h f=, =C-h v= and others to read docs for functions, variables, etc. This makes emacs switch focus to these windows:
 
