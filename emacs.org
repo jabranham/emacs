@@ -2677,6 +2677,17 @@ I can use helm to help me search emails and contacts:
      :map mu4e-view-mode-map
      ("s" . helm-mu)))
 #+END_SRC
+* ERC
+ERC is Emacs's client for IRC.
+#+BEGIN_SRC emacs-lisp
+  (use-package erc
+    :config
+    (setq erc-nick "jabranham"
+          erc-port "6667"
+          erc-server "irc.freenode.net"
+          erc-password (password-store-get "irc.freenode.net")))
+#+END_SRC
+
 * RSS Feed reader
 
 I use [[https://github.com/skeeto/elfeed][elfeed]] to manage some RSS links:
