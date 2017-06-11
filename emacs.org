@@ -1053,7 +1053,7 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
 #+BEGIN_SRC emacs-lisp
   (use-package hippie-exp
     :bind
-    ("M-/" . hippie-expand)
+    ("M-SPC" . hippie-expand)
     :config
     (setq hippie-expand-try-functions-list
           '(;; Try to expand word "dynamically", searching the current buffer.
