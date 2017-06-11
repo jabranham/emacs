@@ -439,10 +439,31 @@ By default, dired asks you if you want to delete the dired buffer if you delete 
        (spaceline-toggle-battery-on)
        (spaceline-helm-mode)
        (spaceline-info-mode)
-       (spaceline-toggle-projectile-root-on)
-       (spaceline-toggle-buffer-encoding-abbrev-off)
-       (spaceline-spacemacs-theme)
-       (add-hook 'after-init-hook #'spaceline-toggle-minor-modes-off))
+       :config
+       (spaceline-helm-mode 1)
+       (setq-default
+        powerline-height 24
+        powerline-default-separator 'wave
+        spaceline-flycheck-bullet "❖ %s"
+        spaceline-separator-dir-left '(right . right)
+        spaceline-separator-dir-right '(left . left))
+       (spaceline-install
+         'main
+         '((window-number)
+           (buffer-modified)
+           (projectile-root)
+           ((remote-host buffer-id) :face highlight-face)
+           (major-mode)
+           (process :when active))
+         '((selection-info :face region :when mark-active)
+           ((flycheck-error flycheck-warning flycheck-info) :when active)
+           (which-function)
+           (version-control :when active)
+           (line-column)
+           (battery)
+           (global :when active)
+           (buffer-position)))
+       (setq-default mode-line-format '("%e" (:eval (spaceline-ml-main)))))
    #+END_SRC
    Also, we can substitute the [[http://fontawesome.io/icon/code-fork/][code fork]] from [[http://fontawesome.io/icon/code-fork/][font awesome]] (which you'll need to have installed) to have a pretty symbol instead of "git:branch"
 #+BEGIN_SRC emacs-lisp
@@ -1753,8 +1774,6 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally
 
 ** Pomodoro
 I can use =org-pomodoro= for a [[http://pomodorotechnique.com/][pomodoro]]. By default, it works in 25-minute work blocks and 5 minute breaks after. The fourth break is longer - 20 minutes by default.
-
-I like to use system alerts, which are more visible than just sending it to Emacs's *Messages* buffer. I probably need to do this with add-to-list or something but this works for now:
 
 #+BEGIN_SRC emacs-lisp
   (use-package org-pomodoro
