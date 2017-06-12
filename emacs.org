@@ -2119,11 +2119,6 @@ Emacs can handle csv files with ease:
   #+BEGIN_SRC emacs-lisp
     (use-package tex-site
       :ensure auctex
-      :bind
-      (:map LaTeX-mode-map
-            ("<C-return>" . pdf-sync-forward-search)
-            ("M-p" . outline-previous-visible-heading)
-            ("M-n" . outline-next-visible-heading))
       :config
       (add-hook 'LaTeX-mode-hook #'LaTeX-math-mode)
       (setq TeX-auto-save t
@@ -2151,7 +2146,12 @@ Emacs can handle csv files with ease:
       (setq TeX-clean-confirm nil)
       ;; revert pdf from file after compilation finishes
       (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
-      )
+      (use-package latex
+        :bind
+        (:map LaTeX-mode-map
+              ("<C-return>" . pdf-sync-forward-search)
+              ("M-p" . outline-previous-visible-heading)
+              ("M-n" . outline-next-visible-heading))))
   #+END_SRC
 
   Finally, sometimes we want wordcounts. If I just want a quick snippet, I can run the following command. If I want more information, I can drop into a shell with ~C-c M-e~ (~shell-pop~) and run ~texcount my-file.tex~:
