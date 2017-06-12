@@ -2400,6 +2400,34 @@ I autocommit a few files, like notes and todo:
          (window-configuration-to-register :mu4e-fullscreen)
          (mu4e~headers-jump-to-maildir "/gmail/INBOX")
          (delete-other-windows))
+
+       ;; Here we define a function that cleans up contacts. Stolen from:
+       ;; https://martinralbrecht.wordpress.com/2016/05/30/handling-email-with-emacs/
+       (defun malb/canonicalise-contact-name (name)
+         (let ((case-fold-search nil))
+           (setq name (or name ""))
+           (if (string-match-p "^[^ ]+@[^ ]+\.[^ ]" name)
+               ""
+             (progn
+               ;; drop email address
+               (setq name (replace-regexp-in-string "^\\(.*\\) [^ ]+@[^ ]+\.[^ ]" "\\1" name))
+               ;; strip quotes
+               (setq name (replace-regexp-in-string "^\"\\(.*\\)\"" "\\1" name))
+               ;; deal with YELL’d last names
+               (setq name (replace-regexp-in-string "^\\(\\<[[:upper:]]+\\>\\) \\(.*\\)" "\\2 \\1" name))
+               ;; Foo, Bar becomes Bar Foo
+               (setq name (replace-regexp-in-string "^\\(.*\\), \\([^ ]+\\).*" "\\2 \\1" name))
+               ;; look up names and replace from static table, TODO look this up by email
+               ;; (setq name (or (cdr (assoc name malb/mu4e-name-replacements)) name))
+               ))))
+       (defun malb/mu4e-contact-rewrite-function (contact)
+         (let* ((name (or (plist-get contact :name) ""))
+                (mail (plist-get contact :mail))
+                (case-fold-search nil))
+           (plist-put contact :name (malb/canonicalise-contact-name name))
+           contact))
+       (setq mu4e-contact-rewrite-function #'malb/mu4e-contact-rewrite-function)
+
        :config
        (setq mu4e-contexts
              `( ,(make-mu4e-context
