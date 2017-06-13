@@ -344,15 +344,19 @@ Rainbow-mode makes it so that for example #0000ff is displayed in white with a b
 
    NOTE: ~pdf-tools~ only officially supports gnu/linux operating systems. I think that it will work on macs as well, but you may have to finagle it a bit. Regardless, I tell emacs to only use it if the OS is linux based.
 
-   #+BEGIN_SRC emacs-lisp
-     (when (eq system-type 'gnu/linux)
-       (use-package pdf-tools
-         :ensure t
-         :config
-         (pdf-tools-install t)
-         (setq TeX-view-program-selection '((output-pdf "pdf-tools")))
-         (setq TeX-view-program-list '(("pdf-tools" "TeX-pdf-tools-sync-view")))))
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package pdf-tools
+    :ensure t
+    :if (eq system-type 'gnu/linux)
+    :config
+    ;; Use C-RET in latex mode to jump to location in pdf file
+    (setq pdf-sync-forward-display-pdf-key "<C-return>")
+    ;; The t says to install the server without asking me
+    (pdf-tools-install t)
+    ;; Use pdf-tools to display pdfs from latex runs:
+    (setq TeX-view-program-selection '((output-pdf "pdf-tools")))
+    (setq TeX-view-program-list '(("pdf-tools" "TeX-pdf-tools-sync-view"))))
+ #+END_SRC
 
 ** Async
 Async is written to let things be more async-y in Emacs. I use it for dired-async mode mostly.
@@ -2149,7 +2153,6 @@ Emacs can handle csv files with ease:
       (use-package latex
         :bind
         (:map LaTeX-mode-map
-              ("<C-return>" . pdf-sync-forward-search)
               ("M-p" . outline-previous-visible-heading)
               ("M-n" . outline-next-visible-heading))))
   #+END_SRC
