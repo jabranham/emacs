@@ -1938,10 +1938,20 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
     ;; for whatever reason, I can't seem to bind these keys with the
     ;; normal :bind mechanism use-package provides. Here's a wonky
     ;; workaround.
-    (add-hook 'eshell-mode-hook (lambda ()
-                                  (progn
-                                    (unbind-key "M-s" eshell-mode-map)
-                                    (bind-key "M-r" #'helm-eshell-history eshell-mode-map))))
+    (add-hook
+     'eshell-mode-hook
+     (lambda ()
+       (progn
+         (define-key eshell-mode-map [remap eshell-pcomplete] 'helm-esh-pcomplete)
+         (unbind-key "M-s" eshell-mode-map)
+         (bind-key "M-r" #'helm-eshell-history eshell-mode-map))))
+    ;; Enable completion of commands after sudo
+    (defun pcomplete/sudo ()
+      (let ((prec (pcomplete-arg 'last -1)))
+        (cond ((string= "sudo" prec)
+               (while (pcomplete-here*
+                       (funcall pcomplete-command-completion-function)
+                       (pcomplete-arg 'last) t))))))
     (use-package eshell-git-prompt
       :ensure t
       :config
