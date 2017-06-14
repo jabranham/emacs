@@ -2798,6 +2798,8 @@ I use [[https://github.com/skeeto/elfeed][elfeed]] to manage some RSS links:
       (quit-window))
     :config
     (setq elfeed-db-directory "~/Dropbox/.elfeed")
+    ;; Don't use visual line mode in elfeed-search:
+    (add-hook 'elfeed-search-mode-hook (lambda () (visual-line-mode -1)))
     ;; This lets me get the http links to entries with org-capture
     ;; easily.
     (defun elfeed-entry-as-html-link ()
