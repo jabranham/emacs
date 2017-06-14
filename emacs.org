@@ -875,6 +875,16 @@ I end sentences with a single space.
 
     (add-hook 'text-mode-hook #'dubcaps-mode)
   #+END_SRC
+
+Typo mode replaces characters like --- with their unicode counterparts —. Because we're in the 21st century.
+#+BEGIN_SRC emacs-lisp
+  (use-package typo
+    :ensure t
+    :config
+    (setq-default typo-language "English")
+    (add-hook 'mu4e-compose-mode-hook #'typo-mode))
+#+END_SRC
+
 ** Miscellaneous
    Here are a bunch of things I want emacs to do (or not) but don't seem to fit in other sections.
 
