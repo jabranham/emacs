@@ -924,6 +924,11 @@ Typo mode replaces characters like --- with their unicode counterparts —. Beca
                "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
                "culpa qui officia deserunt mollit anim id est laborum."))
    #+END_SRC
+*** Disable tooltips
+If the mouse goes over a divider between windows, Emacs helpfully tells you what pressing the mouse buttons will do. This is a little annoying, though, so let's disable it:
+#+BEGIN_SRC emacs-lisp
+  (tooltip-mode -1)
+#+END_SRC
 
 *** Make script files executable automatically
 Emacs can set file permissions automatically. Make scripts executable so I don't have to remember to do so:
