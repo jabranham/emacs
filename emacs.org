@@ -2582,7 +2582,7 @@ I autocommit a few files, like notes and todo:
        ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
        (setq mu4e-sent-messages-behavior 'delete)
        (setq mu4e-get-mail-command "mbsync -a"   ;; or fetchmail, or ...
-             mu4e-update-interval 60)             ;; update every minute
+             mu4e-update-interval 120)             ;; update every minute
        (setq mu4e-change-filenames-when-moving t)
        ;; setup some handy shortcuts
        ;; you can quickly switch to your Inbox -- press ``ji''
