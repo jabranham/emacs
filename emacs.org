@@ -446,14 +446,6 @@ By default, dired asks you if you want to delete the dired buffer if you delete 
        :config
        (setq spaceline-window-numbers-unicode t)
        (setq spaceline-workspace-numbers-unicode t)
-       (use-package minibuffer-line
-         :ensure t
-         :config
-         (setq minibuffer-line-format
-               '(""
-                 (:eval
-                  (format-time-string "%a %F %I:%M"))))
-         (minibuffer-line-mode))
        (spaceline-helm-mode)
        (spaceline-info-mode)
        (setq-default
@@ -475,7 +467,6 @@ By default, dired asks you if you want to delete the dired buffer if you delete 
            (which-function)
            (version-control :when active)
            (line-column)
-           (battery)
            (global :when active)
            (buffer-position)))
        (setq-default mode-line-format '("%e" (:eval (spaceline-ml-main)))))
