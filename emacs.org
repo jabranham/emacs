@@ -446,13 +446,6 @@ By default, dired asks you if you want to delete the dired buffer if you delete 
        :config
        (setq spaceline-window-numbers-unicode t)
        (setq spaceline-workspace-numbers-unicode t)
-       ;; Display date, time, and load average
-       (setq display-time-day-and-date t)
-       ;; Display battery info
-       (use-package fancy-battery
-         :ensure t
-         :config
-         (fancy-battery-mode))
        (use-package minibuffer-line
          :ensure t
          :config
