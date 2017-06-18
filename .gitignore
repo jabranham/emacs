@@ -1,8 +1,11 @@
-auto-save-list/
-backups/
 elpa/
-url/*
-eshell/*
 /emacs.el
-var/*
-/.cache/*
+var/company/*
+var/eshell/*
+var/magithub/*
+var/mc-list.el*
+var/org/*
+var/projectile/*
+var/save-place.el
+var/sx/*
+var/url/*

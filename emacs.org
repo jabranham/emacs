@@ -66,22 +66,13 @@ To quickly access scratch press =my/map f12=:
       (setq delete-by-moving-to-trash t)
     #+END_SRC
 
-Finally, I set up a cache folder in my =.emacs.d= folder so that it's not quite as crowded:
+    Finally, I set up [[https://github.com/tarsius/no-littering][no-littering]], which helps keep my .emacs.d folder clean by putting files into appropriate subfolders rather than letting them get saved all over the place:
 
 #+BEGIN_SRC emacs-lisp
-  (defvar my/emacs-cache (concat user-emacs-directory ".cache/")
-    "Folder to store cache files in.
-
-  Should end with a forward slash.")
-#+END_SRC
-
-Save a few misc files in the =.cache= directory:
-
-#+BEGIN_SRC emacs-lisp
-  (setq custom-file (concat my/emacs-cache "customize.el"))
-  (setq bookmark-default-file (concat my/emacs-cache "bookmarks"))
-  (setq recentf-save-file (concat my/emacs-cache "recentf"))
-  (setq nsm-settings-file (concat my/emacs-cache "network-security.data"))
+  (use-package no-littering
+    :ensure t
+    :config
+    (setq custom-file "~/.emacs.d/var/custom-file.el"))
 #+END_SRC
 
 We can pop the mark back to where it used to be with =C-u C-SPC=. This lets us keep popping by hitting =C-SPC=:
@@ -756,8 +747,6 @@ This adds syntax highlighting for it (Emacs can do a decent job out-of-the box w
      (use-package multiple-cursors
        :ensure t
        :commands (mc/edit-lines mc/mark-all-like-this)
-       :init
-       (setq mc/list-file (concat my/emacs-cache "mc-lists.el"))
        :config
        (bind-keys :prefix "C-c m c"
                   :prefix-map multi-cursors-map
@@ -814,12 +803,6 @@ By default, =M-s M-w= searches for text in the region. I change it to search for
   (advice-add 'eww-search-words :around #'jab/eww-search)
 #+END_SRC
 ** Tramp
-Store tramp files in the cache:
-
-#+BEGIN_SRC emacs-lisp
-  (setq tramp-persistency-file-name (concat my/emacs-cache "tramp"))
-#+END_SRC
-
 Don't leave histfiles everywhere:
 #+BEGIN_SRC emacs-lisp
   (setq tramp-histfile-override t)
@@ -957,13 +940,6 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
       (delete-selection-mode)
     #+END_SRC
 
-*** Backup files
-    I want emacs to make these, but don't want to clutter up my project folders with tons of backup files. Solution: put them in the ~.emacs.d/~ directory.
-    #+BEGIN_SRC emacs-lisp
-      (setq backup-directory-alist
-            `(("." . ,(expand-file-name
-                       (concat user-emacs-directory "backups")))))
-    #+END_SRC
 *** Blinking cursor & highlight line
     A blinking cursor gets kinda annoying, so get rid of it:
 
@@ -1006,8 +982,6 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
 
     #+BEGIN_SRC emacs-lisp
       (use-package saveplace
-        :init
-        (setq save-place-file (concat my/emacs-cache "places"))
         :config
         (save-place-mode))
     #+END_SRC
@@ -1082,8 +1056,6 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
        (use-package company-statistics
          :ensure t
          :config
-         (setq company-statistics-file
-               (concat my/emacs-cache "company-statistics-cache.el"))
          (add-hook 'company-mode-hook #'company-statistics-mode))
        (use-package company-math
          :ensure t
@@ -1343,10 +1315,7 @@ Helm. A [[https://tuhdo.github.io/helm-intro.html][package in a league of its ow
      ("C-i" . helm-execute-persistent-action)
      ("C-z" . helm-select-action))
     :init
-    (progn
-      (setq helm-adaptive-history-file (concat my/emacs-cache "helm-adaptive-history"))
-      (require 'helm-config)
-      )
+    (require 'helm-config)
     :config
     (when (executable-find "curl")
       (setq helm-net-prefer-curl t))
@@ -1428,9 +1397,6 @@ Projectile makes using projects easier in emacs. It also plays well with helm, s
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
     :ensure t
-    :init
-    (setq projectile-cache-file (concat my/emacs-cache "projectile.cache"))
-    (setq projectile-known-projects-file (concat my/emacs-cache "projectile-bookmarks.eld"))
     :config
     (def-projectile-commander-method ?F
       "Git fetch."
@@ -1779,13 +1745,10 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally
 #+BEGIN_SRC emacs-lisp
   (use-package org-gcal
     :ensure t
-    :init
-    (setq org-gcal-token-file (concat my/emacs-cache "org-gcal/.org-gcal-token"))
-    (setq org-gcal-dir (concat my/emacs-cache "org-gcal"))
     :config
     (setq org-gcal-client-id (password-store--run "emacs/emacs-gcal-client-id")
-	  org-gcal-client-secret (password-store--run "emacs/emacs-gcal-client-secret")
-	  org-gcal-file-alist '(("alex.branham@gmail.com" .  "~/Dropbox/org/gcal.org")))
+          org-gcal-client-secret (password-store--run "emacs/emacs-gcal-client-secret")
+          org-gcal-file-alist '(("alex.branham@gmail.com" .  "~/Dropbox/org/gcal.org")))
     (add-to-list 'org-agenda-files (concat org-directory "gcal.org") t)
     ;; I can add to google-calendar with org-capture
     (add-to-list 'org-capture-templates
@@ -2348,7 +2311,6 @@ I autocommit a few files, like notes and todo:
     :after magit
     :ensure t
     :config
-    (setq magithub-dir (concat my/emacs-cache "magithub"))
     (magithub-feature-autoinject t))
     #+END_SRC
 
@@ -2855,7 +2817,7 @@ Stack Exchange is the place to go to get questions answered. This lets me search
     :init
     (push '(".*stackexchange.*" . sx-open-link) browse-url-browser-function)
     (push '(".*stackoverflow.*" . sx-open-link) browse-url-browser-function)
-    (setq sx-cache-directory (concat my/emacs-cache "sx")))
+    )
 #+END_SRC
 * Wolfram alpha
 Yes, Emacs can search and display results from wolfram alpha.
