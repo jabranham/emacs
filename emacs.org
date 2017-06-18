@@ -1513,8 +1513,8 @@ Not technically part of org, but I'll stick the calendar config here since I mai
 ** References (org-ref)
    I use org-ref to manage my references.
    #+BEGIN_SRC emacs-lisp
-     (use-package org-ref-core
-       :ensure org-ref
+     (use-package org-ref
+       :ensure t
        :demand t ; make sure this gets loaded since I use it all the time
        :bind*
        (("C-c C-r" . org-ref-helm-insert-cite-link)
@@ -1529,7 +1529,6 @@ Not technically part of org, but I'll stick the calendar config here since I mai
              org-ref-default-bibliography '("~/Dropbox/bibliography/references.bib")
              org-ref-pdf-directory  "~/Dropbox/bibliography/bibtex-pdfs"
              org-ref-default-citation-link "autocite")
-       (use-package org-ref)
        :config
        (defvar my/notes-template
          "* TODO %y - %t\n :PROPERTIES:\n  :Custom_ID: %k\n  :AUTHOR: %9a\n  :JOURNAL: %j\n  :YEAR: %y\n  :VOLUME: %v\n  :PAGES: %p\n  :DOI: %D\n  :URL: %U\n :END:\n")
