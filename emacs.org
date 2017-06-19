@@ -345,9 +345,16 @@ Rainbow-mode makes it so that for example #0000ff is displayed in white with a b
        :ensure t
        :demand t
        :bind
-       ("C-M-a" . sp-beginning-of-sexp)
-       ("C-M-e" . sp-end-of-sexp)
-       ("M-]" . sp-unwrap-sexp) ; C-M-SPC is bound to mark-sexp
+       (:map smartparens-mode-map
+             ("C-M-a" . sp-beginning-of-sexp)
+             ("C-M-e" . sp-end-of-sexp)
+             ("C-M-f" . sp-forward-sexp)
+             ("C-M-b" . sp-backward-sexp)
+             ("M-<right>" . sp-next-sexp)
+             ("M-<left>" . sp-previous-sexp)
+             ("C-<right>" . sp-forward-slurp-sexp)
+             ("C-<left>" . sp-forward-barf-sexp)
+             ("M-]" . sp-unwrap-sexp)) ; C-M-SPC is bound to mark-sexp
        :config
        (use-package smartparens-config)
        (setq sp-show-pair-from-inside t)
