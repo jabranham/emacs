@@ -9,3 +9,4 @@ var/projectile/*
 var/save-place.el
 var/sx/*
 var/url/*
+var/bookmark-default.el
