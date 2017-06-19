@@ -125,21 +125,38 @@ Emacs' info manual is /amazing/. This makes it even better.
 
 ** Aesthetics
 *** Theme
-   By default, emacs starts with a blindingly white theme. Let's get rid of that pronto.
+By default, emacs starts with a blindingly white theme. Let's get rid of that pronto.
+The way I load the theme depends on if Emacs is started as a window or in the terminal. Because of the way Emacs handles themes, I have to load the theme after I make the first frame if I'm starting a daemon. Finally, I don't want to reload the theme after making new frames, so I have to take that into account too!
    #+BEGIN_SRC emacs-lisp
      (use-package spacemacs-theme
        :ensure t
        :defer t
        :init
+       ;; theme
        (defvar my/theme 'spacemacs-dark
          "The theme I'm using.")
-       (defun my/load-theme (frame)
-         (select-frame frame)
-         (load-theme my/theme t))
-
+       (defvar my/theme-window-loaded nil)
+       (defvar my/theme-terminal-loaded nil)
        (if (daemonp)
-           (add-hook 'after-make-frame-functions #'my/load-theme)
-         (load-theme my/theme t))
+           (add-hook 'after-make-frame-functions
+                     (lambda (frame)
+                       (select-frame frame)
+                       (if (window-system frame)
+                           (unless my/theme-window-loaded
+                             (if my/theme-terminal-loaded
+                                 (enable-theme my/theme)
+                               (load-theme my/theme t))
+                             (setq my/theme-window-loaded t))
+                         (unless my/theme-terminal-loaded
+                           (if my/theme-window-loaded
+                               (enable-theme my/theme)
+                             (load-theme my/theme t))
+                           (setq my/theme-terminal-loaded t)))))
+         (progn
+           (load-theme my/theme t)
+           (if (display-graphic-p)
+               (setq my/theme-window-loaded t)
+             (setq my/theme-terminal-loaded t))))
        :config
        ;; make diff chunks stand out a bit more:
        (set-face-background 'magit-diff-hunk-heading-highlight "#5d4d7a")
