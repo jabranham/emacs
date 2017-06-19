@@ -508,15 +508,7 @@ This replaces =window-numbering= since =winum= can handle assigning numbers acro
        (setq winum-auto-setup-mode-line nil)
        (winum-mode))
    #+END_SRC
-** Window management
-[[https://github.com/wasamasa/eyebrowse][Eyebrowse]] can manage window layouts (e.g. remembering what goes where). I change the default binding from =C-c C-w= to =s-w=:
-#+BEGIN_SRC emacs-lisp
-  (use-package eyebrowse
-    :ensure t
-    :config
-    (setq eyebrowse-keymap-prefix "s-w")
-    (eyebrowse-mode))
-#+END_SRC
+
 ** Frame management
 Prompt me to save changed buffers if I'm closing the last frame (and Emacs is running as a daemon):
 #+BEGIN_SRC emacs-lisp
