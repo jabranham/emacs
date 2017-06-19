@@ -1641,6 +1641,7 @@ Not technically part of org, but I'll stick the calendar config here since I mai
              ;; also scheduled for today:
              org-agenda-skip-scheduled-if-deadline-is-shown 'not-today
              org-deadline-warning-days 3) ; warn me 3 days before a deadline
+       (setq org-agenda-tags-column -120)
        (setq org-agenda-window-setup 'current-window ; use current window for agenda
              ;; restore previous config after I'm done
              org-agenda-restore-windows-after-quit t)
