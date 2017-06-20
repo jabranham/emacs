@@ -100,6 +100,7 @@ This ensures Emacs has the same PATH as the rest of my system:
     :if (or (eq system-type 'darwin)
             (eq system-type 'gnu/linux))
     :config
+    (exec-path-from-shell-copy-env "LEDGER_FILE")
     (exec-path-from-shell-initialize))
 #+END_SRC
 
