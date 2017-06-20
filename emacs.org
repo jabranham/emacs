@@ -1595,26 +1595,6 @@ Not technically part of org, but I'll stick the calendar config here since I mai
 
        (add-hook 'org-ref-clean-bibtex-entry-hook #'my/fix-journal-name)
 
-       ;; Make sure that the journal entry is in org-ref-bibtex-journal-abbreviations
-       (defun my/org-ref-clean-check-journal ()
-         "Check entry at point to see if journal exists in `org-ref-bibtex-journal-abbreviations'. If not, issue a warning."
-         (interactive)
-         (when
-             (string= "article"
-                      (downcase
-                       (cdr (assoc "=type=" (bibtex-parse-entry)))))
-           (save-excursion
-             (bibtex-beginning-of-entry)
-             (let* ((entry (bibtex-parse-entry t))
-                    (journal (reftex-get-bib-field "journal" entry)))
-               (when (null journal)
-                 (error "Unable to get journal for this entry."))
-               (unless (member journal (-flatten org-ref-bibtex-journal-abbreviations))
-                 (message "Journal \"%s\" not found in org-ref-bibtex-journal-abbreviations." journal))))))
-
-       (add-hook 'org-ref-clean-bibtex-entry-hook #'my/org-ref-clean-check-journal t)
-
-
        (use-package doi-utils
          :config
          (setq doi-utils-open-pdf-after-download t))
