@@ -830,10 +830,30 @@ Use ssh by default:
   (setq tramp-default-method "ssh")
 #+END_SRC
 
-  Tramp struggles with escaping things properly (dired in particular has issues with spaces/special characters; this is fixed if you build Emacs from the master branch of the git repo; Emacs 26), this fixes it for me:
+Tramp struggles with escaping things properly (dired in particular has issues with spaces/special characters; this is fixed if you build Emacs from the master branch of the git repo; Emacs 26), this fixes it for me:
 #+BEGIN_SRC emacs-lisp
   (push "QUOTING_STYLE=literal" tramp-remote-process-environment)
 #+END_SRC
+*** Edit remote file
+Edit a remote file with absolute path:
+#+BEGIN_EXAMPLE
+/ssh:username@remote-host:/absolute/path
+#+END_EXAMPLE
+or with a relative path:
+#+BEGIN_EXAMPLE
+/ssh:username@remote-host:relative/to/home
+#+END_EXAMPLE
+*** Edit local file as root
+note the double colon
+#+BEGIN_EXAMPLE
+/sudo::/path/to/file
+#+END_EXAMPLE
+but =sudo::= is short for =/sudo:root@localhost= so that works too
+*** Edit remote file as root
+#+BEGIN_EXAMPLE
+/ssh:you@remotehost|sudo:remotehost:/path/to/file
+#+END_EXAMPLE
+remotehost must be explicitly specified
 ** Text Misc
 I end sentences with a single space.
 
