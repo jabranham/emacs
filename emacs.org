@@ -25,13 +25,13 @@ Setup a personal keymap. I'll bind various things to this later on:
              :prefix-map my/map)
 #+END_SRC
 
-To quickly access scratch press =my/map f12=:
+To quickly access scratch press =my/map f1=:
 #+BEGIN_SRC emacs-lisp
   (defun my/get-scratch ()
     "Switch to scratch buffer."
     (interactive)
     (switch-to-buffer "*scratch*"))
-  (bind-key "<f12>" #'my/get-scratch 'my/map)
+  (bind-key "<f1>" #'my/get-scratch 'my/map)
 #+END_SRC
 
 
