@@ -1969,7 +1969,9 @@ Use Emacs as the =$EDITOR= environmental variable:
     :init
     (progn
       (add-hook 'shell-mode-hook  'with-editor-export-editor)
-      (add-hook 'eshell-mode-hook 'with-editor-export-editor)))
+      (add-hook 'eshell-mode-hook 'with-editor-export-editor))
+    :config
+    (shell-command-with-editor-mode))
 #+END_SRC
 
 ** Shell misc
