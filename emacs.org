@@ -1733,6 +1733,8 @@ And now for the capture templates themselves. It's a bit complicated, but [[http
                  "* TODO %? \n %i")
                 ("n" "note" entry (file my/org-notes)
                  "* %?\n %i")
+                ("b" "bib" entry (file+headline org-default-notes-file "Bibliography")
+                 "* TODO %?\n %a \n %i")
                 ("p" "Protocol" entry (file my/org-inbox)
                  "* TODO [[%:link][%:description]]\n%i" :immediate-finish t)
                 ("L" "Protocol Link" entry (file my/org-inbox)
