@@ -1399,6 +1399,16 @@ I can setup helm to deal with makefiles easily:
     ;; scroll the compile buffer just until an error occurs
     (setq compilation-scroll-output 'first-error))
 #+END_SRC
+** Helm and snippets
+I can use this when I can't remember the exact name of a snippet.
+#+BEGIN_SRC emacs-lisp
+  (use-package helm-c-yasnippet
+    :after yasnippet
+    :ensure t
+    :bind
+    ("M-`" . helm-yas-complete))
+#+END_SRC
+
 * Projectile
 Projectile makes using projects easier in emacs. It also plays well with helm, so let's set that up.
 
