@@ -1678,10 +1678,7 @@ Not technically part of org, but I'll stick the calendar config here since I mai
                 ((agenda "" nil)
                  (tags "REFILE"
                        ((org-agenda-overriding-header "Tasks to Refile")
-                        (org-tags-match-list-sublevels nil)))
-                 (todo ""
-                       ((org-agenda-overriding-header "Unscheduled Tasks")
-                        (org-agenda-skip-function '(org-agenda-skip-entry-if 'timestamp))))))))
+                        (org-tags-match-list-sublevels nil)))))))
        )
 #+END_SRC
 
