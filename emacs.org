@@ -1331,6 +1331,10 @@ Helm. A [[https://tuhdo.github.io/helm-intro.html][package in a league of its ow
     (setq helm-split-window-in-side-p t)
     (setq helm-display-header-line nil)
     (setq helm-echo-input-in-header-line t)
+    (setq helm-ff-skip-boring-files t)
+    (push ".git$" helm-boring-file-regexp-list)
+    (push "\\.dropbox$" helm-boring-file-regexp-list)
+    (push ".dropbox-dist$" helm-boring-file-regexp-list)
     (helm-autoresize-mode)
     (helm-mode))
 #+END_SRC
