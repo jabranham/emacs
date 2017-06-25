@@ -1670,7 +1670,7 @@ Not technically part of org, but I'll stick the calendar config here since I mai
    #+END_SRC
 ** Agenda
    Here's where I set which files are added to org-agenda, which controls org's global todo list, scheduling, and agenda features. I use Dropbox to keep these files in sync across computers.
-
+   Lock to current file: =C-u C-c C-x <=
    #+BEGIN_SRC emacs-lisp
      (use-package org-agenda
        :bind
@@ -1716,7 +1716,6 @@ Not technically part of org, but I'll stick the calendar config here since I mai
                         (org-tags-match-list-sublevels nil)))))))
        )
 #+END_SRC
-
 ** Capture
 I use org-capture to create short notes about all kinds of things. I can capture emails to remember for later, quick thoughts for later, RSS feeds (see [[Feed reader]]), really anything.
 
