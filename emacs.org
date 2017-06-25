@@ -1375,6 +1375,7 @@ Helm. A [[https://tuhdo.github.io/helm-intro.html][package in a league of its ow
              bibtex-autokey-year-title-separator "")
        (setq bibtex-align-at-equal-sign t)
        (setq bibtex-files '("~/Dropbox/bibliography/references.bib"))
+       (add-hook 'bibtex-mode-hook (lambda () (set-fill-column most-positive-fixnum)))
        (defun bibtex-generate-autokey ()
          "This overwrites the bibtex-generate-autokey function that comes with Emacs.
 
