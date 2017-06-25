@@ -1536,6 +1536,7 @@ Not technically part of org, but I'll stick the calendar config here since I mai
        (setq org-ref-bibliography-notes "~/Dropbox/bibliography/notes.org"
              org-ref-default-bibliography '("~/Dropbox/bibliography/references.bib")
              org-ref-pdf-directory  "~/Dropbox/bibliography/bibtex-pdfs"
+             org-ref-default-ref-type "autoref"
              org-ref-default-citation-link "autocite")
        :config
        (defvar my/notes-template
