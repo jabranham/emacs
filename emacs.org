@@ -1322,6 +1322,7 @@ Helm. A [[https://tuhdo.github.io/helm-intro.html][package in a league of its ow
      ("C-i" . helm-execute-persistent-action)
      ("C-z" . helm-select-action))
     :init
+    (setq helm-command-prefix-key "M-/")
     (require 'helm-config)
     :config
     (when (executable-find "curl")
