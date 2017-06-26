@@ -594,8 +594,6 @@ And then I can setup a nice transpose keymap. Note that transpose-words is also 
         ("C-c e" . crux-sudo-edit)
         :map prog-mode-map
         ("C-a" . crux-move-beginning-of-line))
-       :init
-       (setq abbrev-file-name (concat user-emacs-directory "snippets/abbrev_defs"))
        :config
        (setq save-abbrevs 'silently)
        (setq-default abbrev-mode t))
