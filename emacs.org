@@ -780,6 +780,7 @@ I can use ~C-=~ to expand the region incrementally:
 #+END_SRC
 ** Browser (eww)
 Use Emacs' built in =eww= broswer (the Emacs Web Wowser!) by default.
+=browse-url-browser-function= can take a list of regex's and associate a specific browser with matches. So use eww for everything except a few things that don't work well:
 
 #+BEGIN_SRC emacs-lisp
   (setq browse-url-browser-function
