@@ -812,12 +812,19 @@ If a webpage requires more than eww can handle, I can switch to the system defau
           ("F" . eww-lnum-universal)))
 #+END_SRC
 
-By default, =M-s M-w= searches for text in the region. I change it to search for text in region if active, prompt otherwise:
+By default, =M-s M-w= searches for text in the region. I overwrite it to search for text in region if active and not whitespace, prompt otherwise:
 #+BEGIN_SRC emacs-lisp
-  (defun jab/eww-search (orig-fun &rest args)
-    (if (region-active-p) (apply orig-fun args)
-      (eww (read-string "Query: "))))
-  (advice-add 'eww-search-words :around #'jab/eww-search)
+  (defun eww-search-words (&optional beg end)
+    "Search the web for the text between BEG and END.
+    If region is active (and not whitespace), search the web for
+  the text between BEG and END. Else, prompt the user for a search
+  string. See the `eww-search-prefix' variable for the search
+  engine used."
+    (interactive "r")
+    (let ((region-string (buffer-substring beg end)))
+      (if (not (string-match-p "\\`[ \n\t\r\v\f]*\\'" region-string))
+          (eww region-string)
+        (eww (read-string "Query: ")))))
 #+END_SRC
 ** Tramp
 Don't leave histfiles everywhere:
