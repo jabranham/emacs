@@ -786,6 +786,7 @@ Use Emacs' built in =eww= broswer (the Emacs Web Wowser!) by default.
   (setq browse-url-browser-function
         '((".*login.utexas.*" . browse-url-firefox)
           (".*utdirect.*utexas.*" . browse-url-firefox)
+          (".*reddit.*" . browse-url-firefox)
           (".*github.*" . browse-url-firefox)
           (".*youtube.*" . browse-url-firefox)
           (".*youtu.be*" . browse-url-firefox)
