@@ -2845,18 +2845,10 @@ I use [[https://github.com/skeeto/elfeed][elfeed]] to manage some RSS links:
     (setq elfeed-db-directory "~/Dropbox/.elfeed")
     ;; Don't use visual line mode in elfeed-search:
     (add-hook 'elfeed-search-mode-hook (lambda () (visual-line-mode -1)))
-    ;; This lets me get the http links to entries with org-capture
-    ;; easily.
-    (defun elfeed-entry-as-html-link ()
-      "Store an http link to an elfeed entry"
-      (when (equal major-mode 'elfeed-show-mode)
-        (let ((description (elfeed-entry-title elfeed-show-entry))
-              (link (elfeed-entry-link elfeed-show-entry)))
-          (org-store-link-props
-           :type "http"
-           :link link
-           :description description))))
-    (org-link-set-parameters "elfeed" :follow #'browse-url :store #'elfeed-entry-as-html-link))
+    (use-package elfeed-link
+      ;; This sets up org links for org capture and the like
+      ;; no ensure, since it comes with elfeed
+      ))
 #+END_SRC
 
 [[https://github.com/remyhonig/elfeed-org][elfeed-org]] lets me store my subscriptions in a more sane way:
