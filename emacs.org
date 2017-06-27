@@ -90,20 +90,6 @@ Set it up so Emacs can send system notifications:
         (setq alert-default-style 'libnotify)))
 #+END_SRC
 
-** Exec path from shell
-This ensures Emacs has the same PATH as the rest of my system:
-
-
-#+BEGIN_SRC emacs-lisp
-  (use-package exec-path-from-shell
-    :ensure t
-    :if (or (eq system-type 'darwin)
-            (eq system-type 'gnu/linux))
-    :config
-    (exec-path-from-shell-copy-env "LEDGER_FILE")
-    (exec-path-from-shell-initialize))
-#+END_SRC
-
 ** UTF-8
    Pretty please use utf-8 for all the things:
 
