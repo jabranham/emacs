@@ -807,10 +807,12 @@ By default, =M-s M-w= searches for text in the region. I overwrite it to search 
   string. See the `eww-search-prefix' variable for the search
   engine used."
     (interactive "r")
-    (let ((region-string (buffer-substring beg end)))
-      (if (not (string-match-p "\\`[ \n\t\r\v\f]*\\'" region-string))
-          (eww region-string)
-        (eww (read-string "Query: ")))))
+    (if (use-region-p)
+        (let ((region-string (buffer-substring beg end)))
+          (if (not (string-match-p "\\`[ \n\t\r\v\f]*\\'" region-string))
+              (eww region-string)))
+      (eww (read-string "Query: "))))
+
 #+END_SRC
 ** Tramp
 Don't leave histfiles everywhere:
