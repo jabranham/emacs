@@ -364,6 +364,8 @@ Rainbow-mode makes it so that for example #0000ff is displayed in white with a b
     (setq pdf-sync-forward-display-pdf-key "<C-return>")
     ;; The t says to install the server without asking me
     (pdf-tools-install t)
+    ;; Show full pages by default instead of fitting page width:
+    (setq-default pdf-view-display-size 'fit-page)
     ;; Use pdf-tools to display pdfs from latex runs:
     (setq TeX-view-program-selection '((output-pdf "pdf-tools")))
     (setq TeX-view-program-list '(("pdf-tools" "TeX-pdf-tools-sync-view"))))
