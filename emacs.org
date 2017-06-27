@@ -1331,6 +1331,7 @@ Helm. A [[https://tuhdo.github.io/helm-intro.html][package in a league of its ow
      ("M-y" . helm-show-kill-ring)
      ("C-M-z" . helm-resume)
      ("C-x b" . helm-buffers-list)
+     ("C-x C-b" . helm-buffers-list)
      ("M-s M-g" . helm-google-suggest)
      ("M-o" . helm-semantic-or-imenu)
      ("C-h SPC" . helm-all-mark-rings)
