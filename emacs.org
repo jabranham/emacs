@@ -1997,19 +1997,6 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
      (add-hook 'eshell-mode-hook #'goto-address-mode)
    #+END_SRC
 
-** with editor
-Use Emacs as the =$EDITOR= environmental variable:
-#+BEGIN_SRC emacs-lisp
-  (use-package with-editor
-    :ensure t
-    :init
-    (progn
-      (add-hook 'shell-mode-hook  'with-editor-export-editor)
-      (add-hook 'eshell-mode-hook 'with-editor-export-editor))
-    :config
-    (shell-command-with-editor-mode))
-#+END_SRC
-
 ** Shell misc
    Here are a few miscellaneous settings for shell modes, including inferior ~R~ processes used by ~ESS~:
    #+BEGIN_SRC emacs-lisp
