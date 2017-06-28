@@ -1699,6 +1699,7 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally
 #+BEGIN_SRC emacs-lisp
   (use-package org-gcal
     :ensure t
+    :after password-store
     :config
     (setq org-gcal-client-id (password-store--run "emacs/emacs-gcal-client-id")
           org-gcal-client-secret (password-store--run "emacs/emacs-gcal-client-secret")
@@ -2697,6 +2698,7 @@ I can use helm to help me search emails and contacts:
 ERC is Emacs's client for IRC.
 #+BEGIN_SRC emacs-lisp
   (use-package erc
+    :after password-store
     :config
     (setq erc-nick "jabranham"
           erc-port "6667"
@@ -2771,6 +2773,7 @@ Who /wouldn't/ want their text editor to do so?
 #+BEGIN_SRC emacs-lisp
   (use-package wolfram
     :ensure t
+    :after password-store
     :defer 20 ; necessary to let me unlock gpg keyring
     :bind
     ("M-s q" . wolfram-alpha)
