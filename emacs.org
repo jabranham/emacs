@@ -34,12 +34,14 @@ To quickly access scratch press =my/map f1=:
   (bind-key "<f1>" #'my/get-scratch 'my/map)
 #+END_SRC
 
+C-x C-c is originally bound to kill emacs. I accidentally type this from time to time which is super-frustrating.
+Similarly, C-x C-z calls =suspend-frame=, which I never want to use.
+Get rid of it:
 
-  C-x C-c is originally bound to kill emacs. I accidentally type this from time to time which is super-frustrating. Get rid of it:
-
-  #+BEGIN_SRC emacs-lisp
-    (unbind-key "C-x C-c")
-  #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (unbind-key "C-x C-c")
+  (unbind-key "C-x C-z")
+#+END_SRC
 
   In my world, =C-z= is undo, not minimize emacs:
 
