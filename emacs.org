@@ -709,15 +709,16 @@ By default, =M-s M-w= searches for text in the region. I overwrite it to search 
 #+BEGIN_SRC emacs-lisp
   (defun eww-search-words (&optional beg end)
     "Search the web for the text between BEG and END.
-    If region is active (and not whitespace), search the web for
+  If region is active (and not whitespace), search the web for
   the text between BEG and END. Else, prompt the user for a search
-  string. See the `eww-search-prefix' variable for the search
+  string.  See the `eww-search-prefix' variable for the search
   engine used."
     (interactive "r")
     (if (use-region-p)
         (let ((region-string (buffer-substring beg end)))
           (if (not (string-match-p "\\`[ \n\t\r\v\f]*\\'" region-string))
-              (eww region-string)))
+              (eww region-string)
+            (eww (read-string "Query: "))))
       (eww (read-string "Query: "))))
 
 #+END_SRC
