@@ -424,6 +424,7 @@ This replaces =window-numbering= since =winum= can handle assigning numbers acro
                (bind-key (kbd "M-9") #'winum-select-window-9 map)
                map))
        :config
+       (setq winum-scope 'frame-local)
        (setq winum-auto-setup-mode-line nil)
        (winum-mode))
    #+END_SRC
