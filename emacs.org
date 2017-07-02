@@ -850,13 +850,6 @@ Emacs thinks that some new users may find some commands confusing, so they're di
   (put 'narrow-to-region 'disabled nil)
 #+END_SRC
 
-*** Mouse avoid
-Oftentimes the mouse just gets in the way. Since I rarely use the mouse, let's banish it to the upper right corner whenever I type a key in Emacs:
-
-#+BEGIN_SRC emacs-lisp
-  (mouse-avoidance-mode 'banish)
-#+END_SRC
-
 *** Prettify symbols
 Prettify-symbols-mode will replace some symbols (like "lambda") with their prettier cousins (like \lambda).
 
