@@ -409,7 +409,35 @@ Use the minibuffer from within the minibuffer, and let me know what depth I'm in
        (which-key-mode))
    #+END_SRC
 
-** Window switching
+** Window management
+#+BEGIN_SRC emacs-lisp
+  (use-package window
+    :config
+    (setq split-width-threshold nil) ; Don't split windows horizontally.
+    )
+#+END_SRC
+
+These functions make splitting windows behave more like I want it to. This way, calling ~C-x 2~ or ~C-x 3~ both splits the window /and/ shows the last buffer.
+
+#+BEGIN_SRC  emacs-lisp
+  (defun my/vsplit-last-buffer (prefix)
+    "Split the window vertically and display the previous buffer."
+    (interactive "p")
+    (split-window-vertically)
+    (other-window 1 nil)
+    (if (= prefix 1)
+        (switch-to-next-buffer)))
+  (defun my/hsplit-last-buffer (prefix)
+    "Split the window horizontally and display the previous buffer."
+    (interactive "p")
+    (split-window-horizontally)
+    (other-window 1 nil)
+    (if (= prefix 1) (switch-to-next-buffer)))
+  (bind-keys ("C-x 2" . my/vsplit-last-buffer)
+             ("C-x 3" . my/hsplit-last-buffer))
+#+END_SRC
+
+*** Window switching
 I can use [[https://github.com/deb0ch/emacs-winum][winum]] to quickly jump from window to window.
 This replaces =window-numbering= since =winum= can handle assigning numbers across multiple frames.
 
@@ -1109,26 +1137,6 @@ Yasnippet has a bug that the Spacemacs people figured out a fix for. I've shamel
 #+END_SRC
 
 * Functions
-** Splitting windows
-   These functions make splitting windows behave more like I want it to. This way, calling ~C-x 2~ or ~C-x 3~ both splits the window /and/ shows the last buffer.
-
-   #+BEGIN_SRC emacs-lisp
-     (defun my/vsplit-last-buffer (prefix)
-       "Split the window vertically and display the previous buffer."
-       (interactive "p")
-       (split-window-vertically)
-       (other-window 1 nil)
-       (if (= prefix 1)
-           (switch-to-next-buffer)))
-     (defun my/hsplit-last-buffer (prefix)
-       "Split the window horizontally and display the previous buffer."
-       (interactive "p")
-       (split-window-horizontally)
-       (other-window 1 nil)
-       (if (= prefix 1) (switch-to-next-buffer)))
-     (bind-keys ("C-x 2" . my/vsplit-last-buffer)
-                ("C-x 3" . my/hsplit-last-buffer))
-   #+END_SRC
 ** Calc
    From [[https://www.reddit.com/r/emacs/comments/445w6s/whats_some_small_thing_in_your_dotemacs_that_you/][this reddit thread]]
 
