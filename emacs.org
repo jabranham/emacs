@@ -1405,7 +1405,12 @@ Not technically part of org, but I'll stick the calendar config here since I mai
     :config
     (calendar-set-date-style 'iso)
     (setq calendar-week-start-day 0) ; weeks start on Sunday
-    (setq calendar-date-display-form calendar-iso-date-display-form))
+    (setq calendar-date-display-form calendar-iso-date-display-form)
+    (setq holiday-christian-holidays nil)
+    (setq holiday-bahai-holidays nil)
+    (setq holiday-hebrew-holidays nil)
+    (setq holiday-islamic-holidays nil)
+    (setq holiday-oriental-holidays nil))
 #+END_SRC
 
 ** Exporting
