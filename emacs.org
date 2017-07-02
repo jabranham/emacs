@@ -242,11 +242,12 @@ Rainbow-mode makes it so that for example #0000ff is displayed in white with a b
              ("C-M-e" . sp-end-of-sexp)
              ("C-M-f" . sp-forward-sexp)
              ("C-M-b" . sp-backward-sexp)
+             ("M-]" . sp-unwrap-sexp)
+             :map prog-mode-map
              ("M-<right>" . sp-next-sexp)
              ("M-<left>" . sp-previous-sexp)
              ("C-<right>" . sp-forward-slurp-sexp)
-             ("C-<left>" . sp-forward-barf-sexp)
-             ("M-]" . sp-unwrap-sexp)) ; C-M-SPC is bound to mark-sexp
+             ("C-<left>" . sp-forward-barf-sexp))
        :config
        (use-package smartparens-config)
        (setq sp-show-pair-from-inside t)
