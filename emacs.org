@@ -246,12 +246,9 @@ I took their code and modified it slightly to work more like what I want:
                  (setq cursor-type t)
                  (when show-echo (message "Restored default fonts.")))))))
 #+END_SRC
-
-Load the new function in text modes:
+Bind to my personal keymap:
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'org-mode-hook #'my/toggle-serif)
-  (add-hook 'LaTeX-mode-hook #'my/toggle-serif)
-  (add-hook 'markdown-mode-hook #'my/toggle-serif)
+  (bind-key "f" #'my/toggle-serif my/map)
 #+END_SRC
 
 *** Text wrapping
