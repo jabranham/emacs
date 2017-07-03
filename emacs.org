@@ -411,10 +411,7 @@ Use the minibuffer from within the minibuffer, and let me know what depth I'm in
 
 ** Window management
 #+BEGIN_SRC emacs-lisp
-  (use-package window
-    :config
-    (setq split-width-threshold nil) ; Don't split windows horizontally.
-    )
+  (setq split-width-threshold nil) ; Don't split windows horizontally.
 #+END_SRC
 
 These functions make splitting windows behave more like I want it to. This way, calling ~C-x 2~ or ~C-x 3~ both splits the window /and/ shows the last buffer.
