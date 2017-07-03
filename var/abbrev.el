@@ -167,6 +167,7 @@
   '(
     ("aacross" "across" nil 0)
     ("accurary" "accuracy" nil 1)
+    ("admitadly" "admittedly" nil 0)
     ("ambivilent" "ambivalent" nil 0)
     ("anonomous" "anonymous" nil 1)
     ("arcipeligo" "archipelago" nil 0)
@@ -174,6 +175,7 @@
     ("auxillary" "auxiliary" nil 0)
     ("committment" "commitment" nil 0)
     ("conversley" "conversely" nil 0)
+    ("conversly" "conversely" nil 0)
     ("convienent" "convenient" nil 0)
     ("criticise" "criticize" nil 0)
     ("democraphic" "demographic" nil 0)
