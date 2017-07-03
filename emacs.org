@@ -152,6 +152,12 @@ The way I load the theme depends on if Emacs is started as a window or in the te
        (set-face-attribute 'org-agenda-date-today nil :height 2.0))
    #+END_SRC
 *** Fonts
+Set up the default fixed pitch font:
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'default-frame-alist
+               '(font . "Source Code Pro-12"))
+#+END_SRC
+
 Emacs was an editor originally designed for code, so it defaults to a fixed-width font for most things.
 It's perfectly capable of handling variable-pitch fonts, though.
 The built-in command =variable-pitch-mode= can do that for any buffer.
