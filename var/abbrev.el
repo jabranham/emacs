@@ -91,6 +91,10 @@
 
 (define-abbrev-table 'csv-mode-abbrev-table '())
 
+(define-abbrev-table 'custom-new-theme-mode-abbrev-table '())
+
+(define-abbrev-table 'custom-theme-choose-mode-abbrev-table '())
+
 (define-abbrev-table 'dcl-mode-abbrev-table '())
 
 (define-abbrev-table 'debugger-mode-abbrev-table '())
@@ -166,6 +170,7 @@
 (define-abbrev-table 'global-abbrev-table
   '(
     ("aacross" "across" nil 0)
+    ("accompaning" "accompanying" nil 1)
     ("accurary" "accuracy" nil 1)
     ("admitadly" "admittedly" nil 0)
     ("ambivilent" "ambivalent" nil 0)
@@ -182,7 +187,7 @@
     ("discrepency" "discrepancy" nil 0)
     ("divy" "divvy" nil 0)
     ("educaiton" "education" nil 2)
-    ("emperical" "empirical" nil 0)
+    ("emperical" "empirical" nil 3)
     ("entirally" "entirely" nil 0)
     ("equivilant" "equivalent" nil 0)
     ("equivilently" "equivalently" nil 0)
@@ -198,6 +203,7 @@
     ("imbalences" "imbalances" nil 0)
     ("incongruent" "congruent" nil 0)
     ("individiauls'" "individuals'" nil 0)
+    ("intrepret" "interpret" nil 2)
     ("intrepretation" "interpretation" nil 0)
     ("inversly" "inversely" nil 0)
     ("judgements" "judgments" nil 0)
@@ -218,9 +224,10 @@
     ("systme" "system" nil 0)
     ("taht" "that" nil 1)
     ("teh" "the" nil 3)
-    ("tihs" "this" nil 4)
+    ("tihs" "this" nil 5)
     ("travelling" "traveling" nil 0)
     ("ubt" "but" nil 0)
+    ("underreact" "react" nil 0)
    ))
 
 (define-abbrev-table 'gnus-article-edit-mode-abbrev-table '())
