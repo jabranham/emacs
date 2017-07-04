@@ -12,12 +12,12 @@ The [[https://github.com/jwiegley/use-package][use-package]] package, which I en
 #+END_SRC
 
 * Behavior
-  Change some of emacs's defaults because they suck:
-  #+BEGIN_SRC emacs-lisp
-    (setq inhibit-startup-message t ; disable start screen
-          font-lock-maximum-decoration t) ; lots of color
-    (setq use-dialog-box nil) ; don't use popup boxes, just make the minibuffer ask
-  #+END_SRC
+Change some of emacs's defaults because they suck:
+#+BEGIN_SRC emacs-lisp
+  (setq inhibit-startup-message t ; disable start screen
+        font-lock-maximum-decoration t) ; lots of color
+  (setq use-dialog-box nil) ; don't use popup boxes, just make the minibuffer ask
+#+END_SRC
 
 Setup a personal keymap. I'll bind various things to this later on:
 #+BEGIN_SRC emacs-lisp
@@ -43,32 +43,32 @@ Get rid of it:
   (unbind-key "C-x C-z")
 #+END_SRC
 
-  In my world, =C-z= is undo, not minimize emacs:
+In my world, =C-z= is undo, not minimize emacs:
 
-  #+BEGIN_SRC emacs-lisp
-    (bind-key "C-z" #'undo)
-  #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (bind-key "C-z" #'undo)
+#+END_SRC
 
-    I don't work much with emacs-lisp, so the scratch buffer shouldn't be in emacs-lisp mode:
+I don't work much with emacs-lisp, so the scratch buffer shouldn't be in emacs-lisp mode:
 
-    #+BEGIN_SRC emacs-lisp
-      (setq initial-major-mode #'org-mode
-            initial-scratch-message "# This buffer is for notes you don't want to save\n\n")
-    #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (setq initial-major-mode #'org-mode
+        initial-scratch-message "# This buffer is for notes you don't want to save\n\n")
+#+END_SRC
 
-    Ignore file case when trying to find stuff:
+Ignore file case when trying to find stuff:
 
-    #+BEGIN_SRC emacs-lisp
-      (setq read-file-name-completion-ignore-case t)
-    #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (setq read-file-name-completion-ignore-case t)
+#+END_SRC
 
-    Delete my files by moving them to the trash. I'm human and occasionally delete things that I actually want later:
+Delete my files by moving them to the trash. I'm human and occasionally delete things that I actually want later:
 
-    #+BEGIN_SRC emacs-lisp
-      (setq delete-by-moving-to-trash t)
-    #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (setq delete-by-moving-to-trash t)
+#+END_SRC
 
-    Finally, I set up [[https://github.com/tarsius/no-littering][no-littering]], which helps keep my .emacs.d folder clean by putting files into appropriate subfolders rather than letting them get saved all over the place:
+Finally, I set up [[https://github.com/tarsius/no-littering][no-littering]], which helps keep my .emacs.d folder clean by putting files into appropriate subfolders rather than letting them get saved all over the place:
 
 #+BEGIN_SRC emacs-lisp
   (use-package no-littering
@@ -93,16 +93,16 @@ Set it up so Emacs can send system notifications:
 #+END_SRC
 
 ** UTF-8
-   Pretty please use utf-8 for all the things:
+Pretty please use utf-8 for all the things:
 
-   #+BEGIN_SRC emacs-lisp
-     (set-language-environment "UTF-8")
-     (prefer-coding-system 'utf-8)
-     (set-terminal-coding-system 'utf-8)
-     (set-keyboard-coding-system 'utf-8)
-     (set-buffer-file-coding-system 'utf-8)
-     (set-default-coding-systems 'utf-8)
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (set-language-environment "UTF-8")
+  (prefer-coding-system 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (set-buffer-file-coding-system 'utf-8)
+  (set-default-coding-systems 'utf-8)
+#+END_SRC
 
 ** Info+
 Emacs' info manual is /amazing/. This makes it even better.
@@ -116,41 +116,41 @@ Emacs' info manual is /amazing/. This makes it even better.
 *** Theme
 By default, emacs starts with a blindingly white theme. Let's get rid of that pronto.
 The way I load the theme depends on if Emacs is started as a window or in the terminal. Because of the way Emacs handles themes, I have to load the theme after I make the first frame if I'm starting a daemon. Finally, I don't want to reload the theme after making new frames, so I have to take that into account too!
-   #+BEGIN_SRC emacs-lisp
-     (use-package spacemacs-theme
-       :ensure t
-       :defer t
-       :init
-       ;; theme
-       (defvar my/theme 'spacemacs-dark
-         "The theme I'm using.")
-       (defvar my/theme-window-loaded nil)
-       (defvar my/theme-terminal-loaded nil)
-       (if (daemonp)
-           (add-hook 'after-make-frame-functions
-                     (lambda (frame)
-                       (select-frame frame)
-                       (if (window-system frame)
-                           (unless my/theme-window-loaded
-                             (if my/theme-terminal-loaded
-                                 (enable-theme my/theme)
-                               (load-theme my/theme t))
-                             (setq my/theme-window-loaded t))
-                         (unless my/theme-terminal-loaded
-                           (if my/theme-window-loaded
-                               (enable-theme my/theme)
-                             (load-theme my/theme t))
-                           (setq my/theme-terminal-loaded t)))))
-         (progn
-           (load-theme my/theme t)
-           (if (display-graphic-p)
-               (setq my/theme-window-loaded t)
-             (setq my/theme-terminal-loaded t))))
-       :config
-       ;; make diff chunks stand out a bit more:
-       (set-face-background 'magit-diff-hunk-heading-highlight "#5d4d7a")
-       (set-face-attribute 'org-agenda-date-today nil :height 2.0))
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package spacemacs-theme
+    :ensure t
+    :defer t
+    :init
+    ;; theme
+    (defvar my/theme 'spacemacs-dark
+      "The theme I'm using.")
+    (defvar my/theme-window-loaded nil)
+    (defvar my/theme-terminal-loaded nil)
+    (if (daemonp)
+        (add-hook 'after-make-frame-functions
+                  (lambda (frame)
+                    (select-frame frame)
+                    (if (window-system frame)
+                        (unless my/theme-window-loaded
+                          (if my/theme-terminal-loaded
+                              (enable-theme my/theme)
+                            (load-theme my/theme t))
+                          (setq my/theme-window-loaded t))
+                      (unless my/theme-terminal-loaded
+                        (if my/theme-window-loaded
+                            (enable-theme my/theme)
+                          (load-theme my/theme t))
+                        (setq my/theme-terminal-loaded t)))))
+      (progn
+        (load-theme my/theme t)
+        (if (display-graphic-p)
+            (setq my/theme-window-loaded t)
+          (setq my/theme-terminal-loaded t))))
+    :config
+    ;; make diff chunks stand out a bit more:
+    (set-face-background 'magit-diff-hunk-heading-highlight "#5d4d7a")
+    (set-face-attribute 'org-agenda-date-today nil :height 2.0))
+#+END_SRC
 *** Fonts
 Set up the default fixed pitch font:
 #+BEGIN_SRC emacs-lisp
@@ -258,7 +258,7 @@ Columns should wrap around 80ish characters. 70 is the default, which is just a 
   (setq-default fill-column 80)
 #+END_SRC
 
-  Turn on visual line mode for nice line wrapping
+Turn on visual line mode for nice line wrapping
 
 #+BEGIN_SRC emacs-lisp
   (global-visual-line-mode)
@@ -302,64 +302,64 @@ Rainbow-mode makes it so that for example #0000ff is displayed in white with a b
 #+END_SRC
 
 ** Scrolling
-   Emacs has some awful scrolling by default. This gets rid of that.
+Emacs has some awful scrolling by default. This gets rid of that.
 
-   #+BEGIN_SRC emacs-lisp
-     (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ; one line at a time
-     (setq mouse-wheel-progressive-speed nil) ; don't accelerate scrolling
-     (setq mouse-wheel-follow-mouse 't) ; scroll window under mouse
-     (setq scroll-step 1) ; keyboard scroll one line at a time
-     (setq scroll-preserve-screen-position t)
-     (setq scroll-conservatively 101)
-     (setq view-read-only t) ; open read only buffers in view-mode
-     ;; the defaults C-v and M-v scroll a full page, which is too much.
-     ;; rebind to a half page:
-     (use-package view
-       :bind
-       ("C-v" . View-scroll-half-page-forward)
-       ("M-v" . View-scroll-half-page-backward))
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ; one line at a time
+  (setq mouse-wheel-progressive-speed nil) ; don't accelerate scrolling
+  (setq mouse-wheel-follow-mouse 't) ; scroll window under mouse
+  (setq scroll-step 1) ; keyboard scroll one line at a time
+  (setq scroll-preserve-screen-position t)
+  (setq scroll-conservatively 101)
+  (setq view-read-only t) ; open read only buffers in view-mode
+  ;; the defaults C-v and M-v scroll a full page, which is too much.
+  ;; rebind to a half page:
+  (use-package view
+    :bind
+    ("C-v" . View-scroll-half-page-forward)
+    ("M-v" . View-scroll-half-page-backward))
+#+END_SRC
 
-   This provides a visual cue whenever Emacs scrolls so it's easier to keep my place:
+This provides a visual cue whenever Emacs scrolls so it's easier to keep my place:
 
-   #+BEGIN_SRC emacs-lisp
-     (use-package on-screen
-       :ensure t
-       :config
-       (on-screen-global-mode))
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package on-screen
+    :ensure t
+    :config
+    (on-screen-global-mode))
+#+END_SRC
 
 ** Smart parens
-   I'm not good at keeping track of parentheses. This makes me slightly better at it. It also keeps track of other things that should "match" like {}, [], "", ``'' (in latex mode), etc.
+I'm not good at keeping track of parentheses. This makes me slightly better at it. It also keeps track of other things that should "match" like {}, [], "", ``'' (in latex mode), etc.
 
-   #+BEGIN_SRC emacs-lisp
-     (use-package smartparens
-       :ensure t
-       :demand t
-       :bind
-       (:map smartparens-mode-map
-             ("C-M-a" . sp-beginning-of-sexp)
-             ("C-M-e" . sp-end-of-sexp)
-             ("C-M-f" . sp-forward-sexp)
-             ("C-M-b" . sp-backward-sexp)
-             ("M-]" . sp-unwrap-sexp)
-             :map prog-mode-map
-             ("M-<right>" . sp-next-sexp)
-             ("M-<left>" . sp-previous-sexp)
-             ("C-<right>" . sp-forward-slurp-sexp)
-             ("C-<left>" . sp-forward-barf-sexp))
-       :config
-       (use-package smartparens-config)
-       (setq sp-show-pair-from-inside t)
-       (add-hook 'inferior-ess-mode-hook #'smartparens-strict-mode)
-       (smartparens-global-strict-mode)
-       (show-smartparens-global-mode))
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package smartparens
+    :ensure t
+    :demand t
+    :bind
+    (:map smartparens-mode-map
+          ("C-M-a" . sp-beginning-of-sexp)
+          ("C-M-e" . sp-end-of-sexp)
+          ("C-M-f" . sp-forward-sexp)
+          ("C-M-b" . sp-backward-sexp)
+          ("M-]" . sp-unwrap-sexp)
+          :map prog-mode-map
+          ("M-<right>" . sp-next-sexp)
+          ("M-<left>" . sp-previous-sexp)
+          ("C-<right>" . sp-forward-slurp-sexp)
+          ("C-<left>" . sp-forward-barf-sexp))
+    :config
+    (use-package smartparens-config)
+    (setq sp-show-pair-from-inside t)
+    (add-hook 'inferior-ess-mode-hook #'smartparens-strict-mode)
+    (smartparens-global-strict-mode)
+    (show-smartparens-global-mode))
+#+END_SRC
 
 ** PDF viewer
-   I like emacs, so why not view PDFs in it? Build the server when it asks - this may take a second.
+I like emacs, so why not view PDFs in it? Build the server when it asks - this may take a second.
 
-   NOTE: ~pdf-tools~ only officially supports gnu/linux operating systems. I think that it will work on macs as well, but you may have to finagle it a bit. Regardless, I tell emacs to only use it if the OS is linux based.
+NOTE: ~pdf-tools~ only officially supports gnu/linux operating systems. I think that it will work on macs as well, but you may have to finagle it a bit. Regardless, I tell emacs to only use it if the OS is linux based.
 
 #+BEGIN_SRC emacs-lisp
   (use-package pdf-tools
@@ -375,7 +375,7 @@ Rainbow-mode makes it so that for example #0000ff is displayed in white with a b
     ;; Use pdf-tools to display pdfs from latex runs:
     (setq TeX-view-program-selection '((output-pdf "pdf-tools")))
     (setq TeX-view-program-list '(("pdf-tools" "TeX-pdf-tools-sync-view"))))
- #+END_SRC
+#+END_SRC
 
 ** Async
 Async is written to let things be more async-y in Emacs. I use it for dired-async mode mostly.
@@ -395,20 +395,20 @@ Async is written to let things be more async-y in Emacs. I use it for dired-asyn
 #+END_SRC
 
 ** File finder (Dired)
-   Emacs can act as your file finder/explorer. Dired is the built-in way to do this.
+Emacs can act as your file finder/explorer. Dired is the built-in way to do this.
 
-   #+BEGIN_SRC emacs-lisp
-     (bind-key "C-x C-d" #'dired) ; overrides list-directory, which I never use
-     (setq dired-auto-revert-buffer t)
-     (setq dired-dwim-target t)
-     (setq dired-recursive-copies (quote always))
-     (setq dired-recursive-deletes (quote always))
-     (bind-key "l" #'dired-up-directory dired-mode-map) ; use l to go up in dired
-     ;; -l: long listing format REQUIRED in dired-listing-switches
-     ;; -a: show everything (including dotfiles)
-     ;; -h: human-readable file sizes
-     (setq dired-listing-switches "-alh --group-directories-first")
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (bind-key "C-x C-d" #'dired) ; overrides list-directory, which I never use
+  (setq dired-auto-revert-buffer t)
+  (setq dired-dwim-target t)
+  (setq dired-recursive-copies (quote always))
+  (setq dired-recursive-deletes (quote always))
+  (bind-key "l" #'dired-up-directory dired-mode-map) ; use l to go up in dired
+  ;; -l: long listing format REQUIRED in dired-listing-switches
+  ;; -a: show everything (including dotfiles)
+  ;; -h: human-readable file sizes
+  (setq dired-listing-switches "-alh --group-directories-first")
+#+END_SRC
 
 List directory sizes using ~du~:
 #+BEGIN_SRC emacs-lisp
@@ -425,15 +425,15 @@ List directory sizes using ~du~:
     (add-hook 'dired-mode-hook #'my/dired-maybe-hide-details))
 #+END_SRC
 
-  This lets me make directories on the fly similar to =mkdir -p=. [[http://mbork.pl/2016-07-25_Making_directories_on_the_fly][Thanks!]]
+This lets me make directories on the fly similar to =mkdir -p=. [[http://mbork.pl/2016-07-25_Making_directories_on_the_fly][Thanks!]]
 
-   #+BEGIN_SRC emacs-lisp
-     (defun make-parent-directory ()
-       "Make sure the directory of `buffer-file-name' exists."
-       (make-directory (file-name-directory buffer-file-name) t))
+#+BEGIN_SRC emacs-lisp
+  (defun make-parent-directory ()
+    "Make sure the directory of `buffer-file-name' exists."
+    (make-directory (file-name-directory buffer-file-name) t))
 
-     (add-hook 'find-file-not-found-functions #'make-parent-directory)
-   #+END_SRC
+  (add-hook 'find-file-not-found-functions #'make-parent-directory)
+#+END_SRC
 
 By default, dired asks you if you want to delete the dired buffer if you delete the folder. I can't think of a reason I'd ever want to do that, so just automate it:
 #+BEGIN_SRC emacs-lisp
@@ -448,40 +448,40 @@ By default, dired asks you if you want to delete the dired buffer if you delete 
 #+END_SRC
 
 ** Modeline
-   The default modeline is nice enough, but this one is much better looking:
+The default modeline is nice enough, but this one is much better looking:
 
-   #+BEGIN_SRC emacs-lisp
-     (use-package spaceline-config
-       :ensure spaceline
-       :config
-       (setq spaceline-window-numbers-unicode t)
-       (setq spaceline-workspace-numbers-unicode t)
-       (spaceline-helm-mode)
-       (spaceline-info-mode)
-       (setq-default
-        powerline-height 24
-        powerline-default-separator 'wave
-        spaceline-flycheck-bullet "❖ %s"
-        spaceline-separator-dir-left '(right . right)
-        spaceline-separator-dir-right '(left . left))
-       (spaceline-install
-         'main
-         '((window-number)
-           (buffer-modified)
-           (projectile-root)
-           ((remote-host buffer-id) :face highlight-face)
-           (major-mode)
-           (process :when active))
-         '((selection-info :face region :when mark-active)
-           ((flycheck-error flycheck-warning flycheck-info) :when active)
-           (which-function)
-           (version-control :when active)
-           (line-column)
-           (global :when active)
-           (buffer-position)))
-       (setq-default mode-line-format '("%e" (:eval (spaceline-ml-main)))))
-   #+END_SRC
-   Also, we can substitute the [[http://fontawesome.io/icon/code-fork/][code fork]] from [[http://fontawesome.io/icon/code-fork/][font awesome]] (which you'll need to have installed) to have a pretty symbol instead of "git:branch"
+#+BEGIN_SRC emacs-lisp
+  (use-package spaceline-config
+    :ensure spaceline
+    :config
+    (setq spaceline-window-numbers-unicode t)
+    (setq spaceline-workspace-numbers-unicode t)
+    (spaceline-helm-mode)
+    (spaceline-info-mode)
+    (setq-default
+     powerline-height 24
+     powerline-default-separator 'wave
+     spaceline-flycheck-bullet "❖ %s"
+     spaceline-separator-dir-left '(right . right)
+     spaceline-separator-dir-right '(left . left))
+    (spaceline-install
+      'main
+      '((window-number)
+        (buffer-modified)
+        (projectile-root)
+        ((remote-host buffer-id) :face highlight-face)
+        (major-mode)
+        (process :when active))
+      '((selection-info :face region :when mark-active)
+        ((flycheck-error flycheck-warning flycheck-info) :when active)
+        (which-function)
+        (version-control :when active)
+        (line-column)
+        (global :when active)
+        (buffer-position)))
+    (setq-default mode-line-format '("%e" (:eval (spaceline-ml-main)))))
+#+END_SRC
+Also, we can substitute the [[http://fontawesome.io/icon/code-fork/][code fork]] from [[http://fontawesome.io/icon/code-fork/][font awesome]] (which you'll need to have installed) to have a pretty symbol instead of "git:branch"
 #+BEGIN_SRC emacs-lisp
   (defun my-vc-git-mode-line-string (orig-fn &rest args)
     "Replace Git in modeline with font-awesome git icon via ORIG-FN and ARGS."
@@ -498,15 +498,15 @@ Use the minibuffer from within the minibuffer, and let me know what depth I'm in
 #+END_SRC
 
 ** Which-key
-   [[https://github.com/justbur/emacs-which-key][Which key]] shows key bindings for incomplete commands (prefixes).
+[[https://github.com/justbur/emacs-which-key][Which key]] shows key bindings for incomplete commands (prefixes).
 
-   #+BEGIN_SRC emacs-lisp
-     (use-package which-key
-       :ensure t
-       :commands which-key-mode
-       :config
-       (which-key-mode))
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key
+    :ensure t
+    :commands which-key-mode
+    :config
+    (which-key-mode))
+#+END_SRC
 
 ** Window management
 #+BEGIN_SRC emacs-lisp
@@ -537,28 +537,28 @@ These functions make splitting windows behave more like I want it to. This way, 
 I can use [[https://github.com/deb0ch/emacs-winum][winum]] to quickly jump from window to window.
 This replaces =window-numbering= since =winum= can handle assigning numbers across multiple frames.
 
-   #+BEGIN_SRC emacs-lisp
-     (use-package winum
-       :ensure t
-       :init
-       (setq winum-keymap
-             (let ((map (make-sparse-keymap)))
-               (bind-key (kbd "M-0") #'winum-select-window-0-or-10 map)
-               (bind-key (kbd "M-1") #'winum-select-window-1 map)
-               (bind-key (kbd "M-2") #'winum-select-window-2 map)
-               (bind-key (kbd "M-3") #'winum-select-window-3 map)
-               (bind-key (kbd "M-4") #'winum-select-window-4 map)
-               (bind-key (kbd "M-5") #'winum-select-window-5 map)
-               (bind-key (kbd "M-6") #'winum-select-window-6 map)
-               (bind-key (kbd "M-7") #'winum-select-window-7 map)
-               (bind-key (kbd "M-8") #'winum-select-window-8 map)
-               (bind-key (kbd "M-9") #'winum-select-window-9 map)
-               map))
-       :config
-       (setq winum-scope 'frame-local)
-       (setq winum-auto-setup-mode-line nil)
-       (winum-mode))
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package winum
+    :ensure t
+    :init
+    (setq winum-keymap
+          (let ((map (make-sparse-keymap)))
+            (bind-key (kbd "M-0") #'winum-select-window-0-or-10 map)
+            (bind-key (kbd "M-1") #'winum-select-window-1 map)
+            (bind-key (kbd "M-2") #'winum-select-window-2 map)
+            (bind-key (kbd "M-3") #'winum-select-window-3 map)
+            (bind-key (kbd "M-4") #'winum-select-window-4 map)
+            (bind-key (kbd "M-5") #'winum-select-window-5 map)
+            (bind-key (kbd "M-6") #'winum-select-window-6 map)
+            (bind-key (kbd "M-7") #'winum-select-window-7 map)
+            (bind-key (kbd "M-8") #'winum-select-window-8 map)
+            (bind-key (kbd "M-9") #'winum-select-window-9 map)
+            map))
+    :config
+    (setq winum-scope 'frame-local)
+    (setq winum-auto-setup-mode-line nil)
+    (winum-mode))
+#+END_SRC
 
 ** Frame management
 Prompt me to save changed buffers if I'm closing the last frame (and Emacs is running as a daemon):
@@ -601,60 +601,60 @@ And then I can setup a nice transpose keymap. Note that transpose-words is also 
              ("x" . transpose-sexps))
 #+END_SRC
 ** Server
-   Start the server:
-   #+BEGIN_SRC emacs-lisp
-     (use-package server
-       :if window-system
-       :config
-       (unless (server-running-p)
-         (add-hook 'after-init-hook #'server-start t)))
-   #+END_SRC
+Start the server:
+#+BEGIN_SRC emacs-lisp
+  (use-package server
+    :if window-system
+    :config
+    (unless (server-running-p)
+      (add-hook 'after-init-hook #'server-start t)))
+#+END_SRC
 ** Crux
-   [[https://github.com/bbatsov/crux/blob/master/crux.el][Crux]] is a collection of useful extensions. Here I bind some of the more useful functions:
+[[https://github.com/bbatsov/crux/blob/master/crux.el][Crux]] is a collection of useful extensions. Here I bind some of the more useful functions:
 
-   #+BEGIN_SRC emacs-lisp
-     (use-package crux
-       :ensure t
-       :bind
-       (("C-x i" . crux-ispell-word-then-abbrev)
-        ("C-c e" . crux-sudo-edit)
-        :map prog-mode-map
-        ("C-a" . crux-move-beginning-of-line))
-       :config
-       (setq save-abbrevs 'silently)
-       (setq-default abbrev-mode t))
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package crux
+    :ensure t
+    :bind
+    (("C-x i" . crux-ispell-word-then-abbrev)
+     ("C-c e" . crux-sudo-edit)
+     :map prog-mode-map
+     ("C-a" . crux-move-beginning-of-line))
+    :config
+    (setq save-abbrevs 'silently)
+    (setq-default abbrev-mode t))
+#+END_SRC
 
 ** Help windows
-   You can use =C-h f=, =C-h v= and others to read docs for functions, variables, etc. This makes emacs switch focus to these windows:
+You can use =C-h f=, =C-h v= and others to read docs for functions, variables, etc. This makes emacs switch focus to these windows:
 
-   #+BEGIN_SRC emacs-lisp
-     (setq help-window-select t)
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (setq help-window-select t)
+#+END_SRC
 ** popwin
-   [[https://github.com/m2ym/popwin-el][popwin]] describes itself as freeing me from the hell of annoying buffers. Let's see if that's true:
+[[https://github.com/m2ym/popwin-el][popwin]] describes itself as freeing me from the hell of annoying buffers. Let's see if that's true:
 
-   #+BEGIN_SRC emacs-lisp
-     (use-package popwin
-       :ensure t
-       :config
-       ;; Helper functions from the helm wiki to deal with help windows and a weird
-       ;; interaction between helm and popwin:
-       (defun *-popwin-help-mode-off ()
-         "Turn `popwin-mode' off for *Help* buffers."
-         (when (boundp 'popwin:special-display-config)
-           (customize-set-variable 'popwin:special-display-config
-                                   (delq 'help-mode popwin:special-display-config))))
-       (defun *-popwin-help-mode-on ()
-         "Turn `popwin-mode' on for *Help* buffers."
-         (when (boundp 'popwin:special-display-config)
-           (customize-set-variable 'popwin:special-display-config
-                                   (add-to-list 'popwin:special-display-config 'help-mode nil #'eq))))
-       (add-hook 'helm-minibuffer-set-up-hook #'*-popwin-help-mode-off)
-       (add-hook 'helm-cleanup-hook #'*-popwin-help-mode-on)
-       ;; Turn on popwin
-       (popwin-mode 1))
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package popwin
+    :ensure t
+    :config
+    ;; Helper functions from the helm wiki to deal with help windows and a weird
+    ;; interaction between helm and popwin:
+    (defun *-popwin-help-mode-off ()
+      "Turn `popwin-mode' off for *Help* buffers."
+      (when (boundp 'popwin:special-display-config)
+        (customize-set-variable 'popwin:special-display-config
+                                (delq 'help-mode popwin:special-display-config))))
+    (defun *-popwin-help-mode-on ()
+      "Turn `popwin-mode' on for *Help* buffers."
+      (when (boundp 'popwin:special-display-config)
+        (customize-set-variable 'popwin:special-display-config
+                                (add-to-list 'popwin:special-display-config 'help-mode nil #'eq))))
+    (add-hook 'helm-minibuffer-set-up-hook #'*-popwin-help-mode-off)
+    (add-hook 'helm-cleanup-hook #'*-popwin-help-mode-on)
+    ;; Turn on popwin
+    (popwin-mode 1))
+#+END_SRC
 
 ** Encryption
 #+BEGIN_SRC emacs-lisp
@@ -663,110 +663,110 @@ And then I can setup a nice transpose keymap. Note that transpose-words is also 
     (setq epa-pinentry-mode 'loopback))
 #+END_SRC
 ** Passwords
-   I use [[https://www.passwordstore.org/][pass]] to manage all my passwords and login info. This lets me easily access it from within emacs:
+I use [[https://www.passwordstore.org/][pass]] to manage all my passwords and login info. This lets me easily access it from within emacs:
 
-   #+BEGIN_SRC emacs-lisp
-     (use-package password-store
-       :ensure t
-       :if (executable-find "pass")
-       :demand t
-       :init
-       (use-package auth-password-store
-         :ensure t)
-       :config
-       (setq password-store-password-length 20)
-       (use-package helm-pass
-         :load-path "pkg/helm-pass"
-         :after 'helm
-         :bind ("M-s p" . helm-pass)))
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package password-store
+    :ensure t
+    :if (executable-find "pass")
+    :demand t
+    :init
+    (use-package auth-password-store
+      :ensure t)
+    :config
+    (setq password-store-password-length 20)
+    (use-package helm-pass
+      :load-path "pkg/helm-pass"
+      :after 'helm
+      :bind ("M-s p" . helm-pass)))
+#+END_SRC
 ** Try
-   This package lets me try out other packages before installing them by installing them to tmp:
+This package lets me try out other packages before installing them by installing them to tmp:
 
 
-   #+BEGIN_SRC emacs-lisp
-     (use-package try
-       :ensure t
-       :commands (try))
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package try
+    :ensure t
+    :commands (try))
+#+END_SRC
 
 ** Undo-tree
-   Emacs undo system is incredibly powerful but a bit confusing. This package has a great visualization system that helps out, bound to =C-x u= by default.
-   #+BEGIN_SRC emacs-lisp
-     (use-package undo-tree
-       :ensure t
-       :init
-       (global-undo-tree-mode)
-       :config
-       (setq undo-tree-visualizer-timestamps t)
-       (setq undo-tree-visualizer-diff t))
-   #+END_SRC
+Emacs undo system is incredibly powerful but a bit confusing. This package has a great visualization system that helps out, bound to =C-x u= by default.
+#+BEGIN_SRC emacs-lisp
+  (use-package undo-tree
+    :ensure t
+    :init
+    (global-undo-tree-mode)
+    :config
+    (setq undo-tree-visualizer-timestamps t)
+    (setq undo-tree-visualizer-diff t))
+#+END_SRC
 
 ** Hydra
 [[https://github.com/abo-abo/hydra][Hydra]] is a nice package that lets you set up menus for related (or not) commands.
 
-   #+BEGIN_SRC emacs-lisp
-     (use-package hydra
-       :ensure t)
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package hydra
+    :ensure t)
+#+END_SRC
 
 ** Move buffers
-   Sometimes the buffers are in the wrong places. This lets me move them around.
+Sometimes the buffers are in the wrong places. This lets me move them around.
 
-   #+BEGIN_SRC emacs-lisp
-     (use-package buffer-move
-       :ensure t
-       :bind
-       ("M-S-<up>" . buf-move-up)
-       ("M-S-<down>" . buf-move-down)
-       ("M-S-<left>" . buf-move-left)
-       ("M-S-<right>" . buf-move-right)
-       :config
-       (setq buffer-move-behavior 'move))
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package buffer-move
+    :ensure t
+    :bind
+    ("M-S-<up>" . buf-move-up)
+    ("M-S-<down>" . buf-move-down)
+    ("M-S-<left>" . buf-move-left)
+    ("M-S-<right>" . buf-move-right)
+    :config
+    (setq buffer-move-behavior 'move))
+#+END_SRC
 
-   Here's a quick [[https://github.com/abo-abo/hydra][hydra]] that I wrote to quickly move buffers from window to window:
+Here's a quick [[https://github.com/abo-abo/hydra][hydra]] that I wrote to quickly move buffers from window to window:
 
-   #+BEGIN_SRC emacs-lisp
-     (defhydra hydra-window ()
-       "window management"
-       ("l" buf-move-left "left")
-       ("r" buf-move-right "right")
-       ("d" buf-move-down "down")
-       ("u" buf-move-up "up"))
-     (bind-key "C-c m b" #'hydra-window/body)
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (defhydra hydra-window ()
+    "window management"
+    ("l" buf-move-left "left")
+    ("r" buf-move-right "right")
+    ("d" buf-move-down "down")
+    ("u" buf-move-up "up"))
+  (bind-key "C-c m b" #'hydra-window/body)
+#+END_SRC
 
 ** Auto indent
 
-   [[https://github.com/Malabarba/aggressive-indent-mode][Aggressive indent mode]] keeps code indented automatically, even after rearranging stuff:
+[[https://github.com/Malabarba/aggressive-indent-mode][Aggressive indent mode]] keeps code indented automatically, even after rearranging stuff:
 
-   #+BEGIN_SRC emacs-lisp
-     (use-package aggressive-indent
-       :ensure t
-       :config
-       (global-aggressive-indent-mode)
-       )
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package aggressive-indent
+    :ensure t
+    :config
+    (global-aggressive-indent-mode)
+    )
+#+END_SRC
 
 ** System management
 *** System packages
-   This is a collection of functions I wrote to help me manage installed system packages with emacs. You can find the package [[https://github.com/jabranham/system-packages][on github]]
+This is a collection of functions I wrote to help me manage installed system packages with emacs. You can find the package [[https://github.com/jabranham/system-packages][on github]]
 
-   #+BEGIN_SRC emacs-lisp
-     (use-package system-packages
-       :load-path "pkg/system-packages"
-       :bind ("<f5>" . hydra/system-packages/body)
-       :config
-       (defhydra hydra/system-packages ()
-         "Manage system packages"
-         ("i" system-packages-install "install" :exit t)
-         ("s" system-packages-search "search" :exit t)
-         ("U" system-packages-uninstall "uninstall" :exit t)
-         ("u" system-packages-update "update" :exit t)
-         ("l" system-packages-list-installed-packages "list installed" :exit t)
-         ("O" system-packages-remove-orphaned "remove orphans" :exit t)))
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package system-packages
+    :load-path "pkg/system-packages"
+    :bind ("<f5>" . hydra/system-packages/body)
+    :config
+    (defhydra hydra/system-packages ()
+      "Manage system packages"
+      ("i" system-packages-install "install" :exit t)
+      ("s" system-packages-search "search" :exit t)
+      ("U" system-packages-uninstall "uninstall" :exit t)
+      ("u" system-packages-update "update" :exit t)
+      ("l" system-packages-list-installed-packages "list installed" :exit t)
+      ("O" system-packages-remove-orphaned "remove orphans" :exit t)))
+#+END_SRC
 *** PKGBUILD
 Arch linux uses PKGBUILD files to describe built information for packages. This provides an Emacs mode:
 #+BEGIN_SRC emacs-lisp
@@ -783,19 +783,19 @@ This adds syntax highlighting for it (Emacs can do a decent job out-of-the box w
 #+END_SRC
 
 ** Multiple cursors
-   Emacs can support multiple cursors. I don't use this much, but it's super handy when I do need it:
-   #+BEGIN_SRC emacs-lisp
-     (use-package multiple-cursors
-       :ensure t
-       :commands (mc/edit-lines mc/mark-all-like-this)
-       :config
-       (bind-keys :prefix "C-c m c"
-                  :prefix-map multi-cursors-map
-                  ("l" . mc/edit-lines)
-                  ("n" . mc/mark-next-like-this)
-                  ("p" . mc/mark-previous-like-this)
-                  ("a" . mc/mark-all-like-this)))
-   #+END_SRC
+Emacs can support multiple cursors. I don't use this much, but it's super handy when I do need it:
+#+BEGIN_SRC emacs-lisp
+  (use-package multiple-cursors
+    :ensure t
+    :commands (mc/edit-lines mc/mark-all-like-this)
+    :config
+    (bind-keys :prefix "C-c m c"
+               :prefix-map multi-cursors-map
+               ("l" . mc/edit-lines)
+               ("n" . mc/mark-next-like-this)
+               ("p" . mc/mark-previous-like-this)
+               ("a" . mc/mark-all-like-this)))
+#+END_SRC
 ** Expand region
 I can use ~C-=~ to expand the region incrementally:
 
@@ -824,7 +824,7 @@ If a webpage requires more than eww can handle, I can switch to the system defau
   (use-package eww
     :bind
     (:map eww-mode-map
-	  ("0" . eww-browse-with-external-browser)))
+          ("0" . eww-browse-with-external-browser)))
 #+END_SRC
 
 =eww-lnum= makes following links a little easier:
@@ -858,7 +858,7 @@ By default, =M-s M-w= searches for text in the region. I overwrite it to search 
 Don't leave histfiles everywhere:
 #+BEGIN_SRC emacs-lisp
   (setq tramp-histfile-override t)
-  #+END_SRC
+#+END_SRC
 
 Use ssh by default:
 #+BEGIN_SRC emacs-lisp
@@ -892,67 +892,67 @@ remotehost must be explicitly specified
 ** Text Misc
 I end sentences with a single space.
 
-  #+BEGIN_SRC emacs-lisp
-    (setq sentence-end-double-space nil)
-  #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (setq sentence-end-double-space nil)
+#+END_SRC
 
-  =fill-paragraph= is nice, but emacs weirdly lacks a convenient way to unfill paragraphs once they're filled. This command ([[http://endlessparentheses.com/fill-and-unfill-paragraphs-with-a-single-key.html][credit]]) fixes that.
+=fill-paragraph= is nice, but emacs weirdly lacks a convenient way to unfill paragraphs once they're filled. This command ([[http://endlessparentheses.com/fill-and-unfill-paragraphs-with-a-single-key.html][credit]]) fixes that.
 
-    #+BEGIN_SRC emacs-lisp
-      (defun endless/fill-or-unfill ()
-        "Like `fill-paragraph', but unfill if used twice."
-        (interactive)
-        (let ((fill-column
-               (if (eq last-command 'endless/fill-or-unfill)
-                   (progn (setq this-command nil)
-                          (point-max))
-                 fill-column)))
-          (call-interactively #'fill-paragraph)))
+#+BEGIN_SRC emacs-lisp
+  (defun endless/fill-or-unfill ()
+    "Like `fill-paragraph', but unfill if used twice."
+    (interactive)
+    (let ((fill-column
+           (if (eq last-command 'endless/fill-or-unfill)
+               (progn (setq this-command nil)
+                      (point-max))
+             fill-column)))
+      (call-interactively #'fill-paragraph)))
 
-      (bind-key [remap fill-paragraph] #'endless/fill-or-unfill)
-  #+END_SRC
+  (bind-key [remap fill-paragraph] #'endless/fill-or-unfill)
+#+END_SRC
 
-    Sometimes I type DOuble LEtters instead of Single Letter caps. This fixes that:
-  #+BEGIN_SRC emacs-lisp
-    (defun dcaps-to-scaps ()
-      "Convert word in DOuble CApitals to Single Capitals."
-      (interactive)
-      (and (= ?w (char-syntax (char-before)))
-           (save-excursion
-             (and (if (called-interactively-p)
-                      (skip-syntax-backward "w")
-                    (= -3 (skip-syntax-backward "w")))
-                  (let (case-fold-search)
-                    (looking-at "\\b[[:upper:]]\\{2\\}[[:lower:]]"))
-                  (capitalize-word 1)))))
+Sometimes I type DOuble LEtters instead of Single Letter caps. This fixes that:
+#+BEGIN_SRC emacs-lisp
+  (defun dcaps-to-scaps ()
+    "Convert word in DOuble CApitals to Single Capitals."
+    (interactive)
+    (and (= ?w (char-syntax (char-before)))
+         (save-excursion
+           (and (if (called-interactively-p)
+                    (skip-syntax-backward "w")
+                  (= -3 (skip-syntax-backward "w")))
+                (let (case-fold-search)
+                  (looking-at "\\b[[:upper:]]\\{2\\}[[:lower:]]"))
+                (capitalize-word 1)))))
 
-    (define-minor-mode dubcaps-mode
-      "Toggle `dubcaps-mode'.  Converts words in DOuble CApitals to
-    Single Capitals as you type."
-      :init-value nil
-      :lighter (" DC")
-      (if dubcaps-mode
-          (add-hook 'post-self-insert-hook #'dcaps-to-scaps nil 'local)
-        (remove-hook 'post-self-insert-hook #'dcaps-to-scaps 'local)))
+  (define-minor-mode dubcaps-mode
+    "Toggle `dubcaps-mode'.  Converts words in DOuble CApitals to
+  Single Capitals as you type."
+    :init-value nil
+    :lighter (" DC")
+    (if dubcaps-mode
+        (add-hook 'post-self-insert-hook #'dcaps-to-scaps nil 'local)
+      (remove-hook 'post-self-insert-hook #'dcaps-to-scaps 'local)))
 
-    (add-hook 'text-mode-hook #'dubcaps-mode)
-  #+END_SRC
+  (add-hook 'text-mode-hook #'dubcaps-mode)
+#+END_SRC
 ** Miscellaneous
-   Here are a bunch of things I want emacs to do (or not) but don't seem to fit in other sections.
+Here are a bunch of things I want emacs to do (or not) but don't seem to fit in other sections.
 
-   For when I need lots of text:
-   #+BEGIN_SRC emacs-lisp
-     (defun lorem ()
-       "Insert a lorem ipsum."
-       (interactive)
-       (insert "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do "
-               "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim"
-               "ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut "
-               "aliquip ex ea commodo consequat. Duis aute irure dolor in "
-               "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla "
-               "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
-               "culpa qui officia deserunt mollit anim id est laborum."))
-   #+END_SRC
+For when I need lots of text:
+#+BEGIN_SRC emacs-lisp
+  (defun lorem ()
+    "Insert a lorem ipsum."
+    (interactive)
+    (insert "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do "
+            "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim"
+            "ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut "
+            "aliquip ex ea commodo consequat. Duis aute irure dolor in "
+            "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla "
+            "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
+            "culpa qui officia deserunt mollit anim id est laborum."))
+#+END_SRC
 *** Disable tooltips
 If the mouse goes over a divider between windows, Emacs helpfully tells you what pressing the mouse buttons will do. This is a little annoying, though, so let's disable it:
 #+BEGIN_SRC emacs-lisp
@@ -989,149 +989,149 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
 #+END_SRC
 
 *** Replace selected text
-    Emacs by default doesn't replace selected text if you start typing over it. Since that's the behavior of virtually all other programs, let's make emacs do that too:
+Emacs by default doesn't replace selected text if you start typing over it. Since that's the behavior of virtually all other programs, let's make emacs do that too:
 
-    #+BEGIN_SRC emacs-lisp
-      (delete-selection-mode)
-    #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (delete-selection-mode)
+#+END_SRC
 
 *** Blinking cursor & highlight line
-    A blinking cursor gets kinda annoying, so get rid of it:
+A blinking cursor gets kinda annoying, so get rid of it:
 
-    #+BEGIN_SRC emacs-lisp
-      (blink-cursor-mode -1)
-    #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (blink-cursor-mode -1)
+#+END_SRC
 
-    Also, I like the current line to be highlighted. Makes it easy to see where I am:
+Also, I like the current line to be highlighted. Makes it easy to see where I am:
 
-    #+BEGIN_SRC emacs-lisp
-      (global-hl-line-mode)
-    #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (global-hl-line-mode)
+#+END_SRC
 *** Refresh buffers
-    Emacs should refresh buffers automatically so if they've changed on disk the buffer will update. I want dired to do this, but don't ask me.
+Emacs should refresh buffers automatically so if they've changed on disk the buffer will update. I want dired to do this, but don't ask me.
 
-    #+BEGIN_SRC emacs-lisp
-      (setq global-auto-revert-non-file-buffers t)
-      (setq auto-revert-verbose nil)
-      (global-auto-revert-mode 1)
-    #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (setq global-auto-revert-non-file-buffers t)
+  (setq auto-revert-verbose nil)
+  (global-auto-revert-mode 1)
+#+END_SRC
 
 *** Resize windows
-    We can resize windows now!
-     #+BEGIN_SRC emacs-lisp
-       (bind-keys ("S-C-<left>" . shrink-window-horizontally)
-                  ("S-C-<right>" . enlarge-window-horizontally)
-                  ("S-C-<down>" . shrink-window)
-                  ("S-C-<up>" . enlarge-window))
-     #+END_SRC
+We can resize windows now!
+#+BEGIN_SRC emacs-lisp
+  (bind-keys ("S-C-<left>" . shrink-window-horizontally)
+             ("S-C-<right>" . enlarge-window-horizontally)
+             ("S-C-<down>" . shrink-window)
+             ("S-C-<up>" . enlarge-window))
+#+END_SRC
 *** Start maximized
-    #+BEGIN_SRC emacs-lisp
-      (add-to-list 'default-frame-alist '(fullscreen . maximized))
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-    #+END_SRC
+#+END_SRC
 
 *** Better defaults
-    This is inspired by the [[https://github.com/technomancy/better-defaults][better defaults]] package, but I don't like everything in there.
+This is inspired by the [[https://github.com/technomancy/better-defaults][better defaults]] package, but I don't like everything in there.
 
-    Yes, please save my place when opening/closing files:
+Yes, please save my place when opening/closing files:
 
-    #+BEGIN_SRC emacs-lisp
-      (use-package saveplace
-        :config
-        (save-place-mode))
-    #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package saveplace
+    :config
+    (save-place-mode))
+#+END_SRC
 
-    Get rid of menu-bar, toolbar, and the scroll bars
-    #+BEGIN_SRC emacs-lisp
-      (menu-bar-mode -1)
-      (tool-bar-mode -1)
-      (scroll-bar-mode -1)
-    #+END_SRC
+Get rid of menu-bar, toolbar, and the scroll bars
+#+BEGIN_SRC emacs-lisp
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+#+END_SRC
 
-    Don't ever use tabs. Always use spaces.
-    #+BEGIN_SRC emacs-lisp
-      (setq-default indent-tabs-mode nil)
-    #+END_SRC
+Don't ever use tabs. Always use spaces.
+#+BEGIN_SRC emacs-lisp
+  (setq-default indent-tabs-mode nil)
+#+END_SRC
 
-    Because I'm lazy, I want to just type y or n instead of spelling out yes/no.
+Because I'm lazy, I want to just type y or n instead of spelling out yes/no.
 
-    #+BEGIN_SRC emacs-lisp
-      (fset 'yes-or-no-p 'y-or-n-p)
-    #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (fset 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
 
-    Also, don't ask me when I try to create a new file. Just create it.
+Also, don't ask me when I try to create a new file. Just create it.
 
-    #+BEGIN_SRC emacs-lisp
-      (setq confirm-nonexistent-file-or-buffer nil)
-    #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (setq confirm-nonexistent-file-or-buffer nil)
+#+END_SRC
 
-      We can use shift-mouse for selecting from point:
+We can use shift-mouse for selecting from point:
 
-      #+BEGIN_SRC emacs-lisp
-        (bind-key "<S-down-mouse-1>" #'mouse-save-then-kill)
-      #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (bind-key "<S-down-mouse-1>" #'mouse-save-then-kill)
+#+END_SRC
 
-    Use regex searches by default:
+Use regex searches by default:
 
-    #+BEGIN_SRC emacs-lisp
-      (setq search-default-mode t)
-    #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (setq search-default-mode t)
+#+END_SRC
 
-    A few final modifications:
+A few final modifications:
 
-    #+BEGIN_SRC emacs-lisp
-      (setq   save-interprogram-paste-before-kill t
-              apropos-do-all t
-              mouse-yank-at-point t
-              require-final-newline t
-              visible-bell t
-              load-prefer-newer t
-              ediff-window-setup-function 'ediff-setup-windows-plain)
-    #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (setq   save-interprogram-paste-before-kill t
+          apropos-do-all t
+          mouse-yank-at-point t
+          require-final-newline t
+          visible-bell t
+          load-prefer-newer t
+          ediff-window-setup-function 'ediff-setup-windows-plain)
+#+END_SRC
 * Auto completion
 ** Company mode
-   Company mode provides autocompletion of text and code.
+Company mode provides autocompletion of text and code.
 
-   #+BEGIN_SRC emacs-lisp
-     (use-package company
-       :ensure t
-       :bind
-       (:map company-active-map
-             ("C-s" . company-search-candidates)
-             ("<tab>" . company-complete-common-or-cycle)
-             ("RET" . company-complete-selection)
-             ("C-n" . company-select-next)
-             ("C-p" . company-select-previous))
-       :init
-       (add-hook 'after-init-hook #'global-company-mode)
-       :config
-       (setq company-minimum-prefix-length 2)
-       (setq company-idle-delay 0.5)
-       (setq company-require-match nil)
-       (use-package company-statistics
-         :ensure t
-         :config
-         (add-hook 'company-mode-hook #'company-statistics-mode))
-       (use-package company-math
-         :ensure t
-         :config
-         (add-to-list 'company-backends 'company-math-symbols-latex))
-       (use-package company-quickhelp
-         :ensure t
-         :config
-         (company-quickhelp-mode))
-       (use-package company-flx
-         :ensure t
-         :init
-         (with-eval-after-load 'company
-           (company-flx-mode +1)))
-       (use-package company-web-html
-         :ensure company-web)
-       (use-package company-shell
-         :ensure t
-         :config
-         (add-to-list 'company-backends 'company-shell)))
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package company
+    :ensure t
+    :bind
+    (:map company-active-map
+          ("C-s" . company-search-candidates)
+          ("<tab>" . company-complete-common-or-cycle)
+          ("RET" . company-complete-selection)
+          ("C-n" . company-select-next)
+          ("C-p" . company-select-previous))
+    :init
+    (add-hook 'after-init-hook #'global-company-mode)
+    :config
+    (setq company-minimum-prefix-length 2)
+    (setq company-idle-delay 0.5)
+    (setq company-require-match nil)
+    (use-package company-statistics
+      :ensure t
+      :config
+      (add-hook 'company-mode-hook #'company-statistics-mode))
+    (use-package company-math
+      :ensure t
+      :config
+      (add-to-list 'company-backends 'company-math-symbols-latex))
+    (use-package company-quickhelp
+      :ensure t
+      :config
+      (company-quickhelp-mode))
+    (use-package company-flx
+      :ensure t
+      :init
+      (with-eval-after-load 'company
+        (company-flx-mode +1)))
+    (use-package company-web-html
+      :ensure company-web)
+    (use-package company-shell
+      :ensure t
+      :config
+      (add-to-list 'company-backends 'company-shell)))
+#+END_SRC
 ** Hippie expand
 
 #+BEGIN_SRC emacs-lisp
@@ -1164,28 +1164,28 @@ Prettify-symbols-mode will replace some symbols (like "lambda") with their prett
 #+END_SRC
 
 ** Yasnippet
-   Yasnippet allows you to type an abbreviation and then expand it into a template. We can look at yasnippet's documentation [[https://github.com/capitaomorte/yasnippet][on github]].
+Yasnippet allows you to type an abbreviation and then expand it into a template. We can look at yasnippet's documentation [[https://github.com/capitaomorte/yasnippet][on github]].
 
-   Yasnippet by default checks for snippets in two places: a path relative to yasnippet.el (these are the default snippets that come with the package). If I want to make my own, I can put then in ~.emacs.d/snippets~ and it should find them there as well.
+Yasnippet by default checks for snippets in two places: a path relative to yasnippet.el (these are the default snippets that come with the package). If I want to make my own, I can put then in ~.emacs.d/snippets~ and it should find them there as well.
 
-   #+BEGIN_SRC emacs-lisp
-     (use-package yasnippet
-       :ensure t
-       :after hippie-exp
-       :init
-       ;; disable yas minor mode map
-       ;; use hippie-expand instead
-       (setq yas-minor-mode-map (make-sparse-keymap))
-       :config
-       (push 'yas-hippie-try-expand hippie-expand-try-functions-list)
-       ;; If region selected, wrap snippet around it:
-       (setq yas-wrap-around-region t)
-       ;; If competing snippets, use completing-read (helm) to select:
-       (setq yas-prompt-functions '(yas-completing-prompt))
-       (add-hook 'term-mode-hook (lambda () (yas-minor-mode -1)))
-       (unbind-key "C-c &" yas-minor-mode-map)
-       (yas-global-mode))
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet
+    :ensure t
+    :after hippie-exp
+    :init
+    ;; disable yas minor mode map
+    ;; use hippie-expand instead
+    (setq yas-minor-mode-map (make-sparse-keymap))
+    :config
+    (push 'yas-hippie-try-expand hippie-expand-try-functions-list)
+    ;; If region selected, wrap snippet around it:
+    (setq yas-wrap-around-region t)
+    ;; If competing snippets, use completing-read (helm) to select:
+    (setq yas-prompt-functions '(yas-completing-prompt))
+    (add-hook 'term-mode-hook (lambda () (yas-minor-mode -1)))
+    (unbind-key "C-c &" yas-minor-mode-map)
+    (yas-global-mode))
+#+END_SRC
 
 Yasnippet has a bug that the Spacemacs people figured out a fix for. I've shamelessly copy/pasted the fix here:
 #+BEGIN_SRC emacs-lisp
@@ -1233,75 +1233,75 @@ Yasnippet has a bug that the Spacemacs people figured out a fix for. I've shamel
 
 * Functions
 ** Calc
-   From [[https://www.reddit.com/r/emacs/comments/445w6s/whats_some_small_thing_in_your_dotemacs_that_you/][this reddit thread]]
+From [[https://www.reddit.com/r/emacs/comments/445w6s/whats_some_small_thing_in_your_dotemacs_that_you/][this reddit thread]]
 
-   #+BEGIN_SRC emacs-lisp
-     (defun my/calc-eval-region (arg)
-       "Evaluate an expression in calc and communicate the result.
+#+BEGIN_SRC emacs-lisp
+  (defun my/calc-eval-region (arg)
+    "Evaluate an expression in calc and communicate the result.
 
-     If the region is active evaluate that, otherwise search backwards
-     to the first whitespace character to find the beginning of the
-     expression. By default, replace the expression with its value. If
-     called with the universal prefix argument, keep the expression
-     and insert the result into the buffer after it. If called with a
-     negative prefix argument, just echo the result in the
-     minibuffer."
-       (interactive "p")
-       (let (start end)
-         (if (use-region-p)
-             (setq start (region-beginning) end (region-end))
-           (progn
-             (setq end (point))
-             (setq start (search-backward-regexp "\\s-\\|\n" 0 1))
-             (setq start (1+ (if start start 0)))
-             (goto-char end)))
-         (let ((value (calc-eval (buffer-substring-no-properties start end))))
-           (pcase arg
-             (1 (delete-region start end))
-             (4 (insert " = ")))
-           (pcase arg
-             ((or 1 4) (insert value))
-             (-1 (message value))))))
-   #+END_SRC
+  If the region is active evaluate that, otherwise search backwards
+  to the first whitespace character to find the beginning of the
+  expression. By default, replace the expression with its value. If
+  called with the universal prefix argument, keep the expression
+  and insert the result into the buffer after it. If called with a
+  negative prefix argument, just echo the result in the
+  minibuffer."
+    (interactive "p")
+    (let (start end)
+      (if (use-region-p)
+          (setq start (region-beginning) end (region-end))
+        (progn
+          (setq end (point))
+          (setq start (search-backward-regexp "\\s-\\|\n" 0 1))
+          (setq start (1+ (if start start 0)))
+          (goto-char end)))
+      (let ((value (calc-eval (buffer-substring-no-properties start end))))
+        (pcase arg
+          (1 (delete-region start end))
+          (4 (insert " = ")))
+        (pcase arg
+          ((or 1 4) (insert value))
+          (-1 (message value))))))
+#+END_SRC
 ** Insert file name
 
 This function ([[http://pragmaticemacs.com/emacs/insert-file-name/][credit]]) lets me insert a file name easily. Defaults to relative path, use the universal argument to get the absolute path.
 
-   #+BEGIN_SRC emacs-lisp
-     (defun my/insert-file-name (filename &optional args)
-       "Insert name of file FILENAME into buffer after point.
+#+BEGIN_SRC emacs-lisp
+  (defun my/insert-file-name (filename &optional args)
+    "Insert name of file FILENAME into buffer after point.
 
-       Prefixed with \\[universal-argument], expand the file name to
-       its fully canocalized path.  See `expand-file-name'.
+    Prefixed with \\[universal-argument], expand the file name to
+    its fully canocalized path.  See `expand-file-name'.
 
-       Prefixed with \\[negative-argument], use relative path to file
-       name from current directory, `default-directory'.  See
-       `file-relative-name'.
+    Prefixed with \\[negative-argument], use relative path to file
+    name from current directory, `default-directory'.  See
+    `file-relative-name'.
 
-       The default with no prefix is to insert the file name exactly as
-       it appears in the minibuffer prompt."
-       ;; Based on insert-file in Emacs -- ashawley 20080926
-       (interactive "*fInsert file name: \nP")
-       (cond ((eq '- args)
-              (insert (expand-file-name filename)))
-             ((not (null args))
-              (insert (filename)))
-             (t
-              (insert (file-relative-name filename)))))
-   #+END_SRC
+    The default with no prefix is to insert the file name exactly as
+    it appears in the minibuffer prompt."
+    ;; Based on insert-file in Emacs -- ashawley 20080926
+    (interactive "*fInsert file name: \nP")
+    (cond ((eq '- args)
+           (insert (expand-file-name filename)))
+          ((not (null args))
+           (insert (filename)))
+          (t
+           (insert (file-relative-name filename)))))
+#+END_SRC
 
 ** Go to this file
-   It's nice to have a function to find this file quickly. Here's one:
+It's nice to have a function to find this file quickly. Here's one:
 
 
-   #+BEGIN_SRC emacs-lisp
-     (defun my/find-emacs-file ()
-       "Find my emacs org file"
-       (interactive)
-       (find-file (concat user-emacs-directory "emacs.org")))
+#+BEGIN_SRC emacs-lisp
+  (defun my/find-emacs-file ()
+    "Find my emacs org file"
+    (interactive)
+    (find-file (concat user-emacs-directory "emacs.org")))
 
-     (bind-key "e" #'my/find-emacs-file 'my/map)
-   #+END_SRC
+  (bind-key "e" #'my/find-emacs-file 'my/map)
+#+END_SRC
 ** Narrowing
 Emacs has a great system to "narrow" a buffer to just a smaller bit. This is useful in a whole bunch of unexpected ways. For example, if a function will do something to a whole buffer but you only want to apply it to part, you can just narrow to that bit of the buffer. Or narrow just to one org subtree when you have a massive org document. The narrow commands are a bit confusing by default. This cleans them up a bit and makes it more intuitive to use. I got this from [[http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html][this post]] (modified a bit).
 #+BEGIN_SRC emacs-lisp
@@ -1371,57 +1371,57 @@ Helm. A [[https://tuhdo.github.io/helm-intro.html][package in a league of its ow
 #+END_SRC
 
 ** Helm and references (helm-bibtex)
-   #+BEGIN_SRC emacs-lisp
-     (use-package helm-bibtex
-       :ensure t
-       :bind
-       (:map my/map
-             ("r b" . my/find-bib-file))
-       :init
-       ;; Set up how keys should look - authoryear
-       (setq bibtex-autokey-titleword-length 0
-             bibtex-autokey-titleword-separator ""
-             bibtex-autokey-titlewords 0
-             bibtex-autokey-year-length 4
-             bibtex-autokey-year-title-separator "")
-       (setq bibtex-align-at-equal-sign t)
-       (setq bibtex-files '("~/Dropbox/bibliography/references.bib"))
-       (add-hook 'bibtex-mode-hook (lambda () (set-fill-column most-positive-fixnum)))
-       (defun bibtex-generate-autokey ()
-         "This overwrites the bibtex-generate-autokey function that comes with Emacs.
+#+BEGIN_SRC emacs-lisp
+  (use-package helm-bibtex
+    :ensure t
+    :bind
+    (:map my/map
+          ("r b" . my/find-bib-file))
+    :init
+    ;; Set up how keys should look - authoryear
+    (setq bibtex-autokey-titleword-length 0
+          bibtex-autokey-titleword-separator ""
+          bibtex-autokey-titlewords 0
+          bibtex-autokey-year-length 4
+          bibtex-autokey-year-title-separator "")
+    (setq bibtex-align-at-equal-sign t)
+    (setq bibtex-files '("~/Dropbox/bibliography/references.bib"))
+    (add-hook 'bibtex-mode-hook (lambda () (set-fill-column most-positive-fixnum)))
+    (defun bibtex-generate-autokey ()
+      "This overwrites the bibtex-generate-autokey function that comes with Emacs.
 
-       I want my keys to be formatted: authornameYEAR, then a letter if there is already an entry that matches authornameYEAR."
-         ;; first we delete the existing key
-         (bibtex-beginning-of-entry)
-         (re-search-forward bibtex-entry-maybe-empty-head)
-         (if (match-beginning bibtex-key-in-head)
-             (delete-region (match-beginning bibtex-key-in-head)
-                            (match-end bibtex-key-in-head)))
-         (let* ((names (bibtex-autokey-get-names))
-                (year (bibtex-autokey-get-year))
-                (existing-keys (bibtex-parse-keys))
-                key)
-           (setq key (format "%s%s" names year))
-           (let ((ret key))
-             (cl-loop for c
-                      from ?b to ?z
-                      while (assoc ret existing-keys)
-                      do (setq ret (format "%s%c" key c)))
-             ret)))
-       :config
-       (defun my/find-bib-file ()
-         "Find my main bib file."
-         (interactive)
-         (find-file bibtex-completion-bibliography))
-       (setq bibtex-completion-bibliography "~/Dropbox/bibliography/references.bib"
-             bibtex-completion-library-path "~/Dropbox/bibliography/bibtex-pdfs"
-             bibtex-completion-notes-path "~/Dropbox/bibliography/notes.org"
-             bibtex-completion-notes-template-one-file
-             "\n* TODO ${year} - ${title}\n  :PROPERTIES:\n  :Custom_ID: ${=key=}\n  :AUTHOR: ${author}\n  :JOURNAL: ${journal}\n  :YEAR: ${year}\n  :VOLUME: ${volume}\n  :PAGES: ${pages}\n  :DOI: ${doi}\n  :URL: ${url}\n :END:\n"
-             )
-       (setq bibtex-completion-cite-default-command 'autocite)
-       (setq bibtex-completion-cite-commands '("autocite" "textcite" "citep" "citet" "citeauthor" "citeyear" "Citep" "Citet")))
-   #+END_SRC
+    I want my keys to be formatted: authornameYEAR, then a letter if there is already an entry that matches authornameYEAR."
+      ;; first we delete the existing key
+      (bibtex-beginning-of-entry)
+      (re-search-forward bibtex-entry-maybe-empty-head)
+      (if (match-beginning bibtex-key-in-head)
+          (delete-region (match-beginning bibtex-key-in-head)
+                         (match-end bibtex-key-in-head)))
+      (let* ((names (bibtex-autokey-get-names))
+             (year (bibtex-autokey-get-year))
+             (existing-keys (bibtex-parse-keys))
+             key)
+        (setq key (format "%s%s" names year))
+        (let ((ret key))
+          (cl-loop for c
+                   from ?b to ?z
+                   while (assoc ret existing-keys)
+                   do (setq ret (format "%s%c" key c)))
+          ret)))
+    :config
+    (defun my/find-bib-file ()
+      "Find my main bib file."
+      (interactive)
+      (find-file bibtex-completion-bibliography))
+    (setq bibtex-completion-bibliography "~/Dropbox/bibliography/references.bib"
+          bibtex-completion-library-path "~/Dropbox/bibliography/bibtex-pdfs"
+          bibtex-completion-notes-path "~/Dropbox/bibliography/notes.org"
+          bibtex-completion-notes-template-one-file
+          "\n* TODO ${year} - ${title}\n  :PROPERTIES:\n  :Custom_ID: ${=key=}\n  :AUTHOR: ${author}\n  :JOURNAL: ${journal}\n  :YEAR: ${year}\n  :VOLUME: ${volume}\n  :PAGES: ${pages}\n  :DOI: ${doi}\n  :URL: ${url}\n :END:\n"
+          )
+    (setq bibtex-completion-cite-default-command 'autocite)
+    (setq bibtex-completion-cite-commands '("autocite" "textcite" "citep" "citet" "citeauthor" "citeyear" "Citep" "Citet")))
+#+END_SRC
 
 ** Helm and makefiles
 I can setup helm to deal with makefiles easily:
@@ -1463,17 +1463,17 @@ Projectile makes using projects easier in emacs. It also plays well with helm, s
       :config
       (setq projectile-completion-system 'helm)
       (helm-projectile-on)))
-   #+END_SRC
+#+END_SRC
 
 * Org
-  Org mode is a great thing. I use it for writing academic papers, managing my schedule, managing my references and notes, writing presentations, writing lecture slides, and pretty much anything else. This file is written in org-mode.
+Org mode is a great thing. I use it for writing academic papers, managing my schedule, managing my references and notes, writing presentations, writing lecture slides, and pretty much anything else. This file is written in org-mode.
 
-  Define =C-c l= to =org-store-link=:
+Define =C-c l= to =org-store-link=:
 
-  #+BEGIN_SRC emacs-lisp
-    (bind-key "C-c l" #'org-store-link)
-  #+END_SRC
-  This is my default notes file:
+#+BEGIN_SRC emacs-lisp
+  (bind-key "C-c l" #'org-store-link)
+#+END_SRC
+This is my default notes file:
 #+BEGIN_SRC emacs-lisp
   (setq org-directory "~/Dropbox/org/")
   (setq org-default-notes-file (concat org-directory "todo.org"))
@@ -1509,228 +1509,228 @@ Not technically part of org, but I'll stick the calendar config here since I mai
 #+END_SRC
 
 ** Exporting
-   HTML and latex shown by default, let's add markdown:
+HTML and latex shown by default, let's add markdown:
 
-   #+BEGIN_SRC emacs-lisp
-     (use-package ox-md)
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package ox-md)
+#+END_SRC
 
-   This makes org export smart quotes so that it uses ~``word``~ style quotes for latex export:
+This makes org export smart quotes so that it uses ~``word``~ style quotes for latex export:
 
-   #+BEGIN_SRC emacs-lisp
-     (setq org-export-with-smart-quotes t)
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (setq org-export-with-smart-quotes t)
+#+END_SRC
 
-   This lets me override all the export variables with a =#+BIND:= statement at the beginning of org-mode files for export:
+This lets me override all the export variables with a =#+BIND:= statement at the beginning of org-mode files for export:
 
-   #+BEGIN_SRC emacs-lisp
-     (setq org-export-allow-bind-keywords t)
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (setq org-export-allow-bind-keywords t)
+#+END_SRC
 
 ** Code blocks (org-babel)
-   Org-babel is included in org. We just need to tell it which languages to load. And don't ask us if we're sure we want to run code blocks when we ~C-c C-c~. Finally, open the code block in the current window when we use ~C-'~
+Org-babel is included in org. We just need to tell it which languages to load. And don't ask us if we're sure we want to run code blocks when we ~C-c C-c~. Finally, open the code block in the current window when we use ~C-'~
 
-   #+BEGIN_SRC emacs-lisp
-     (org-babel-do-load-languages
-      'org-babel-load-languages
-      '((emacs-lisp . t)
-        (latex . t)
-        (python . t)
-        (R . t)
-        (shell . t)))
-     (setq org-confirm-babel-evaluate nil)
-     (setq org-src-window-setup 'current-window)
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (latex . t)
+     (python . t)
+     (R . t)
+     (shell . t)))
+  (setq org-confirm-babel-evaluate nil)
+  (setq org-src-window-setup 'current-window)
+#+END_SRC
 
 *** Code block font locking
-    This will make the contents of code blocks use the same font locking (syntax highlighting) as the major mode. It'll also make the tab key act like you want it to inside code blocks.
+This will make the contents of code blocks use the same font locking (syntax highlighting) as the major mode. It'll also make the tab key act like you want it to inside code blocks.
 
-    #+BEGIN_SRC emacs-lisp
-      (setq org-src-fontify-natively     t
-            org-src-tab-acts-natively    t)
-    #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (setq org-src-fontify-natively     t
+        org-src-tab-acts-natively    t)
+#+END_SRC
 
 *** Adding SRC blocks
-    Here I define a function ([[https://github.com/vdemeester/emacs-config/blob/master/.emacs.d/emacs.org][thanks!]]) that lets me easily add and edit source blocks in org mode:
+Here I define a function ([[https://github.com/vdemeester/emacs-config/blob/master/.emacs.d/emacs.org][thanks!]]) that lets me easily add and edit source blocks in org mode:
 
-    #+BEGIN_SRC emacs-lisp
-      (defun my/org-insert-src-block (src-code-type)
-        "Insert a `SRC-CODE-TYPE' type source code block in org-mode."
-        (interactive
-         (let ((src-code-types
-                '("emacs-lisp" "python" "sh" "calc" "R" "latex" "org")))
-           (list (completing-read "Source code type: " src-code-types))))
-        (progn
-          (insert (format "#+BEGIN_SRC %s\n" src-code-type))
-          (newline-and-indent)
-          (insert "#+END_SRC\n")
-          (previous-line 2)
-          (org-edit-src-code)))
+#+BEGIN_SRC emacs-lisp
+  (defun my/org-insert-src-block (src-code-type)
+    "Insert a `SRC-CODE-TYPE' type source code block in org-mode."
+    (interactive
+     (let ((src-code-types
+            '("emacs-lisp" "python" "sh" "calc" "R" "latex" "org")))
+       (list (completing-read "Source code type: " src-code-types))))
+    (progn
+      (insert (format "#+BEGIN_SRC %s\n" src-code-type))
+      (newline-and-indent)
+      (insert "#+END_SRC\n")
+      (previous-line 2)
+      (org-edit-src-code)))
 
-      (bind-key "C-c s a" #'my/org-insert-src-block org-mode-map)
-    #+END_SRC
+  (bind-key "C-c s a" #'my/org-insert-src-block org-mode-map)
+#+END_SRC
 ** References (org-ref)
-   I use org-ref to manage my references.
-   #+BEGIN_SRC emacs-lisp
-     (use-package org-ref
-       :ensure t
-       :demand t ; make sure this gets loaded since I use it all the time
-       :bind*
-       (("C-c C-r" . org-ref-helm-insert-cite-link)
-        :map bibtex-mode-map
-        ("C-c C-c" . org-ref-clean-bibtex-entry)
-        :map my/map
-        ("r d" . doi-add-bibtex-entry)
-        ("r i" . isbn-to-bibtex))
-       :init
-       (setq org-ref-completion-library 'org-ref-helm-bibtex)
-       (setq org-ref-bibliography-notes "~/Dropbox/bibliography/notes.org"
-             org-ref-default-bibliography '("~/Dropbox/bibliography/references.bib")
-             org-ref-pdf-directory  "~/Dropbox/bibliography/bibtex-pdfs"
-             org-ref-default-ref-type "autoref"
-             org-ref-default-citation-link "autocite")
-       :config
-       (defvar my/notes-template
-         "* TODO %y - %t\n :PROPERTIES:\n  :Custom_ID: %k\n  :AUTHOR: %9a\n  :JOURNAL: %j\n  :YEAR: %y\n  :VOLUME: %v\n  :PAGES: %p\n  :DOI: %D\n  :URL: %U\n :END:\n")
-       (setq org-ref-note-title-format my/notes-template)
+I use org-ref to manage my references.
+#+BEGIN_SRC emacs-lisp
+  (use-package org-ref
+    :ensure t
+    :demand t ; make sure this gets loaded since I use it all the time
+    :bind*
+    (("C-c C-r" . org-ref-helm-insert-cite-link)
+     :map bibtex-mode-map
+     ("C-c C-c" . org-ref-clean-bibtex-entry)
+     :map my/map
+     ("r d" . doi-add-bibtex-entry)
+     ("r i" . isbn-to-bibtex))
+    :init
+    (setq org-ref-completion-library 'org-ref-helm-bibtex)
+    (setq org-ref-bibliography-notes "~/Dropbox/bibliography/notes.org"
+          org-ref-default-bibliography '("~/Dropbox/bibliography/references.bib")
+          org-ref-pdf-directory  "~/Dropbox/bibliography/bibtex-pdfs"
+          org-ref-default-ref-type "autoref"
+          org-ref-default-citation-link "autocite")
+    :config
+    (defvar my/notes-template
+      "* TODO %y - %t\n :PROPERTIES:\n  :Custom_ID: %k\n  :AUTHOR: %9a\n  :JOURNAL: %j\n  :YEAR: %y\n  :VOLUME: %v\n  :PAGES: %p\n  :DOI: %D\n  :URL: %U\n :END:\n")
+    (setq org-ref-note-title-format my/notes-template)
 
-       ;; Cleanup nil entries from articles.
-       (add-hook 'org-ref-clean-bibtex-entry-hook #'orcb-clean-nil-opinionated t)
+    ;; Cleanup nil entries from articles.
+    (add-hook 'org-ref-clean-bibtex-entry-hook #'orcb-clean-nil-opinionated t)
 
-       ;; Org-ref-bibtex is a package (contained in org-ref, so no need for
-       ;; an =:ensure t=) that helps me manage my bib file(s). I add the
-       ;; my/fix-journal-name function to always put in the full name of
-       ;; the journal. I also add it to the cleaning hook so that it's
-       ;; taken care of for me more or less automatically.
-       (defun my/add-to-journal-list (element)
-         "Add ELEMENT to `org-ref-bibtex-journal-abbreviations'"
-         (push element org-ref-bibtex-journal-abbreviations))
+    ;; Org-ref-bibtex is a package (contained in org-ref, so no need for
+    ;; an =:ensure t=) that helps me manage my bib file(s). I add the
+    ;; my/fix-journal-name function to always put in the full name of
+    ;; the journal. I also add it to the cleaning hook so that it's
+    ;; taken care of for me more or less automatically.
+    (defun my/add-to-journal-list (element)
+      "Add ELEMENT to `org-ref-bibtex-journal-abbreviations'"
+      (push element org-ref-bibtex-journal-abbreviations))
 
-       (mapc #'my/add-to-journal-list
-             '(("AJPS" "American Journal of Political Science" "Am Jour Polit Sci")
-               ("AJPS" "American Journal of Political Science" "Am J Political Science")
-               ("APR" "American Politics Research" "Amer. Pol. Res.")
-               ("APSR" "American Political Science Review" "Am Polit Sci Rev")
-               ("APSR" "American Political Science Review" "The American Political Science Review")
-               ("ARPS" "Annual Review of Political Science" "Ann. Rev. Poli. Sci.")
-               ("BJPS" "British Journal of Political Science" "Brit J of Pol Sci")
-               ("CP" "Comparative Politics" "Comp. Pol.")
-               ("CPS" "Comparative Political Studies" "Comp. Pol. Stud.")
-               ("EPSR" "European Political Science Review" "Eur. Pol. Sci. Rev.")
-               ("EJPR" "European Journal of Political Research" "Eur. Jour. Pol. Res.")
-               ("ES" "Electoral Studies" "Elec. Stud.")
-               ("EUP" "European Union Politics" "Eur. Unio. Pol.")
-               ("IJPOR" "International Journal of Public Opinion Research" "Intl J Pub Opin Res")
-               ("IO" "International Organization" "Intl Org")
-               ("JEPP" "Journal of European Public Policy" "Jour. Eur. Pub. Pol.")
-               ("JEPS" "Journal of Experimental Political Science" "J Exp Poli Sci")
-               ("JOD" "Journal of Democracy" "J of Dem")
-               ("JOP" "Journal of Politics" "The Journal of Politics")
-               ("JOP" "Journal of Politics" "J of Pol")
-               ("jop" "Journal of Politics" "J of Pol")
-               ("JoC" "Journal of Communication" "J Communication")
-               ("LSQ" "Legislative Studies Quarterly" "Leg. Stud. Quar.")
-               ("PA" "Political Analysis" "Pol. Analy.")
-               ("PB" "Political Behavior" "Pol Behavior")
-               ("PoP" "Perspectives on Politics" "Perspect. polit.")
-               ("POQ" "Public Opinion Quarterly" "Pub. Opin. Quar.")
-               ("PP" "Party Politics" "Par Pol")
-               ("PRQ" "Political Research Quarterly" "Pol. Res. Quar.")
-               ("PSQ" "Presidential Studies Quarterly" "Pres Stud Quar")
-               ("PSRM" "Political Science Research and Methods" "Pol. Sci. Res. Meth.")
-               ("QJPS" "Quarterly Journal of Political Science" "Quar. Joun. Poli. Sci.")
-               ("R\&P" "Research \& Politics" "Res. and Pol.")
-               ("SPPQ" "State Politics \& Policy Quarterly" "Stat. Pol. Pol. Quar.")
-               ("SS" "Statistical Science" "Stat. Sci.")
-               ("WEP" "West European Politics" "West Eur. Pol.")
-               ("WP" "World Politics" "Wor Pol")))
+    (mapc #'my/add-to-journal-list
+          '(("AJPS" "American Journal of Political Science" "Am Jour Polit Sci")
+            ("AJPS" "American Journal of Political Science" "Am J Political Science")
+            ("APR" "American Politics Research" "Amer. Pol. Res.")
+            ("APSR" "American Political Science Review" "Am Polit Sci Rev")
+            ("APSR" "American Political Science Review" "The American Political Science Review")
+            ("ARPS" "Annual Review of Political Science" "Ann. Rev. Poli. Sci.")
+            ("BJPS" "British Journal of Political Science" "Brit J of Pol Sci")
+            ("CP" "Comparative Politics" "Comp. Pol.")
+            ("CPS" "Comparative Political Studies" "Comp. Pol. Stud.")
+            ("EPSR" "European Political Science Review" "Eur. Pol. Sci. Rev.")
+            ("EJPR" "European Journal of Political Research" "Eur. Jour. Pol. Res.")
+            ("ES" "Electoral Studies" "Elec. Stud.")
+            ("EUP" "European Union Politics" "Eur. Unio. Pol.")
+            ("IJPOR" "International Journal of Public Opinion Research" "Intl J Pub Opin Res")
+            ("IO" "International Organization" "Intl Org")
+            ("JEPP" "Journal of European Public Policy" "Jour. Eur. Pub. Pol.")
+            ("JEPS" "Journal of Experimental Political Science" "J Exp Poli Sci")
+            ("JOD" "Journal of Democracy" "J of Dem")
+            ("JOP" "Journal of Politics" "The Journal of Politics")
+            ("JOP" "Journal of Politics" "J of Pol")
+            ("jop" "Journal of Politics" "J of Pol")
+            ("JoC" "Journal of Communication" "J Communication")
+            ("LSQ" "Legislative Studies Quarterly" "Leg. Stud. Quar.")
+            ("PA" "Political Analysis" "Pol. Analy.")
+            ("PB" "Political Behavior" "Pol Behavior")
+            ("PoP" "Perspectives on Politics" "Perspect. polit.")
+            ("POQ" "Public Opinion Quarterly" "Pub. Opin. Quar.")
+            ("PP" "Party Politics" "Par Pol")
+            ("PRQ" "Political Research Quarterly" "Pol. Res. Quar.")
+            ("PSQ" "Presidential Studies Quarterly" "Pres Stud Quar")
+            ("PSRM" "Political Science Research and Methods" "Pol. Sci. Res. Meth.")
+            ("QJPS" "Quarterly Journal of Political Science" "Quar. Joun. Poli. Sci.")
+            ("R\&P" "Research \& Politics" "Res. and Pol.")
+            ("SPPQ" "State Politics \& Policy Quarterly" "Stat. Pol. Pol. Quar.")
+            ("SS" "Statistical Science" "Stat. Sci.")
+            ("WEP" "West European Politics" "West Eur. Pol.")
+            ("WP" "World Politics" "Wor Pol")))
 
-       (defun my/fix-journal-name (&optional key start end)
-         "Replace journal name in a bibtex entry with the full name.
-       The strings are defined in
-       `org-ref-bibtex-journal-abbreviations'. The optional arguments
-       KEY, START and END allow you to use this with
-       `bibtex-map-entries'"
-         (interactive)
-         (bibtex-beginning-of-entry)
-         (when
-             (string= "article"
-                      (downcase
-                       (cdr (assoc "=type=" (bibtex-parse-entry)))))
-           (let* ((initial-names (mapcar
-                                  (lambda (row)
-                                    (cons  (nth 0 row) (nth 1 row)))
-                                  org-ref-bibtex-journal-abbreviations))
-                  (abbrev-names (mapcar
-                                 (lambda (row)
-                                   (cons  (nth 2 row) (nth 1 row)))
-                                 org-ref-bibtex-journal-abbreviations))
-                  (journal (s-trim (bibtex-autokey-get-field "journal")))
-                  (bstring (or
-                            (cdr (assoc journal initial-names))
-                            (cdr (assoc journal abbrev-names)))))
-             (when bstring
-               (bibtex-set-field "journal" bstring)
-               (bibtex-fill-entry)))))
+    (defun my/fix-journal-name (&optional key start end)
+      "Replace journal name in a bibtex entry with the full name.
+    The strings are defined in
+    `org-ref-bibtex-journal-abbreviations'. The optional arguments
+    KEY, START and END allow you to use this with
+    `bibtex-map-entries'"
+      (interactive)
+      (bibtex-beginning-of-entry)
+      (when
+          (string= "article"
+                   (downcase
+                    (cdr (assoc "=type=" (bibtex-parse-entry)))))
+        (let* ((initial-names (mapcar
+                               (lambda (row)
+                                 (cons  (nth 0 row) (nth 1 row)))
+                               org-ref-bibtex-journal-abbreviations))
+               (abbrev-names (mapcar
+                              (lambda (row)
+                                (cons  (nth 2 row) (nth 1 row)))
+                              org-ref-bibtex-journal-abbreviations))
+               (journal (s-trim (bibtex-autokey-get-field "journal")))
+               (bstring (or
+                         (cdr (assoc journal initial-names))
+                         (cdr (assoc journal abbrev-names)))))
+          (when bstring
+            (bibtex-set-field "journal" bstring)
+            (bibtex-fill-entry)))))
 
-       (add-hook 'org-ref-clean-bibtex-entry-hook #'my/fix-journal-name)
+    (add-hook 'org-ref-clean-bibtex-entry-hook #'my/fix-journal-name)
 
-       (use-package doi-utils
-         :config
-         (setq doi-utils-open-pdf-after-download t))
-       (use-package org-ref-isbn
-         :config
-         (setq org-ref-isbn-exclude-fields '("form" "lang" "lccn" "oclcnum")))
-       (use-package org-ref-latex)
-       ) ; ends use-package org-ref
-   #+END_SRC
+    (use-package doi-utils
+      :config
+      (setq doi-utils-open-pdf-after-download t))
+    (use-package org-ref-isbn
+      :config
+      (setq org-ref-isbn-exclude-fields '("form" "lang" "lccn" "oclcnum")))
+    (use-package org-ref-latex)
+    ) ; ends use-package org-ref
+#+END_SRC
 ** Agenda
-   Here's where I set which files are added to org-agenda, which controls org's global todo list, scheduling, and agenda features. I use Dropbox to keep these files in sync across computers.
-   Lock to current file: =C-u C-c C-x <=
-   #+BEGIN_SRC emacs-lisp
-     (use-package org-agenda
-       :bind
-       (("C-c a" . org-agenda)
-        ("C-'" . org-cycle-agenda-files) ; quickly access agenda files
-        :map org-agenda-mode-map
-        ("r" . org-agenda-refile) ; overrides org-agenda-redo, which I use "g" for anyway
-        ("s" . org-agenda-schedule) ; overrides saving all org buffers, also bound to C-x C-s
-        ("x" . my/org-agenda-mark-done)) ; overrides org-exit
-       :init
-       ;; set up org agenda files for the agenda
-       (setq org-agenda-files (list org-default-notes-file
-                                    my/org-inbox
-                                    my/org-notes))
-       ;; remove C-c [ from adding org file to front of agenda
-       (unbind-key "C-c [" org-mode-map)
-       :config
-       (setq org-agenda-skip-deadline-if-done t ; remove done deadlines from agenda
-             org-agenda-skip-scheduled-if-done t ; remove done scheduled from agenda
-             ;; don't show scheduled if the deadline is visible unless it's
-             ;; also scheduled for today:
-             org-agenda-skip-scheduled-if-deadline-is-shown 'not-today
-             org-deadline-warning-days 3) ; warn me 3 days before a deadline
-       (setq org-agenda-tags-column -120)
-       (setq org-agenda-window-setup 'current-window ; use current window for agenda
-             ;; restore previous config after I'm done
-             org-agenda-restore-windows-after-quit t)
-       (setq org-agenda-span 'day) ; just show today. I can "vw" to view the week
-       ;; By default, the time grid has a lot of ugly "-----" lines. Remove those:
-       (setq org-agenda-time-grid
-             '((daily today reqiure-timed) "" (800 1000 1200 1400 1600 1800 2000)))
-       (setq org-agenda-current-time-string "--- NOW ---")
-       (defun my/org-agenda-mark-done (&optional arg)
-         "Mark current TODO as DONE.
-     See `org-agenda-todo' for more details."
-         (interactive "P")
-         (org-agenda-todo "DONE"))
-       (setq org-agenda-custom-commands
-             '((" " "Agenda"
-                ((agenda "" nil)
-                 (tags "REFILE"
-                       ((org-agenda-overriding-header "Tasks to Refile")
-                        (org-tags-match-list-sublevels nil)))))))
-       )
+Here's where I set which files are added to org-agenda, which controls org's global todo list, scheduling, and agenda features. I use Dropbox to keep these files in sync across computers.
+Lock to current file: =C-u C-c C-x <=
+#+BEGIN_SRC emacs-lisp
+  (use-package org-agenda
+    :bind
+    (("C-c a" . org-agenda)
+     ("C-'" . org-cycle-agenda-files) ; quickly access agenda files
+     :map org-agenda-mode-map
+     ("r" . org-agenda-refile) ; overrides org-agenda-redo, which I use "g" for anyway
+     ("s" . org-agenda-schedule) ; overrides saving all org buffers, also bound to C-x C-s
+     ("x" . my/org-agenda-mark-done)) ; overrides org-exit
+    :init
+    ;; set up org agenda files for the agenda
+    (setq org-agenda-files (list org-default-notes-file
+                                 my/org-inbox
+                                 my/org-notes))
+    ;; remove C-c [ from adding org file to front of agenda
+    (unbind-key "C-c [" org-mode-map)
+    :config
+    (setq org-agenda-skip-deadline-if-done t ; remove done deadlines from agenda
+          org-agenda-skip-scheduled-if-done t ; remove done scheduled from agenda
+          ;; don't show scheduled if the deadline is visible unless it's
+          ;; also scheduled for today:
+          org-agenda-skip-scheduled-if-deadline-is-shown 'not-today
+          org-deadline-warning-days 3) ; warn me 3 days before a deadline
+    (setq org-agenda-tags-column -120)
+    (setq org-agenda-window-setup 'current-window ; use current window for agenda
+          ;; restore previous config after I'm done
+          org-agenda-restore-windows-after-quit t)
+    (setq org-agenda-span 'day) ; just show today. I can "vw" to view the week
+    ;; By default, the time grid has a lot of ugly "-----" lines. Remove those:
+    (setq org-agenda-time-grid
+          '((daily today reqiure-timed) "" (800 1000 1200 1400 1600 1800 2000)))
+    (setq org-agenda-current-time-string "--- NOW ---")
+    (defun my/org-agenda-mark-done (&optional arg)
+      "Mark current TODO as DONE.
+  See `org-agenda-todo' for more details."
+      (interactive "P")
+      (org-agenda-todo "DONE"))
+    (setq org-agenda-custom-commands
+          '((" " "Agenda"
+             ((agenda "" nil)
+              (tags "REFILE"
+                    ((org-agenda-overriding-header "Tasks to Refile")
+                     (org-tags-match-list-sublevels nil)))))))
+    )
 #+END_SRC
 ** Capture
 I use org-capture to create short notes about all kinds of things. I can capture emails to remember for later, quick thoughts for later, RSS feeds (see [[Feed reader]]), really anything.
@@ -1782,14 +1782,14 @@ And now for the capture templates themselves. It's a bit complicated, but [[http
 #+END_SRC
 
 ** Refile
-   Org-refile lets me quickly move around headings in org files. It plays nicely with org-capture, which I use to turn emails into TODOs easily (among other things, of course)
+Org-refile lets me quickly move around headings in org files. It plays nicely with org-capture, which I use to turn emails into TODOs easily (among other things, of course)
 
-   #+BEGIN_SRC emacs-lisp
-     (setq org-outline-path-complete-in-steps nil)
-     (setq org-refile-allow-creating-parent-nodes (quote confirm))
-     (setq org-refile-use-outline-path t)
-     (setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (setq org-outline-path-complete-in-steps nil)
+  (setq org-refile-allow-creating-parent-nodes (quote confirm))
+  (setq org-refile-use-outline-path t)
+  (setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
+#+END_SRC
 ** Appt
 Technically, =appt.el= isn't a part of org mode.
 But I use it pretty much exclusively to notify me of upcoming org items I've scheduled, so may as well set it up here.
@@ -1864,7 +1864,7 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally
     (defun new/org-gcal--notify (title mes)
       (message "org-gcal::%s - %s" title mes))
     (fset 'org-gcal--notify 'new/org-gcal--notify))
-    #+END_SRC
+#+END_SRC
 
 ** Pomodoro
 I can use =org-pomodoro= for a [[http://pomodorotechnique.com/][pomodoro]]. By default, it works in 25-minute work blocks and 5 minute breaks after. The fourth break is longer - 20 minutes by default.
@@ -1887,50 +1887,50 @@ I can use =org-pomodoro= for a [[http://pomodorotechnique.com/][pomodoro]]. By d
 #+END_SRC
 
 ** Misc
-   Here are a few miscellaneous things that make org mode better.
-   #+BEGIN_SRC emacs-lisp
-     (setq org-pretty-entities          t ; UTF8 all the things!
-           org-support-shift-select     t ; holding shift and moving point should select things
-           org-M-RET-may-split-line     nil ; M-RET may never split a line
-           org-enforce-todo-dependencies t ; can't finish parent before children
-           org-enforce-todo-checkbox-dependencies t ; can't finish parent before children
-           org-hide-emphasis-markers t ; make words italic or bold, hide / and *
-           org-catch-invisible-edits 'error ; don't let me edit things I can't see
-           org-startup-indented t) ; start with indentation setup
-     (setq org-highlight-latex-and-related '(latex entities)) ; set up fontlocking for latex
-     (setq org-startup-with-inline-images t) ; show inline images
-     (setq org-log-done t)
-     (setq org-goto-interface (quote outline-path-completion))
-     (setq org-ellipsis "⬎")
-     (use-package htmlize
-       :ensure t)
-   #+END_SRC
+Here are a few miscellaneous things that make org mode better.
+#+BEGIN_SRC emacs-lisp
+  (setq org-pretty-entities          t ; UTF8 all the things!
+        org-support-shift-select     t ; holding shift and moving point should select things
+        org-M-RET-may-split-line     nil ; M-RET may never split a line
+        org-enforce-todo-dependencies t ; can't finish parent before children
+        org-enforce-todo-checkbox-dependencies t ; can't finish parent before children
+        org-hide-emphasis-markers t ; make words italic or bold, hide / and *
+        org-catch-invisible-edits 'error ; don't let me edit things I can't see
+        org-startup-indented t) ; start with indentation setup
+  (setq org-highlight-latex-and-related '(latex entities)) ; set up fontlocking for latex
+  (setq org-startup-with-inline-images t) ; show inline images
+  (setq org-log-done t)
+  (setq org-goto-interface (quote outline-path-completion))
+  (setq org-ellipsis "⬎")
+  (use-package htmlize
+    :ensure t)
+#+END_SRC
 
-   For whatever reason, I have to explicitely tell org how to open pdf links. I use pdf-tools, which is loaded in [[pdf viewer]]. If pdf-tools isn't installed, it will use doc-view (the default in emacs) instead.
+For whatever reason, I have to explicitely tell org how to open pdf links. I use pdf-tools, which is loaded in [[pdf viewer]]. If pdf-tools isn't installed, it will use doc-view (the default in emacs) instead.
 
-   #+BEGIN_SRC emacs-lisp
-     (setq org-file-apps
-           '((auto-mode . emacs)
-             ("\\.mm\\'" . default)
-             ("\\.x?html?\\'" . default)
-             ("\\.pdf\\'" . emacs)))
+#+BEGIN_SRC emacs-lisp
+  (setq org-file-apps
+        '((auto-mode . emacs)
+          ("\\.mm\\'" . default)
+          ("\\.x?html?\\'" . default)
+          ("\\.pdf\\'" . emacs)))
 
-   #+END_SRC
+#+END_SRC
 
-   #+BEGIN_SRC emacs-lisp
-     (setq org-image-actual-width '(300))
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (setq org-image-actual-width '(300))
+#+END_SRC
 
-   Make =C-a= and =C-e= work more like how I want:
+Make =C-a= and =C-e= work more like how I want:
 
-   #+BEGIN_SRC emacs-lisp
-     (setq org-special-ctrl-a/e t)
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (setq org-special-ctrl-a/e t)
+#+END_SRC
 
-   Org can preview latex fragments with =C-c C-x C-l= but it uses dvipng by default. Let's switch it to imagemagick:
-   #+BEGIN_SRC emacs-lisp
-     (setq org-preview-latex-default-process 'imagemagick)
-   #+END_SRC
+Org can preview latex fragments with =C-c C-x C-l= but it uses dvipng by default. Let's switch it to imagemagick:
+#+BEGIN_SRC emacs-lisp
+  (setq org-preview-latex-default-process 'imagemagick)
+#+END_SRC
 
 * Shells
 
@@ -1958,7 +1958,7 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
           eshell-plain-echo-behavior t)
     (setq eshell-scroll-to-bottom-on-input 'this)
    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-   ;; Aliases
+    ;; Aliases
    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     (defun eshell/restart-emacs ()
       "Restart Emacs using systemd."
@@ -2001,18 +2001,18 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
 #+END_SRC
 
 ** Fix for dumb terminal
-   Shell-mode uses a "dumb" terminal. Sometimes that's annoying, but this fixes the worst of that:
+Shell-mode uses a "dumb" terminal. Sometimes that's annoying, but this fixes the worst of that:
 
-   #+BEGIN_SRC emacs-lisp
-     (setenv "PAGER" "cat")
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (setenv "PAGER" "cat")
+#+END_SRC
 
 ** Make urls clickable
 
-   #+BEGIN_SRC emacs-lisp
-     (add-hook 'shell-mode-hook #'goto-address-mode)
-     (add-hook 'eshell-mode-hook #'goto-address-mode)
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'shell-mode-hook #'goto-address-mode)
+  (add-hook 'eshell-mode-hook #'goto-address-mode)
+#+END_SRC
 
 ** with editor
 Use Emacs as the =$EDITOR= environmental variable:
@@ -2028,110 +2028,110 @@ Use Emacs as the =$EDITOR= environmental variable:
 #+END_SRC
 
 ** Shell misc
-   Here are a few miscellaneous settings for shell modes, including inferior ~R~ processes used by ~ESS~:
-   #+BEGIN_SRC emacs-lisp
-     (setq comint-scroll-to-bottom-on-input 'this)
-     (setq comint-scroll-to-bottom-on-output t)
-     (setq comint-move-point-for-output t)
-   #+END_SRC
+Here are a few miscellaneous settings for shell modes, including inferior ~R~ processes used by ~ESS~:
+#+BEGIN_SRC emacs-lisp
+  (setq comint-scroll-to-bottom-on-input 'this)
+  (setq comint-scroll-to-bottom-on-output t)
+  (setq comint-move-point-for-output t)
+#+END_SRC
 * R (with ESS)
-  ESS (Emacs Speaks Statistics) is a [[http://ess.r-project.org/][great project]] and makes Emacs speak with R.
+ESS (Emacs Speaks Statistics) is a [[http://ess.r-project.org/][great project]] and makes Emacs speak with R.
 
-  #+BEGIN_SRC emacs-lisp
-    (use-package ess-site
-      :ensure ess
-      :pin melpa-stable
-      :bind
-      (:map ess-mode-map
-            ("C-a" . crux-move-beginning-of-line)
-            ("M-=" . ess-insert-S-assign)
-            ("_"   . self-insert-command)
-            ("M-p" . my/add-pipe)
-            ("C-|" . my/ess-eval-pipe-through-line)
-            :map inferior-ess-mode-map
-            ("M-=" . ess-insert-S-assign)
-            ("_"   . self-insert-command))
-      :config
-      (setq ess-nuke-trailing-whitespace-p t)
-      (add-hook 'ess-mode-hook
-                (lambda ()
-                  (ess-set-style 'RStudio)))
-      (setq ess-eval-visibly 'nowait) ; don't hog Emacs
-      (setq ess-ask-for-ess-directory nil) ; don't ask for dir when starting a process
-      (setq ess-eldoc-show-on-symbol t) ; show eldoc on symbol instead of only inside of parens
-      (setq ess-use-ido nil) ; rely on helm instead of ido
-      (progn
-        ;; Save R history in one place rather than making .Rhistory files
-        ;; everywhere. Make that folder if needed.
-        (setq ess-history-directory (concat user-emacs-directory "var/Rhist/"))
-        (mkdir ess-history-directory t))
-      (setq ess-pdf-viewer-pref "emacsclient")
-      (defun my/add-pipe ()
-        "Adds a pipe operator %>% with one space to the left and then
-    starts a newline with proper indentation"
-        (interactive)
-        (just-one-space 1)
-        (insert "%>%")
-        (ess-newline-and-indent))
-      ;; I sometimes want to evaluate just part of a piped sequence. The
-      ;; following lets me do so without needing to insert blank lines or
-      ;; something:
-      (defun my/ess-beginning-of-pipe-or-end-of-line ()
-        "Find point position of end of line or beginning of pipe %>%"
-        (if (search-forward "%>%" (line-end-position) t)
-            (let ((pos (progn
-                         (beginning-of-line)
-                         (search-forward "%>%" (line-end-position))
-                         (backward-char 3)
-                         (point))))
-              (goto-char pos))
-          (end-of-line)))
+#+BEGIN_SRC emacs-lisp
+  (use-package ess-site
+    :ensure ess
+    :pin melpa-stable
+    :bind
+    (:map ess-mode-map
+          ("C-a" . crux-move-beginning-of-line)
+          ("M-=" . ess-insert-S-assign)
+          ("_"   . self-insert-command)
+          ("M-p" . my/add-pipe)
+          ("C-|" . my/ess-eval-pipe-through-line)
+          :map inferior-ess-mode-map
+          ("M-=" . ess-insert-S-assign)
+          ("_"   . self-insert-command))
+    :config
+    (setq ess-nuke-trailing-whitespace-p t)
+    (add-hook 'ess-mode-hook
+              (lambda ()
+                (ess-set-style 'RStudio)))
+    (setq ess-eval-visibly 'nowait) ; don't hog Emacs
+    (setq ess-ask-for-ess-directory nil) ; don't ask for dir when starting a process
+    (setq ess-eldoc-show-on-symbol t) ; show eldoc on symbol instead of only inside of parens
+    (setq ess-use-ido nil) ; rely on helm instead of ido
+    (progn
+      ;; Save R history in one place rather than making .Rhistory files
+      ;; everywhere. Make that folder if needed.
+      (setq ess-history-directory (concat user-emacs-directory "var/Rhist/"))
+      (mkdir ess-history-directory t))
+    (setq ess-pdf-viewer-pref "emacsclient")
+    (defun my/add-pipe ()
+      "Adds a pipe operator %>% with one space to the left and then
+  starts a newline with proper indentation"
+      (interactive)
+      (just-one-space 1)
+      (insert "%>%")
+      (ess-newline-and-indent))
+    ;; I sometimes want to evaluate just part of a piped sequence. The
+    ;; following lets me do so without needing to insert blank lines or
+    ;; something:
+    (defun my/ess-beginning-of-pipe-or-end-of-line ()
+      "Find point position of end of line or beginning of pipe %>%"
+      (if (search-forward "%>%" (line-end-position) t)
+          (let ((pos (progn
+                       (beginning-of-line)
+                       (search-forward "%>%" (line-end-position))
+                       (backward-char 3)
+                       (point))))
+            (goto-char pos))
+        (end-of-line)))
 
-      (defun my/ess-eval-pipe-through-line (vis)
-        "Like `ess-eval-paragraph' but only evaluates up to the pipe on this line.
+    (defun my/ess-eval-pipe-through-line (vis)
+      "Like `ess-eval-paragraph' but only evaluates up to the pipe on this line.
 
-    If no pipe, evaluate paragraph through the end of current line.
+  If no pipe, evaluate paragraph through the end of current line.
 
-    Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
-        (interactive "P")
-        (save-excursion
-          (let ((end (progn
-                       (my/ess-beginning-of-pipe-or-end-of-line)
-                       (point)))
-                (beg (progn (backward-paragraph)
-                            (ess-skip-blanks-forward 'multiline)
-                            (point))))
-            (ess-eval-region beg end vis)))))
-  #+END_SRC
+  Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
+      (interactive "P")
+      (save-excursion
+        (let ((end (progn
+                     (my/ess-beginning-of-pipe-or-end-of-line)
+                     (point)))
+              (beg (progn (backward-paragraph)
+                          (ess-skip-blanks-forward 'multiline)
+                          (point))))
+          (ess-eval-region beg end vis)))))
+#+END_SRC
 
 * Python
-  The package is called python, the mode is python-mode:
-  #+BEGIN_SRC emacs-lisp
-    (use-package python
-      :mode ("\\.py\\'". python-mode)
-      :interpreter "python")
-  #+END_SRC
+The package is called python, the mode is python-mode:
+#+BEGIN_SRC emacs-lisp
+  (use-package python
+    :mode ("\\.py\\'". python-mode)
+    :interpreter "python")
+#+END_SRC
 
-  Elpy is a ton of customizations for python. Load it up:
+Elpy is a ton of customizations for python. Load it up:
 
-  #+BEGIN_SRC emacs-lisp
-    (use-package elpy
-      :ensure t
-      :pin melpa-stable
-      :config
-      (elpy-enable)
-      (when (require 'flycheck nil t)
-        (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-        (add-hook 'elpy-mode-hook 'flycheck-mode)))
-  #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package elpy
+    :ensure t
+    :pin melpa-stable
+    :config
+    (elpy-enable)
+    (when (require 'flycheck nil t)
+      (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+      (add-hook 'elpy-mode-hook 'flycheck-mode)))
+#+END_SRC
 * Stan
-  Stan is a Bayesian modeling language. Emacs has a mode for it (of course!)
+Stan is a Bayesian modeling language. Emacs has a mode for it (of course!)
 
-  #+BEGIN_SRC emacs-lisp
-    (use-package stan-mode
-      :ensure t
-      :mode ("\\.stan\\'". stan-mode))
-  #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package stan-mode
+    :ensure t
+    :mode ("\\.stan\\'". stan-mode))
+#+END_SRC
 * CSV files
 Emacs can handle csv files with ease:
 #+BEGIN_SRC emacs-lisp
@@ -2141,118 +2141,118 @@ Emacs can handle csv files with ease:
 #+END_SRC
 
 * Code and syntax checking
-  Emacs can tell you magically if your code is wrong (or just ugly). Flycheck is a minor mode for this. Let's enable it globally.
+Emacs can tell you magically if your code is wrong (or just ugly). Flycheck is a minor mode for this. Let's enable it globally.
 
-  Flycheck can check your R code too, but you'll need to install the ~lintr~ package.
+Flycheck can check your R code too, but you'll need to install the ~lintr~ package.
 
-  #+BEGIN_SRC emacs-lisp
-    (use-package flycheck ; checks for style and syntax
-      :ensure t
-      :config
-      (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
-      ;; I don't care if code is commented out in R:
-      (setq flycheck-lintr-linters "with_defaults(commented_code_linter = NULL)")
-      (add-hook 'after-init-hook #'global-flycheck-mode))
-  #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck ; checks for style and syntax
+    :ensure t
+    :config
+    (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
+    ;; I don't care if code is commented out in R:
+    (setq flycheck-lintr-linters "with_defaults(commented_code_linter = NULL)")
+    (add-hook 'after-init-hook #'global-flycheck-mode))
+#+END_SRC
 
-  Electric operator will turn ~a=10*5+2~ into ~a = 10 * 5 + 2~, so let's enable it for R:
+Electric operator will turn ~a=10*5+2~ into ~a = 10 * 5 + 2~, so let's enable it for R:
 
-  #+BEGIN_SRC emacs-lisp
-    (use-package electric-operator
-      :ensure t
-      :config
-      (setq electric-operator-R-named-argument-style 'spaced)
-      (add-hook 'ess-mode-hook #'electric-operator-mode)
-      (add-hook 'python-mode-hook #'electric-operator-mode))
-  #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package electric-operator
+    :ensure t
+    :config
+    (setq electric-operator-R-named-argument-style 'spaced)
+    (add-hook 'ess-mode-hook #'electric-operator-mode)
+    (add-hook 'python-mode-hook #'electric-operator-mode))
+#+END_SRC
 * Whitespace
-  Whitespace is evil. Let's get rid of as much as possible. But we don't want to do this with files that already had whitespace (from someone else's project, for example). This mode will call ~whitespace-cleanup~ before buffers are saved (but smartly)!
+Whitespace is evil. Let's get rid of as much as possible. But we don't want to do this with files that already had whitespace (from someone else's project, for example). This mode will call ~whitespace-cleanup~ before buffers are saved (but smartly)!
 
-  #+BEGIN_SRC emacs-lisp
-    (use-package ws-butler
-      :ensure t
-      :config
-      (ws-butler-global-mode))
-  #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package ws-butler
+    :ensure t
+    :config
+    (ws-butler-global-mode))
+#+END_SRC
 
 * Markdown
-  Markdown mode for Markdown editing!
+Markdown mode for Markdown editing!
 
-  #+BEGIN_SRC emacs-lisp
-    (use-package markdown-mode
-      :ensure t
-      :commands (markdown-mode gfm-mode)
-      :mode (("README\\.md\\'" . gfm-mode)
-             ("\\.md\\'" . markdown-mode)
-             ("\\.markdown\\'" . markdown-mode))
-      :config
-      (setq markdown-enable-math t))
-  #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package markdown-mode
+    :ensure t
+    :commands (markdown-mode gfm-mode)
+    :mode (("README\\.md\\'" . gfm-mode)
+           ("\\.md\\'" . markdown-mode)
+           ("\\.markdown\\'" . markdown-mode))
+    :config
+    (setq markdown-enable-math t))
+#+END_SRC
 
-  Of course, markdown contains a yaml header, so we need yaml-mode as well:
+Of course, markdown contains a yaml header, so we need yaml-mode as well:
 
-  #+BEGIN_SRC emacs-lisp
-    (use-package yaml-mode
-      :ensure t
-      :mode (("\\.yml\\'" . yaml-mode)))
-  #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package yaml-mode
+    :ensure t
+    :mode (("\\.yml\\'" . yaml-mode)))
+#+END_SRC
 
 * LaTeX
-  AuCTeX is better than the built in tex mode; let's use it. It's good out of the box, but I like to use latexmk so that I don't have to remember to rerun the file X times to get references right.
+AuCTeX is better than the built in tex mode; let's use it. It's good out of the box, but I like to use latexmk so that I don't have to remember to rerun the file X times to get references right.
 
-  #+BEGIN_SRC emacs-lisp
-    (use-package tex-site
-      :ensure auctex
-      :config
-      (add-hook 'LaTeX-mode-hook #'LaTeX-math-mode)
-      (setq TeX-auto-save t
-            TeX-parse-self t
-            reftex-plug-into-AUCTeX t)
-      (add-hook 'LaTeX-mode-hook 'reftex-mode)
-      (add-hook 'LaTeX-mode-hook #'TeX-PDF-mode)
-      (setq TeX-source-correlate-method 'synctex)
-      (setq TeX-source-correlate-mode t)
-      (eval-after-load "tex"
-        '(add-to-list 'TeX-command-list '("latexmk" "latexmk -synctex=1 -pdf %s"
-                                          TeX-run-compile nil t :help "Process file with latexmk")))
-      (eval-after-load "tex"
-        '(add-to-list 'TeX-command-list '("xelatexmk" "latexmk -synctex=1 -xelatex %s"
-                                          TeX-run-compile nil t :help "Process file with xelatexmk")))
-      (add-hook 'TeX-mode-hook (lambda () (setq TeX-command-default "latexmk")))
-      ;; Stop littering everywhere with auto/ directories
-      (setq-default TeX-auto-local
-                    (expand-file-name "auctex/auto" (concat user-emacs-directory "var")))
-      ;; Some extra files generated by xelatexmk that I don't generally
-      ;; want to keep:
-      (push ".synctex.gz" dired-latex-unclean-extensions)
-      (push ".fdb_latexmk" dired-latex-unclean-extensions)
-      (push ".fls" dired-latex-unclean-extensions)
-      ;; (push "\\.fdb_latexmk" LaTeX-clean-intermediate-suffixes)
-      ;; (push "\\.fls" LaTeX-clean-intermediate-suffixes)
-      ;; (push "\\.synctex.gz" LaTeX-clean-intermediate-suffixes)
-      (setq TeX-clean-confirm nil)
-      ;; revert pdf from file after compilation finishes
-      (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
-      (use-package latex
-        :bind
-        (:map LaTeX-mode-map
-              ("M-p" . outline-previous-visible-heading)
-              ("M-n" . outline-next-visible-heading))))
-  #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package tex-site
+    :ensure auctex
+    :config
+    (add-hook 'LaTeX-mode-hook #'LaTeX-math-mode)
+    (setq TeX-auto-save t
+          TeX-parse-self t
+          reftex-plug-into-AUCTeX t)
+    (add-hook 'LaTeX-mode-hook 'reftex-mode)
+    (add-hook 'LaTeX-mode-hook #'TeX-PDF-mode)
+    (setq TeX-source-correlate-method 'synctex)
+    (setq TeX-source-correlate-mode t)
+    (eval-after-load "tex"
+      '(add-to-list 'TeX-command-list '("latexmk" "latexmk -synctex=1 -pdf %s"
+                                        TeX-run-compile nil t :help "Process file with latexmk")))
+    (eval-after-load "tex"
+      '(add-to-list 'TeX-command-list '("xelatexmk" "latexmk -synctex=1 -xelatex %s"
+                                        TeX-run-compile nil t :help "Process file with xelatexmk")))
+    (add-hook 'TeX-mode-hook (lambda () (setq TeX-command-default "latexmk")))
+    ;; Stop littering everywhere with auto/ directories
+    (setq-default TeX-auto-local
+                  (expand-file-name "auctex/auto" (concat user-emacs-directory "var")))
+    ;; Some extra files generated by xelatexmk that I don't generally
+    ;; want to keep:
+    (push ".synctex.gz" dired-latex-unclean-extensions)
+    (push ".fdb_latexmk" dired-latex-unclean-extensions)
+    (push ".fls" dired-latex-unclean-extensions)
+    ;; (push "\\.fdb_latexmk" LaTeX-clean-intermediate-suffixes)
+    ;; (push "\\.fls" LaTeX-clean-intermediate-suffixes)
+    ;; (push "\\.synctex.gz" LaTeX-clean-intermediate-suffixes)
+    (setq TeX-clean-confirm nil)
+    ;; revert pdf from file after compilation finishes
+    (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+    (use-package latex
+      :bind
+      (:map LaTeX-mode-map
+            ("M-p" . outline-previous-visible-heading)
+            ("M-n" . outline-next-visible-heading))))
+#+END_SRC
 
-  Finally, sometimes we want wordcounts. If I just want a quick snippet, I can run the following command. If I want more information, I can drop into a shell with ~C-c M-e~ (~shell-pop~) and run ~texcount my-file.tex~:
+Finally, sometimes we want wordcounts. If I just want a quick snippet, I can run the following command. If I want more information, I can drop into a shell with ~C-c M-e~ (~shell-pop~) and run ~texcount my-file.tex~:
 
-  #+BEGIN_SRC emacs-lisp
-    (defun latex-word-count ()
-      (interactive)
-      (let* ((this-file (buffer-file-name))
-             (word-count
-              (with-output-to-string
-                (with-current-buffer standard-output
-                  (call-process "texcount" nil t nil "-brief" this-file)))))
-        (string-match "\n$" word-count)
-        (message (replace-match "" nil nil word-count))))
-  #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (defun latex-word-count ()
+    (interactive)
+    (let* ((this-file (buffer-file-name))
+           (word-count
+            (with-output-to-string
+              (with-current-buffer standard-output
+                (call-process "texcount" nil t nil "-brief" this-file)))))
+      (string-match "\n$" word-count)
+      (message (replace-match "" nil nil word-count))))
+#+END_SRC
 
 ** Reftex
 I use =helm-bibtex= to manage my references, but ReFTeX is still great to have around for cross-references in latex files.
@@ -2281,55 +2281,55 @@ You will need to change ~reftex-default-bibliography~ to wherever you keep your 
 #+END_SRC
 
 ** Latex math
-   Cdlatex lets me write latex in org-mode. It's particularly useful for math. [[https://www.gnu.org/software/emacs/manual/html_node/org/CDLaTeX-mode.html][doc]]
+Cdlatex lets me write latex in org-mode. It's particularly useful for math. [[https://www.gnu.org/software/emacs/manual/html_node/org/CDLaTeX-mode.html][doc]]
 
-   #+BEGIN_SRC emacs-lisp
-     (use-package cdlatex
-       :ensure t
-       :config
-       (progn
-         (add-hook 'org-mode-hook 'org-cdlatex-mode)))
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package cdlatex
+    :ensure t
+    :config
+    (progn
+      (add-hook 'org-mode-hook 'org-cdlatex-mode)))
+#+END_SRC
 
 * Polymode (for knitr)
-  Polymode is a (relatively new) way of working with multiple major modes. This is especially helpful if we want to use latex or markdown together with R code.
+Polymode is a (relatively new) way of working with multiple major modes. This is especially helpful if we want to use latex or markdown together with R code.
 
-  #+BEGIN_SRC emacs-lisp
-    (use-package polymode
-      :ensure t
-      :mode
-      ("\\.Snw" . poly-noweb+r-mode)
-      ("\\.Rnw" . poly-noweb+r-mode)
-      ("\\.[rR]md" . Rmd-mode)
-      :init
-      (progn
-        (defun Rmd-mode ()
-          "ESS Markdown mode for Rmd files"
-          (interactive)
-          (require 'poly-R)
-          (require 'poly-markdown)
-          (R-mode)
-          (poly-markdown+r-mode))))
-  #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package polymode
+    :ensure t
+    :mode
+    ("\\.Snw" . poly-noweb+r-mode)
+    ("\\.Rnw" . poly-noweb+r-mode)
+    ("\\.[rR]md" . Rmd-mode)
+    :init
+    (progn
+      (defun Rmd-mode ()
+        "ESS Markdown mode for Rmd files"
+        (interactive)
+        (require 'poly-R)
+        (require 'poly-markdown)
+        (R-mode)
+        (poly-markdown+r-mode))))
+#+END_SRC
 
 * Spell Check
 Flyspell checks for spelling on the fly. I use aspell instead of ispell because it's better. :-) You may need to install it separately, though I didn't need to. If you want to use non-english words, you can tell it so with ~ispell-local-dictionary~ variable.
 
-  #+BEGIN_SRC emacs-lisp
-    (use-package flyspell
-      :ensure t
-      :config
-      (setq ispell-program-name "aspell")
-      (setq ispell-list-command "--list")
-      (add-hook 'text-mode-hook 'turn-on-flyspell)
-      (add-hook 'prog-mode-hook 'flyspell-prog-mode)
-      (add-hook 'ess-mode-hook 'flyspell-prog-mode))
-  #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package flyspell
+    :ensure t
+    :config
+    (setq ispell-program-name "aspell")
+    (setq ispell-list-command "--list")
+    (add-hook 'text-mode-hook 'turn-on-flyspell)
+    (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+    (add-hook 'ess-mode-hook 'flyspell-prog-mode))
+#+END_SRC
 * Version control
-  #+BEGIN_SRC emacs-lisp
-    (setq vc-make-backup-files t)
-    (setq vc-follow-symlinks t) ; don't ask to follow symlinks
-  #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (setq vc-make-backup-files t)
+  (setq vc-follow-symlinks t) ; don't ask to follow symlinks
+#+END_SRC
 ** Diff highlights
 
 #+BEGIN_SRC emacs-lisp
@@ -2344,16 +2344,16 @@ Flyspell checks for spelling on the fly. I use aspell instead of ispell because 
 ** Git & Magit
 Magit is better than the command line for git. I don't modify much. I just bind it to =C-x g=. I also set it up that it will run alone in the frame, then restore your previous window configuration when you exit.
 
-   #+BEGIN_SRC emacs-lisp
-     (use-package magit ; for git
-       :ensure t
-       :pin melpa-stable
-       :bind
-       ("C-x g" . magit-status)
-       :config
-       (setq magit-diff-refine-hunk 'all) ; get highlighted word diffs
-       (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1))
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package magit ; for git
+    :ensure t
+    :pin melpa-stable
+    :bind
+    ("C-x g" . magit-status)
+    :config
+    (setq magit-diff-refine-hunk 'all) ; get highlighted word diffs
+    (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1))
+#+END_SRC
 
 Modes for git files:
 
@@ -2392,7 +2392,7 @@ I autocommit a few files, like notes and todo:
     :config
     (setq magithub-api-timeout 1.5)
     (magithub-feature-autoinject t))
-    #+END_SRC
+#+END_SRC
 
 **** Gists
 #+BEGIN_SRC emacs-lisp
@@ -2403,388 +2403,388 @@ I autocommit a few files, like notes and todo:
 
 * Webpage editing
 ** HTML and friends
-   Web-mode takes care of a lot of html annoyances:
+Web-mode takes care of a lot of html annoyances:
 
-   #+BEGIN_SRC emacs-lisp
-     (use-package web-mode
-       :ensure t
-       :mode
-       ("\\.html?\\'" . web-mode)
-       ("\\.scss?\\'" . web-mode)
-       ("\\.erb\\'" . web-mode)
-       ("\\.djhtml\\'" . web-mode)
-       :config
-       (setq web-mode-engines-alist
-             '(("django" . "\\.djhtml'"))))
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package web-mode
+    :ensure t
+    :mode
+    ("\\.html?\\'" . web-mode)
+    ("\\.scss?\\'" . web-mode)
+    ("\\.erb\\'" . web-mode)
+    ("\\.djhtml\\'" . web-mode)
+    :config
+    (setq web-mode-engines-alist
+          '(("django" . "\\.djhtml'"))))
+#+END_SRC
 
 ** CSS, SCSS
-   And CSS/SCSS is handled nicely by this package:
+And CSS/SCSS is handled nicely by this package:
 
-   #+BEGIN_SRC emacs-lisp
-     (use-package scss-mode
-       :ensure t
-       :mode
-       ("\\.css\\'". css-mode)
-       ("\\.scss\\'" . scss-mode))
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package scss-mode
+    :ensure t
+    :mode
+    ("\\.css\\'". css-mode)
+    ("\\.scss\\'" . scss-mode))
+#+END_SRC
 * Email
 ** mu4e setup files
-   I use ~mu4e~ with mbsync and mu for my email. In order to use this file, you'll need to make sure that mbsync and mu are installed on your system. mbsync requires a bit of configuration to get it started.
+I use ~mu4e~ with mbsync and mu for my email. In order to use this file, you'll need to make sure that mbsync and mu are installed on your system. mbsync requires a bit of configuration to get it started.
 ** mu4e setup
-   Finally, we can get mu4e set up.
-   #+BEGIN_SRC emacs-lisp
-     (use-package mu4e
-       :if (executable-find "mu")
-       :bind
-       (("C-x m" . mu4e-compose-new)
-        ("<f9>" . my/work-inbox)
-        ("<f10>" . my/personal-inbox)
-        ("<f8>" . my/gu-inbox)
-        :map mu4e-headers-mode-map
-        ("d" . mu4e-headers-mark-for-delete)
-        ("q" . mu4e-quit-session)
-        :map mu4e-view-mode-map
-        ("d" . mu4e-view-mark-for-delete)
-        ("<tab>" . shr-next-link)
-        ("<backtab>" . shr-previous-link)
-        :map mu4e-main-mode-map
-        ("q" . mu4e-quit-session)
-        :map my/map
-        ("m" . my-mu4e-start))
-       :init
-       (setq mu4e-maildir "~/.mail")
-       ;; Start mu4e in fullscreen
-       (defun my-mu4e-start ()
-         (interactive)
-         (window-configuration-to-register :mu4e-fullscreen)
-         (mu4e)
-         (delete-other-windows))
-       ;; Restore previous window configuration
-       (defun mu4e-quit-session ()
-         "Restores the previous window configuration and kills the mu4e buffer"
-         (interactive)
-         (kill-buffer)
-         (jump-to-register :mu4e-fullscreen))
-       (add-hook 'after-init-hook
-                 (lambda () (mu4e t))) ; starts mu4e silently when emacs starts
-       (defun my/work-inbox ()
-         "Jump to work email"
-         (window-configuration-to-register :mu4e-fullscreen)
-         (interactive)
-         (mu4e~headers-jump-to-maildir "/utexas/INBOX")
-         (delete-other-windows))
-       (defun my/gu-inbox ()
-         "Jump to work email"
-         (window-configuration-to-register :mu4e-fullscreen)
-         (interactive)
-         (mu4e~headers-jump-to-maildir "/gu/INBOX")
-         (delete-other-windows))
-       (defun my/personal-inbox ()
-         "Jump to work email"
-         (interactive)
-         (window-configuration-to-register :mu4e-fullscreen)
-         (mu4e~headers-jump-to-maildir "/gmail/INBOX")
-         (delete-other-windows))
+Finally, we can get mu4e set up.
+#+BEGIN_SRC emacs-lisp
+  (use-package mu4e
+    :if (executable-find "mu")
+    :bind
+    (("C-x m" . mu4e-compose-new)
+     ("<f9>" . my/work-inbox)
+     ("<f10>" . my/personal-inbox)
+     ("<f8>" . my/gu-inbox)
+     :map mu4e-headers-mode-map
+     ("d" . mu4e-headers-mark-for-delete)
+     ("q" . mu4e-quit-session)
+     :map mu4e-view-mode-map
+     ("d" . mu4e-view-mark-for-delete)
+     ("<tab>" . shr-next-link)
+     ("<backtab>" . shr-previous-link)
+     :map mu4e-main-mode-map
+     ("q" . mu4e-quit-session)
+     :map my/map
+     ("m" . my-mu4e-start))
+    :init
+    (setq mu4e-maildir "~/.mail")
+    ;; Start mu4e in fullscreen
+    (defun my-mu4e-start ()
+      (interactive)
+      (window-configuration-to-register :mu4e-fullscreen)
+      (mu4e)
+      (delete-other-windows))
+    ;; Restore previous window configuration
+    (defun mu4e-quit-session ()
+      "Restores the previous window configuration and kills the mu4e buffer"
+      (interactive)
+      (kill-buffer)
+      (jump-to-register :mu4e-fullscreen))
+    (add-hook 'after-init-hook
+              (lambda () (mu4e t))) ; starts mu4e silently when emacs starts
+    (defun my/work-inbox ()
+      "Jump to work email"
+      (window-configuration-to-register :mu4e-fullscreen)
+      (interactive)
+      (mu4e~headers-jump-to-maildir "/utexas/INBOX")
+      (delete-other-windows))
+    (defun my/gu-inbox ()
+      "Jump to work email"
+      (window-configuration-to-register :mu4e-fullscreen)
+      (interactive)
+      (mu4e~headers-jump-to-maildir "/gu/INBOX")
+      (delete-other-windows))
+    (defun my/personal-inbox ()
+      "Jump to work email"
+      (interactive)
+      (window-configuration-to-register :mu4e-fullscreen)
+      (mu4e~headers-jump-to-maildir "/gmail/INBOX")
+      (delete-other-windows))
 
-       ;; Here we define a function that cleans up contacts. Stolen from:
-       ;; https://martinralbrecht.wordpress.com/2016/05/30/handling-email-with-emacs/
-       (defun malb/canonicalise-contact-name (name)
-         (let ((case-fold-search nil))
-           (setq name (or name ""))
-           (if (string-match-p "^[^ ]+@[^ ]+\.[^ ]" name)
-               ""
-             (progn
-               ;; drop email address
-               (setq name (replace-regexp-in-string "^\\(.*\\) [^ ]+@[^ ]+\.[^ ]" "\\1" name))
-               ;; strip quotes
-               (setq name (replace-regexp-in-string "^\"\\(.*\\)\"" "\\1" name))
-               ;; deal with YELL’d last names
-               (setq name (replace-regexp-in-string "^\\(\\<[[:upper:]]+\\>\\) \\(.*\\)" "\\2 \\1" name))
-               ;; Foo, Bar becomes Bar Foo
-               (setq name (replace-regexp-in-string "^\\(.*\\), \\([^ ]+\\).*" "\\2 \\1" name))
-               ;; look up names and replace from static table, TODO look this up by email
-               ;; (setq name (or (cdr (assoc name malb/mu4e-name-replacements)) name))
-               ))))
-       (defun malb/mu4e-contact-rewrite-function (contact)
-         (let* ((name (or (plist-get contact :name) ""))
-                (mail (plist-get contact :mail))
-                (case-fold-search nil))
-           (plist-put contact :name (malb/canonicalise-contact-name name))
-           contact))
-       (setq mu4e-contact-rewrite-function #'malb/mu4e-contact-rewrite-function)
+    ;; Here we define a function that cleans up contacts. Stolen from:
+    ;; https://martinralbrecht.wordpress.com/2016/05/30/handling-email-with-emacs/
+    (defun malb/canonicalise-contact-name (name)
+      (let ((case-fold-search nil))
+        (setq name (or name ""))
+        (if (string-match-p "^[^ ]+@[^ ]+\.[^ ]" name)
+            ""
+          (progn
+            ;; drop email address
+            (setq name (replace-regexp-in-string "^\\(.*\\) [^ ]+@[^ ]+\.[^ ]" "\\1" name))
+            ;; strip quotes
+            (setq name (replace-regexp-in-string "^\"\\(.*\\)\"" "\\1" name))
+            ;; deal with YELL’d last names
+            (setq name (replace-regexp-in-string "^\\(\\<[[:upper:]]+\\>\\) \\(.*\\)" "\\2 \\1" name))
+            ;; Foo, Bar becomes Bar Foo
+            (setq name (replace-regexp-in-string "^\\(.*\\), \\([^ ]+\\).*" "\\2 \\1" name))
+            ;; look up names and replace from static table, TODO look this up by email
+            ;; (setq name (or (cdr (assoc name malb/mu4e-name-replacements)) name))
+            ))))
+    (defun malb/mu4e-contact-rewrite-function (contact)
+      (let* ((name (or (plist-get contact :name) ""))
+             (mail (plist-get contact :mail))
+             (case-fold-search nil))
+        (plist-put contact :name (malb/canonicalise-contact-name name))
+        contact))
+    (setq mu4e-contact-rewrite-function #'malb/mu4e-contact-rewrite-function)
 
-       :config
-       (setq mu4e-contexts
-             `( ,(make-mu4e-context
-                  :name "utexas"
-                  :enter-func (lambda () (mu4e-message "Switch to utexas context"))
-                  ;; leave-func not defined
-                  :match-func (lambda (msg)
-                                (when msg
-                                  (mu4e-message-contact-field-matches msg :to "branham@utexas.edu")))
-                  :vars '((mu4e-drafts-folder           . "/utexas/[Gmail]/.Drafts")
-                          (mu4e-sent-folder             . "/utexas/[Gmail]/.Sent Mail")
-                          (mu4e-trash-folder            . "/utexas/[Gmail]/.Trash")
-                          (user-mail-address            . "branham@utexas.edu")
-                          (user-full-name               . "Alex Branham")
-                          (smtpmail-smtp-user           . "branham@utexas.edu")
-                          (smtpmail-default-smtp-server . "smtp.gmail.com")
-                          (smtpmail-smtp-server         . "smtp.gmail.com")
-                          (smtpmail-smtp-service        . 587)
-                          (send-mail-function           . smtpmail-send-it)
-                          (message-send-mail-ggfunction . smtpmail-send-it)
-                          (smtpmail-stream-type         . starttls)
-                          (mu4e-compose-signature-auto-include . t)
-                          (mu4e-compose-signature       . (concat
-                                                           "J. Alexander Branham\n"
-                                                           "PhD Candidate\n"
-                                                           "Department of Government\n"
-                                                           "University of Texas at Austin\n"
-                                                           "https://www.jabranham.com"
-                                                           "\n"))))
-                ,(make-mu4e-context
-                  :name "gu"
-                  :enter-func (lambda () (mu4e-message "Switch to gu context"))
-                  ;; leave-func not defined
-                  :match-func (lambda (msg)
-                                (when msg
-                                  (mu4e-message-contact-field-matches msg :to '("james.alexander.branham@gu.se"
-                                                                                "polalla@pol.gu.se"))))
-                  :vars '((mu4e-drafts-folder           . "/gu/Drafts")
-                          (mu4e-sent-folder             . "/gu/Sent")
-                          (mu4e-refile-folder           . "/gu/Archive")
-                          (mu4e-trash-folder            . "/gu/Trash")
-                          (user-mail-address            . "james.alexander.branham@gu.se")
-                          (user-full-name               . "Alex Branham")
-                          (smtpmail-smtp-user           . "james.alexander.branham@gu.se")
-                          (smtpmail-smtp-server         . "localhost"); using davmail to access the Exchange server
-                          (smtpmail-default-smtp-server . "localhost")
-                          (send-mail-function           . smtpmail-send-it)
-                          (message-send-mail-ggfunction . smtpmail-send-it)
-                          (smtpmail-stream-type         . plain)
-                          (smtpmail-smtp-service        . 1025)
-                          (mu4e-compose-signature-auto-include . t)
-                          (mu4e-compose-signature       . (concat
-                                                           "J. Alexander Branham\n"
-                                                           "Research Associate\n"
-                                                           "Department of Political Science\n"
-                                                           "Göteborgs Universitet\n"
-                                                           "https://www.jabranham.com"
-                                                           "\n"))))
-                ,(make-mu4e-context
-                  :name "personal"
-                  :enter-func (lambda () (mu4e-message "Switch to personal context"))
-                  ;; leave-func not defined
-                  :match-func (lambda (msg)
-                                (when msg
-                                  (mu4e-message-contact-field-matches msg :to "alex.branham@gmail.com")))
-                  :vars '((user-mail-address            . "alex.branham@gmail.com")
-                          (user-full-name               . "Alex Branham")
-                          (smtpmail-smtp-user           . "alex.branham@gmail.com")
-                          (smtpmail-default-smtp-server . "smtp.gmail.com")
-                          (smtpmail-smtp-server         . "smtp.gmail.com")
-                          (smtpmail-smtp-service        . 587)
-                          (send-mail-function           . smtpmail-send-it)
-                          (message-send-mail-ggfunction . smtpmail-send-it)
-                          (smtpmail-stream-type         . starttls)
-                          (mu4e-compose-signature-auto-include . nil)
-                          (mu4e-drafts-folder           . "/gmail/[Gmail]/.Drafts")
-                          (mu4e-sent-folder             . "/gmail/[Gmail]/.Sent Mail")
-                          (mu4e-trash-folder            . "/gmail/[Gmail]/.Trash")))))
-       (setq mu4e-context-policy 'pick-first)
-       (setq mu4e-maildir-shortcuts '( ("/utexas/INBOX"  . ?u)
-                                       ("/utexas/[Gmail]/.Sent Mail"   . ?s)
-                                       ("/utexas/[Gmail]/.All Mail" . ?a)
-                                       ("/gmail/INBOX" . ?g)))
-       (add-to-list 'mu4e-bookmarks
-                    (make-mu4e-bookmark
-                     :name "All Inboxes"
-                     :query "maildir:/gmail/INBOX OR maildir:/utexas/INBOX OR maildir:/gu/INBOX"
-                     :key ?i))
-       ;; don't ask me to quit, just quit
-       (setq mu4e-confirm-quit nil)
-       (setq mail-user-agent 'mu4e-user-agent)
-       ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
-       (setq mu4e-sent-messages-behavior 'delete)
-       (setq mu4e-get-mail-command "mbsync -a"   ;; or fetchmail, or ...
-             mu4e-update-interval 120) ;; in seconds
-       (setq mu4e-change-filenames-when-moving t)
-       ;; setup some handy shortcuts
-       ;; you can quickly switch to your Inbox -- press ``ji''
-       ;; then, when you want archive some messages, move them to
-       ;; the 'All Mail' folder by pressing ``ma''.
-       ;; something about ourselves
-       (setq mu4e-user-mail-address-list '("branham@utexas.edu" "alex.branham@gmail.com" "james.alexander.branham@gu.se"))
-       (setq mu4e-compose-dont-reply-to-self t) ; don't reply to self
-       (setq mu4e-compose-complete-only-after "2015-01-01")
-       (setq mu4e-view-show-addresses t)
-       (setq mu4e-hide-index-messages t)
-       (setq mu4e-view-show-images t)
-       ;; use imagemagick, if available
-       (when (fboundp 'imagemagick-register-types)
-         (imagemagick-register-types))
-       (setq message-kill-buffer-on-exit t)
-       (setq mu4e-use-fancy-chars t)
-       (setq mu4e-headers-skip-duplicates t)
-       (setq mu4e-attachment-dir "~/Downloads")
-       (setq mu4e-completing-read-function 'completing-read)
-       ;; Use iso date format:
-       (setq mu4e-headers-date-format "%F")
-       (setq mu4e-headers-fields
-             '((:human-date    .  11)
-               (:flags         .   6)
-               (:from          .  22)
-               (:subject       .  nil)))
-       ;; next two are from:
-       ;; http://pragmaticemacs.com/emacs/customise-the-reply-quote-string-in-mu4e/ :
-       ;; customize the reply-quote-string
-       (setq message-citation-line-format "On %a %d %b %Y at %R, %f wrote:\n")
-       ;; choose to use the formatted string
-       (setq message-citation-line-function 'message-insert-formatted-citation-line)
-       ;; disable visual-line-mode in mu4e-headers (one line should be one email)
-       (add-hook 'mu4e-headers-mode-hook (lambda () (visual-line-mode -1)))
-       (add-hook 'mu4e-view-mode-hook #'visual-line-mode)
-       ;; turn off autofill mode in mu4e compose
-       (defun autofill-off-visual-on ()
-         "Turn off auto-fill-mode and turn on visual-mode"
-         (auto-fill-mode -1)
-         (visual-line-mode))
-       (add-hook 'mu4e-compose-mode-hook #'autofill-off-visual-on)
-       ;; use aV to open message in browser
-       (add-to-list 'mu4e-view-actions
-                    '("ViewInBrowser" . mu4e-action-view-in-browser) t)
-       (use-package gnus-dired
-         ;; make the `gnus-dired-mail-buffers' function also work on
-         ;; message-mode derived modes, such as mu4e-compose-mode
-         :config
-         (defun gnus-dired-mail-buffers ()
-           "Return a list of active message buffers."
-           (let (buffers)
-             (save-current-buffer
-               (dolist (buffer (buffer-list t))
-                 (set-buffer buffer)
-                 (when (and (derived-mode-p 'message-mode)
-                            (null message-sent-message-via))
-                   (push (buffer-name buffer) buffers))))
-             (nreverse buffers)))
-         (setq gnus-dired-mail-mode 'mu4e-user-agent)
-         (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode))
-       ;; configure orgmode support in mu4e
-       (use-package org-mu4e
-         ;; when mail is sent, automatically convert org body to HTML
-         :config
-         (setq org-mu4e-convert-to-html t))
-       (use-package mu4e-contrib
-         :config
-         ;; Use eww to render HTML messages:
-         (setq mu4e-html2text-command 'mu4e-shr2text)
-         )
-       (use-package mu4e-maildirs-extension
-         :ensure t
-         :config
-         (setq mu4e-maildirs-extension-custom-list
-               '("/utexas/INBOX"
-                 "/gmail/INBOX"
-                 "/gu/INBOX"))
-         (mu4e-maildirs-extension-load))
-       ) ; finishes use-package mu4e
-   #+END_SRC
+    :config
+    (setq mu4e-contexts
+          `( ,(make-mu4e-context
+               :name "utexas"
+               :enter-func (lambda () (mu4e-message "Switch to utexas context"))
+               ;; leave-func not defined
+               :match-func (lambda (msg)
+                             (when msg
+                               (mu4e-message-contact-field-matches msg :to "branham@utexas.edu")))
+               :vars '((mu4e-drafts-folder           . "/utexas/[Gmail]/.Drafts")
+                       (mu4e-sent-folder             . "/utexas/[Gmail]/.Sent Mail")
+                       (mu4e-trash-folder            . "/utexas/[Gmail]/.Trash")
+                       (user-mail-address            . "branham@utexas.edu")
+                       (user-full-name               . "Alex Branham")
+                       (smtpmail-smtp-user           . "branham@utexas.edu")
+                       (smtpmail-default-smtp-server . "smtp.gmail.com")
+                       (smtpmail-smtp-server         . "smtp.gmail.com")
+                       (smtpmail-smtp-service        . 587)
+                       (send-mail-function           . smtpmail-send-it)
+                       (message-send-mail-ggfunction . smtpmail-send-it)
+                       (smtpmail-stream-type         . starttls)
+                       (mu4e-compose-signature-auto-include . t)
+                       (mu4e-compose-signature       . (concat
+                                                        "J. Alexander Branham\n"
+                                                        "PhD Candidate\n"
+                                                        "Department of Government\n"
+                                                        "University of Texas at Austin\n"
+                                                        "https://www.jabranham.com"
+                                                        "\n"))))
+             ,(make-mu4e-context
+               :name "gu"
+               :enter-func (lambda () (mu4e-message "Switch to gu context"))
+               ;; leave-func not defined
+               :match-func (lambda (msg)
+                             (when msg
+                               (mu4e-message-contact-field-matches msg :to '("james.alexander.branham@gu.se"
+                                                                             "polalla@pol.gu.se"))))
+               :vars '((mu4e-drafts-folder           . "/gu/Drafts")
+                       (mu4e-sent-folder             . "/gu/Sent")
+                       (mu4e-refile-folder           . "/gu/Archive")
+                       (mu4e-trash-folder            . "/gu/Trash")
+                       (user-mail-address            . "james.alexander.branham@gu.se")
+                       (user-full-name               . "Alex Branham")
+                       (smtpmail-smtp-user           . "james.alexander.branham@gu.se")
+                       (smtpmail-smtp-server         . "localhost"); using davmail to access the Exchange server
+                       (smtpmail-default-smtp-server . "localhost")
+                       (send-mail-function           . smtpmail-send-it)
+                       (message-send-mail-ggfunction . smtpmail-send-it)
+                       (smtpmail-stream-type         . plain)
+                       (smtpmail-smtp-service        . 1025)
+                       (mu4e-compose-signature-auto-include . t)
+                       (mu4e-compose-signature       . (concat
+                                                        "J. Alexander Branham\n"
+                                                        "Research Associate\n"
+                                                        "Department of Political Science\n"
+                                                        "Göteborgs Universitet\n"
+                                                        "https://www.jabranham.com"
+                                                        "\n"))))
+             ,(make-mu4e-context
+               :name "personal"
+               :enter-func (lambda () (mu4e-message "Switch to personal context"))
+               ;; leave-func not defined
+               :match-func (lambda (msg)
+                             (when msg
+                               (mu4e-message-contact-field-matches msg :to "alex.branham@gmail.com")))
+               :vars '((user-mail-address            . "alex.branham@gmail.com")
+                       (user-full-name               . "Alex Branham")
+                       (smtpmail-smtp-user           . "alex.branham@gmail.com")
+                       (smtpmail-default-smtp-server . "smtp.gmail.com")
+                       (smtpmail-smtp-server         . "smtp.gmail.com")
+                       (smtpmail-smtp-service        . 587)
+                       (send-mail-function           . smtpmail-send-it)
+                       (message-send-mail-ggfunction . smtpmail-send-it)
+                       (smtpmail-stream-type         . starttls)
+                       (mu4e-compose-signature-auto-include . nil)
+                       (mu4e-drafts-folder           . "/gmail/[Gmail]/.Drafts")
+                       (mu4e-sent-folder             . "/gmail/[Gmail]/.Sent Mail")
+                       (mu4e-trash-folder            . "/gmail/[Gmail]/.Trash")))))
+    (setq mu4e-context-policy 'pick-first)
+    (setq mu4e-maildir-shortcuts '( ("/utexas/INBOX"  . ?u)
+                                    ("/utexas/[Gmail]/.Sent Mail"   . ?s)
+                                    ("/utexas/[Gmail]/.All Mail" . ?a)
+                                    ("/gmail/INBOX" . ?g)))
+    (add-to-list 'mu4e-bookmarks
+                 (make-mu4e-bookmark
+                  :name "All Inboxes"
+                  :query "maildir:/gmail/INBOX OR maildir:/utexas/INBOX OR maildir:/gu/INBOX"
+                  :key ?i))
+    ;; don't ask me to quit, just quit
+    (setq mu4e-confirm-quit nil)
+    (setq mail-user-agent 'mu4e-user-agent)
+    ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
+    (setq mu4e-sent-messages-behavior 'delete)
+    (setq mu4e-get-mail-command "mbsync -a"   ;; or fetchmail, or ...
+          mu4e-update-interval 120) ;; in seconds
+    (setq mu4e-change-filenames-when-moving t)
+    ;; setup some handy shortcuts
+    ;; you can quickly switch to your Inbox -- press ``ji''
+    ;; then, when you want archive some messages, move them to
+    ;; the 'All Mail' folder by pressing ``ma''.
+    ;; something about ourselves
+    (setq mu4e-user-mail-address-list '("branham@utexas.edu" "alex.branham@gmail.com" "james.alexander.branham@gu.se"))
+    (setq mu4e-compose-dont-reply-to-self t) ; don't reply to self
+    (setq mu4e-compose-complete-only-after "2015-01-01")
+    (setq mu4e-view-show-addresses t)
+    (setq mu4e-hide-index-messages t)
+    (setq mu4e-view-show-images t)
+    ;; use imagemagick, if available
+    (when (fboundp 'imagemagick-register-types)
+      (imagemagick-register-types))
+    (setq message-kill-buffer-on-exit t)
+    (setq mu4e-use-fancy-chars t)
+    (setq mu4e-headers-skip-duplicates t)
+    (setq mu4e-attachment-dir "~/Downloads")
+    (setq mu4e-completing-read-function 'completing-read)
+    ;; Use iso date format:
+    (setq mu4e-headers-date-format "%F")
+    (setq mu4e-headers-fields
+          '((:human-date    .  11)
+            (:flags         .   6)
+            (:from          .  22)
+            (:subject       .  nil)))
+    ;; next two are from:
+    ;; http://pragmaticemacs.com/emacs/customise-the-reply-quote-string-in-mu4e/ :
+    ;; customize the reply-quote-string
+    (setq message-citation-line-format "On %a %d %b %Y at %R, %f wrote:\n")
+    ;; choose to use the formatted string
+    (setq message-citation-line-function 'message-insert-formatted-citation-line)
+    ;; disable visual-line-mode in mu4e-headers (one line should be one email)
+    (add-hook 'mu4e-headers-mode-hook (lambda () (visual-line-mode -1)))
+    (add-hook 'mu4e-view-mode-hook #'visual-line-mode)
+    ;; turn off autofill mode in mu4e compose
+    (defun autofill-off-visual-on ()
+      "Turn off auto-fill-mode and turn on visual-mode"
+      (auto-fill-mode -1)
+      (visual-line-mode))
+    (add-hook 'mu4e-compose-mode-hook #'autofill-off-visual-on)
+    ;; use aV to open message in browser
+    (add-to-list 'mu4e-view-actions
+                 '("ViewInBrowser" . mu4e-action-view-in-browser) t)
+    (use-package gnus-dired
+      ;; make the `gnus-dired-mail-buffers' function also work on
+      ;; message-mode derived modes, such as mu4e-compose-mode
+      :config
+      (defun gnus-dired-mail-buffers ()
+        "Return a list of active message buffers."
+        (let (buffers)
+          (save-current-buffer
+            (dolist (buffer (buffer-list t))
+              (set-buffer buffer)
+              (when (and (derived-mode-p 'message-mode)
+                         (null message-sent-message-via))
+                (push (buffer-name buffer) buffers))))
+          (nreverse buffers)))
+      (setq gnus-dired-mail-mode 'mu4e-user-agent)
+      (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode))
+    ;; configure orgmode support in mu4e
+    (use-package org-mu4e
+      ;; when mail is sent, automatically convert org body to HTML
+      :config
+      (setq org-mu4e-convert-to-html t))
+    (use-package mu4e-contrib
+      :config
+      ;; Use eww to render HTML messages:
+      (setq mu4e-html2text-command 'mu4e-shr2text)
+      )
+    (use-package mu4e-maildirs-extension
+      :ensure t
+      :config
+      (setq mu4e-maildirs-extension-custom-list
+            '("/utexas/INBOX"
+              "/gmail/INBOX"
+              "/gu/INBOX"))
+      (mu4e-maildirs-extension-load))
+    ) ; finishes use-package mu4e
+#+END_SRC
 
 ** Helper for yasnippet
 
-   This function helps with an expandable snippet. [[http://pragmaticemacs.com/emacs/email-templates-in-mu4e-with-yasnippet/][link]]
+This function helps with an expandable snippet. [[http://pragmaticemacs.com/emacs/email-templates-in-mu4e-with-yasnippet/][link]]
 
 
-   #+BEGIN_SRC emacs-lisp
-     ;; function to return first name of email recipients
-     ;; used by yasnippet
-     ;; inspired by
-     ;;http://blog.binchen.org/posts/how-to-use-yasnippets-to-produce-email-templates-in-emacs.html
-     (defun bjm/mu4e-get-names-for-yasnippet ()
-       "Return comma separated string of names for an email"
-       (interactive)
-       (let ((email-name "") str email-string email-list email-name2 tmpname)
-         (save-excursion
-           (goto-char (point-min))
-           ;; first line in email could be some hidden line containing NO to field
-           (setq str (buffer-substring-no-properties (point-min) (point-max))))
-         ;; take name from TO field - match series of names
-         (when (string-match "^To: \"?\\(.+\\)" str)
-           (setq email-string (match-string 1 str)))
-         ;;split to list by comma
-         (setq email-list (split-string email-string " *, *"))
-         ;;loop over emails
-         (dolist (tmpstr email-list)
-           ;;get first word of email string
-           (setq tmpname (car (split-string tmpstr " ")))
-           ;;remove whitespace or ""
-           (setq tmpname (replace-regexp-in-string "[ \"]" "" tmpname))
-           ;;join to string
-           (setq email-name
-                 (concat email-name ", " tmpname)))
-         ;;remove initial comma
-         (setq email-name (replace-regexp-in-string "^, " "" email-name))
+#+BEGIN_SRC emacs-lisp
+  ;; function to return first name of email recipients
+  ;; used by yasnippet
+  ;; inspired by
+  ;;http://blog.binchen.org/posts/how-to-use-yasnippets-to-produce-email-templates-in-emacs.html
+  (defun bjm/mu4e-get-names-for-yasnippet ()
+    "Return comma separated string of names for an email"
+    (interactive)
+    (let ((email-name "") str email-string email-list email-name2 tmpname)
+      (save-excursion
+        (goto-char (point-min))
+        ;; first line in email could be some hidden line containing NO to field
+        (setq str (buffer-substring-no-properties (point-min) (point-max))))
+      ;; take name from TO field - match series of names
+      (when (string-match "^To: \"?\\(.+\\)" str)
+        (setq email-string (match-string 1 str)))
+      ;;split to list by comma
+      (setq email-list (split-string email-string " *, *"))
+      ;;loop over emails
+      (dolist (tmpstr email-list)
+        ;;get first word of email string
+        (setq tmpname (car (split-string tmpstr " ")))
+        ;;remove whitespace or ""
+        (setq tmpname (replace-regexp-in-string "[ \"]" "" tmpname))
+        ;;join to string
+        (setq email-name
+              (concat email-name ", " tmpname)))
+      ;;remove initial comma
+      (setq email-name (replace-regexp-in-string "^, " "" email-name))
 
-         ;;see if we want to use the name in the FROM field
-         ;;get name in FROM field if available, but only if there is only
-         ;;one name in TO field
-         (if (< (length email-list) 2)
-             (when (string-match "^On.+, \\([^ ,\n]+\\).+wrote:$" str)
-               (progn
-                 (setq email-name2 (match-string 1 str))
-                 ;;prefer name in FROM field if TO field has "@"
-                 (when (string-match "@" email-name)
-                   (setq email-name email-name2))
-                 )))
-         email-name))
-   #+END_SRC
+      ;;see if we want to use the name in the FROM field
+      ;;get name in FROM field if available, but only if there is only
+      ;;one name in TO field
+      (if (< (length email-list) 2)
+          (when (string-match "^On.+, \\([^ ,\n]+\\).+wrote:$" str)
+            (progn
+              (setq email-name2 (match-string 1 str))
+              ;;prefer name in FROM field if TO field has "@"
+              (when (string-match "@" email-name)
+                (setq email-name email-name2))
+              )))
+      email-name))
+#+END_SRC
 
 ** Sending mail
-   #+BEGIN_SRC emacs-lisp
-     (use-package smtpmail
-       :if (executable-find "mu")
-       :config
-       ;; warn if no attachments
-     (defun mbork/message-attachment-present-p ()
-       "Return t if an attachment is found in the current message."
-       (save-excursion
-         (save-restriction
-           (widen)
-           (goto-char (point-min))
-           (when (search-forward "<#part" nil t) t))))
+#+BEGIN_SRC emacs-lisp
+  (use-package smtpmail
+    :if (executable-find "mu")
+    :config
+    ;; warn if no attachments
+    (defun mbork/message-attachment-present-p ()
+      "Return t if an attachment is found in the current message."
+      (save-excursion
+        (save-restriction
+          (widen)
+          (goto-char (point-min))
+          (when (search-forward "<#part" nil t) t))))
 
-     (defcustom mbork/message-attachment-intent-re
-       (regexp-opt '("I attach"
-                     "I have attached"
-                     "I've attached"
-                     "I have included"
-                     "I've included"
-                     "see the attached"
-                     "see the attachment"
-                     "attached file"))
-       "A regex which - if found in the message, and if there is no
-     attachment - should launch the no-attachment warning.")
+    (defcustom mbork/message-attachment-intent-re
+      (regexp-opt '("I attach"
+                    "I have attached"
+                    "I've attached"
+                    "I have included"
+                    "I've included"
+                    "see the attached"
+                    "see the attachment"
+                    "attached file"))
+      "A regex which - if found in the message, and if there is no
+  attachment - should launch the no-attachment warning.")
 
-     (defcustom mbork/message-attachment-reminder
-       "Are you sure you want to send this message without any attachment? "
-       "The default question asked when trying to send a message
-     containing `mbork/message-attachment-intent-re' without an
-     actual attachment.")
+    (defcustom mbork/message-attachment-reminder
+      "Are you sure you want to send this message without any attachment? "
+      "The default question asked when trying to send a message
+  containing `mbork/message-attachment-intent-re' without an
+  actual attachment.")
 
-     (defun mbork/message-warn-if-no-attachments ()
-       "Ask the user if s?he wants to send the message even though
-     there are no attachments."
-       (when (and (save-excursion
-                    (save-restriction
-                      (widen)
-                      (goto-char (point-min))
-                      (re-search-forward mbork/message-attachment-intent-re nil t)))
-                  (not (mbork/message-attachment-present-p)))
-         (unless (y-or-n-p mbork/message-attachment-reminder)
-           (keyboard-quit))))
+    (defun mbork/message-warn-if-no-attachments ()
+      "Ask the user if s?he wants to send the message even though
+  there are no attachments."
+      (when (and (save-excursion
+                   (save-restriction
+                     (widen)
+                     (goto-char (point-min))
+                     (re-search-forward mbork/message-attachment-intent-re nil t)))
+                 (not (mbork/message-attachment-present-p)))
+        (unless (y-or-n-p mbork/message-attachment-reminder)
+          (keyboard-quit))))
 
-     (add-hook 'message-send-hook #'mbork/message-warn-if-no-attachments))
+    (add-hook 'message-send-hook #'mbork/message-warn-if-no-attachments))
 #+END_SRC
 
 ** Mail alerts
@@ -2802,7 +2802,7 @@ I autocommit a few files, like notes and todo:
            "flag:unread AND maildir:\"/utexas/INBOX\""
            " OR flag:unread AND maildir:\"/gmail/INBOX\""
            " OR flag:unread AND maildir:\"/gu/INBOX\"")))
-   #+END_SRC
+#+END_SRC
 
 ** Helm and emails (helm-mu)
 I can use helm to help me search emails and contacts:
