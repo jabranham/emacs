@@ -495,7 +495,6 @@ By default, dired asks you if you want to delete the dired buffer if you delete 
 Use the minibuffer from within the minibuffer, and let me know what depth I'm in:
 #+BEGIN_SRC emacs-lisp
   (setq enable-recursive-minibuffers t)
-  (minibuffer-inactive-mode)
 #+END_SRC
 
 ** Which-key
