@@ -787,6 +787,7 @@ Emacs can support multiple cursors. I don't use this much, but it's super handy 
 #+BEGIN_SRC emacs-lisp
   (use-package multiple-cursors
     :ensure t
+    :demand t
     :commands (mc/edit-lines mc/mark-all-like-this)
     :config
     (bind-keys :prefix "C-c m c"
