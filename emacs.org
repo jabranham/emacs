@@ -1331,6 +1331,19 @@ Emacs has a great system to "narrow" a buffer to just a smaller bit. This is use
   ;; copy it if that's what you want.
   (bind-key* "C-x n" #'narrow-or-widen-dwim)
 #+END_SRC
+** Save and revert buffer
+Sometimes stuff gets out of whack, this helps me put it back in whack:
+#+BEGIN_SRC emacs-lisp
+  (defun my/save-and-revert-buffer ()
+    "Save and then revert this buffer."
+    (interactive)
+    (progn
+      (save-buffer)
+      (revert-buffer :noconfirm t)))
+
+  (bind-key "G" #'my/save-and-revert-buffer 'my/map)
+#+END_SRC
+
 * Helm
 Helm. A [[https://tuhdo.github.io/helm-intro.html][package in a league of its own]].
 #+BEGIN_SRC emacs-lisp
