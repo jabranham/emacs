@@ -1746,6 +1746,12 @@ Lock to current file: =C-u C-c C-x <=
                      (org-tags-match-list-sublevels nil)))))))
     )
 #+END_SRC
+*** Org habits
+Enable org habits: [[info:org#Tracking%20your%20habits][info:org#Tracking your habits]]
+#+BEGIN_SRC emacs-lisp
+  (use-package org-habits)
+#+END_SRC
+
 ** Capture
 I use org-capture to create short notes about all kinds of things. I can capture emails to remember for later, quick thoughts for later, RSS feeds (see [[Feed reader]]), really anything.
 
