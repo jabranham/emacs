@@ -1381,6 +1381,7 @@ Helm. A [[https://tuhdo.github.io/helm-intro.html][package in a league of its ow
 #+BEGIN_SRC emacs-lisp
   (use-package helm-bibtex
     :ensure t
+    :demand t
     :bind
     (:map my/map
           ("r b" . my/find-bib-file))
