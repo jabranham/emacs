@@ -1732,7 +1732,7 @@ Lock to current file: =C-u C-c C-x <=
     ;; By default, the time grid has a lot of ugly "-----" lines. Remove those:
     (setq org-agenda-time-grid
           '((daily today reqiure-timed) "" (800 1000 1200 1400 1600 1800 2000)))
-    (setq org-agenda-current-time-string "--- NOW ---")
+    (setq org-agenda-current-time-string "⸻ NOW ⸻")
     (defun my/org-agenda-mark-done (&optional arg)
       "Mark current TODO as DONE.
   See `org-agenda-todo' for more details."
