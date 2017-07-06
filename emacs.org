@@ -1393,6 +1393,10 @@ Helm. A [[https://tuhdo.github.io/helm-intro.html][package in a league of its ow
           bibtex-autokey-year-length 4
           bibtex-autokey-year-title-separator "")
     (setq bibtex-align-at-equal-sign t)
+    ;; The default for bibtex-entry-format includes opts-or-alts, which deletes
+    ;; empty entries. I want to keep those around, though, because a lot of
+    ;; forthcoming articles get things like pages later:
+    (setq bibtex-entry-format '(required-fields numerical-fields))
     (setq bibtex-files '("~/Dropbox/bibliography/references.bib"))
     (add-hook 'bibtex-mode-hook (lambda () (set-fill-column most-positive-fixnum)))
     (defun bibtex-generate-autokey ()
