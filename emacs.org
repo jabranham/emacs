@@ -1166,6 +1166,7 @@ Yasnippet by default checks for snippets in two places: a path relative to yasni
   (use-package yasnippet
     :ensure t
     :after hippie-exp
+    :demand t
     :init
     ;; disable yas minor mode map
     ;; use hippie-expand instead
