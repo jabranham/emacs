@@ -2922,6 +2922,8 @@ I use [[https://github.com/skeeto/elfeed][elfeed]] to manage some RSS links:
 #+BEGIN_SRC emacs-lisp
   (use-package elfeed-org
     :ensure t
+    :init
+    (setq rmh-elfeed-org-files '("~/Dropbox/.elfeed/rmh-elfeed.org"))
     :config
     (elfeed-org))
 #+END_SRC
