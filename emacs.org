@@ -1810,19 +1810,19 @@ This line is necessary for the [[https://addons.mozilla.org/en-US/firefox/addon/
 And now for the capture templates themselves. It's a bit complicated, but [[http://orgmode.org/manual/Capture-templates.html][the manual]] does a great job explaining:
 #+BEGIN_SRC emacs-lisp
   (setq org-capture-templates
-        `((
-           ("s" "store" entry (file ,my/org-inbox)
-            "* TODO %?\n %a \n %i")
-           ("t" "task" entry (file  ,my/org-inbox)
-            "* TODO %? \n %i")
-           ("n" "note" entry (file ,my/org-notes)
-            "* %?\n %i")
-           ("b" "bib" entry (file+headline ,org-default-notes-file "Bibliography")
-            "* TODO %?\n %a \n %i")
-           ("p" "Protocol" entry (file ,my/org-inbox)
-            "* TODO [[%:link][%:description]]\n%i" :immediate-finish t)
-           ("L" "Protocol Link" entry (file ,my/org-inbox)
-            "* TODO [[%:link][%:description]]" :immediate-finish t))))
+        `(
+          ("s" "store" entry (file ,my/org-inbox)
+           "* TODO %?\n %a \n %i")
+          ("t" "task" entry (file  ,my/org-inbox)
+           "* TODO %? \n %i")
+          ("n" "note" entry (file ,my/org-notes)
+           "* %?\n %i")
+          ("b" "bib" entry (file+headline ,org-default-notes-file "Bibliography")
+           "* TODO %?\n %a \n %i")
+          ("p" "Protocol" entry (file ,my/org-inbox)
+           "* TODO [[%:link][%:description]]\n%i" :immediate-finish t)
+          ("L" "Protocol Link" entry (file ,my/org-inbox)
+           "* TODO [[%:link][%:description]]" :immediate-finish t)))
 #+END_SRC
 
 ** Refile
