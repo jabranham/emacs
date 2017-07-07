@@ -1257,6 +1257,15 @@ From [[https://www.reddit.com/r/emacs/comments/445w6s/whats_some_small_thing_in_
           ((or 1 4) (insert value))
           (-1 (message value))))))
 #+END_SRC
+
+Bind that function in my personal keymap, and make ~quick-calc~ easier to get to as well:
+#+BEGIN_SRC emacs-lisp
+  (bind-keys
+   :map my/map
+   ("C" . my/calc-eval-region)
+   ("c" . quick-calc))
+#+END_SRC
+
 ** Insert file name
 
 This function ([[http://pragmaticemacs.com/emacs/insert-file-name/][credit]]) lets me insert a file name easily. Defaults to relative path, use the universal argument to get the absolute path.
