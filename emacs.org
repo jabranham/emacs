@@ -1764,7 +1764,10 @@ Lock to current file: =C-u C-c C-x <=
              ((agenda "" nil)
               (tags "REFILE"
                     ((org-agenda-overriding-header "Tasks to Refile")
-                     (org-tags-match-list-sublevels nil)))))))
+                     (org-tags-match-list-sublevels nil)))))
+            ("b" "bibliography"
+             ((tags "CATEGORY=\"bib\""
+                    ((org-agenda-overriding-header "You've got a lot of reading to do...")))))))
     )
 #+END_SRC
 *** Org habits
