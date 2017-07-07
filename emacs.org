@@ -1741,7 +1741,19 @@ Lock to current file: =C-u C-c C-x <=
     ;; By default, the time grid has a lot of ugly "-----" lines. Remove those:
     (setq org-agenda-time-grid
           '((daily today reqiure-timed) "" (800 1000 1200 1400 1600 1800 2000)))
+    ;; I don't need to know that something is scheduled. That's why it's appearing
+    ;; on the agenda in the first place:
+    (setq org-agenda-scheduled-leaders '("" "%2dx "))
+    ;; Make deadlines, especially overdue ones, stand out more:
+    (setq org-agenda-deadline-leaders '("Deadline: " "In %d days: " "OVERDUE %d day: "))
     (setq org-agenda-current-time-string "⸻ NOW ⸻")
+    ;; The agenda is ugly by default. It doesn't properly align items and it
+    ;; includes weird punctuation. Fix it:
+    (setq org-agenda-prefix-format '((agenda . "%-12c%-14t%s")
+                                     (timeline . "  % s")
+                                     (todo . " %i %-12:c")
+                                     (tags . " %i %-12:c")
+                                     (search . " %i %-12:c")))
     (defun my/org-agenda-mark-done (&optional arg)
       "Mark current TODO as DONE.
   See `org-agenda-todo' for more details."
