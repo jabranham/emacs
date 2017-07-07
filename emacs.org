@@ -1863,10 +1863,6 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally
           org-gcal-client-secret (password-store--run "emacs/emacs-gcal-client-secret")
           org-gcal-file-alist '(("alex.branham@gmail.com" .  "~/Dropbox/org/gcal.org")))
     (add-to-list 'org-agenda-files (concat org-directory "gcal.org") t)
-    ;; I can add to google-calendar with org-capture
-    (add-to-list 'org-capture-templates
-                 `("a" "Appointment" entry (file ,(cdr (car org-gcal-file-alist)))
-                   "* %?\n  %^T"))
     ;; Refresh calendars via org-gcal and automatically create appt-reminders.
     ;; Appt will be refreshed any time an org file is saved after 10 seconds of idle.
     ;; gcal will be synced after 1 minute of idle every hour.
