@@ -1513,7 +1513,6 @@ Bind =M-p= and =M-n= to navigate heading more easily (these are bound to =C-c C-
              ("M-p" . org-previous-visible-heading)
              ("M-n" . org-next-visible-heading))
 #+END_SRC
-
 ** Calendar
 Not technically part of org, but I'll stick the calendar config here since I mainly use it along with org-agenda (config'ed below)
 #+BEGIN_SRC emacs-lisp
@@ -1771,12 +1770,6 @@ Lock to current file: =C-u C-c C-x <=
                     ((org-agenda-overriding-header "You've got a lot of reading to do...")))))))
     )
 #+END_SRC
-*** Org habits
-Enable org habits: [[info:org#Tracking%20your%20habits][info:org#Tracking your habits]]
-#+BEGIN_SRC emacs-lisp
-  (use-package org-habits)
-#+END_SRC
-
 ** Capture
 I use org-capture to create short notes about all kinds of things. I can capture emails to remember for later, quick thoughts for later, RSS feeds (see [[Feed reader]]), really anything.
 
