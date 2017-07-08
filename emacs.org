@@ -7,8 +7,7 @@ This file contains my Emacs configuration. I usually run Emacs as a daemon using
 * Behavior
 Change some of emacs's defaults because they suck:
 #+BEGIN_SRC emacs-lisp
-  (setq inhibit-startup-message t ; disable start screen
-        font-lock-maximum-decoration t) ; lots of color
+  (setq inhibit-startup-message t)
   (setq use-dialog-box nil) ; don't use popup boxes, just make the minibuffer ask
 #+END_SRC
 
