@@ -2423,6 +2423,7 @@ I autocommit a few files, like notes and todo:
 #+BEGIN_SRC emacs-lisp
   (use-package magithub
     :after magit
+    :disabled t
     :ensure t
     :config
     (setq magithub-api-timeout 1.5)
