@@ -2929,7 +2929,6 @@ Who /wouldn't/ want their text editor to do so?
   (use-package wolfram
     :ensure t
     :after password-store
-    :defer 20 ; necessary to let me unlock gpg keyring
     :bind
     ("M-s q" . wolfram-alpha)
     :config
