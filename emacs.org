@@ -112,7 +112,6 @@ The way I load the theme depends on if Emacs is started as a window or in the te
 #+BEGIN_SRC emacs-lisp
   (use-package spacemacs-theme
     :ensure t
-    :defer t
     :init
     ;; theme
     (defvar my/theme 'spacemacs-dark
