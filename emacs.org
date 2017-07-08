@@ -1783,6 +1783,7 @@ I use org-capture to create short notes about all kinds of things. I can capture
     :config
     (defun my/org-capture-refile-and-jump ()
       (interactive)
+      "Refile the current capture, then jump to it."
       (org-capture-refile)
       (org-refile-goto-last-stored)))
 #+END_SRC
