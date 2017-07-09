@@ -2406,28 +2406,6 @@ I autocommit a few files, like notes and todo:
   (use-package git-auto-commit-mode
     :ensure t )
 #+END_SRC
-
-
-*** Github
-
-**** Magithub
-#+BEGIN_SRC emacs-lisp
-  (use-package magithub
-    :after magit
-    :disabled t
-    :ensure t
-    :config
-    (setq magithub-api-timeout 1.5)
-    (magithub-feature-autoinject t))
-#+END_SRC
-
-**** Gists
-#+BEGIN_SRC emacs-lisp
-  (use-package gist
-    :ensure t
-    :commands (gist-list))
-#+END_SRC
-
 * Webpage editing
 ** HTML and friends
 Web-mode takes care of a lot of html annoyances:
