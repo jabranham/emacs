@@ -1151,6 +1151,8 @@ Yasnippet allows you to type an abbreviation and then expand it into a template.
 
 Yasnippet by default checks for snippets in two places: a path relative to yasnippet.el (these are the default snippets that come with the package). If I want to make my own, I can put then in ~.emacs.d/snippets~ and it should find them there as well.
 
+I integrate yasnippet with hippie-expand so using ~hippie-expand~ expands a snippet if I have one, and then otherwise tries the hippie-expand functions.
+
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet
     :ensure t
