@@ -919,7 +919,7 @@ Sometimes I type DOuble LEtters instead of Single Letter caps. This fixes that:
     (interactive)
     (and (= ?w (char-syntax (char-before)))
          (save-excursion
-           (and (if (called-interactively-p)
+           (and (if (called-interactively-p 'any)
                     (skip-syntax-backward "w")
                   (= -3 (skip-syntax-backward "w")))
                 (let (case-fold-search)
@@ -1295,7 +1295,7 @@ This function ([[http://pragmaticemacs.com/emacs/insert-file-name/][credit]]) le
     (cond ((eq '- args)
            (insert (expand-file-name filename)))
           ((not (null args))
-           (insert (filename)))
+           (insert filename))
           (t
            (insert (file-relative-name filename)))))
 #+END_SRC
@@ -1457,8 +1457,7 @@ I can setup helm to deal with makefiles easily:
 #+BEGIN_SRC emacs-lisp
   (use-package helm-make
     :ensure t
-    :bind
-    ("C-c p c" . helm-make-projectile)
+    :after projectile
     :init
     ;; scroll the compile buffer just until an error occurs
     (setq compilation-scroll-output 'first-error))
@@ -1480,11 +1479,7 @@ Projectile makes using projects easier in emacs. It also plays well with helm, s
   (use-package projectile
     :ensure t
     :config
-    (def-projectile-commander-method ?F
-      "Git fetch."
-      (magit-status)
-      (call-interactively #'magit-fetch-current))
-    (projectile-global-mode)
+    (projectile-mode)
     (bind-key "c" #'helm-make-projectile projectile-command-map)
     (use-package helm-projectile
       :ensure t
@@ -1591,7 +1586,7 @@ Here I define a function ([[https://github.com/vdemeester/emacs-config/blob/mast
       (insert (format "#+BEGIN_SRC %s\n" src-code-type))
       (newline-and-indent)
       (insert "#+END_SRC\n")
-      (previous-line 2)
+      (forward-line -2)
       (org-edit-src-code)))
 
   (bind-key "C-c s a" #'my/org-insert-src-block org-mode-map)
@@ -2273,7 +2268,9 @@ AuCTeX is better than the built in tex mode; let's use it. It's good out of the 
     ;; (push "\\.synctex.gz" LaTeX-clean-intermediate-suffixes)
     (setq TeX-clean-confirm nil)
     ;; revert pdf from file after compilation finishes
-    (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+    (use-package tex-buf
+      :config
+      (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer))
     (use-package latex
       :bind
       (:map LaTeX-mode-map
@@ -2490,18 +2487,18 @@ Finally, we can get mu4e set up.
               (lambda () (mu4e t))) ; starts mu4e silently when emacs starts
     (defun my/work-inbox ()
       "Jump to work email"
-      (window-configuration-to-register :mu4e-fullscreen)
       (interactive)
+      (window-configuration-to-register :mu4e-fullscreen)
       (mu4e~headers-jump-to-maildir "/utexas/INBOX")
       (delete-other-windows))
     (defun my/gu-inbox ()
       "Jump to work email"
-      (window-configuration-to-register :mu4e-fullscreen)
       (interactive)
+      (window-configuration-to-register :mu4e-fullscreen)
       (mu4e~headers-jump-to-maildir "/gu/INBOX")
       (delete-other-windows))
     (defun my/personal-inbox ()
-      "Jump to work email"
+      "Jump to personal email"
       (interactive)
       (window-configuration-to-register :mu4e-fullscreen)
       (mu4e~headers-jump-to-maildir "/gmail/INBOX")
@@ -2774,7 +2771,7 @@ This function helps with an expandable snippet. [[http://pragmaticemacs.com/emac
           (goto-char (point-min))
           (when (search-forward "<#part" nil t) t))))
 
-    (defcustom mbork/message-attachment-intent-re
+    (defvar mbork/message-attachment-intent-re
       (regexp-opt '("I attach"
                     "I have attached"
                     "I've attached"
@@ -2786,7 +2783,7 @@ This function helps with an expandable snippet. [[http://pragmaticemacs.com/emac
       "A regex which - if found in the message, and if there is no
   attachment - should launch the no-attachment warning.")
 
-    (defcustom mbork/message-attachment-reminder
+    (defvar mbork/message-attachment-reminder
       "Are you sure you want to send this message without any attachment? "
       "The default question asked when trying to send a message
   containing `mbork/message-attachment-intent-re' without an
