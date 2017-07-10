@@ -219,6 +219,7 @@
     ("prominance" "prominence" nil 0)
     ("publically" "publicly" nil 0)
     ("redundent" "redundant" nil 0)
+    ("relationshpi" "relationship" nil 0)
     ("repsonsiveness" "responsiveness" nil 0)
     ("sincerally" "sincerely" nil 0)
     ("systme" "system" nil 0)
