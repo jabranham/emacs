@@ -1081,13 +1081,11 @@ Use regex searches by default:
 A few final modifications:
 
 #+BEGIN_SRC emacs-lisp
-  (setq   save-interprogram-paste-before-kill t
-          apropos-do-all t
-          mouse-yank-at-point t
-          require-final-newline t
-          visible-bell t
-          load-prefer-newer t
-          ediff-window-setup-function 'ediff-setup-windows-plain)
+  (setq save-interprogram-paste-before-kill t
+        mouse-yank-at-point t
+        require-final-newline t
+        visible-bell t
+        load-prefer-newer t)
 #+END_SRC
 * Auto completion
 ** Company mode
