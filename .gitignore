@@ -1,7 +1,8 @@
 elpa/
 /emacs.el
 var/company/*
-var/eshell/*
+var/eshell/history
+var/eshell/lastdir
 var/magithub/*
 var/mc-list.el*
 var/org/*
