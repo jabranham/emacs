@@ -1979,6 +1979,9 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
   (use-package eshell
     :commands (eshell)
     :config
+    (use-package em-smart
+      :config
+      (add-hook 'eshell-mode-hook #'eshell-smart-initialize))
     (setq eshell-cmpl-cycle-completions nil
           ;; auto truncate after 20k lines
           eshell-buffer-maximum-lines 20000
