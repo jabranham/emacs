@@ -504,7 +504,7 @@ Also, we can substitute the [[http://fontawesome.io/icon/code-fork/][code fork]]
 
 ** Window management
 #+BEGIN_SRC emacs-lisp
-  (setq split-width-threshold nil) ; Don't split windows horizontally.
+  (setq split-height-threshold nil) ; Don't split windows vertically
 #+END_SRC
 
 These functions make splitting windows behave more like I want it to. This way, calling ~C-x 2~ or ~C-x 3~ both splits the window /and/ shows the last buffer.
