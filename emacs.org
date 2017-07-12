@@ -1384,6 +1384,10 @@ Helm. A [[https://tuhdo.github.io/helm-intro.html][package in a league of its ow
       (push ".git$" helm-boring-file-regexp-list)
       (push "\\.dropbox$" helm-boring-file-regexp-list)
       (push ".dropbox-dist$" helm-boring-file-regexp-list))
+    (use-package helm-org
+      :bind
+      (:map my/map
+            ("t" . helm-org-agenda-files-headings)))
     (helm-autoresize-mode)
     (helm-mode))
 #+END_SRC
