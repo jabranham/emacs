@@ -4,3 +4,6 @@
 [submodule "pkg/system-packages"]
 	path = pkg/system-packages
 	url = git@github.com:jabranham/system-packages.git
+[submodule "pkg/mixed-pitch"]
+	path = pkg/mixed-pitch
+	url = git@github.com:jabranham/mixed-pitch
