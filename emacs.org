@@ -1493,12 +1493,16 @@ Define =C-c l= to =org-store-link=:
 #+BEGIN_SRC emacs-lisp
   (bind-key "C-c l" #'org-store-link)
 #+END_SRC
-This is my default notes file:
+Define some places where I keep tasks and notes:
 #+BEGIN_SRC emacs-lisp
   (setq org-directory "~/Dropbox/org/")
   (setq org-default-notes-file (concat org-directory "todo.org"))
-  (defconst my/org-inbox (concat org-directory "refile.txt"))
-  (defconst my/org-notes (concat org-directory "notes.org"))
+  (defconst my/org-inbox (concat org-directory "refile.txt")
+    "Inbox for tasks/todo.")
+  (defconst my/org-notes (concat org-directory "notes.org")
+    "Long-term storage for notes.")
+  (defconst my/org-scheduled (concat org-directory "scheduled.org")
+    "Scheduled tasks.")
 #+END_SRC
 Finally, I rebind =C-c C-r= to look at my reference list globally (see org-ref below), which overrides the default binding of =org-reveal=. However, that command is quite useful, so let's bind it to =C-c r=:
 #+BEGIN_SRC emacs-lisp
@@ -1721,7 +1725,8 @@ Lock to current file: =C-u C-c C-x <=
     ;; set up org agenda files for the agenda
     (setq org-agenda-files (list org-default-notes-file
                                  my/org-inbox
-                                 my/org-notes))
+                                 my/org-notes
+                                 my/org-scheduled))
     ;; remove C-c [ from adding org file to front of agenda
     (unbind-key "C-c [" org-mode-map)
     :config
@@ -1825,7 +1830,9 @@ Org-refile lets me quickly move around headings in org files. It plays nicely wi
   (setq org-outline-path-complete-in-steps nil)
   (setq org-refile-allow-creating-parent-nodes (quote confirm))
   (setq org-refile-use-outline-path t)
-  (setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
+  (setq org-refile-targets '((org-default-notes-file . (:maxlevel . 6))
+                             (my/org-inbox . (:maxlevel . 2))
+                             (my/org-scheduled . (:level . 1))))
 #+END_SRC
 ** Appt
 Technically, =appt.el= isn't a part of org mode.
