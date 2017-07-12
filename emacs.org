@@ -491,12 +491,6 @@ Also, we can substitute the [[http://fontawesome.io/icon/code-fork/][code fork]]
   (advice-add #'vc-git-mode-line-string :around #'my-vc-git-mode-line-string)
 #+END_SRC
 
-** Minibuffer
-Use the minibuffer from within the minibuffer, and let me know what depth I'm in:
-#+BEGIN_SRC emacs-lisp
-  (setq enable-recursive-minibuffers t)
-#+END_SRC
-
 ** Which-key
 [[https://github.com/justbur/emacs-which-key][Which key]] shows key bindings for incomplete commands (prefixes).
 
