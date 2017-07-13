@@ -1182,12 +1182,11 @@ From [[https://www.reddit.com/r/emacs/comments/445w6s/whats_some_small_thing_in_
           (-1 (message value))))))
 #+END_SRC
 
-Bind that function in my personal keymap, and make ~quick-calc~ easier to get to as well:
+Bind that function in my personal keymap:
 #+BEGIN_SRC emacs-lisp
   (bind-keys
    :map my/map
-   ("C" . my/calc-eval-region)
-   ("c" . quick-calc))
+   ("C" . my/calc-eval-region))
 #+END_SRC
 
 ** Insert file name
@@ -1289,7 +1288,9 @@ Helm. A [[https://tuhdo.github.io/helm-intro.html][package in a league of its ow
      :map helm-map
      ("<tab>" . helm-execute-persistent-action)
      ("C-i" . helm-execute-persistent-action)
-     ("C-z" . helm-select-action))
+     ("C-z" . helm-select-action)
+     :map my/map
+     ("c" . helm-calcul-expression))
     :init
     (setq helm-command-prefix-key "M-,")
     (require 'helm-config)
