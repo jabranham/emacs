@@ -2383,7 +2383,6 @@ Finally, we can get mu4e set up.
     (("C-x m" . mu4e-compose-new)
      ("<f9>" . my/work-inbox)
      ("<f10>" . my/personal-inbox)
-     ("<f8>" . my/gu-inbox)
      :map mu4e-headers-mode-map
      ("d" . mu4e-headers-mark-for-delete)
      ("q" . mu4e-quit-session)
@@ -2416,12 +2415,6 @@ Finally, we can get mu4e set up.
       (interactive)
       (window-configuration-to-register :mu4e-fullscreen)
       (mu4e~headers-jump-to-maildir "/utexas/INBOX")
-      (delete-other-windows))
-    (defun my/gu-inbox ()
-      "Jump to work email"
-      (interactive)
-      (window-configuration-to-register :mu4e-fullscreen)
-      (mu4e~headers-jump-to-maildir "/gu/INBOX")
       (delete-other-windows))
     (defun my/personal-inbox ()
       "Jump to personal email"
