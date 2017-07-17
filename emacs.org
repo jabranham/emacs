@@ -813,20 +813,14 @@ I end sentences with a single space.
   (setq sentence-end-double-space nil)
 #+END_SRC
 
-=fill-paragraph= is nice, but emacs weirdly lacks a convenient way to unfill paragraphs once they're filled. This command ([[http://endlessparentheses.com/fill-and-unfill-paragraphs-with-a-single-key.html][credit]]) fixes that.
+=fill-paragraph= is nice, but emacs weirdly lacks a convenient way to unfill paragraphs once they're filled.
+This package adds that functionality.
 
 #+BEGIN_SRC emacs-lisp
-  (defun endless/fill-or-unfill ()
-    "Like `fill-paragraph', but unfill if used twice."
-    (interactive)
-    (let ((fill-column
-           (if (eq last-command 'endless/fill-or-unfill)
-               (progn (setq this-command nil)
-                      (point-max))
-             fill-column)))
-      (call-interactively #'fill-paragraph)))
+  (use-package unfill
+    :ensure t)
 
-  (bind-key [remap fill-paragraph] #'endless/fill-or-unfill)
+  (bind-key [remap fill-paragraph] #'unfill-toggle)
 #+END_SRC
 
 Sometimes I type DOuble LEtters instead of Single Letter caps. This fixes that:
