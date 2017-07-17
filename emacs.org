@@ -383,7 +383,6 @@ The default modeline is nice enough, but this one is much better looking:
     (spaceline-helm-mode)
     (spaceline-info-mode)
     (setq-default
-     powerline-height 24
      powerline-default-separator 'wave
      spaceline-flycheck-bullet "❖ %s"
      spaceline-separator-dir-left '(right . right)
