@@ -1278,6 +1278,7 @@ Helm. A [[https://tuhdo.github.io/helm-intro.html][package in a league of its ow
      ("M-s M-g" . helm-google-suggest)
      ("M-o" . helm-semantic-or-imenu)
      ("C-h SPC" . helm-all-mark-rings)
+     ("M-s g" . helm-grep-do-git-grep)
      :map helm-map
      ("<tab>" . helm-execute-persistent-action)
      ("C-i" . helm-execute-persistent-action)
