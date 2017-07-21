@@ -215,6 +215,7 @@
     ("occured" "occurred" nil 0)
     ("partisanshpi" "partisanship" nil 0)
     ("phenomina" "phenomena" nil 0)
+    ("preferneces" "preferences" nil 0)
     ("prevelance" "prevalence" nil 0)
     ("prominance" "prominence" nil 0)
     ("publically" "publicly" nil 0)
