@@ -1327,7 +1327,7 @@ Helm. A [[https://tuhdo.github.io/helm-intro.html][package in a league of its ow
     ;; empty entries. I want to keep those around, though, because a lot of
     ;; forthcoming articles get things like pages later:
     (setq bibtex-entry-format '(required-fields numerical-fields))
-    (setq bibtex-files '("~/Dropbox/bibliography/references.bib"))
+    (setq bibtex-files '("~/Sync/bibliography/references.bib"))
     (add-hook 'bibtex-mode-hook (lambda () (set-fill-column most-positive-fixnum)))
     (defun bibtex-generate-autokey ()
       "This overwrites the bibtex-generate-autokey function that comes with Emacs.
@@ -1355,9 +1355,9 @@ Helm. A [[https://tuhdo.github.io/helm-intro.html][package in a league of its ow
       "Find my main bib file."
       (interactive)
       (find-file bibtex-completion-bibliography))
-    (setq bibtex-completion-bibliography "~/Dropbox/bibliography/references.bib"
-          bibtex-completion-library-path "~/Dropbox/bibliography/bibtex-pdfs"
-          bibtex-completion-notes-path "~/Dropbox/bibliography/notes.org"
+    (setq bibtex-completion-bibliography "~/Sync/bibliography/references.bib"
+          bibtex-completion-library-path "~/Sync/bibliography/bibtex-pdfs"
+          bibtex-completion-notes-path "~/Sync/bibliography/notes.org"
           bibtex-completion-notes-template-one-file
           "\n* TODO ${year} - ${title}\n  :PROPERTIES:\n  :Custom_ID: ${=key=}\n  :AUTHOR: ${author}\n  :JOURNAL: ${journal}\n  :YEAR: ${year}\n  :VOLUME: ${volume}\n  :PAGES: ${pages}\n  :DOI: ${doi}\n  :URL: ${url}\n :END:\n"
           )
@@ -1412,7 +1412,7 @@ Define =C-c l= to =org-store-link=:
 #+END_SRC
 Define some places where I keep tasks and notes:
 #+BEGIN_SRC emacs-lisp
-  (setq org-directory "~/Dropbox/org/")
+  (setq org-directory "~/Sync/org/")
   (setq org-default-notes-file (concat org-directory "todo.org"))
   (defconst my/org-inbox (concat org-directory "refile.txt")
     "Inbox for tasks/todo.")
@@ -1524,9 +1524,9 @@ I use org-ref to manage my references.
      ("r i" . isbn-to-bibtex))
     :init
     (setq org-ref-completion-library 'org-ref-helm-bibtex)
-    (setq org-ref-bibliography-notes "~/Dropbox/bibliography/notes.org"
-          org-ref-default-bibliography '("~/Dropbox/bibliography/references.bib")
-          org-ref-pdf-directory  "~/Dropbox/bibliography/bibtex-pdfs"
+    (setq org-ref-bibliography-notes "~/Sync/bibliography/notes.org"
+          org-ref-default-bibliography '("~/Sync/bibliography/references.bib")
+          org-ref-pdf-directory  "~/Sync/bibliography/bibtex-pdfs"
           org-ref-default-ref-type "autoref"
           org-ref-default-citation-link "autocite")
     :config
@@ -1627,7 +1627,7 @@ I use org-ref to manage my references.
     ) ; ends use-package org-ref
 #+END_SRC
 ** Agenda
-Here's where I set which files are added to org-agenda, which controls org's global todo list, scheduling, and agenda features. I use Dropbox to keep these files in sync across computers.
+Here's where I set which files are added to org-agenda, which controls org's global todo list, scheduling, and agenda features. I use Syncthing to keep these files in sync across computers.
 Lock to current file: =C-u C-c C-x <=
 #+BEGIN_SRC emacs-lisp
   (use-package org-agenda
@@ -1778,7 +1778,7 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally
     :config
     (setq org-gcal-client-id (password-store--run "emacs/emacs-gcal-client-id")
           org-gcal-client-secret (password-store--run "emacs/emacs-gcal-client-secret")
-          org-gcal-file-alist '(("alex.branham@gmail.com" .  "~/Dropbox/org/gcal.org")))
+          org-gcal-file-alist '(("alex.branham@gmail.com" .  "~/Sync/org/gcal.org")))
     (add-to-list 'org-agenda-files (concat org-directory "gcal.org") t)
     ;; Refresh calendars via org-gcal and automatically create appt-reminders.
     ;; Appt will be refreshed any time an org file is saved after 10 seconds of idle.
@@ -2229,7 +2229,7 @@ You will need to change ~reftex-default-bibliography~ to wherever you keep your 
             (?T . "@%l [p. ]")
             (?x . "[]{%l}")
             (?X . "{%l}")))
-    (setq reftex-default-bibliography '("~/Dropbox/bibliography/references.bib"))
+    (setq reftex-default-bibliography '("~/Sync/bibliography/references.bib"))
     (setq reftex-bibliography-commands '("bibliography" "nobibliography" "addbibresource"))
     (setq reftex-extra-bindings t)
     :config
@@ -2791,7 +2791,7 @@ I use [[https://github.com/skeeto/elfeed][elfeed]] to manage some RSS links:
       (elfeed-db-save)
       (quit-window))
     :config
-    (setq elfeed-db-directory "~/Dropbox/.elfeed")
+    (setq elfeed-db-directory "~/Sync/.elfeed")
     ;; Don't use visual line mode in elfeed-search:
     (add-hook 'elfeed-search-mode-hook (lambda () (visual-line-mode -1)))
     (use-package elfeed-link
@@ -2806,7 +2806,7 @@ I use [[https://github.com/skeeto/elfeed][elfeed]] to manage some RSS links:
   (use-package elfeed-org
     :ensure t
     :init
-    (setq rmh-elfeed-org-files '("~/Dropbox/.elfeed/rmh-elfeed.org"))
+    (setq rmh-elfeed-org-files '("~/Sync/.elfeed/rmh-elfeed.org"))
     :config
     (elfeed-org))
 #+END_SRC
@@ -2865,7 +2865,7 @@ I can query [[https://translate.google.com][Google translate]] from within Emacs
           ("l" . my/ledger-file))
     :init
     (defvar my/ledger-file
-      (expand-file-name "~/Dropbox/Finances/finances.ledger")
+      (expand-file-name "~/Sync/Finances/finances.ledger")
       "Where the ledger journal is kept.")
     (defun my/ledger-file ()
       "Find ledger journal file."
