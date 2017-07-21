@@ -1411,11 +1411,12 @@ Define =C-c l= to =org-store-link=:
 #+BEGIN_SRC emacs-lisp
   (bind-key "C-c l" #'org-store-link)
 #+END_SRC
-Define some places where I keep tasks and notes:
+Define some places where I keep tasks and notes.
+I sync the org repo with Syncthing.
 #+BEGIN_SRC emacs-lisp
-  (setq org-directory "~/Sync/org/")
+  (setq org-directory "~/org/")
   (setq org-default-notes-file (concat org-directory "todo.org"))
-  (defconst my/org-inbox (concat org-directory "refile.txt")
+  (defconst my/org-inbox (concat org-directory "refile.org")
     "Inbox for tasks/todo.")
   (defconst my/org-notes (concat org-directory "notes.org")
     "Long-term storage for notes.")
@@ -1779,7 +1780,7 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally
     :config
     (setq org-gcal-client-id (password-store--run "emacs/emacs-gcal-client-id")
           org-gcal-client-secret (password-store--run "emacs/emacs-gcal-client-secret")
-          org-gcal-file-alist '(("alex.branham@gmail.com" .  "~/Sync/org/gcal.org")))
+          org-gcal-file-alist '(("alex.branham@gmail.com" .  "~/org/gcal.org")))
     (add-to-list 'org-agenda-files (concat org-directory "gcal.org") t)
     ;; Refresh calendars via org-gcal and automatically create appt-reminders.
     ;; Appt will be refreshed any time an org file is saved after 10 seconds of idle.
