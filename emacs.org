@@ -2572,7 +2572,9 @@ Finally, we can get mu4e set up.
     (setq message-citation-line-function 'message-insert-formatted-citation-line)
     ;; disable visual-line-mode in mu4e-headers (one line should be one email)
     (add-hook 'mu4e-headers-mode-hook (lambda () (visual-line-mode -1)))
-    (add-hook 'mu4e-view-mode-hook #'visual-line-mode)
+    ;; Wrap lines at `fill-column' when viewing emails:
+    (add-hook 'mu4e-compose-mode-hook #'visual-fill-column-mode)
+    (add-hook 'mu4e-view-mode-hook #'visual-fill-column-mode)
     ;; turn off autofill mode in mu4e compose
     (defun autofill-off-visual-on ()
       "Turn off auto-fill-mode and turn on visual-mode"
