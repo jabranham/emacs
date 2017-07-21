@@ -2538,7 +2538,7 @@ Finally, we can get mu4e set up.
     ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
     (setq mu4e-sent-messages-behavior 'delete)
     (setq mu4e-get-mail-command "mbsync -a"   ;; or fetchmail, or ...
-          mu4e-update-interval 120) ;; in seconds
+          mu4e-update-interval 80) ;; in seconds
     (setq mu4e-change-filenames-when-moving t)
     ;; setup some handy shortcuts
     ;; you can quickly switch to your Inbox -- press ``ji''
