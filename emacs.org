@@ -993,7 +993,8 @@ A few final modifications:
   (setq save-interprogram-paste-before-kill t
         mouse-yank-at-point t
         require-final-newline t
-        visible-bell t
+        visible-bell nil
+        ring-bell-function 'ignore
         load-prefer-newer t)
 #+END_SRC
 * Auto completion
