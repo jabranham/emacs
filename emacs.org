@@ -2798,6 +2798,8 @@ I use [[https://github.com/skeeto/elfeed][elfeed]] to manage some RSS links:
       (quit-window))
     :config
     (setq elfeed-db-directory "~/Sync/.elfeed")
+    ;; Scale down huge images:
+    (setq shr-max-image-proportion 0.6)
     ;; Don't use visual line mode in elfeed-search:
     (add-hook 'elfeed-search-mode-hook (lambda () (visual-line-mode -1)))
     (use-package elfeed-link
