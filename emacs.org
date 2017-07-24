@@ -1852,6 +1852,7 @@ Here are a few miscellaneous things that make org mode better.
 #+BEGIN_SRC emacs-lisp
   (setq org-pretty-entities          t ; UTF8 all the things!
         org-support-shift-select     t ; holding shift and moving point should select things
+        org-fontify-quote-and-verse-blocks t ; provide a special face for quote and verse blocks
         org-M-RET-may-split-line     nil ; M-RET may never split a line
         org-enforce-todo-dependencies t ; can't finish parent before children
         org-enforce-todo-checkbox-dependencies t ; can't finish parent before children
