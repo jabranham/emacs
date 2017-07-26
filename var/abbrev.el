@@ -203,6 +203,7 @@
     ("imbalences" "imbalances" nil 0)
     ("incongruent" "congruent" nil 0)
     ("individiauls'" "individuals'" nil 0)
+    ("infomation" "information" nil 0)
     ("intrepret" "interpret" nil 2)
     ("intrepretation" "interpretation" nil 0)
     ("inversly" "inversely" nil 0)
