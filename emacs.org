@@ -82,6 +82,19 @@ We can pop the mark back to where it used to be with =C-u C-SPC=. This lets us k
   (setq set-mark-command-repeat-pop t)
 #+END_SRC
 
+** Help
+Emacs has an amazing help system built in.
+=C-h v=, =C-h f=, and =C-h k= are bound to ~describe-variable~, ~describe-function~, and ~describe-key~ respectively.
+In help-mode, however, I want to just tap a key for those commands:
+#+BEGIN_SRC emacs-lisp
+  (use-package help
+    :bind
+    (:map help-mode-map
+          ("v" . describe-variable)
+          ("f" . describe-function)
+          ("k" . describe-key)))
+#+END_SRC
+
 ** Alerts
 Set it up so Emacs can send system notifications:
 #+BEGIN_SRC emacs-lisp
