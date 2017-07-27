@@ -2781,7 +2781,8 @@ I use [[https://github.com/skeeto/elfeed][elfeed]] to manage some RSS links:
     (:map my/map
           ("s" . bjm/elfeed-load-db-and-open)
           :map elfeed-search-mode-map
-          ("q" . bjm/elfeed-save-db-and-bury))
+          ("q" . bjm/elfeed-save-db-and-bury)
+          ("l" . my/get-elfeed-log-buffer))
     :init
     ;; thanks - http://pragmaticemacs.com/emacs/read-your-rss-feeds-in-emacs-with-elfeed/
     ;; though slightly modified
@@ -2806,6 +2807,10 @@ I use [[https://github.com/skeeto/elfeed][elfeed]] to manage some RSS links:
     (setq shr-max-image-proportion 0.6)
     ;; Don't use visual line mode in elfeed-search:
     (add-hook 'elfeed-search-mode-hook (lambda () (visual-line-mode -1)))
+    (defun my/get-elfeed-log-buffer ()
+      "Show elfeed log."
+      (interactive)
+      (view-buffer-other-window "*elfeed-log*"))
     (use-package elfeed-link
       ;; This sets up org links for org capture and the like
       ;; no ensure, since it comes with elfeed
