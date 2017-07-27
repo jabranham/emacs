@@ -207,6 +207,9 @@ It's because [[https://www.johndcook.com/blog/2012/09/15/the-paper-is-too-big/][
 #+BEGIN_SRC emacs-lisp
   (use-package visual-fill-column
     :ensure t
+    :bind
+    (:map my/map
+          ("v" . visual-fill-column-mode))
     :config
     (add-hook 'elfeed-show-mode-hook #'visual-fill-column-mode))
 #+END_SRC
