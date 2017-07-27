@@ -2200,7 +2200,8 @@ AuCTeX is better than the built in tex mode; let's use it. It's good out of the 
       :bind
       (:map LaTeX-mode-map
             ("M-p" . outline-previous-visible-heading)
-            ("M-n" . outline-next-visible-heading))))
+            ("M-n" . outline-next-visible-heading)
+            ("<backtab>" . org-cycle))))
 #+END_SRC
 
 Finally, sometimes we want wordcounts. If I just want a quick snippet, I can run the following command. If I want more information, I can drop into a shell with ~C-c M-e~ (~shell-pop~) and run ~texcount my-file.tex~:
