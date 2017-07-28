@@ -197,7 +197,7 @@ I took their code, modified it to work more like what I want, and packaged it up
     (:map my/map
           ("f" . mixed-pitch-mode))
     :config
-   (set-face-attribute 'variable-pitch nil :family "Linux Libertine" :height 165))
+   (set-face-attribute 'variable-pitch nil :family "Linux Libertine" :height 160))
 #+END_SRC
 
 *** Text wrapping
