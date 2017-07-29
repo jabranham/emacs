@@ -1695,6 +1695,8 @@ Lock to current file: =C-u C-c C-x <=
     :bind
     (("C-c a" . org-agenda)
      ("C-'" . org-cycle-agenda-files) ; quickly access agenda files
+     :map my/map
+     ("a" . my/agenda)
      :map org-agenda-mode-map
      ("r" . org-agenda-refile) ; overrides org-agenda-redo, which I use "g" for anyway
      ("s" . org-agenda-schedule) ; overrides saving all org buffers, also bound to C-x C-s
@@ -1749,7 +1751,9 @@ Lock to current file: =C-u C-c C-x <=
             ("b" "bibliography"
              ((tags "CATEGORY=\"bib\""
                     ((org-agenda-overriding-header "You've got a lot of reading to do...")))))))
-    )
+    (defun my/agenda (&optional arg)
+      (interactive)
+      (org-agenda arg " ")))
 #+END_SRC
 ** Capture
 I use org-capture to create short notes about all kinds of things. I can capture emails to remember for later, quick thoughts for later, RSS feeds (see [[Feed reader]]), really anything.
