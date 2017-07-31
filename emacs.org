@@ -264,9 +264,21 @@ Emacs has some awful scrolling by default. This gets rid of that.
   ;; the defaults C-v and M-v scroll a full page, which is too much.
   ;; rebind to a half page:
   (use-package view
+    :after hydra
     :bind
-    ("C-v" . View-scroll-half-page-forward)
-    ("M-v" . View-scroll-half-page-backward))
+    ("C-v" . my/scrolling-forward/body)
+    ("M-v" . my/scrolling-backward/body)
+    :config
+    (defhydra my/scrolling-forward (:body-pre View-scroll-half-page-forward)
+      "Scroll without needing to hold C"
+      ("v" View-scroll-half-page-forward "down")
+      ("C-v" View-scroll-half-page-forward "down")
+      ("M-v" View-scroll-half-page-backward "up"))
+    (defhydra my/scrolling-backward (:body-pre View-scroll-half-page-backward)
+      "Scroll without needing to hold C"
+      ("v" View-scroll-half-page-forward "down")
+      ("C-v" View-scroll-half-page-forward "down")
+      ("M-v" View-scroll-half-page-backward "up")))
 #+END_SRC
 
 ** Smart parens
