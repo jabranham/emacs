@@ -2952,8 +2952,11 @@ I can query [[https://translate.google.com][Google translate]] from within Emacs
     ;; There is a correct way to write dates:
     ;; https://xkcd.com/1179/
     (setq ledger-default-date-format ledger-iso-date-format)
-    (setq ledger-reports '(("on-hand" "ledger --color bal \"(assets:cash|assets:checking|assets:simple|assets:investments|liabilities)\" -X $")
-                           ("account" "ledger --color reg %(account)"))))
+    (setq ledger-reports '(("on-hand" "ledger bal \"(assets:cash|assets:checking|assets:simple|assets:investments|liabilities)\" -X $")
+                           ("account" "ledger reg %(account)")
+                           ("expenses (this month)" "ledger bal ^exp -X $ -b \"this month\" ")
+                           ("budget (this month)" "ledger budget ^exp -X $ -b \"this month\"  --flat")
+                           ("budget (this year)" "ledger budget ^exp -X $ -b \"this year\"  --flat"))))
 #+END_SRC
 * End
 This is the end of init. If we've arrived here it means that Emacs has started, so might as well get a notification about that:
