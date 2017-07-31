@@ -1838,6 +1838,7 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally
 #+BEGIN_SRC emacs-lisp
   (use-package org-gcal
     :ensure t
+    :defer 300
     :after password-store
     :functions (my/refresh-appt-with-delay my/sync-calendar-start)
     :config
@@ -2822,6 +2823,7 @@ ERC is Emacs's client for IRC.
 #+BEGIN_SRC emacs-lisp
   (use-package erc
     :after password-store
+    :defer t
     :config
     (setq erc-nick "jabranham"
           erc-port "6667"
@@ -2905,6 +2907,7 @@ Who /wouldn't/ want their text editor to do so?
 #+BEGIN_SRC emacs-lisp
   (use-package wolfram
     :ensure t
+    :defer t
     :after password-store
     :bind
     ("M-s q" . wolfram-alpha)
