@@ -139,14 +139,6 @@ Pretty please use utf-8 for all the things:
   (set-default-coding-systems 'utf-8)
 #+END_SRC
 
-** Info+
-Emacs' info manual is /amazing/. This makes it even better.
-#+BEGIN_SRC emacs-lisp
-  (use-package info+
-    :ensure t
-    :after info)
-#+END_SRC
-
 ** Aesthetics
 *** Theme
 By default, emacs starts with a blindingly white theme. Let's get rid of that pronto.
@@ -418,7 +410,6 @@ The default modeline is nice enough, but this one is much better looking:
     (setq spaceline-window-numbers-unicode t)
     (setq spaceline-workspace-numbers-unicode t)
     (spaceline-helm-mode)
-    (spaceline-info-mode)
     (setq-default
      powerline-default-separator 'wave
      spaceline-flycheck-bullet "❖ %s"
