@@ -2940,10 +2940,7 @@ I can query [[https://translate.google.com][Google translate]] from within Emacs
     ;; There is a correct way to write dates:
     ;; https://xkcd.com/1179/
     (setq ledger-default-date-format ledger-iso-date-format)
-    (setq ledger-reports '(("on-hand" "ledger --color bal \"(assets:cash|checking|simple|liabilities)\"")
-                           ("bal" "ledger --color bal")
-                           ("reg" "ledger --color reg")
-                           ("payee" "ledger--color  reg @%(payee)")
+    (setq ledger-reports '(("on-hand" "ledger --color bal \"(assets:cash|assets:checking|assets:simple|assets:investments|liabilities)\" -X $")
                            ("account" "ledger --color reg %(account)"))))
 #+END_SRC
 * End
