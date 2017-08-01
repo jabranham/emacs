@@ -82,6 +82,15 @@ We can pop the mark back to where it used to be with =C-u C-SPC=. This lets us k
   (setq set-mark-command-repeat-pop t)
 #+END_SRC
 
+** isearch
+isearch is the package that provides Emacs's forward and reverse searching.
+These are bound to =C-s= and =C-r= by default.
+If you've already started a search with =C-s=, then backspace sometimes doesn't delete characters; it goes back to the previous match.
+I prefer backspace to always delete characters; I can just =C-r= to get to the previous match.
+#+BEGIN_SRC emacs-lisp
+  (bind-key "<backspace>" #'isearch-del-char isearch-mode-map)
+#+END_SRC
+
 ** Help
 Emacs has an amazing help system built in.
 =C-h v=, =C-h f=, and =C-h k= are bound to ~describe-variable~, ~describe-function~, and ~describe-key~ respectively.
