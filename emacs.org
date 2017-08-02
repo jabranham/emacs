@@ -1463,6 +1463,11 @@ Bind =M-p= and =M-n= to navigate heading more easily (these are bound to =C-c C-
              ("M-p" . org-previous-visible-heading)
              ("M-n" . org-next-visible-heading))
 #+END_SRC
+=C-c C-t= is bound to ~org-todo~ by default, but I want it bound to =C-c t= as well:
+#+BEGIN_SRC emacs-lisp
+  (bind-key "C-c t" #'org-todo org-mode-map)
+#+END_SRC
+
 ** Calendar
 Not technically part of org, but I'll stick the calendar config here since I mainly use it along with org-agenda (config'ed below)
 #+BEGIN_SRC emacs-lisp
