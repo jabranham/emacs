@@ -1468,6 +1468,16 @@ Bind =M-p= and =M-n= to navigate heading more easily (these are bound to =C-c C-
   (bind-key "C-c t" #'org-todo org-mode-map)
 #+END_SRC
 
+** Tags
+Org tags look like =:this:= at the end of a heading.
+#+BEGIN_SRC emacs-lisp
+  (setq org-tag-alist '(((:startgroup)
+                         ("@work" . ?w)
+                         ("@home" . ?h)
+                         (:endgroup))))
+
+#+END_SRC
+
 ** Calendar
 Not technically part of org, but I'll stick the calendar config here since I mainly use it along with org-agenda (config'ed below)
 #+BEGIN_SRC emacs-lisp
