@@ -199,6 +199,7 @@
     ("gague" "gauge" nil 1)
     ("hte" "the" nil 2)
     ("htis" "this" nil 0)
+    ("hyphonating" "hyphenating" nil 0)
     ("ideosyncracies" "idiosyncrasies" nil 0)
     ("imbalences" "imbalances" nil 0)
     ("implicitely" "implicitly" nil 0)
