@@ -1525,11 +1525,6 @@ And we can make it integrate with org-agenda:
 #+END_SRC
 
 ** Exporting
-HTML and latex shown by default, let's add markdown:
-
-#+BEGIN_SRC emacs-lisp
-  (use-package ox-md)
-#+END_SRC
 
 This makes org export smart quotes so that it uses ~``word``~ style quotes for latex export:
 
@@ -1541,6 +1536,29 @@ This lets me override all the export variables with a =#+BIND:= statement at the
 
 #+BEGIN_SRC emacs-lisp
   (setq org-export-allow-bind-keywords t)
+#+END_SRC
+
+*** latex or pdf
+Need to let org know how to export to latex letters:
+#+BEGIN_SRC emacs-lisp
+  (use-package ox-latex
+    :ensure nil
+    :config
+    (add-to-list 'org-latex-classes
+                 '("letter"
+                   "\\documentclass[11pt]{letter}
+  \\signature{J. Alexander Branham}
+  \\address{}"
+                   ("\\section{%s}" . "\\section*{%s}")
+                   ("\\subsection{%s}" . "\\subsection*{%s}")
+                   ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
+#+END_SRC
+
+*** markdown
+HTML and latex shown by default, let's add markdown:
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ox-md)
 #+END_SRC
 
 ** Code blocks (org-babel)
