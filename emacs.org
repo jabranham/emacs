@@ -1848,7 +1848,8 @@ Org-refile lets me quickly move around headings in org files. It plays nicely wi
   (setq org-refile-use-outline-path t)
   (setq org-refile-targets '((org-default-notes-file . (:maxlevel . 6))
                              (my/org-inbox . (:maxlevel . 2))
-                             (my/org-scheduled . (:level . 1))))
+                             (my/org-scheduled . (:level . 1))
+                             (my/org-notes . (:maxlevel . 6))))
 #+END_SRC
 ** Appt
 Technically, =appt.el= isn't a part of org mode.
