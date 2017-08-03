@@ -2553,7 +2553,7 @@ Finally, we can get mu4e set up.
                ;; leave-func not defined
                :match-func (lambda (msg)
                              (when msg
-                               (mu4e-message-contact-field-matches msg :to "branham@utexas.edu")))
+                               (string-prefix-p "/utexas" (mu4e-message-field msg :maildir))))
                :vars '((mu4e-drafts-folder           . "/utexas/[Gmail]/.Drafts")
                        (mu4e-sent-folder             . "/utexas/[Gmail]/.Sent Mail")
                        (mu4e-trash-folder            . "/utexas/[Gmail]/.Trash")
@@ -2580,8 +2580,7 @@ Finally, we can get mu4e set up.
                ;; leave-func not defined
                :match-func (lambda (msg)
                              (when msg
-                               (mu4e-message-contact-field-matches msg :to '("james.alexander.branham@gu.se"
-                                                                             "polalla@pol.gu.se"))))
+                               (string-prefix-p "/gu" (mu4e-message-field msg :maildir))))
                :vars '((mu4e-drafts-folder           . "/gu/Drafts")
                        (mu4e-sent-folder             . "/gu/Sent")
                        (mu4e-refile-folder           . "/gu/Archive")
@@ -2609,7 +2608,7 @@ Finally, we can get mu4e set up.
                ;; leave-func not defined
                :match-func (lambda (msg)
                              (when msg
-                               (mu4e-message-contact-field-matches msg :to "alex.branham@gmail.com")))
+                               (string-prefix-p "/gmail" (mu4e-message-field msg :maildir))))
                :vars '((user-mail-address            . "alex.branham@gmail.com")
                        (user-full-name               . "Alex Branham")
                        (smtpmail-smtp-user           . "alex.branham@gmail.com")
