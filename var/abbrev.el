@@ -170,6 +170,7 @@
 (define-abbrev-table 'global-abbrev-table
   '(
     ("aacross" "across" nil 0)
+    ("accomodate" "accommodate" nil 1)
     ("accompaning" "accompanying" nil 1)
     ("accurary" "accuracy" nil 1)
     ("admitadly" "admittedly" nil 0)
