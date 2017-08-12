@@ -2449,7 +2449,6 @@ I autocommit a few files, like notes and todo:
     :after magit
     :ensure t
     :config
-    (setq magithub-api-timeout 1.5)
     (magithub-feature-autoinject t))
 #+END_SRC
 
