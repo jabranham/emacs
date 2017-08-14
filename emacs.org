@@ -82,6 +82,14 @@ We can pop the mark back to where it used to be with =C-u C-SPC=. This lets us k
   (setq set-mark-command-repeat-pop t)
 #+END_SRC
 
+** Save
+=C-x C-s= saves the current buffer and =C-x s= saves all modified buffers (visiting files), but asks about each one.
+Let's create a binding to save all file visiting buffers without asking:
+#+BEGIN_SRC emacs-lisp
+  (bind-key "s-s" (lambda () (interactive)
+                    (save-some-buffers t)))
+#+END_SRC
+
 ** isearch
 isearch is the package that provides Emacs's forward and reverse searching.
 These are bound to =C-s= and =C-r= by default.
