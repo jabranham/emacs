@@ -2248,9 +2248,16 @@ Markdown mode for Markdown editing!
     :commands (markdown-mode gfm-mode)
     :mode (("README\\.md\\'" . gfm-mode)
            ("\\.md\\'" . markdown-mode)
+           ("\\.Rmd\\'" . markdown-mode)
            ("\\.markdown\\'" . markdown-mode))
     :config
     (setq markdown-enable-math t))
+#+END_SRC
+
+Markdown relies on this package for =C-c '= to edit source code blocks (like org mode):
+#+BEGIN_SRC emacs-lisp
+  (use-package edit-indirect
+    :ensure t)
 #+END_SRC
 
 Of course, markdown contains a yaml header, so we need yaml-mode as well:
@@ -2356,27 +2363,6 @@ Cdlatex lets me write latex in org-mode. It's particularly useful for math. [[ht
     :config
     (progn
       (add-hook 'org-mode-hook 'org-cdlatex-mode)))
-#+END_SRC
-
-* Polymode (for knitr)
-Polymode is a (relatively new) way of working with multiple major modes. This is especially helpful if we want to use latex or markdown together with R code.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package polymode
-    :ensure t
-    :mode
-    ("\\.Snw" . poly-noweb+r-mode)
-    ("\\.Rnw" . poly-noweb+r-mode)
-    ("\\.[rR]md" . Rmd-mode)
-    :init
-    (progn
-      (defun Rmd-mode ()
-        "ESS Markdown mode for Rmd files"
-        (interactive)
-        (require 'poly-R)
-        (require 'poly-markdown)
-        (R-mode)
-        (poly-markdown+r-mode))))
 #+END_SRC
 
 * Spell Check
