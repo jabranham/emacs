@@ -3009,13 +3009,3 @@ I can query [[https://translate.google.com][Google translate]] from within Emacs
                            ("budget (this month)" "ledger budget ^exp -X $ -b \"this month\"  --flat")
                            ("budget (this year)" "ledger budget ^exp -X $ -b \"this year\"  --flat"))))
 #+END_SRC
-* End
-This is the end of init. If we've arrived here it means that Emacs has started, so might as well get a notification about that:
-#+BEGIN_SRC emacs-lisp
-  (if (and (daemonp)
-           (display-graphic-p))
-      (alert "Emacs has started!"
-             :title "Emacs"
-             :style 'libnotify
-             :severity 'trivial))
-#+END_SRC
