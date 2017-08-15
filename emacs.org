@@ -1736,6 +1736,10 @@ Lock to current file: =C-u C-c C-x <=
                                  my/org-inbox
                                  my/org-notes
                                  my/org-scheduled))
+    ;; The calendar file might not exist yet, so only attempt to add it if it does:
+    (defvar my/calendar-file (concat org-directory "gcal.org"))
+    (if (file-readable-p my/calendar-file)
+        (add-to-list 'org-agenda-files my/calendar-file t))
     ;; remove C-c [ from adding org file to front of agenda
     (unbind-key "C-c [" org-mode-map)
     :config
@@ -1876,7 +1880,7 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally
     (setq org-gcal-client-id (password-store--run "emacs/emacs-gcal-client-id")
           org-gcal-client-secret (password-store--run "emacs/emacs-gcal-client-secret")
           org-gcal-file-alist '(("alex.branham@gmail.com" .  "~/org/gcal.org")))
-    (add-to-list 'org-agenda-files (concat org-directory "gcal.org") t)
+    (add-to-list 'org-agenda-files my/calendar-file t)
     ;; Refresh calendars via org-gcal and automatically create appt-reminders.
     ;; Appt will be refreshed any time an org file is saved after 10 seconds of idle.
     ;; gcal will be synced after 1 minute of idle every hour.
