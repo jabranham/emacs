@@ -247,18 +247,6 @@ I like to see numbers in code:
     (add-hook 'ess-mode-hook #'highlight-numbers-mode))
 #+END_SRC
 
-** Color words describing colors
-Rainbow-mode makes it so that for example #0000ff is displayed in white with a blue background.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package rainbow-mode
-    :ensure t
-    :config
-    (add-hook 'prog-mode-hook #'rainbow-mode)
-    (add-hook 'ess-mode-hook #'rainbow-mode)
-    (add-hook 'text-mode-hook #'rainbow-mode))
-#+END_SRC
-
 ** Scrolling
 Emacs has some awful scrolling by default. This gets rid of that.
 
