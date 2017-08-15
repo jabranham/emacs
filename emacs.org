@@ -2290,9 +2290,6 @@ AuCTeX is better than the built in tex mode; let's use it. It's good out of the 
     (push ".synctex.gz" dired-latex-unclean-extensions)
     (push ".fdb_latexmk" dired-latex-unclean-extensions)
     (push ".fls" dired-latex-unclean-extensions)
-    ;; (push "\\.fdb_latexmk" LaTeX-clean-intermediate-suffixes)
-    ;; (push "\\.fls" LaTeX-clean-intermediate-suffixes)
-    ;; (push "\\.synctex.gz" LaTeX-clean-intermediate-suffixes)
     (setq TeX-clean-confirm nil)
     ;; revert pdf from file after compilation finishes
     (use-package tex-buf
@@ -2303,7 +2300,11 @@ AuCTeX is better than the built in tex mode; let's use it. It's good out of the 
       (:map LaTeX-mode-map
             ("M-p" . outline-previous-visible-heading)
             ("M-n" . outline-next-visible-heading)
-            ("<backtab>" . org-cycle))))
+            ("<backtab>" . org-cycle))
+      :config
+      (push "\\.fdb_latexmk" LaTeX-clean-intermediate-suffixes)
+      (push "\\.fls" LaTeX-clean-intermediate-suffixes)
+      (push "\\.synctex.gz" LaTeX-clean-intermediate-suffixes)))
 #+END_SRC
 
 Finally, sometimes we want wordcounts. If I just want a quick snippet, I can run the following command. If I want more information, I can drop into a shell with ~C-c M-e~ (~shell-pop~) and run ~texcount my-file.tex~:
