@@ -2443,6 +2443,7 @@ I autocommit a few files, like notes and todo:
 #+BEGIN_SRC emacs-lisp
   (use-package gist
     :ensure t
+    :defer t
     :commands (gist-list))
 #+END_SRC
 
@@ -2453,6 +2454,7 @@ Web-mode takes care of a lot of html annoyances:
 #+BEGIN_SRC emacs-lisp
   (use-package web-mode
     :ensure t
+    :defer t
     :mode
     ("\\.html?\\'" . web-mode)
     ("\\.scss?\\'" . web-mode)
@@ -2469,6 +2471,7 @@ And CSS/SCSS is handled nicely by this package:
 #+BEGIN_SRC emacs-lisp
   (use-package scss-mode
     :ensure t
+    :defer t
     :mode
     ("\\.css\\'". css-mode)
     ("\\.scss\\'" . scss-mode))
