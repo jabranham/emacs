@@ -729,14 +729,28 @@ Emacs can support multiple cursors. I don't use this much, but it's super handy 
   (use-package multiple-cursors
     :ensure t
     :demand t
+    :bind ("C-c m c" . my/mc-hydra/body)
     :commands (mc/edit-lines mc/mark-all-like-this)
     :config
-    (bind-keys :prefix "C-c m c"
-               :prefix-map multi-cursors-map
-               ("l" . mc/edit-lines)
-               ("n" . mc/mark-next-like-this)
-               ("p" . mc/mark-previous-like-this)
-               ("a" . mc/mark-all-like-this)))
+    (defhydra my/mc-hydra (:hint nil)
+      "
+       ^Up^            ^Down^        ^Other^
+  ----------------------------------------------
+  [_p_]   Next    [_n_]   Next    [_l_] Edit lines
+  [_P_]   Skip    [_N_]   Skip    [_a_] Mark all
+  [_M-p_] Unmark  [_M-n_] Unmark  [_r_] Mark by regexp
+  ^ ^             ^ ^             [_q_] Quit
+  "
+    ("l" mc/edit-lines :exit t)
+    ("a" mc/mark-all-like-this :exit t)
+    ("n" mc/mark-next-like-this)
+    ("N" mc/skip-to-next-like-this)
+    ("M-n" mc/unmark-next-like-this)
+    ("p" mc/mark-previous-like-this)
+    ("P" mc/skip-to-previous-like-this)
+    ("M-p" mc/unmark-previous-like-this)
+    ("r" mc/mark-all-in-region-regexp :exit t)
+    ("q" nil)))
 #+END_SRC
 ** Expand region
 I can use ~C-=~ to expand the region incrementally:
