@@ -2030,13 +2030,9 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
          (define-key eshell-mode-map [remap eshell-pcomplete] 'helm-esh-pcomplete)
          (unbind-key "M-s" eshell-mode-map)
          (bind-key "M-r" #'helm-eshell-history eshell-mode-map))))
-    ;; Enable completion of commands after sudo
-    (defun pcomplete/sudo ()
-      (let ((prec (pcomplete-arg 'last -1)))
-        (cond ((string= "sudo" prec)
-               (while (pcomplete-here*
-                       (funcall pcomplete-command-completion-function)
-                       (pcomplete-arg 'last) t))))))
+    (use-package pcomplete-extension
+      :ensure t
+      :demand t)
     (use-package eshell-git-prompt
       :ensure t
       :config
