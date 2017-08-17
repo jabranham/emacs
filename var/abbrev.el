@@ -174,6 +174,7 @@
     ("accompaning" "accompanying" nil 1)
     ("accurary" "accuracy" nil 1)
     ("admitadly" "admittedly" nil 0)
+    ("advertisment" "advertisement" nil 0)
     ("affactionally" "affectionately" nil 0)
     ("ambivilent" "ambivalent" nil 0)
     ("anonomous" "anonymous" nil 1)
