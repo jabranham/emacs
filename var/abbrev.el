@@ -228,6 +228,7 @@
     ("relationshpi" "relationship" nil 0)
     ("repsonsiveness" "responsiveness" nil 0)
     ("sincerally" "sincerely" nil 0)
+    ("synthasize" "synthesize" nil 0)
     ("systme" "system" nil 0)
     ("taht" "that" nil 1)
     ("teh" "the" nil 3)
