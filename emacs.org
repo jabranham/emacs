@@ -1594,25 +1594,6 @@ This will make the contents of code blocks use the same font locking (syntax hig
         org-src-tab-acts-natively    t)
 #+END_SRC
 
-*** Adding SRC blocks
-Here I define a function ([[https://github.com/vdemeester/emacs-config/blob/master/.emacs.d/emacs.org][thanks!]]) that lets me easily add and edit source blocks in org mode:
-
-#+BEGIN_SRC emacs-lisp
-  (defun my/org-insert-src-block (src-code-type)
-    "Insert a `SRC-CODE-TYPE' type source code block in org-mode."
-    (interactive
-     (let ((src-code-types
-            '("emacs-lisp" "python" "sh" "calc" "R" "latex" "org")))
-       (list (completing-read "Source code type: " src-code-types))))
-    (progn
-      (insert (format "#+BEGIN_SRC %s\n" src-code-type))
-      (newline-and-indent)
-      (insert "#+END_SRC\n")
-      (forward-line -2)
-      (org-edit-src-code)))
-
-  (bind-key "C-c s a" #'my/org-insert-src-block org-mode-map)
-#+END_SRC
 ** References (org-ref)
 I use org-ref to manage my references.
 #+BEGIN_SRC emacs-lisp
