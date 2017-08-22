@@ -2236,7 +2236,7 @@ Markdown mode for Markdown editing!
            ("\\.Rmd\\'" . markdown-mode)
            ("\\.markdown\\'" . markdown-mode))
     :config
-    (setq markdown-enable-math t))
+    (setq-default markdown-enable-math t))
 #+END_SRC
 
 Markdown relies on this package for =C-c '= to edit source code blocks (like org mode):
