@@ -1871,7 +1871,6 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally
 #+BEGIN_SRC emacs-lisp
   (use-package org-gcal
     :ensure t
-    :defer 300
     :if (executable-find "pass")
     :functions (my/refresh-appt-with-delay my/sync-calendar-start)
     :config
