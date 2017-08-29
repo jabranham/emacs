@@ -1482,10 +1482,11 @@ Bind =M-p= and =M-n= to navigate heading more easily (these are bound to =C-c C-
 ** Tags
 Org tags look like =:this:= at the end of a heading.
 #+BEGIN_SRC emacs-lisp
-  (setq org-tag-alist '((:startgroup . nil)
-                        ("@work" . ?w)
-                        ("@home" . ?h)
-                        (:endgroup . nil)))
+  (setq org-tag-persistent-alist '(("jobs" . ?j)
+                                   (:startgroup . nil)
+                                   ("@work" . ?w)
+                                   ("@home" . ?h)
+                                   (:endgroup . nil)))
 #+END_SRC
 
 ** Calendar
