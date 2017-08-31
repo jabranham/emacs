@@ -1618,7 +1618,9 @@ I use org-ref to manage my references.
     (defvar my/notes-template
       "* TODO %y - %t\n :PROPERTIES:\n  :Custom_ID: %k\n  :AUTHOR: %9a\n  :JOURNAL: %j\n  :YEAR: %y\n  :VOLUME: %v\n  :PAGES: %p\n  :DOI: %D\n  :URL: %U\n :END:\n")
     (setq org-ref-note-title-format my/notes-template)
-
+    ;; Set this to nil; it slows down org a LOT. Agenda generation takes under a
+    ;; second when it is nil and over 7 seconds when t:
+    (setq org-ref-show-broken-links nil)
     ;; Cleanup nil entries from articles.
     (add-hook 'org-ref-clean-bibtex-entry-hook #'orcb-clean-nil-opinionated t)
 
