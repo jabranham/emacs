@@ -772,6 +772,7 @@ Use Emacs' built in =eww= broswer (the Emacs Web Wowser!) by default.
           (".*github.*" . browse-url-firefox)
           (".*youtube.*" . browse-url-firefox)
           (".*youtu.be*" . browse-url-firefox)
+          (".apsanet.*" . browse-url-firefox)
           ("." . eww-browse-url)))
 #+END_SRC
 
