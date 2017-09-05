@@ -2414,6 +2414,8 @@ And to step through the history of a file:
 #+BEGIN_SRC emacs-lisp
   (use-package git-timemachine
     :ensure t
+    :bind
+    ("C-x C-g t" . git-timemachine)
     :commands (git-timemachine))
 #+END_SRC
 
