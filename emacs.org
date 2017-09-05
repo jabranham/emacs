@@ -2442,7 +2442,14 @@ I autocommit a few files, like notes and todo:
     :defer t
     :commands (gist-list))
 #+END_SRC
-
+* Diff
+** ediff
+Ediff is great, but I have to tell it to use one frame (since I start Emacs before X/wayland, it defaults to using two frames).
+#+BEGIN_SRC emacs-lisp
+  (use-package ediff
+    :config
+    (setq ediff-window-setup-function #'ediff-setup-windows-plain))
+#+END_SRC
 * Webpage editing
 ** HTML and friends
 Web-mode takes care of a lot of html annoyances:
