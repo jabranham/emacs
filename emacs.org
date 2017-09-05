@@ -2080,6 +2080,22 @@ Use Emacs as the =$EDITOR= environmental variable:
     (shell-command-with-editor-mode))
 #+END_SRC
 
+** Bash completion
+We can set it up so that we get pretty good bash completion in shell-mode and eshell.
+Note that for this to work, you'll need ~bash-completion~ installed.
+#+BEGIN_SRC emacs-lisp
+  (use-package bash-completion
+    :ensure t
+    :config
+    (setq eshell-default-completion-function 'eshell-bash-completion)
+    (defun eshell-bash-completion ()
+      (while (pcomplete-here
+              (nth 2 (bash-completion-dynamic-complete-nocomint
+                      (save-excursion
+                        (eshell-bol) (point))
+                      (point))))))
+    (bash-completion-setup))
+#+END_SRC
 ** Shell misc
 Here are a few miscellaneous settings for shell modes, including inferior ~R~ processes used by ~ESS~:
 #+BEGIN_SRC emacs-lisp
