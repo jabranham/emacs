@@ -232,6 +232,7 @@
     ("redundent" "redundant" nil 0)
     ("relationshpi" "relationship" nil 0)
     ("repsonsiveness" "responsiveness" nil 0)
+    ("republiacns" "republicans" nil 0)
     ("sincerally" "sincerely" nil 0)
     ("superflous" "superfluous" nil 0)
     ("synthasize" "synthesize" nil 0)
