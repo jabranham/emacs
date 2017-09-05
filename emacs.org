@@ -2027,6 +2027,7 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
      'eshell-mode-hook
      (lambda ()
        (progn
+         (eshell-cmpl-initialize)
          (define-key eshell-mode-map [remap eshell-pcomplete] 'helm-esh-pcomplete)
          (unbind-key "M-s" eshell-mode-map)
          (bind-key "M-r" #'helm-eshell-history eshell-mode-map))))
