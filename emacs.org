@@ -1495,6 +1495,7 @@ Not technically part of org, but I'll stick the calendar config here since I mai
   (use-package calendar
     ;; built-in, :ensure t not necessary
     :config
+    (add-hook 'calendar-today-visible-hook 'calendar-mark-today)
     (calendar-set-date-style 'iso)
     (setq calendar-week-start-day 0) ; weeks start on Sunday
     (setq calendar-date-display-form calendar-iso-date-display-form)
