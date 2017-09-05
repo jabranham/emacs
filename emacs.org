@@ -3006,7 +3006,7 @@ I can query [[https://translate.google.com][Google translate]] from within Emacs
     ;; There is a correct way to write dates:
     ;; https://xkcd.com/1179/
     (setq ledger-default-date-format ledger-iso-date-format)
-    (setq ledger-reports '(("on-hand" "ledger bal \"(assets:cash|assets:checking|assets:simple|assets:investments|liabilities)\" -X $")
+    (setq ledger-reports '(("on-hand" "ledger bal \"(assets:cash|assets:savings|assets:simple|assets:investments|liabilities)\" -X $")
                            ("account" "ledger reg %(account)")
                            ("expenses (this month)" "ledger bal ^exp -X $ -b \"this month\" ")
                            ("budget (this month)" "ledger budget ^exp -X $ -b \"this month\"  --flat")
