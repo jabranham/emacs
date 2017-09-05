@@ -2392,6 +2392,7 @@ Magit is better than the command line for git. I don't modify much. I just bind 
     :pin melpa-stable
     :bind
     ("C-x g" . magit-status)
+    ("C-x C-g b" . magit-blame)
     :config
     (setq magit-diff-refine-hunk 'all) ; get highlighted word diffs
     (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1))
