@@ -347,16 +347,21 @@ Async is written to let things be more async-y in Emacs. I use it for dired-asyn
 Emacs can act as your file finder/explorer. Dired is the built-in way to do this.
 
 #+BEGIN_SRC emacs-lisp
-  (bind-key "C-x C-d" #'dired) ; overrides list-directory, which I never use
-  (setq dired-auto-revert-buffer t)
-  (setq dired-dwim-target t)
-  (setq dired-recursive-copies (quote always))
-  (setq dired-recursive-deletes (quote always))
-  (bind-key "l" #'dired-up-directory dired-mode-map) ; use l to go up in dired
-  ;; -l: long listing format REQUIRED in dired-listing-switches
-  ;; -a: show everything (including dotfiles)
-  ;; -h: human-readable file sizes
-  (setq dired-listing-switches "-alh --group-directories-first")
+  (use-package dired
+    :bind
+    ("C-x C-d" . dired) ; overrides list-directory, which I never use
+    ("C-x C-j" . dired-jump)
+    (:map  dired-mode-map
+           ("l" . dired-up-directory)) ; use l to go up in dired
+    :config
+    (setq dired-auto-revert-buffer t)
+    (setq dired-dwim-target t)
+    (setq dired-recursive-copies 'always)
+    (setq dired-recursive-deletes 'always)
+    ;; -l: long listing format REQUIRED in dired-listing-switches
+    ;; -a: show everything (including dotfiles)
+    ;; -h: human-readable file sizes
+    (setq dired-listing-switches "-alh --group-directories-first"))
 #+END_SRC
 
 List directory sizes using ~du~:
