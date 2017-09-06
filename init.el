@@ -21,7 +21,7 @@
   (package-refresh-contents)
   (package-install 'use-package))
 ;; Get the latest version of org from gnu elpa:
-(unless (package-installed-p 'org (version-to-list "8.3"))
+(unless (package-installed-p 'org (version-to-list "9.1"))
   (package-refresh-contents)
   (package-install (cadr (assq 'org package-archive-contents))))
 
