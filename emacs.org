@@ -1756,7 +1756,8 @@ Lock to current file: =C-u C-c C-x <=
     (setq org-agenda-span 'day) ; just show today. I can "vw" to view the week
     ;; By default, the time grid has a lot of ugly "-----" lines. Remove those:
     (setq org-agenda-time-grid
-          '((daily today remove-match) "" (800 1000 1200 1400 1600 1800 2000)))
+          '((daily today remove-match) (800 1000 1200 1400 1600 1800 2000)
+            "" ""))
     ;; I don't need to know that something is scheduled. That's why it's appearing
     ;; on the agenda in the first place:
     (setq org-agenda-scheduled-leaders '("" "%2dx "))
