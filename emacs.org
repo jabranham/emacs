@@ -1787,6 +1787,12 @@ Lock to current file: =C-u C-c C-x <=
               (tags "REFILE"
                     ((org-agenda-overriding-header "Tasks to Refile")
                      (org-tags-match-list-sublevels nil)))))
+            ("d" "deadlines"
+             ((agenda ""
+                      ((org-agenda-entry-types '(:deadline))
+                       (org-agenda-span 'fortnight)
+                       (org-agenda-time-grid nil)
+                       (org-deadline-warning-days 0)))))
             ("b" "bibliography"
              ((tags "CATEGORY=\"bib\""
                     ((org-agenda-overriding-header "You've got a lot of reading to do...")))))))
