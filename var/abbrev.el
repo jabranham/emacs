@@ -183,6 +183,7 @@
     ("artigicial" "artificial" nil 0)
     ("auxillary" "auxiliary" nil 0)
     ("committment" "commitment" nil 0)
+    ("committments" "commitments" nil 0)
     ("conceptualiation" "conceptualization" nil 0)
     ("conversley" "conversely" nil 0)
     ("conversly" "conversely" nil 0)
@@ -243,6 +244,7 @@
     ("travelling" "traveling" nil 0)
     ("ubt" "but" nil 0)
     ("underreact" "react" nil 0)
+    ("unmanagable" "unmanageable" nil 0)
    ))
 
 (define-abbrev-table 'gnus-article-edit-mode-abbrev-table '())
