@@ -1767,7 +1767,7 @@ Lock to current file: =C-u C-c C-x <=
           org-deadline-warning-days 3) ; warn me 3 days before a deadline
     (setq org-agenda-tags-todo-honor-ignore-options t) ; ignore scheduled items in tags todo searches
     (setq org-agenda-tags-column 'auto)
-    (setq org-agenda-window-setup 'current-window ; use current window for agenda
+    (setq org-agenda-window-setup 'only-window ; use current window for agenda
           ;; restore previous config after I'm done
           org-agenda-restore-windows-after-quit t)
     (setq org-agenda-span 'day) ; just show today. I can "vw" to view the week
