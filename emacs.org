@@ -11,7 +11,18 @@ The [[https://github.com/jwiegley/use-package][use-package]] package, which I en
   (if (daemonp)
       (setq use-package-always-demand t))
 #+END_SRC
-
+** Security patch
+Emacs versions before 25.3 have a security issue, this is the fix:
+#+BEGIN_SRC emacs-lisp
+  (when (version< emacs-version "25.3")
+    (progn
+      ;; https://bugs.gnu.org/28350
+      (eval-after-load "enriched"
+        '(defun enriched-decode-display-prop (start end &optional param)
+           (list start end)))
+      ;; https://bugs.debian.org/766397
+      (setq tls-program '("gnutls-cli --x509cafile %t -p %p %h"))))
+#+END_SRC
 * Behavior
 Change some of emacs's defaults because they suck:
 #+BEGIN_SRC emacs-lisp
