@@ -2989,6 +2989,26 @@ I use [[https://github.com/skeeto/elfeed][elfeed]] to manage some RSS links:
       (quit-window))
     (setq elfeed-db-directory "~/Sync/.elfeed")
     :config
+    ;; Overwrite the default print-entry function with one that prints date, then
+    ;; feed-title, then title:
+    (defun my/elfeed-print-entry (entry)
+      "Print ENTRY to the buffer."
+      (let* ((date (elfeed-search-format-date (elfeed-entry-date entry)))
+             (title (or (elfeed-meta entry :title) (elfeed-entry-title entry) ""))
+             (title-faces (elfeed-search--faces (elfeed-entry-tags entry)))
+             (title-column (elfeed-format-column
+                            title (+ (window-width) (- 12) (- 12)) :left))
+             (feed (elfeed-entry-feed entry))
+             (feed-title
+              (when feed
+                (or (elfeed-meta feed :title) (elfeed-feed-title feed))))
+             (feed-column (elfeed-format-column
+                           feed-title 10 :right)))
+        (insert (propertize date 'face 'elfeed-search-date-face) " ")
+        (when feed-title
+          (insert (propertize feed-column 'face 'elfeed-search-feed-face) " "))
+        (insert (propertize title-column 'face title-faces) " ")))
+    (setq elfeed-search-print-entry-function #'my/elfeed-print-entry)
     ;; Scale down huge images:
     (setq shr-max-image-proportion 0.6)
     ;; Don't use visual line mode in elfeed-search:
