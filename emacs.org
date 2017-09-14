@@ -491,6 +491,38 @@ These functions make splitting windows behave more like I want it to. This way, 
              ("C-x 3" . my/hsplit-last-buffer))
 #+END_SRC
 
+** Rebind C-x 1 to be able to restore window layout
+
+By default, =C-x 1= deletes all windows except the currently focused one.
+I set it up here so that it stores the layout before deleting the windows so that I can restore the layout by hitting =C-x 1= again.
+Stolen from [[https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-windows-buffers.el][here]].
+
+#+BEGIN_SRC emacs-lisp
+  ;;; One Window Toggle
+  (defvar my/toggle-one-window--buffer-name nil
+    "Variable to store the name of the buffer for which the `my/toggle-one-window'
+  function is called.")
+  (defvar my/toggle-one-window--window-configuration nil
+    "Variable to store the window configuration before `my/toggle-one-window'
+  function was called.")
+  (defun my/toggle-one-window (&optional force-one-window)
+    "Toggles the frame state between deleting all windows other than
+  the current window and the windows state prior to that."
+    (interactive "P")
+    (if (or (not (one-window-p))
+            force-one-window)
+        (progn
+          (setq my/toggle-one-window--buffer-name (buffer-name))
+          (setq my/toggle-one-window--window-configuration (current-window-configuration))
+          (delete-other-windows))
+      (progn
+        (when my/toggle-one-window--buffer-name
+          (set-window-configuration my/toggle-one-window--window-configuration)
+          (switch-to-buffer my/toggle-one-window--buffer-name)))))
+
+  (bind-key "C-x 1" #'my/toggle-one-window)
+#+END_SRC
+
 *** Window switching
 I can use [[https://github.com/deb0ch/emacs-winum][winum]] to quickly jump from window to window.
 This replaces =window-numbering= since =winum= can handle assigning numbers across multiple frames.
