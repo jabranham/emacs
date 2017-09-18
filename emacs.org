@@ -1836,7 +1836,8 @@ Lock to current file: =C-u C-c C-x <=
                       ((org-agenda-entry-types '(:deadline))
                        (org-agenda-span 'fortnight)
                        (org-agenda-time-grid nil)
-                       (org-deadline-warning-days 0)))))
+                       (org-deadline-warning-days 0)
+                       (org-agenda-skip-deadline-if-done nil)))))
             ("b" "bibliography"
              ((tags "CATEGORY=\"bib\""
                     ((org-agenda-overriding-header "You've got a lot of reading to do...")))))))
