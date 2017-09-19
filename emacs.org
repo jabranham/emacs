@@ -1990,21 +1990,6 @@ I can use =org-pomodoro= for a [[http://pomodorotechnique.com/][pomodoro]]. By d
     (add-hook 'org-mode-hook #'org-bullets-mode))
 #+END_SRC
 
-** Sticky headers
-This makes the headers stick around if they would otherwise scroll off the top of the screen.
-I configure it to show the full path, starting with the first-level heading.
-I've got wide screens, might as well use them!
-#+BEGIN_SRC emacs-lisp
-  ;;;; Sticky Header Line
-  ;; https://github.com/alphapapa/org-sticky-header
-  (use-package org-sticky-header
-    :ensure t
-    :config
-    (setq org-sticky-header-full-path 'full) ;'reversed, nil
-    ;; Always show the header if the option to show the full or reversed path is set.
-    (setq org-sticky-header-always-show-header (if org-sticky-header-full-path t nil))
-    (add-hook 'org-mode-hook #'org-sticky-header-mode))
-#+END_SRC
 ** Misc
 Here are a few miscellaneous things that make org mode better.
 #+BEGIN_SRC emacs-lisp
