@@ -154,8 +154,6 @@ The way I load the theme depends on if Emacs is started as a window or in the te
   (use-package spacemacs-theme
     :ensure t
     :init
-    (setq spacemacs-theme-org-agenda-height nil)
-    ;; theme
     (defvar my/theme 'spacemacs-dark
       "The theme I'm using.")
     (defvar my/theme-window-loaded nil)
