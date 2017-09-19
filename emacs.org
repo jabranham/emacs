@@ -181,8 +181,6 @@ The way I load the theme depends on if Emacs is started as a window or in the te
             (setq my/theme-window-loaded t)
           (setq my/theme-terminal-loaded t))))
     :config
-    ;; make diff chunks stand out a bit more:
-    (set-face-background 'magit-diff-hunk-heading-highlight "#5d4d7a")
     (set-face-attribute 'org-agenda-date-today nil :height 2.0))
 #+END_SRC
 *** Fonts
