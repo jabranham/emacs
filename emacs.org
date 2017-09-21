@@ -2473,7 +2473,7 @@ Magit is better than the command line for git. I don't modify much. I just bind 
     :pin melpa-stable
     :bind
     ("C-x g" . magit-status)
-    ("C-x C-g b" . magit-blame)
+    ("C-x M-g b" . magit-blame)
     :config
     (setq magit-diff-refine-hunk 'all) ; get highlighted word diffs
     (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1))
@@ -2496,7 +2496,7 @@ And to step through the history of a file:
   (use-package git-timemachine
     :ensure t
     :bind
-    ("C-x C-g t" . git-timemachine)
+    ("C-x M-g t" . git-timemachine)
     :commands (git-timemachine))
 #+END_SRC
 
