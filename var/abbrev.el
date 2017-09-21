@@ -71,6 +71,8 @@
 
 (define-abbrev-table 'change-log-mode-abbrev-table '())
 
+(define-abbrev-table 'checkdoc-output-mode-abbrev-table '())
+
 (define-abbrev-table 'comint-mode-abbrev-table '())
 
 (define-abbrev-table 'completion-list-mode-abbrev-table '())
@@ -203,6 +205,7 @@
     ("expidited" "expedited" nil 0)
     ("explicitely" "explicitly" nil 0)
     ("familarity" "familiarity" nil 0)
+    ("folowwing" "following" nil 0)
     ("forcasting" "forecasting" nil 0)
     ("gague" "gauge" nil 1)
     ("guidence" "guidance" nil 0)
@@ -219,7 +222,7 @@
     ("intrepret" "interpret" nil 2)
     ("intrepretation" "interpretation" nil 1)
     ("inversly" "inversely" nil 0)
-    ("iwth" "with" nil 0)
+    ("iwth" "with" nil 1)
     ("judgements" "judgments" nil 0)
     ("lcass" "class" nil 0)
     ("magniture" "magnitude" nil 0)
