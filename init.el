@@ -27,7 +27,6 @@
 
 (eval-when-compile
   (require 'use-package))
-(require 'diminish)
 (require 'bind-key)
 
 ;; load up all literate org-mode files in this directory
