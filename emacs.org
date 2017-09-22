@@ -1815,6 +1815,8 @@ Lock to current file: =C-u C-c C-x <=
     ;; I don't need to know that something is scheduled. That's why it's appearing
     ;; on the agenda in the first place:
     (setq org-agenda-scheduled-leaders '("" "%2dx "))
+    ;; Use nice unicode character instead of ugly = to separate agendas:
+    (setq org-agenda-block-separator 8212)
     ;; Make deadlines, especially overdue ones, stand out more:
     (setq org-agenda-deadline-leaders '("Deadline: " "In %d days: " "OVERDUE %d day: "))
     (setq org-agenda-current-time-string "⸻ NOW ⸻")
