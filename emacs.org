@@ -185,7 +185,7 @@ The way I load the theme depends on if Emacs is started as a window or in the te
 Set up the default fixed pitch font:
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'default-frame-alist
-               '(font . "Source Code Pro-12"))
+               '(font . "monospace-12"))
 #+END_SRC
 
 Emacs was an editor originally designed for code, so it defaults to a fixed-width font for most things.
