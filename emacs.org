@@ -1612,6 +1612,7 @@ Need to let org know how to export to latex letters:
   (use-package ox-latex
     :ensure nil
     :config
+    (setq org-latex-pdf-process '("latexmk -synctex=1 -xelatex %f"))
     (add-to-list 'org-latex-classes
                  '("letter"
                    "\\documentclass[11pt]{letter}
