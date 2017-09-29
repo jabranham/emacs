@@ -8,12 +8,20 @@
 
 (setq gc-cons-threshold 20000000)
 
-;; add MELPA, Org, and ELPY
+;; Set up package.el, Emacs's built-in package manager. I have to set this up
+;; here instead of emacs.org because Emacs complains otherwise. Loudly.
+
+;; Eventually, I'd like to switch to something like
+;; [[borg][https://github.com/emacscollective/borg]], but haven't found the time
+;; yet.
 (require 'package)
 (setq package-archives
       '(("melpa" . "https://melpa.org/packages/")
         ("melpa-stable" . "https://stable.melpa.org/packages/")
         ("gnu" . "https://elpa.gnu.org/packages/")))
+;; Don't save packages in init file
+(defun package--save-selected-packages (&optional VALUE opt)
+  nil)
 (package-initialize)
 
 ;; Bootstrap use-package
@@ -28,6 +36,17 @@
 (eval-when-compile
   (require 'use-package))
 (require 'bind-key)
+(add-to-list 'package-selected-packages 'use-package)
+;; Since I redefined `package--save-selected-packages' to do nothing, I need to
+;; tell use-package's :ensure to save packages to package-selected-packages.
+(defun my/use-package-ensure-elpa (name ensure state context &optional no-refresh)
+  (let ((package (or (when (eq ensure t) (use-package-as-symbol name))
+                     ensure)))
+    (when package
+      (add-to-list 'package-selected-packages package)))
+  (use-package-ensure-elpa name ensure state context no-refresh))
+
+(setq use-package-ensure-function #'my/use-package-ensure-elpa)
 
 ;; load up all literate org-mode files in this directory
 (require 'org)

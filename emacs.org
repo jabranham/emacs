@@ -71,9 +71,7 @@ Finally, I set up [[https://github.com/tarsius/no-littering][no-littering]], whi
 
 #+BEGIN_SRC emacs-lisp
   (use-package no-littering
-    :ensure t
-    :config
-    (setq custom-file "~/.emacs.d/var/custom-file.el"))
+    :ensure t)
 #+END_SRC
 
 We can pop the mark back to where it used to be with =C-u C-SPC=. This lets us keep popping by hitting =C-SPC=:

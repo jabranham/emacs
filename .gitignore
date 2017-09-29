@@ -11,6 +11,5 @@ var/save-place.el
 var/sx/*
 var/url/*
 var/bookmark-default.el
-var/custom-file.el
 /var/nsm-settings.el
 var/auctex/*
