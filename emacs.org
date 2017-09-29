@@ -299,7 +299,7 @@ I'm not good at keeping track of parentheses. This makes me slightly better at i
     (show-smartparens-global-mode))
 #+END_SRC
 
-** PDF viewer
+** PDFs
 I like emacs, so why not view PDFs in it? Build the server when it asks - this may take a second.
 
 NOTE: ~pdf-tools~ only officially supports gnu/linux operating systems. I think that it will work on macs as well, but you may have to finagle it a bit. Regardless, I tell emacs to only use it if the OS is linux based.
@@ -320,6 +320,26 @@ NOTE: ~pdf-tools~ only officially supports gnu/linux operating systems. I think 
     (setq TeX-view-program-list '(("pdf-tools" "TeX-pdf-tools-sync-view"))))
 #+END_SRC
 
+Also, I have the occasional need to extract pages from a pdf.
+This function lets me do that easily:
+#+BEGIN_SRC emacs-lisp
+  (defun my/extract-pdf-pages (infile frompg topg)
+    "Extracts pages from a pdf file.
+
+  Extract pages from INFILE from FROMPG to TOPG using ghostscript.
+  Output file will be named by appending _pXX-pYY to INFILE."
+    (interactive "ffile: \nnfrom: \nnto: ")
+    (async-shell-command
+     (concat "gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -dSAFER"
+             " -dFirstPage=" (number-to-string frompg)
+             " -dLastPage=" (number-to-string topg)
+             " -SOutputFile=" (concat
+                               (file-name-sans-extension infile)
+                               "_p" (number-to-string frompg)
+                               "-p" (number-to-string topg)
+                               ".pdf ")
+             infile)))
+#+END_SRC
 ** Async
 Async is written to let things be more async-y in Emacs. I use it for dired-async mode mostly.
 #+BEGIN_SRC emacs-lisp
