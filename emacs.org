@@ -2807,11 +2807,6 @@ Finally, we can get mu4e set up.
       ;; when mail is sent, automatically convert org body to HTML
       :config
       (setq org-mu4e-convert-to-html t))
-    (use-package mu4e-contrib
-      :config
-      ;; Use eww to render HTML messages:
-      (setq mu4e-html2text-command 'mu4e-shr2text)
-      )
     (use-package mu4e-maildirs-extension
       :ensure t
       :config
