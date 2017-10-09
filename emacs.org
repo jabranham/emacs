@@ -1897,6 +1897,9 @@ And now for the capture templates themselves. It's a bit complicated, but [[http
            "* %?\n %i")
           ("b" "bib" entry (file+headline ,org-default-notes-file "Bibliography")
            "* %a            :@work:\n \n %i")
+          ("r" "refile+schedule" entry (file ,my/org-inbox)
+           "* TODO %a %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+1d 9am\") t)"
+           :immediate-finish t)
           ("p" "Protocol" entry (file ,my/org-inbox)
            "* TODO [[%:link][%:description]]\n%i" :immediate-finish t)
           ("L" "Protocol Link" entry (file ,my/org-inbox)
@@ -2581,10 +2584,12 @@ Finally, we can get mu4e set up.
      :map mu4e-headers-mode-map
      ("d" . mu4e-headers-mark-for-delete)
      ("q" . mu4e-quit-session)
+     ("c" . my/org-mu4e-store-and-capture)
      :map mu4e-view-mode-map
      ("d" . mu4e-view-mark-for-delete)
      ("<tab>" . shr-next-link)
      ("<backtab>" . shr-previous-link)
+     ("c" . my/org-mu4e-store-and-capture)
      :map mu4e-main-mode-map
      ("q" . mu4e-quit-session)
      :map my/map
@@ -2617,6 +2622,15 @@ Finally, we can get mu4e set up.
       (window-configuration-to-register :mu4e-fullscreen)
       (mu4e~headers-jump-to-maildir "/gmail/INBOX")
       (delete-other-windows))
+
+    (defun my/org-mu4e-store-and-capture ()
+      "Similar to `org-mu4e-store-and-capture', but use \"r\" capture template and then mark the email for deletion."
+      (interactive)
+      (org-mu4e-store-link)
+      (org-capture :keys "r")
+      (if (eq major-mode 'mu4e-headers-mode)
+          (mu4e-headers-mark-for-delete)
+        (mu4e-view-mark-for-delete)))
 
     ;; Here we define a function that cleans up contacts. Stolen from:
     ;; https://martinralbrecht.wordpress.com/2016/05/30/handling-email-with-emacs/
