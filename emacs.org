@@ -2732,6 +2732,7 @@ Finally, we can get mu4e set up.
                   :name "All Inboxes"
                   :query "maildir:/gmail/INBOX OR maildir:/utexas/INBOX OR maildir:/gu/INBOX"
                   :key ?i))
+    (defalias #'mu4e-view-save-attachment #'mu4e-view-save-attachment-multi)
     ;; don't ask me to quit, just quit
     (setq mu4e-confirm-quit nil)
     (setq mail-user-agent 'mu4e-user-agent)
