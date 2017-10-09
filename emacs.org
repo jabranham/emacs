@@ -2764,7 +2764,8 @@ Finally, we can get mu4e set up.
     (setq mu4e-headers-fields
           '((:human-date    .  11)
             (:flags         .   6)
-            (:from          .  22)
+            (:mailing-list   .  10)
+            (:from-or-to    .  22)
             (:subject       .  nil)))
     ;; next two are from:
     ;; http://pragmaticemacs.com/emacs/customise-the-reply-quote-string-in-mu4e/ :
