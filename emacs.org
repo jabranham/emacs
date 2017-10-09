@@ -2747,6 +2747,7 @@ Finally, we can get mu4e set up.
     ;; something about ourselves
     (setq mu4e-user-mail-address-list '("branham@utexas.edu" "alex.branham@gmail.com" "james.alexander.branham@gu.se"))
     (setq mu4e-compose-dont-reply-to-self t) ; don't reply to self
+    (setq mu4e-compose-complete-only-personal t)
     (setq mu4e-compose-complete-only-after "2015-01-01")
     (setq mu4e-view-show-addresses t)
     (setq mu4e-hide-index-messages t)
