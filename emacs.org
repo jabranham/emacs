@@ -2995,7 +2995,9 @@ ERC is Emacs's client for IRC.
     (setq erc-nick "jabranham"
           erc-port "6667"
           erc-server "irc.freenode.net"
-          erc-password (password-store-get "irc.freenode.net")))
+          erc-password (password-store-get "irc.freenode.net"))
+    (setq erc-autojoin-channels-alist '(("freenode.net" "#emacs" "#archlinux")))
+    (setq erc-lurker-hide-list '("JOIN" "PART" "QUIT")))
 #+END_SRC
 
 * RSS Feed reader
