@@ -1562,16 +1562,12 @@ And we can make it integrate with org-agenda:
 
 ** Exporting
 
-This makes org export smart quotes so that it uses ~``word``~ style quotes for latex export:
-
 #+BEGIN_SRC emacs-lisp
-  (setq org-export-with-smart-quotes t)
-#+END_SRC
-
-This lets me override all the export variables with a =#+BIND:= statement at the beginning of org-mode files for export:
-
-#+BEGIN_SRC emacs-lisp
-  (setq org-export-allow-bind-keywords t)
+  (use-package ox
+    :config
+    ;; This lets me override all the export variables with a =#+BIND:= statement
+    ;; at the beginning of org-mode files for export:
+    (setq org-export-allow-bind-keywords t))
 #+END_SRC
 
 *** latex or pdf
