@@ -245,6 +245,7 @@
     ("redundent" "redundant" nil 0)
     ("relaionship" "relationship" nil 0)
     ("relationshpi" "relationship" nil 0)
+    ("remnents" "remnants" nil 0)
     ("repsonsiveness" "responsiveness" nil 0)
     ("republiacns" "republicans" nil 0)
     ("resembelence" "resemblance" nil 0)
