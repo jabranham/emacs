@@ -99,14 +99,17 @@ I prefer backspace to always delete characters; I can just =C-r= to get to the p
 ** Help
 Emacs has an amazing help system built in.
 =C-h v=, =C-h f=, and =C-h k= are bound to ~describe-variable~, ~describe-function~, and ~describe-key~ respectively.
-In help-mode, however, I want to just tap a key for those commands:
 #+BEGIN_SRC emacs-lisp
   (use-package help
     :bind
     (:map help-mode-map
+          ;; shortcuts for searching from *Help* buffers
           ("v" . describe-variable)
           ("f" . describe-function)
-          ("k" . describe-key)))
+          ("k" . describe-key))
+    :config
+    ;; This makes emacs switch focus to help windows:
+    (setq help-window-select t))
 #+END_SRC
 
 ** Alerts
@@ -644,12 +647,6 @@ Start the server:
     (setq-default abbrev-mode t))
 #+END_SRC
 
-** Help windows
-You can use =C-h f=, =C-h v= and others to read docs for functions, variables, etc. This makes emacs switch focus to these windows:
-
-#+BEGIN_SRC emacs-lisp
-  (setq help-window-select t)
-#+END_SRC
 ** popwin
 [[https://github.com/m2ym/popwin-el][popwin]] describes itself as freeing me from the hell of annoying buffers. Let's see if that's true:
 
