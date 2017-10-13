@@ -2491,35 +2491,6 @@ Ediff is great, but I have to tell it to use one frame (since I start Emacs befo
     :config
     (setq ediff-window-setup-function #'ediff-setup-windows-plain))
 #+END_SRC
-* Webpage editing
-** HTML and friends
-Web-mode takes care of a lot of html annoyances:
-
-#+BEGIN_SRC emacs-lisp
-  (use-package web-mode
-    :ensure t
-    :defer t
-    :mode
-    ("\\.html?\\'" . web-mode)
-    ("\\.scss?\\'" . web-mode)
-    ("\\.erb\\'" . web-mode)
-    ("\\.djhtml\\'" . web-mode)
-    :config
-    (setq web-mode-engines-alist
-          '(("django" . "\\.djhtml'"))))
-#+END_SRC
-
-** CSS, SCSS
-And CSS/SCSS is handled nicely by this package:
-
-#+BEGIN_SRC emacs-lisp
-  (use-package scss-mode
-    :ensure t
-    :defer t
-    :mode
-    ("\\.css\\'". css-mode)
-    ("\\.scss\\'" . scss-mode))
-#+END_SRC
 * Email
 ** mu4e setup files
 I use ~mu4e~ with mbsync and mu for my email. In order to use this file, you'll need to make sure that mbsync and mu are installed on your system. mbsync requires a bit of configuration to get it started.
