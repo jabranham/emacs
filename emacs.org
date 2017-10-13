@@ -2039,6 +2039,8 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
           eshell-ls-initial-args "-ah"
           ;; treat 'echo' like shell echo
           eshell-plain-echo-behavior t)
+    ;; Make urls clickable
+    (add-hook 'eshell-mode-hook #'goto-address-mode)
     (setq eshell-scroll-to-bottom-on-input 'this)
     ;; for whatever reason, I can't seem to bind these keys with the
     ;; normal :bind mechanism use-package provides. Here's a wonky
@@ -2083,8 +2085,10 @@ Shell-mode uses a "dumb" terminal. Sometimes that's annoying, but this fixes the
 ** Make urls clickable
 
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'shell-mode-hook #'goto-address-mode)
-  (add-hook 'eshell-mode-hook #'goto-address-mode)
+  (use-package shell
+    :config
+    ;; Make urls clickable
+    (add-hook 'shell-mode-hook #'goto-address-mode))
 #+END_SRC
 
 ** with editor
@@ -2119,9 +2123,11 @@ Note that for this to work, you'll need ~bash-completion~ installed.
 ** Shell misc
 Here are a few miscellaneous settings for shell modes, including inferior ~R~ processes used by ~ESS~:
 #+BEGIN_SRC emacs-lisp
-  (setq comint-scroll-to-bottom-on-input 'this)
-  (setq comint-scroll-to-bottom-on-output t)
-  (setq comint-move-point-for-output t)
+  (use-package comint
+    :config
+    (setq comint-scroll-to-bottom-on-input 'this)
+    (setq comint-scroll-to-bottom-on-output t)
+    (setq comint-move-point-for-output t))
 #+END_SRC
 * R (with ESS)
 ESS (Emacs Speaks Statistics) is a [[http://ess.r-project.org/][great project]] and makes Emacs speak with R.
