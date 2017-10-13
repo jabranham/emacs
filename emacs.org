@@ -1959,16 +1959,6 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally
     (fset 'org-gcal--notify 'new/org-gcal--notify))
 #+END_SRC
 
-** Pomodoro
-I can use =org-pomodoro= for a [[http://pomodorotechnique.com/][pomodoro]]. By default, it works in 25-minute work blocks and 5 minute breaks after. The fourth break is longer - 20 minutes by default.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package org-pomodoro
-    :ensure t
-    :commands (org-pomodoro)
-    )
-#+END_SRC
-
 ** Better bullets
 
 #+BEGIN_SRC emacs-lisp
