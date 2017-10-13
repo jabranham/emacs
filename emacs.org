@@ -2335,7 +2335,8 @@ Whitespace is evil. Let's get rid of as much as possible. But we don't want to d
   (use-package ws-butler
     :ensure t
     :config
-    (ws-butler-global-mode))
+    (add-hook 'prog-mode-hook #'ws-butler-mode)
+    (add-hook 'ess-mode-hook #'ws-butler-mode))
 #+END_SRC
 
 * Markdown
