@@ -2093,13 +2093,12 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
 
 #+BEGIN_SRC emacs-lisp
   (use-package eshell
-    :commands (eshell)
     :config
     (setq eshell-cmpl-cycle-completions nil
           ;; auto truncate after 20k lines
           eshell-buffer-maximum-lines 20000
           ;; history size
-          eshell-history-size 350
+          eshell-history-size 1024
           ;; no duplicates in history
           eshell-hist-ignoredups t
           ;; my prompt is easy enough to see
