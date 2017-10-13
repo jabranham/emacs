@@ -1847,7 +1847,7 @@ Org-eww lets me capture eww webpages with org-mode
 This line is necessary for the [[https://addons.mozilla.org/en-US/firefox/addon/org-capture/][org capture]] extension for Firefox.
 
 #+BEGIN_SRC emacs-lisp
-  (require 'org-protocol)
+  (use-package org-protocol)
 #+END_SRC
 
 *** Capture templates
