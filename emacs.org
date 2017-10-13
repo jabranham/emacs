@@ -2470,15 +2470,16 @@ Cdlatex lets me write latex in org-mode. It's particularly useful for math. [[ht
 * Spell Check
 Flyspell checks for spelling on the fly. I use aspell instead of ispell because it's better. :-) You may need to install it separately, though I didn't need to. If you want to use non-english words, you can tell it so with ~ispell-local-dictionary~ variable.
 
+** Flyspell
 #+BEGIN_SRC emacs-lisp
   (use-package flyspell
     :ensure t
+    :init
+    (setq flyspell-use-meta-tab nil)
     :config
-    (setq ispell-program-name "aspell")
-    (setq ispell-list-command "--list")
-    (add-hook 'text-mode-hook 'turn-on-flyspell)
-    (add-hook 'prog-mode-hook 'flyspell-prog-mode)
-    (add-hook 'ess-mode-hook 'flyspell-prog-mode))
+    (add-hook 'text-mode-hook #'turn-on-flyspell)
+    (add-hook 'prog-mode-hook #'flyspell-prog-mode)
+    (add-hook 'ess-mode-hook #'flyspell-prog-mode))
 #+END_SRC
 * Version control
 #+BEGIN_SRC emacs-lisp
