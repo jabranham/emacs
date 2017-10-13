@@ -1902,7 +1902,7 @@ But I use it pretty much exclusively to notify me of upcoming org items I've sch
 #+END_SRC
 
 ** org-gcal
-I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to (bidirectionally) sync with google calendar. Lots of ideas taken from [[https://cestlaz.github.io/posts/using-emacs-26-gcal/#.WG52MOtj0wE.reddit][here]].
+I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to sync with google calendar. Lots of ideas taken from [[https://cestlaz.github.io/posts/using-emacs-26-gcal/#.WG52MOtj0wE.reddit][here]].
 #+BEGIN_SRC emacs-lisp
   (use-package org-gcal
     :ensure t
