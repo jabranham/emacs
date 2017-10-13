@@ -2383,7 +2383,6 @@ You will need to change ~reftex-default-bibliography~ to wherever you keep your 
             (?x . "[]{%l}")
             (?X . "{%l}")))
     (setq reftex-default-bibliography '("~/Sync/bibliography/references.bib"))
-    (setq reftex-bibliography-commands '("bibliography" "nobibliography" "addbibresource"))
     (setq reftex-extra-bindings t)
     :config
     (add-hook 'LaTeX-mode-hook #'turn-on-reftex))
