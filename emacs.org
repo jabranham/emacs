@@ -1057,7 +1057,6 @@ We can resize windows now!
 *** Start maximized
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
-
 #+END_SRC
 
 *** Better defaults
@@ -1131,29 +1130,10 @@ Company mode provides autocompletion of text and code.
     (setq company-minimum-prefix-length 2)
     (setq company-idle-delay 0.5)
     (setq company-require-match nil)
-    (use-package company-statistics
-      :ensure t
-      :config
-      (add-hook 'company-mode-hook #'company-statistics-mode))
-    (use-package company-math
-      :ensure t
-      :config
-      (add-to-list 'company-backends 'company-math-symbols-latex))
     (use-package company-quickhelp
       :ensure t
       :config
-      (company-quickhelp-mode))
-    (use-package company-flx
-      :ensure t
-      :init
-      (with-eval-after-load 'company
-        (company-flx-mode +1)))
-    (use-package company-web-html
-      :ensure company-web)
-    (use-package company-shell
-      :ensure t
-      :config
-      (add-to-list 'company-backends 'company-shell)))
+      (company-quickhelp-mode)))
 #+END_SRC
 ** Hippie expand
 
