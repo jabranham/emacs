@@ -192,7 +192,9 @@ Set up the default fixed pitch font:
 The fixed-pitch-serif font face inherits from Monospace Serif from X, which I haven't set.
 I'll just tell Emacs to use Symbola instead of setting it in X:
 #+BEGIN_SRC emacs-lisp
-  (set-face-attribute 'fixed-pitch-serif nil :font "Symbola")
+  (if (daemonp)
+      (add-hook 'after-make-frame-functions (lambda (frame) (set-face-attribute 'fixed-pitch-serif frame :font "Symbola")))
+    (set-face-attribute 'fixed-pitch-serif nil :font "Symbola"))
 #+END_SRC
 
 Emacs was an editor originally designed for code, so it defaults to a fixed-width font for most things.
