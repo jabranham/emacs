@@ -1025,6 +1025,10 @@ Emacs by default doesn't replace selected text if you start typing over it. Sinc
   (delete-selection-mode)
 #+END_SRC
 
+*** Delete active region
+#+BEGIN_SRC emacs-lisp
+  (setq delete-active-region 'kill) ; single char delete commands kill active regions
+#+END_SRC
 *** Blinking cursor & highlight line
 A blinking cursor gets kinda annoying, so get rid of it:
 
