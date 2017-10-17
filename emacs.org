@@ -2908,6 +2908,7 @@ ERC is Emacs's client for IRC.
     :commands (erc)
     :config
     (add-hook 'erc-mode-hook #'goto-address-mode)
+    (erc-notifications-mode)
     (setq erc-nick "jabranham"
           erc-port "6667"
           erc-server "irc.freenode.net"
