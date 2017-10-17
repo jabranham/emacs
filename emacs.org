@@ -2671,6 +2671,16 @@ Finally, we can get mu4e set up.
                   :name "All Inboxes"
                   :query "maildir:/gmail/INBOX OR maildir:/utexas/INBOX OR maildir:/gu/INBOX"
                   :key ?i))
+    (add-to-list 'mu4e-bookmarks
+                 (make-mu4e-bookmark
+                  :name "mailing lists"
+                  :query "maildir:/gmail/emacs-devel AND flag:unread"
+                  :key ?e))
+    (add-to-list 'mu4e-bookmarks
+                 (make-mu4e-bookmark
+                  :name "emacs-orgmode"
+                  :query "maildir:/gmail/emacs-orgmode AND flag:unread"
+                  :key ?o))
     (defalias #'mu4e-view-save-attachment #'mu4e-view-save-attachment-multi)
     (setq mu4e-save-multiple-attachments-without-asking t) ; save all attachments in same dir
     ;; don't ask me to quit, just quit
