@@ -131,6 +131,8 @@
 
 (define-abbrev-table 'epa-key-mode-abbrev-table '())
 
+(define-abbrev-table 'epkg-list-mode-abbrev-table '())
+
 (define-abbrev-table 'erc-list-menu-mode-abbrev-table '())
 
 (define-abbrev-table 'erc-mode-abbrev-table '())
@@ -239,6 +241,7 @@
     ("misintrepreted" "misinterpreted" nil 0)
     ("multipled" "multiplied" nil 0)
     ("november" "november" nil 0)
+    ("nto" "not" nil 0)
     ("occured" "occurred" nil 0)
     ("october" "october" nil 0)
     ("partisanshpi" "partisanship" nil 0)
@@ -264,8 +267,8 @@
     ("superflous" "superfluous" nil 0)
     ("synthasize" "synthesize" nil 0)
     ("systme" "system" nil 0)
-    ("taht" "that" nil 1)
-    ("teh" "the" nil 3)
+    ("taht" "that" nil 2)
+    ("teh" "the" nil 4)
     ("tihs" "this" nil 6)
     ("travelling" "traveling" nil 0)
     ("ubt" "but" nil 0)
@@ -388,6 +391,10 @@
 (define-abbrev-table 'makefile-mode-abbrev-table '())
 
 (define-abbrev-table 'markdown-mode-abbrev-table '())
+
+(define-abbrev-table 'mediawiki-draft-mode-abbrev-table '())
+
+(define-abbrev-table 'mediawiki-mode-abbrev-table '())
 
 (define-abbrev-table 'message-mode-abbrev-table '())
 
