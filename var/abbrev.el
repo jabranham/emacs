@@ -39,7 +39,7 @@
     ("`ti" "\\title" nil 0)
     ("`us" "\\usage" nil 0)
     ("`va" "\\value" nil 0)
-   ))
+    ))
 
 (define-abbrev-table 'TeX-error-overview-mode-abbrev-table '())
 
@@ -47,7 +47,7 @@
 
 (define-abbrev-table 'awk-mode-abbrev-table
   '(
-   ))
+    ))
 
 (define-abbrev-table 'biblio-selection-mode-abbrev-table '())
 
@@ -59,11 +59,11 @@
 
 (define-abbrev-table 'c++-mode-abbrev-table
   '(
-   ))
+    ))
 
 (define-abbrev-table 'c-mode-abbrev-table
   '(
-   ))
+    ))
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -184,7 +184,6 @@
     ("affectionatley" "affectionately" nil 0)
     ("ambivilent" "ambivalent" nil 0)
     ("anonomous" "anonymous" nil 1)
-    ("april" "april" nil 0)
     ("arcipeligo" "archipelago" nil 0)
     ("arithmatic" "arithmetic" nil 0)
     ("aroudn" "around" nil 0)
@@ -198,7 +197,6 @@
     ("conversly" "conversely" nil 0)
     ("convienent" "convenient" nil 0)
     ("criticise" "criticize" nil 0)
-    ("december" "december" nil 0)
     ("demcoratic" "democratic" nil 0)
     ("democraphic" "demographic" nil 0)
     ("discrepency" "discrepancy" nil 0)
@@ -213,7 +211,6 @@
     ("expidited" "expedited" nil 0)
     ("explicitely" "explicitly" nil 0)
     ("familarity" "familiarity" nil 0)
-    ("february" "february" nil 0)
     ("folowwing" "following" nil 0)
     ("forcasting" "forecasting" nil 0)
     ("gague" "gauge" nil 1)
@@ -233,19 +230,13 @@
     ("intrepretation" "interpretation" nil 1)
     ("inversly" "inversely" nil 0)
     ("iwth" "with" nil 2)
-    ("january" "january" nil 0)
     ("judgements" "judgments" nil 0)
-    ("july" "july" nil 0)
-    ("june" "june" nil 0)
     ("lcass" "class" nil 0)
     ("magniture" "magnitude" nil 0)
     ("millinneum" "millennium" nil 0)
     ("misintrepreted" "misinterpreted" nil 0)
     ("multipled" "multiplied" nil 0)
-    ("november" "november" nil 1)
-    ("nto" "not" nil 0)
     ("occured" "occurred" nil 0)
-    ("october" "october" nil 1)
     ("partisanshpi" "partisanship" nil 0)
     ("phenomina" "phenomena" nil 0)
     ("preferneces" "preferences" nil 3)
@@ -264,7 +255,6 @@
     ("resembelence" "resemblance" nil 0)
     ("sentance" "sentence" nil 0)
     ("seperate" "separate" nil 0)
-    ("september" "september" nil 0)
     ("sincerally" "sincerely" nil 0)
     ("superflous" "superfluous" nil 0)
     ("synthasize" "synthesize" nil 0)
@@ -276,7 +266,7 @@
     ("ubt" "but" nil 0)
     ("underreact" "react" nil 0)
     ("unmanagable" "unmanageable" nil 0)
-   ))
+    ))
 
 (define-abbrev-table 'gnus-article-edit-mode-abbrev-table '())
 
@@ -322,7 +312,7 @@
 
 (define-abbrev-table 'java-mode-abbrev-table
   '(
-   ))
+    ))
 
 (define-abbrev-table 'js-jsx-mode-abbrev-table '())
 
@@ -410,7 +400,7 @@
 
 (define-abbrev-table 'objc-mode-abbrev-table
   '(
-   ))
+    ))
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -434,7 +424,7 @@
 
 (define-abbrev-table 'pike-mode-abbrev-table
   '(
-   ))
+    ))
 
 (define-abbrev-table 'pkgbuild-mode-abbrev-table '())
 
@@ -456,7 +446,7 @@
 
 (define-abbrev-table 'python-mode-skeleton-abbrev-table
   '(
-   ))
+    ))
 
 (define-abbrev-table 'reftex-select-bib-mode-abbrev-table '())
 
@@ -488,7 +478,7 @@
 
 (define-abbrev-table 'stan-mode-abbrev-table
   '(
-   ))
+    ))
 
 (define-abbrev-table 'sx-compose-mode-abbrev-table '())
 
@@ -527,4 +517,3 @@
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
 
 (define-abbrev-table 'yaml-mode-abbrev-table '())
-
