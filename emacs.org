@@ -2665,8 +2665,6 @@ Finally, we can get mu4e set up.
                        (mu4e-trash-folder            . "/gmail/[Gmail]/.Trash")))))
     (setq mu4e-context-policy 'pick-first)
     (setq mu4e-maildir-shortcuts '( ("/utexas/INBOX"  . ?u)
-                                    ("/utexas/[Gmail]/.Sent Mail"   . ?s)
-                                    ("/utexas/[Gmail]/.All Mail" . ?a)
                                     ("/gmail/INBOX" . ?g)))
     (add-to-list 'mu4e-bookmarks
                  (make-mu4e-bookmark
