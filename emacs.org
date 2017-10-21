@@ -1898,6 +1898,7 @@ But I use it pretty much exclusively to notify me of upcoming org items I've sch
     ;; no need for :ensure t since appt.el is built into Emacs
     :demand t
     :config
+    (setq appt-display-mode-line nil)
     (appt-activate 1) ; activate appt
     (setq appt-display-interval appt-message-warning-time) ; don't notify more than once
     (defun my/appt-display (time-til time msg)
