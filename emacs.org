@@ -504,7 +504,7 @@ These functions make splitting windows behave more like I want it to. This way, 
              ("C-x 3" . my/hsplit-last-buffer))
 #+END_SRC
 
-** Rebind C-x 1 to be able to restore window layout
+*** Rebind C-x 1 to be able to restore window layout
 
 By default, =C-x 1= deletes all windows except the currently focused one.
 I set it up here so that it stores the layout before deleting the windows so that I can restore the layout by hitting =C-x 1= again.
