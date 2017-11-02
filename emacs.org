@@ -751,6 +751,7 @@ Here's a quick [[https://github.com/abo-abo/hydra][hydra]] that I wrote to quick
 
 #+BEGIN_SRC emacs-lisp
   (use-package aggressive-indent
+    :defer 10
     :config
     (global-aggressive-indent-mode)
     )
