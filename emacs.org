@@ -886,6 +886,7 @@ TRAMP allows me to visit remote files in my local Emacs instance.
 It's pretty sweet.
 #+BEGIN_SRC emacs-lisp
   (use-package tramp
+    :defer t
     :config
     ;; Don't leave histfiles everywhere:
     (setq tramp-histfile-override t)
