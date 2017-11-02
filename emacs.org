@@ -2313,6 +2313,8 @@ AuCTeX is better than the built in tex mode; let's use it. It's good out of the 
 
 #+BEGIN_SRC emacs-lisp
   (use-package tex-site
+    :defines (latex-help-cmd-alist latex-help-file)
+    :mode ("\\.tex\\'" . TeX-latex-mode)
     :config
     (add-hook 'LaTeX-mode-hook #'LaTeX-math-mode)
     (setq TeX-auto-save t
@@ -2342,9 +2344,11 @@ AuCTeX is better than the built in tex mode; let's use it. It's good out of the 
     (setq TeX-clean-confirm nil)
     ;; revert pdf from file after compilation finishes
     (use-package tex-buf
+      :defer t
       :config
       (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer))
     (use-package latex
+      :defer t
       :bind
       (:map LaTeX-mode-map
             ("M-p" . outline-previous-visible-heading)
