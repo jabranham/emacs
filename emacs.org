@@ -646,7 +646,7 @@ Start the server:
 
 #+BEGIN_SRC emacs-lisp
   (use-package popwin
-    :ensure t
+    :disabled t
     :config
     ;; Helper functions from the helm wiki to deal with help windows and a weird
     ;; interaction between helm and popwin:
@@ -688,16 +688,6 @@ I use [[https://www.passwordstore.org/][pass]] to manage all my passwords and lo
       :after 'helm
       :bind ("M-s p" . helm-pass)))
 #+END_SRC
-** Try
-This package lets me try out other packages before installing them by installing them to tmp:
-
-
-#+BEGIN_SRC emacs-lisp
-  (use-package try
-    :ensure t
-    :commands (try))
-#+END_SRC
-
 ** Undo-tree
 Emacs undo system is incredibly powerful but a bit confusing. This package has a great visualization system that helps out, bound to =C-x u= by default.
 #+BEGIN_SRC emacs-lisp
@@ -723,7 +713,7 @@ Sometimes the buffers are in the wrong places. This lets me move them around.
 
 #+BEGIN_SRC emacs-lisp
   (use-package buffer-move
-    :ensure t
+  :disabled t
     :bind
     ("M-S-<up>" . buf-move-up)
     ("M-S-<down>" . buf-move-down)
@@ -821,7 +811,7 @@ I can use ~C-=~ to expand the region incrementally:
 
 #+BEGIN_SRC emacs-lisp
   (use-package expand-region
-    :ensure t
+:disabled t
     :bind ("C-=" . er/expand-region))
 #+END_SRC
 ** Browser (eww)
@@ -857,7 +847,7 @@ If a webpage requires more than eww can handle, I can switch to the system defau
 =eww-lnum= makes following links a little easier:
 #+BEGIN_SRC emacs-lisp
   (use-package eww-lnum
-    :ensure t
+    :disabled t
     :after eww
     :bind
     (:map eww-mode-map
@@ -1423,7 +1413,7 @@ I can setup helm to deal with makefiles easily:
 
 #+BEGIN_SRC emacs-lisp
   (use-package helm-make
-    :ensure t
+    :disabled t
     :after projectile
     :init
     ;; scroll the compile buffer just until an error occurs
@@ -1949,7 +1939,7 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to sync with google
 
 #+BEGIN_SRC emacs-lisp
   (use-package org-bullets
-    :ensure t
+    :disabled t
     :config
     (setq org-bullets-bullet-list '("•")) ; Default is '("◉" "○" "✸" "✿")
     (add-hook 'org-mode-hook #'org-bullets-mode))
@@ -2236,14 +2226,13 @@ Stan is a Bayesian modeling language. Emacs has a mode for it (of course!)
 
 #+BEGIN_SRC emacs-lisp
   (use-package stan-mode
-    :ensure t
+    :disabled t
     :mode ("\\.stan\\'". stan-mode))
 #+END_SRC
 * CSV files
 Emacs can handle csv files with ease:
 #+BEGIN_SRC emacs-lisp
   (use-package csv-mode
-    :ensure t
     :mode (("\\.csv" . csv-mode)))
 #+END_SRC
 
@@ -3006,21 +2995,6 @@ Who /wouldn't/ want their text editor to do so?
     :config
     (setq wolfram-alpha-app-id (password-store--run "api/wolframalpha")))
 #+END_SRC
-* Google translate
-I can query [[https://translate.google.com][Google translate]] from within Emacs. Especially useful since I'm in Sweden at the moment and receive a bunch of emails in Swedish:
-#+BEGIN_SRC emacs-lisp
-  (use-package google-translate
-    :ensure t
-    :bind
-    (:map mu4e-view-mode-map
-          ("C-c C-t" . google-translate-at-point))
-    :config
-    (setq google-translate-default-target-language "en")
-    ;; It won't ask for the input language. If I need it to, call the
-    ;; translation command with a C-u prefix:
-    (setq google-translate-default-source-language "sv"))
-#+END_SRC
-
 * Ledger
 [[http://ledger-cli.org/][Ledger]] is a program that I use to keep track of finances. Emacs, of course, can handle it quite nicely.
 #+BEGIN_SRC emacs-lisp
