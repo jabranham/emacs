@@ -1749,6 +1749,8 @@ Lock to current file: =C-u C-c C-x <=
           ;; don't show scheduled if the deadline is visible unless it's
           ;; also scheduled for today:
           org-agenda-skip-scheduled-if-deadline-is-shown 'not-today
+          ;; skip deadline warnings if it is scheduled
+          org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled
           org-deadline-warning-days 3) ; warn me 3 days before a deadline
     (setq org-agenda-tags-todo-honor-ignore-options t) ; ignore scheduled items in tags todo searches
     (setq org-agenda-tags-column 'auto)
