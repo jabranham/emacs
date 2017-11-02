@@ -16,6 +16,7 @@ Also, load everything if Emacs is running as my X window manager. Cause that's a
 Emacs can be a window manager for X. Yes, really.
 #+BEGIN_SRC emacs-lisp
   (use-package exwm
+    :if (getenv "EXWM")
     :demand t
     :config
     ;; Xrandr (multi-screen)
