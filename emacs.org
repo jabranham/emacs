@@ -111,7 +111,6 @@ Emacs can be a window manager for X. Yes, really.
                 (start-process "" nil "nm-applet") ; Networkmanager
                 (start-process "" nil "xfce4-power-manager") ; power info & screen brightness
                 (start-process "" nil "syncthing-gtk") ; syncthing
-                (start-process "" nil "systemctl" "--user" "start" "dropbox.service") ; dropbox
                 (start-process "" nil "systemctl" "--user" "start" "redshift.service") ; redshift in evenings to reduce eye strain
                 ))
     )
