@@ -2158,9 +2158,7 @@ ESS (Emacs Speaks Statistics) is a [[http://ess.r-project.org/][great project]] 
           ("_"   . self-insert-command))
     :config
     (setq ess-nuke-trailing-whitespace-p t)
-    (add-hook 'ess-mode-hook
-              (lambda ()
-                (ess-set-style 'RStudio)))
+    (setq ess-default-style 'Rstudio)
     (setq ess-eval-visibly 'nowait) ; don't hog Emacs
     (setq ess-ask-for-ess-directory nil) ; don't ask for dir when starting a process
     (setq ess-eldoc-show-on-symbol t) ; show eldoc on symbol instead of only inside of parens
