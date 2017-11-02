@@ -39,7 +39,7 @@
     ("`ti" "\\title" nil 0)
     ("`us" "\\usage" nil 0)
     ("`va" "\\value" nil 0)
-    ))
+   ))
 
 (define-abbrev-table 'TeX-error-overview-mode-abbrev-table '())
 
@@ -47,7 +47,7 @@
 
 (define-abbrev-table 'awk-mode-abbrev-table
   '(
-    ))
+   ))
 
 (define-abbrev-table 'biblio-selection-mode-abbrev-table '())
 
@@ -59,11 +59,11 @@
 
 (define-abbrev-table 'c++-mode-abbrev-table
   '(
-    ))
+   ))
 
 (define-abbrev-table 'c-mode-abbrev-table
   '(
-    ))
+   ))
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -176,14 +176,16 @@
     ("aacross" "across" nil 0)
     ("accomodate" "accommodate" nil 1)
     ("accompaning" "accompanying" nil 1)
-    ("accurary" "accuracy" nil 1)
+    ("accurary" "accuracy" nil 2)
     ("acn" "can" nil 0)
     ("admitadly" "admittedly" nil 0)
     ("advertisment" "advertisement" nil 0)
     ("affactionally" "affectionately" nil 0)
     ("affectionatley" "affectionately" nil 0)
+    ("ahve" "have" nil 0)
     ("ambivilent" "ambivalent" nil 0)
     ("anonomous" "anonymous" nil 1)
+    ("appdneix" "appendix" nil 0)
     ("arcipeligo" "archipelago" nil 0)
     ("arithmatic" "arithmetic" nil 0)
     ("aroudn" "around" nil 0)
@@ -196,6 +198,7 @@
     ("conversley" "conversely" nil 0)
     ("conversly" "conversely" nil 0)
     ("convienent" "convenient" nil 0)
+    ("countires" "countries" nil 0)
     ("criticise" "criticize" nil 0)
     ("demcoratic" "democratic" nil 0)
     ("democraphic" "demographic" nil 0)
@@ -209,7 +212,7 @@
     ("excpetion" "exception" nil 0)
     ("exhasperation" "exasperation" nil 0)
     ("expidited" "expedited" nil 0)
-    ("explicitely" "explicitly" nil 0)
+    ("explicitely" "explicitly" nil 1)
     ("familarity" "familiarity" nil 0)
     ("folowwing" "following" nil 0)
     ("forcasting" "forecasting" nil 0)
@@ -236,9 +239,11 @@
     ("millinneum" "millennium" nil 0)
     ("misintrepreted" "misinterpreted" nil 0)
     ("multipled" "multiplied" nil 0)
+    ("netweok" "network" nil 0)
     ("occured" "occurred" nil 0)
     ("partisanshpi" "partisanship" nil 0)
     ("phenomina" "phenomena" nil 0)
+    ("politiacl" "political" nil 0)
     ("preferneces" "preferences" nil 3)
     ("prevelance" "prevalence" nil 0)
     ("prominance" "prominence" nil 0)
@@ -266,7 +271,7 @@
     ("ubt" "but" nil 0)
     ("underreact" "react" nil 0)
     ("unmanagable" "unmanageable" nil 0)
-    ))
+   ))
 
 (define-abbrev-table 'gnus-article-edit-mode-abbrev-table '())
 
@@ -312,7 +317,7 @@
 
 (define-abbrev-table 'java-mode-abbrev-table
   '(
-    ))
+   ))
 
 (define-abbrev-table 'js-jsx-mode-abbrev-table '())
 
@@ -368,6 +373,8 @@
 
 (define-abbrev-table 'magit-submodule-list-mode-abbrev-table '())
 
+(define-abbrev-table 'magithub-dash-mode-abbrev-table '())
+
 (define-abbrev-table 'magithub-issue-post-mode-abbrev-table '())
 
 (define-abbrev-table 'makefile-automake-mode-abbrev-table '())
@@ -400,7 +407,7 @@
 
 (define-abbrev-table 'objc-mode-abbrev-table
   '(
-    ))
+   ))
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -424,7 +431,7 @@
 
 (define-abbrev-table 'pike-mode-abbrev-table
   '(
-    ))
+   ))
 
 (define-abbrev-table 'pkgbuild-mode-abbrev-table '())
 
@@ -446,7 +453,7 @@
 
 (define-abbrev-table 'python-mode-skeleton-abbrev-table
   '(
-    ))
+   ))
 
 (define-abbrev-table 'reftex-select-bib-mode-abbrev-table '())
 
@@ -476,9 +483,7 @@
 
 (define-abbrev-table 'speedbar-mode-abbrev-table '())
 
-(define-abbrev-table 'stan-mode-abbrev-table
-  '(
-    ))
+(define-abbrev-table 'stan-mode-abbrev-table '())
 
 (define-abbrev-table 'sx-compose-mode-abbrev-table '())
 
@@ -517,3 +522,4 @@
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
 
 (define-abbrev-table 'yaml-mode-abbrev-table '())
+
