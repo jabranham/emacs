@@ -1797,7 +1797,11 @@ Lock to current file: =C-u C-c C-x <=
                        (org-agenda-skip-deadline-if-done nil)))))
             ("b" "bibliography"
              ((tags "CATEGORY=\"bib\""
-                    ((org-agenda-overriding-header "You've got a lot of reading to do...")))))))
+                    ((org-agenda-overriding-header "You've got a lot of reading to do...")))))
+            ("u" "unscheduled"
+             ((todo  "TODO"
+                     ((org-agenda-overriding-header "Unscheduled tasks")
+                      (org-agenda-todo-ignore-with-date t)))))))
     (defun my/agenda (&optional arg)
       (interactive)
       (org-agenda arg " ")))
