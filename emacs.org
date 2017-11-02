@@ -6,11 +6,116 @@
 * Intro
 This file contains my Emacs configuration. I usually run Emacs as a daemon using a [[http://git.savannah.gnu.org/cgit/emacs.git/commit/?id=181bd848eb9662759f076b31a32f6588e9eb58b4][systemd service]]; the configuration is loaded upon login. To start a new frame, I call =emacsclient -c=. I've setup a desktop file to make that easier (and so I don't have to fire up a terminal to run Emacs). This seems to work better if all the packages are installed already, which is the case unless my =elpa/= folder got deleted or I'm setting up a new machine. To do that, I can just stop the systemd service and start Emacs normally.
 ** Always demand
-The [[https://github.com/jwiegley/use-package][use-package]] package, which I ensured was installed in [[file:init.el][init.el]], is a convenient way of keeping track of packages. It also really cleverly delays loading packages until they're actually needed, thus (greatly) reducing Emacs's startup time. However, I usually run Emacs as a [[http://git.savannah.gnu.org/cgit/emacs.git/commit/?id=181bd848eb9662759f076b31a32f6588e9eb58b4][systemd unit]]. Since that's the case, I'd really rather Emacs just go ahead and load everything up:
+The [[https://github.com/jwiegley/use-package][use-package]] package, which I ensured was installed in [[file:init.el][init.el]], is a convenient way of keeping track of packages. It also really cleverly delays loading packages until they're actually needed, thus (greatly) reducing Emacs's startup time. However, I usually run Emacs as a [[http://git.savannah.gnu.org/cgit/emacs.git/commit/?id=181bd848eb9662759f076b31a32f6588e9eb58b4][systemd unit]]. Since that's the case, I'd really rather Emacs just go ahead and load everything up.
+Also, load everything if Emacs is running as my X window manager. Cause that's a thing, apparently.
 #+BEGIN_SRC emacs-lisp
-  (if (daemonp)
+  (if (or (daemonp))
       (setq use-package-always-demand t))
 #+END_SRC
+** EXWM
+Emacs can be a window manager for X. Yes, really.
+#+BEGIN_SRC emacs-lisp
+  (use-package exwm
+    :demand t
+    :config
+    ;; Xrandr (multi-screen)
+    (use-package exwm-randr
+      :if (equal (system-name) "mars")
+      :demand t
+      :config
+      (setq exwm-randr-workspace-output-plist '(1 "DP-2"))
+      (add-hook 'exwm-randr-screen-change-hook
+                (lambda ()
+                  (start-process-shell-command
+                   "xrandr" nil "xrandr --output DP-2 --right-of eDP-1 --auto")))
+      (exwm-randr-enable))
+    ;; System tray
+    (use-package exwm-systemtray
+      :demand t
+      :config
+      (setq exwm-systemtray-height 20)
+      (exwm-systemtray-enable))
+    (setq exwm-workspace-number 2)
+    ;; show all X windows in all workspaces
+    (setq exwm-workspace-show-all-buffers t)
+    (setq exwm-layout-show-all-buffers t)
+    ;; Make class name the buffer name
+    (add-hook 'exwm-update-class-hook
+              (lambda ()
+                (exwm-workspace-rename-buffer exwm-class-name)))
+    (add-hook 'exwm-manage-finish-hook
+              (defun my/exwm-manage-hook ()
+                (when (string-match "Firefox" exwm-class-name)
+                  (exwm-layout-hide-mode-line))))
+    (add-hook 'exwm-floating-setup-hook #'exwm-layout-hide-mode-line)
+    (add-hook 'exwm-floating-exit-hook #'exwm-layout-show-mode-line)
+    ;; Keybindings that exwm won't pass on to X windows:
+    (exwm-input-set-key (kbd "s-r") #'exwm-reset)
+    (exwm-input-set-key (kbd "s-t") #'exwm-workspace-swap)
+    ;; 's-N': Switch to certain workspace
+    (dotimes (i 10)
+      (exwm-input-set-key (kbd (format "s-%d" i))
+                          `(lambda ()
+                             (interactive)
+                             (exwm-workspace-switch-create ,i))))
+    ;; 's-&': Launch application
+    (exwm-input-set-key (kbd "s-d")
+                        (lambda (command)
+                          (interactive (list (read-shell-command "$ ")))
+                          (start-process-shell-command command nil command)))
+    ;; Line-editing shortcuts
+    (exwm-input-set-simulation-keys
+     '(([?\C-b] . left)
+       ([?\C-f] . right)
+       ([?\C-p] . up)
+       ([?\C-n] . down)
+       ([?\C-a] . home)
+       ([?\C-e] . end)
+       ([?\M-v] . prior)
+       ([?\C-v] . next)
+       ([?\C-d] . delete)
+       ([?\C-k] . (S-end delete))))
+    ;; Define some and map them to keys:
+    (defun my/mute ()
+      "Mute"
+      (interactive)
+      (start-process "" nil "pactl" "set-sink-mute" "0" "toggle"))
+    (defun my/volume-up ()
+      "Volume up"
+      (interactive)
+      (start-process "" nil "pactl" "set-sink-volume" "0" "+5%"))
+    (defun my/volume-down ()
+      "Volume down"
+      (interactive)
+      (start-process "" nil "pactl" "set-sink-volume" "0" "-5%"))
+    (defun my/mute-mic ()
+      "Toggle mic mute status"
+      (interactive)
+      (start-process "" nil "pactl" "set-source-mute" "1" "toggle"))
+    (defun my/lock-screen ()
+      "Lock screen"
+      (interactive)
+      (shell-command "i3lock  -c 000000"))
+    (exwm-input-set-key (kbd "<XF86AudioMute>") #'my/mute)
+    (exwm-input-set-key (kbd "<XF86AudioRaiseVolume>") #'my/volume-up)
+    (exwm-input-set-key (kbd "<XF86AudioLowerVolume>") #'my/volume-down)
+    (exwm-input-set-key (kbd "<XF86AudioMicMute>") #'my/mute-mic)
+    (exwm-input-set-key (kbd "s-l") #'my/lock-screen)
+    ;; Enable EXWM
+    (exwm-enable)
+    ;; Start some daemons:
+    (add-hook 'after-init-hook
+              (defun my/start-daemons ()
+                "Start some daemons. Hooks into `after-init-hook'."
+                (start-process "" nil "nm-applet") ; Networkmanager
+                (start-process "" nil "xfce4-power-manager") ; power info & screen brightness
+                (start-process "" nil "syncthing-gtk") ; syncthing
+                (start-process "" nil "systemctl" "--user" "start" "dropbox.service") ; dropbox
+                (start-process "" nil "systemctl" "--user" "start" "redshift.service") ; redshift in evenings to reduce eye strain
+                ))
+    )
+#+END_SRC
+
 * Behavior
 Change some of emacs's defaults because they suck:
 #+BEGIN_SRC emacs-lisp
