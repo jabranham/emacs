@@ -5,13 +5,6 @@
 
 * Intro
 This file contains my Emacs configuration. I usually run Emacs as a daemon using a [[http://git.savannah.gnu.org/cgit/emacs.git/commit/?id=181bd848eb9662759f076b31a32f6588e9eb58b4][systemd service]]; the configuration is loaded upon login. To start a new frame, I call =emacsclient -c=. I've setup a desktop file to make that easier (and so I don't have to fire up a terminal to run Emacs). This seems to work better if all the packages are installed already, which is the case unless my =elpa/= folder got deleted or I'm setting up a new machine. To do that, I can just stop the systemd service and start Emacs normally.
-** Always demand
-The [[https://github.com/jwiegley/use-package][use-package]] package, which I ensured was installed in [[file:init.el][init.el]], is a convenient way of keeping track of packages. It also really cleverly delays loading packages until they're actually needed, thus (greatly) reducing Emacs's startup time. However, I usually run Emacs as a [[http://git.savannah.gnu.org/cgit/emacs.git/commit/?id=181bd848eb9662759f076b31a32f6588e9eb58b4][systemd unit]]. Since that's the case, I'd really rather Emacs just go ahead and load everything up.
-Also, load everything if Emacs is running as my X window manager. Cause that's a thing, apparently.
-#+BEGIN_SRC emacs-lisp
-  (if (or (daemonp))
-      (setq use-package-always-demand t))
-#+END_SRC
 ** EXWM
 Emacs can be a window manager for X. Yes, really.
 #+BEGIN_SRC emacs-lisp
@@ -119,7 +112,6 @@ Emacs can be a window manager for X. Yes, really.
 * Behavior
 Change some of emacs's defaults because they suck:
 #+BEGIN_SRC emacs-lisp
-  (setq inhibit-startup-message t)
   (setq use-dialog-box nil) ; don't use popup boxes, just make the minibuffer ask
 #+END_SRC
 
@@ -1156,13 +1148,6 @@ Yes, please save my place when opening/closing files:
     (save-place-mode))
 #+END_SRC
 
-Get rid of menu-bar, toolbar, and the scroll bars
-#+BEGIN_SRC emacs-lisp
-  (menu-bar-mode -1)
-  (tool-bar-mode -1)
-  (scroll-bar-mode -1)
-#+END_SRC
-
 Don't ever use tabs. Always use spaces.
 #+BEGIN_SRC emacs-lisp
   (setq-default indent-tabs-mode nil)
@@ -1193,8 +1178,7 @@ A few final modifications:
         mouse-yank-at-point t
         require-final-newline t
         visible-bell nil
-        ring-bell-function 'ignore
-        load-prefer-newer t)
+        ring-bell-function 'ignore)
 #+END_SRC
 * Auto completion
 ** Company mode
