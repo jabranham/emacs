@@ -2484,6 +2484,15 @@ Ediff is great, but I have to tell it to use one frame (since I start Emacs befo
 #+BEGIN_SRC emacs-lisp
   (use-package ediff
     :config
+    (defun my/ediff-prepare-buffer ()
+      "Function to prepare ediff buffers. 
+
+  Runs with `ediff-prepare-buffer-hook' so that it gets run on all
+  three ediff buffers (A, B, and C)."
+      (when (memq major-mode '(org-mode emacs-lisp-mode))
+        ;; unfold org/elisp files
+        (outline-show-all)))
+    (add-hook 'ediff-prepare-buffer-hook #'my/ediff-prepare-buffer)
     (setq ediff-window-setup-function #'ediff-setup-windows-plain))
 #+END_SRC
 * Email
