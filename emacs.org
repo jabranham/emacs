@@ -371,6 +371,7 @@ Emacs can act as your file finder/explorer. Dired is the built-in way to do this
 
 #+BEGIN_SRC emacs-lisp
   (use-package dired
+    :defer t
     :bind
     (("C-x C-d" . dired) ; overrides list-directory, which I never use
      ("C-x C-j" . dired-jump)
