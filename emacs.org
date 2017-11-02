@@ -470,6 +470,7 @@ Also, we can substitute the [[http://fontawesome.io/icon/code-fork/][code fork]]
 
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
+    :defer 20
     :commands which-key-mode
     :config
     (which-key-mode))
