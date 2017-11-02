@@ -187,6 +187,9 @@
 	load-path = lisp
 	info-path = doc
 	build-step = make compile autoloads info 
+[submodule "org-bullets"]
+	path = lib/org-bullets
+	url = git@github.com:emacsorphanage/org-bullets.git
 [submodule "org-gcal"]
 	path = lib/org-gcal
 	url = git@github.com:myuhe/org-gcal.el.git

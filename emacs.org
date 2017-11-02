@@ -2026,7 +2026,6 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to sync with google
 
 #+BEGIN_SRC emacs-lisp
   (use-package org-bullets
-    :disabled t
     :config
     (setq org-bullets-bullet-list '("•")) ; Default is '("◉" "○" "✸" "✿")
     (add-hook 'org-mode-hook #'org-bullets-mode))
