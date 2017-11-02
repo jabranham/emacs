@@ -2904,6 +2904,8 @@ ERC is Emacs's client for IRC.
           erc-server "irc.freenode.net"
           erc-password (password-store-get "irc.freenode.net"))
     (setq erc-autojoin-channels-alist '(("freenode.net" "#emacs" "#archlinux")))
+    (setq erc-server-reconnect-timeout 5)
+    (setq erc-server-reconnect-attempts 12)
     (setq erc-lurker-hide-list '("JOIN" "PART" "QUIT")))
 #+END_SRC
 
