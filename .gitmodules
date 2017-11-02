@@ -254,6 +254,9 @@
 [submodule "sx"]
 	path = lib/sx
 	url = git@github.com:vermiculus/sx.el.git
+[submodule "system-packages"]
+	path = lib/system-packages
+	url = git@github.com:jabranham/system-packages.git
 [submodule "systemd"]
 	path = lib/systemd
 	url = git@github.com:holomorph/systemd-mode.git

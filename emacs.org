@@ -314,7 +314,6 @@ Luckily, [[https://ogbe.net/emacsconfig.html][someone]] has already figured this
 I took their code, modified it to work more like what I want, and packaged it up.
 #+BEGIN_SRC emacs-lisp
   (use-package mixed-pitch
-    :load-path "pkg/mixed-pitch"
     :bind
     (:map my/map
           ("f" . mixed-pitch-mode))
@@ -790,7 +789,6 @@ I use [[https://www.passwordstore.org/][pass]] to manage all my passwords and lo
     :config
     (setq password-store-password-length 20)
     (use-package helm-pass
-      :load-path "pkg/helm-pass"
       :after 'helm
       :bind ("M-s p" . helm-pass)))
 #+END_SRC
@@ -859,7 +857,6 @@ This is a collection of functions I wrote to help me manage installed system pac
 
 #+BEGIN_SRC emacs-lisp
   (use-package system-packages
-    :load-path "pkg/system-packages"
     :bind ("<f5>" . hydra/system-packages/body)
     :config
     (defhydra hydra/system-packages ()
