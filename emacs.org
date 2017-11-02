@@ -2212,14 +2212,20 @@ The package is called python, the mode is python-mode:
 #+BEGIN_SRC emacs-lisp
   (use-package python
     :mode ("\\.py\\'". python-mode)
-    :interpreter "python")
+    :interpreter ("python" . python-mode)
+    :config
+    (setq python-indent-offset 4))
 #+END_SRC
 
 Elpy is a ton of customizations for python. Load it up:
 
+** elpy
 #+BEGIN_SRC emacs-lisp
   (use-package elpy
+    :commands elpy-enable
+    :init (with-eval-after-load 'python (elpy-enable))
     :config
+    ;; elpy needs jedi flake8 importmagic autopep8 to be installed
     (elpy-enable)
     (when (require 'flycheck nil t)
       (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
