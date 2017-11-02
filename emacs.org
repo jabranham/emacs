@@ -64,8 +64,7 @@ Delete my files by moving them to the trash. I'm human and occasionally delete t
 Finally, I set up [[https://github.com/tarsius/no-littering][no-littering]], which helps keep my .emacs.d folder clean by putting files into appropriate subfolders rather than letting them get saved all over the place:
 
 #+BEGIN_SRC emacs-lisp
-  (use-package no-littering
-    :ensure t)
+  (use-package no-littering)
 #+END_SRC
 
 We can pop the mark back to where it used to be with =C-u C-SPC=. This lets us keep popping by hitting =C-SPC=:
@@ -116,7 +115,6 @@ Emacs has an amazing help system built in.
 Set it up so Emacs can send system notifications:
 #+BEGIN_SRC emacs-lisp
   (use-package alert
-    :ensure t
     :config
     (if (executable-find "notify-send")
         (setq alert-default-style 'libnotify)))
@@ -128,7 +126,6 @@ This ensures Emacs has the same PATH as the rest of my system:
 
 #+BEGIN_SRC emacs-lisp
   (use-package exec-path-from-shell
-    :ensure t
     :if (or (eq system-type 'darwin)
             (eq system-type 'gnu/linux))
     :config
@@ -153,7 +150,6 @@ By default, emacs starts with a blindingly white theme. Let's get rid of that pr
 The way I load the theme depends on if Emacs is started as a window or in the terminal. Because of the way Emacs handles themes, I have to load the theme after I make the first frame if I'm starting a daemon. Finally, I don't want to reload the theme after making new frames, so I have to take that into account too!
 #+BEGIN_SRC emacs-lisp
   (use-package spacemacs-theme
-    :ensure t
     :init
     (defvar my/theme 'spacemacs-dark
       "The theme I'm using.")
@@ -233,7 +229,6 @@ It's because [[https://www.johndcook.com/blog/2012/09/15/the-paper-is-too-big/][
 
 #+BEGIN_SRC emacs-lisp
   (use-package visual-fill-column
-    :ensure t
     :bind
     (:map my/map
           ("v" . visual-fill-column-mode))
@@ -245,7 +240,6 @@ It's because [[https://www.johndcook.com/blog/2012/09/15/the-paper-is-too-big/][
 I like to see numbers in code:
 #+BEGIN_SRC emacs-lisp
   (use-package highlight-numbers
-    :ensure t
     :commands (highlight-numbers-mode)
     :init
     (add-hook 'prog-mode-hook #'highlight-numbers-mode)
@@ -288,7 +282,6 @@ I'm not good at keeping track of parentheses. This makes me slightly better at i
 
 #+BEGIN_SRC emacs-lisp
   (use-package smartparens
-    :ensure t
     :demand t
     :bind
     (:map smartparens-mode-map
@@ -317,13 +310,13 @@ NOTE: ~pdf-tools~ only officially supports gnu/linux operating systems. I think 
 
 #+BEGIN_SRC emacs-lisp
   (use-package pdf-tools
-    :ensure t
     :if (eq system-type 'gnu/linux)
     :config
+    (require 'pdf-occur)
     ;; Use C-RET in latex mode to jump to location in pdf file
     (setq pdf-sync-forward-display-pdf-key "<C-return>")
     ;; The t says to install the server without asking me
-    (pdf-tools-install t)
+    (pdf-tools-install)
     ;; Show full pages by default instead of fitting page width:
     (setq-default pdf-view-display-size 'fit-page)
     ;; Use pdf-tools to display pdfs from latex runs:
@@ -355,7 +348,6 @@ This function lets me do that easily:
 Async is written to let things be more async-y in Emacs. I use it for dired-async mode mostly.
 #+BEGIN_SRC emacs-lisp
   (use-package async
-    :ensure t
     :config
     (setq dired-async-message-function
           ;; For whatever reason, the default for this *doesn't* log it to
@@ -392,7 +384,6 @@ Emacs can act as your file finder/explorer. Dired is the built-in way to do this
 List directory sizes using ~du~:
 #+BEGIN_SRC emacs-lisp
   (use-package dired-du
-    :ensure t
     :bind
     (:map dired-mode-map
           ("S" . dired-du-mode))
@@ -431,7 +422,6 @@ The default modeline is nice enough, but this one is much better looking:
 
 #+BEGIN_SRC emacs-lisp
   (use-package spaceline-config
-    :ensure spaceline
     :config
     (setq spaceline-window-numbers-unicode t)
     (setq spaceline-workspace-numbers-unicode t)
@@ -473,7 +463,6 @@ Also, we can substitute the [[http://fontawesome.io/icon/code-fork/][code fork]]
 
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
-    :ensure t
     :commands which-key-mode
     :config
     (which-key-mode))
@@ -542,7 +531,6 @@ This replaces =window-numbering= since =winum= can handle assigning numbers acro
 
 #+BEGIN_SRC emacs-lisp
   (use-package winum
-    :ensure t
     :init
     (setq winum-keymap
           (let ((map (make-sparse-keymap)))
@@ -638,7 +626,6 @@ Start the server:
 
 #+BEGIN_SRC emacs-lisp
   (use-package crux
-    :ensure t
     :bind
     (("C-x i" . crux-ispell-word-then-abbrev)
      ("C-c e" . crux-sudo-edit)
@@ -685,12 +672,10 @@ I use [[https://www.passwordstore.org/][pass]] to manage all my passwords and lo
 
 #+BEGIN_SRC emacs-lisp
   (use-package password-store
-    :ensure t
     :if (executable-find "pass")
     :demand t
     :init
-    (use-package auth-password-store
-      :ensure t)
+    (use-package auth-password-store)
     :config
     (setq password-store-password-length 20)
     (use-package helm-pass
@@ -712,7 +697,6 @@ This package lets me try out other packages before installing them by installing
 Emacs undo system is incredibly powerful but a bit confusing. This package has a great visualization system that helps out, bound to =C-x u= by default.
 #+BEGIN_SRC emacs-lisp
   (use-package undo-tree
-    :ensure t
     :demand t
     :bind
     ("C-z" . undo-tree-undo)
@@ -726,8 +710,7 @@ Emacs undo system is incredibly powerful but a bit confusing. This package has a
 [[https://github.com/abo-abo/hydra][Hydra]] is a nice package that lets you set up menus for related (or not) commands.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package hydra
-    :ensure t)
+  (use-package hydra)
 #+END_SRC
 
 ** Move buffers
@@ -763,7 +746,6 @@ Here's a quick [[https://github.com/abo-abo/hydra][hydra]] that I wrote to quick
 
 #+BEGIN_SRC emacs-lisp
   (use-package aggressive-indent
-    :ensure t
     :config
     (global-aggressive-indent-mode)
     )
@@ -791,22 +773,19 @@ This is a collection of functions I wrote to help me manage installed system pac
 Arch linux uses PKGBUILD files to describe built information for packages. This provides an Emacs mode:
 #+BEGIN_SRC emacs-lisp
   (use-package pkgbuild-mode
-    :ensure t
     :mode ("/PKGBUILD$" . pkgbuild-mode))
 #+END_SRC
 *** systemd
 =systemd= keeps track of daemons running and the like.
 This adds syntax highlighting for it (Emacs can do a decent job out-of-the box with =conf-mode=)
 #+BEGIN_SRC emacs-lisp
-  (use-package systemd
-    :ensure t)
+  (use-package systemd)
 #+END_SRC
 
 ** Multiple cursors
 Emacs can support multiple cursors. I don't use this much, but it's super handy when I do need it:
 #+BEGIN_SRC emacs-lisp
   (use-package multiple-cursors
-    :ensure t
     :demand t
     :bind ("C-c m c" . my/mc-hydra/body)
     :commands (mc/edit-lines mc/mark-all-like-this)
@@ -938,8 +917,7 @@ I end sentences with a single space.
 This package adds that functionality.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package unfill
-    :ensure t)
+  (use-package unfill)
 
   (bind-key [remap fill-paragraph] #'unfill-toggle)
 #+END_SRC
@@ -1122,7 +1100,6 @@ Company mode provides autocompletion of text and code.
 
 #+BEGIN_SRC emacs-lisp
   (use-package company
-    :ensure t
     :bind
     (:map company-active-map
           ("C-s" . company-search-candidates)
@@ -1137,7 +1114,6 @@ Company mode provides autocompletion of text and code.
     (setq company-idle-delay 0.5)
     (setq company-require-match nil)
     (use-package company-quickhelp
-      :ensure t
       :config
       (company-quickhelp-mode)))
 #+END_SRC
@@ -1181,7 +1157,6 @@ I integrate yasnippet with hippie-expand so using ~hippie-expand~ expands a snip
 
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet
-    :ensure t
     :after hippie-exp
     :demand t
     :init
@@ -1339,7 +1314,6 @@ Sometimes stuff gets out of whack, this helps me put it back in whack:
 Helm. A [[https://tuhdo.github.io/helm-intro.html][package in a league of its own]].
 #+BEGIN_SRC emacs-lisp
   (use-package helm
-    :ensure t
     :bind
     (("M-x" . helm-M-x)
      ("C-x C-f" . helm-find-files)
@@ -1381,7 +1355,6 @@ Helm. A [[https://tuhdo.github.io/helm-intro.html][package in a league of its ow
 ** Helm and references (helm-bibtex)
 #+BEGIN_SRC emacs-lisp
   (use-package helm-bibtex
-    :ensure t
     :demand t
     :bind
     (:map my/map
@@ -1452,7 +1425,6 @@ I can use this when I can't remember the exact name of a snippet.
 #+BEGIN_SRC emacs-lisp
   (use-package helm-c-yasnippet
     :after yasnippet
-    :ensure t
     :bind
     ("M-`" . helm-yas-complete))
 #+END_SRC
@@ -1462,12 +1434,10 @@ Projectile makes using projects easier in emacs. It also plays well with helm, s
 
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
-    :ensure t
     :config
     (projectile-mode)
     (bind-key "c" #'helm-make-projectile projectile-command-map)
     (use-package helm-projectile
-      :ensure t
       :config
       (setq projectile-completion-system 'helm)
       (helm-projectile-on)))
@@ -1523,7 +1493,6 @@ Org tags look like =:this:= at the end of a heading.
 Not technically part of org, but I'll stick the calendar config here since I mainly use it along with org-agenda (config'ed below)
 #+BEGIN_SRC emacs-lisp
   (use-package calendar
-    ;; built-in, :ensure t not necessary
     :config
     (add-hook 'calendar-today-visible-hook 'calendar-mark-today)
     (calendar-set-date-style 'iso)
@@ -1540,7 +1509,6 @@ Not technically part of org, but I'll stick the calendar config here since I mai
 calfw provides a nice calendar view:
 #+BEGIN_SRC emacs-lisp
   (use-package calfw
-    :ensure t
     :config
     ;; Use unicode characters
     (setq cfw:fchar-junction ?╋
@@ -1555,7 +1523,6 @@ calfw provides a nice calendar view:
 And we can make it integrate with org-agenda:
 #+BEGIN_SRC emacs-lisp
   (use-package calfw-org
-    :ensure t
     :commands (cfw:open-org-calendar)
     :bind
     (:map my/map ("o" . cfw:open-org-calendar))
@@ -1580,7 +1547,6 @@ And we can make it integrate with org-agenda:
 Need to let org know how to export to latex letters:
 #+BEGIN_SRC emacs-lisp
   (use-package ox-latex
-    :ensure nil
     :config
     (setq org-latex-pdf-process '("latexmk -synctex=1 -xelatex %f"))
     (add-to-list 'org-latex-classes
@@ -1627,7 +1593,6 @@ This will make the contents of code blocks use the same font locking (syntax hig
 I use org-ref to manage my references.
 #+BEGIN_SRC emacs-lisp
   (use-package org-ref
-    :ensure t
     :demand t ; make sure this gets loaded since I use it all the time
     :bind*
     (("C-c C-r" . org-ref-helm-insert-cite-link)
@@ -1653,11 +1618,10 @@ I use org-ref to manage my references.
     ;; Cleanup nil entries from articles.
     (add-hook 'org-ref-clean-bibtex-entry-hook #'orcb-clean-nil-opinionated t)
 
-    ;; Org-ref-bibtex is a package (contained in org-ref, so no need for
-    ;; an =:ensure t=) that helps me manage my bib file(s). I add the
-    ;; my/fix-journal-name function to always put in the full name of
-    ;; the journal. I also add it to the cleaning hook so that it's
-    ;; taken care of for me more or less automatically.
+    ;; Org-ref-bibtex is a package that helps me manage my bib file(s). I add the
+    ;; my/fix-journal-name function to always put in the full name of the journal.
+    ;; I also add it to the cleaning hook so that it's taken care of for me more
+    ;; or less automatically.
     (defun my/add-to-journal-list (element)
       "Add ELEMENT to `org-ref-bibtex-journal-abbreviations'"
       (push element org-ref-bibtex-journal-abbreviations))
@@ -1895,7 +1859,6 @@ Technically, =appt.el= isn't a part of org mode.
 But I use it pretty much exclusively to notify me of upcoming org items I've scheduled, so may as well set it up here.
 #+BEGIN_SRC emacs-lisp
   (use-package appt
-    ;; no need for :ensure t since appt.el is built into Emacs
     :demand t
     :config
     (setq appt-display-mode-line nil)
@@ -1912,7 +1875,6 @@ But I use it pretty much exclusively to notify me of upcoming org items I've sch
 I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to sync with google calendar. Lots of ideas taken from [[https://cestlaz.github.io/posts/using-emacs-26-gcal/#.WG52MOtj0wE.reddit][here]].
 #+BEGIN_SRC emacs-lisp
   (use-package org-gcal
-    :ensure t
     :if (executable-find "pass")
     :functions (my/refresh-appt-with-delay my/sync-calendar-start)
     :config
@@ -1993,8 +1955,7 @@ Here are a few miscellaneous things that make org mode better.
   (setq org-log-done t)
   (setq org-goto-interface (quote outline-path-completion))
   (setq org-ellipsis "⬎")
-  (use-package htmlize
-    :ensure t)
+  (use-package htmlize)
 #+END_SRC
 
 For whatever reason, I have to explicitely tell org how to open pdf links. I use pdf-tools, which is loaded in [[pdf viewer]]. If pdf-tools isn't installed, it will use doc-view (the default in emacs) instead.
@@ -2061,10 +2022,8 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
          (unbind-key "M-s" eshell-mode-map)
          (bind-key "M-r" #'helm-eshell-history eshell-mode-map))))
     (use-package pcomplete-extension
-      :ensure t
       :demand t)
     (use-package eshell-git-prompt
-      :ensure t
       :config
       (eshell-git-prompt-use-theme 'powerline)))
 #+END_SRC
@@ -2073,7 +2032,6 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
 
 #+BEGIN_SRC emacs-lisp
   (use-package shell-pop
-    :ensure t
     :bind ("C-c M-e" . shell-pop)
     :init
     (setq shell-pop-window-position 'bottom
@@ -2102,7 +2060,6 @@ Shell-mode uses a "dumb" terminal. Sometimes that's annoying, but this fixes the
 Use Emacs as the =$EDITOR= environmental variable:
 #+BEGIN_SRC emacs-lisp
   (use-package with-editor
-    :ensure t
     :init
     (progn
       (add-hook 'shell-mode-hook  'with-editor-export-editor)
@@ -2116,7 +2073,6 @@ We can set it up so that we get pretty good bash completion in shell-mode and es
 Note that for this to work, you'll need ~bash-completion~ installed.
 #+BEGIN_SRC emacs-lisp
   (use-package bash-completion
-    :ensure t
     :config
     (setq eshell-default-completion-function 'eshell-bash-completion)
     (defun eshell-bash-completion ()
@@ -2141,8 +2097,6 @@ ESS (Emacs Speaks Statistics) is a [[http://ess.r-project.org/][great project]] 
 
 #+BEGIN_SRC emacs-lisp
   (use-package ess-site
-    :ensure ess
-    :pin melpa-stable
     :bind
     (:map ess-mode-map
           ("C-a" . crux-move-beginning-of-line)
@@ -2218,8 +2172,6 @@ Elpy is a ton of customizations for python. Load it up:
 
 #+BEGIN_SRC emacs-lisp
   (use-package elpy
-    :ensure t
-    :pin melpa-stable
     :config
     (elpy-enable)
     (when (require 'flycheck nil t)
@@ -2249,7 +2201,6 @@ Flycheck can check your R code too, but you'll need to install the ~lintr~ packa
 
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck ; checks for style and syntax
-    :ensure t
     :config
     (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
     ;; I don't care if code is commented out in R:
@@ -2261,7 +2212,6 @@ Electric operator will turn ~a=10*5+2~ into ~a = 10 * 5 + 2~, so let's enable it
 
 #+BEGIN_SRC emacs-lisp
   (use-package electric-operator
-    :ensure t
     :config
     (setq electric-operator-R-named-argument-style 'spaced)
     (add-hook 'ess-mode-hook #'electric-operator-mode)
@@ -2272,7 +2222,6 @@ Whitespace is evil. Let's get rid of as much as possible. But we don't want to d
 
 #+BEGIN_SRC emacs-lisp
   (use-package ws-butler
-    :ensure t
     :config
     (add-hook 'prog-mode-hook #'ws-butler-mode)
     (add-hook 'ess-mode-hook #'ws-butler-mode))
@@ -2283,7 +2232,6 @@ Markdown mode for Markdown editing!
 
 #+BEGIN_SRC emacs-lisp
   (use-package markdown-mode
-    :ensure t
     :commands (markdown-mode gfm-mode)
     :mode (("README\\.md\\'" . gfm-mode)
            ("\\.md\\'" . markdown-mode)
@@ -2296,14 +2244,14 @@ Markdown mode for Markdown editing!
 Markdown relies on this package for =C-c '= to edit source code blocks (like org mode):
 #+BEGIN_SRC emacs-lisp
   (use-package edit-indirect
-    :ensure t)
+    :defer t)
 #+END_SRC
 
 Of course, markdown contains a yaml header, so we need yaml-mode as well:
 
 #+BEGIN_SRC emacs-lisp
   (use-package yaml-mode
-    :ensure t
+    :disabled t
     :mode (("\\.yml\\'" . yaml-mode)))
 #+END_SRC
 
@@ -2312,7 +2260,6 @@ AuCTeX is better than the built in tex mode; let's use it. It's good out of the 
 
 #+BEGIN_SRC emacs-lisp
   (use-package tex-site
-    :ensure auctex
     :config
     (add-hook 'LaTeX-mode-hook #'LaTeX-math-mode)
     (setq TeX-auto-save t
@@ -2400,7 +2347,6 @@ Cdlatex lets me write latex in org-mode. It's particularly useful for math. [[ht
 
 #+BEGIN_SRC emacs-lisp
   (use-package cdlatex
-    :ensure t
     :config
     (progn
       (add-hook 'org-mode-hook 'org-cdlatex-mode)))
@@ -2412,7 +2358,6 @@ Flyspell checks for spelling on the fly. I use aspell instead of ispell because 
 ** Flyspell
 #+BEGIN_SRC emacs-lisp
   (use-package flyspell
-    :ensure t
     :init
     (setq flyspell-use-meta-tab nil)
     :config
@@ -2426,23 +2371,18 @@ Flyspell checks for spelling on the fly. I use aspell instead of ispell because 
   (setq vc-follow-symlinks t) ; don't ask to follow symlinks
 #+END_SRC
 ** Diff highlights
-
 #+BEGIN_SRC emacs-lisp
-  (use-package git-gutter+
-    :ensure t
-    :init
-    (global-git-gutter+-mode)
+  (use-package diff-hl
     :config
-    (setq git-gutter+-modified-sign "¤"))
+    (setq diff-hl-draw-borders nil)
+    (global-diff-hl-mode)
+    (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh t))
 #+END_SRC
-
 ** Git & Magit
 Magit is better than the command line for git. I don't modify much. I just bind it to =C-x g=. I also set it up that it will run alone in the frame, then restore your previous window configuration when you exit.
 
 #+BEGIN_SRC emacs-lisp
   (use-package magit ; for git
-    :ensure t
-    :pin melpa-stable
     :bind
     ("C-x g" . magit-status)
     ("C-x M-g b" . magit-blame)
@@ -2455,36 +2395,28 @@ Modes for git files:
 
 #+BEGIN_SRC emacs-lisp
   (use-package gitattributes-mode
-    :ensure t)
+    :defer t)
   (use-package gitconfig-mode
-    :ensure t)
+    :defer t)
   (use-package gitignore-mode
-    :ensure t)
+    :defer t)
 #+END_SRC
 
 And to step through the history of a file:
 
 #+BEGIN_SRC emacs-lisp
   (use-package git-timemachine
-    :ensure t
     :bind
     ("C-x M-g t" . git-timemachine)
     :commands (git-timemachine))
-#+END_SRC
-
-I autocommit a few files, like notes and todo:
-
-#+BEGIN_SRC emacs-lisp
-  (use-package git-auto-commit-mode
-    :ensure t )
 #+END_SRC
 
 *** Github
 **** Magithub
 #+BEGIN_SRC emacs-lisp
   (use-package magithub
+    :disabled t
     :after magit
-    :ensure t
     :config
     (magithub-feature-autoinject t))
 #+END_SRC
@@ -2505,6 +2437,7 @@ Finally, we can get mu4e set up.
 #+BEGIN_SRC emacs-lisp
   (use-package mu4e
     :if (executable-find "mu")
+    :load-path "/usr/share/emacs/site-lisp/mu4e"
     :bind
     (("C-x m" . mu4e-compose-new)
      ("<f9>" . my/work-inbox)
@@ -2761,14 +2694,6 @@ Finally, we can get mu4e set up.
       ;; when mail is sent, automatically convert org body to HTML
       :config
       (setq org-mu4e-convert-to-html t))
-    (use-package mu4e-maildirs-extension
-      :ensure t
-      :config
-      (setq mu4e-maildirs-extension-custom-list
-            '("/utexas/INBOX"
-              "/gmail/INBOX"
-              "/gu/INBOX"))
-      (mu4e-maildirs-extension-load))
     ) ; finishes use-package mu4e
 #+END_SRC
 
@@ -2871,7 +2796,6 @@ This function helps with an expandable snippet. [[http://pragmaticemacs.com/emac
 ** Mail alerts
 #+BEGIN_SRC emacs-lisp
   (use-package mu4e-alert
-    :ensure t
     :if (executable-find "mu")
     :config
     (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
@@ -2890,7 +2814,6 @@ I can use helm to help me search emails and contacts:
 
 #+BEGIN_SRC emacs-lisp
   (use-package helm-mu
-    :ensure t
     :bind
     (("M-s m" . helm-mu)
      ("M-s c" . helm-mu-contacts)
@@ -2924,7 +2847,6 @@ I use [[https://github.com/skeeto/elfeed][elfeed]] to manage some RSS links:
 
 #+BEGIN_SRC emacs-lisp
   (use-package elfeed
-    :ensure t
     :bind
     (:map my/map
           ("s" . bjm/elfeed-load-db-and-open)
@@ -2979,17 +2901,13 @@ I use [[https://github.com/skeeto/elfeed][elfeed]] to manage some RSS links:
       "Show elfeed log."
       (interactive)
       (view-buffer-other-window "*elfeed-log*"))
-    (use-package elfeed-link
-      ;; This sets up org links for org capture and the like
-      ;; no ensure, since it comes with elfeed
-      ))
+    (use-package elfeed-link))
 #+END_SRC
 
 [[https://github.com/remyhonig/elfeed-org][elfeed-org]] lets me store my subscriptions in a more sane way:
 
 #+BEGIN_SRC emacs-lisp
   (use-package elfeed-org
-    :ensure t
     :init
     (setq rmh-elfeed-org-files '("~/Sync/.elfeed/rmh-elfeed.org"))
     :config
@@ -3000,7 +2918,7 @@ Stack Exchange is the place to go to get questions answered. This lets me search
 
 #+BEGIN_SRC emacs-lisp
   (use-package sx
-    :ensure t
+    :defer t
     :bind ("M-s x" . sx-search)
     :commands (sx-search sx-open-link)
     :init
@@ -3013,7 +2931,6 @@ Yes, Emacs can search and display results from wolfram alpha.
 Who /wouldn't/ want their text editor to do so?
 #+BEGIN_SRC emacs-lisp
   (use-package wolfram
-    :ensure t
     :defer t
     :if (executable-find "pass")
     :bind
@@ -3040,7 +2957,6 @@ I can query [[https://translate.google.com][Google translate]] from within Emacs
 [[http://ledger-cli.org/][Ledger]] is a program that I use to keep track of finances. Emacs, of course, can handle it quite nicely.
 #+BEGIN_SRC emacs-lisp
   (use-package ledger-mode
-    :ensure t
     :if (executable-find "ledger")
     :mode ("\\.ledger$" . ledger-mode)
     :bind
