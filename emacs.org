@@ -841,12 +841,14 @@ Use Emacs' built in =eww= broswer (the Emacs Web Wowser!) by default.
             (".apsanet.*" . browse-url-firefox)
             (".interfolio.*" . browse-url-firefox)
             (".academicjobsonline.*" . browse-url-firefox)
+            (".accounts.google.com*" . browse-url-firefox)
             ("." . eww-browse-url))))
 #+END_SRC
 
 If a webpage requires more than eww can handle, I can switch to the system default by tapping =&= or =0=:
 #+BEGIN_SRC emacs-lisp
   (use-package eww
+    :commands (eww eww-search-words)
     :bind
     (:map eww-mode-map
           ("0" . eww-browse-with-external-browser)))
