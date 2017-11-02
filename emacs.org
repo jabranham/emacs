@@ -2122,6 +2122,7 @@ Note that for this to work, you'll need ~bash-completion~ installed.
 #+BEGIN_SRC emacs-lisp
   (use-package bash-completion
     :config
+    (setq bash-completion-nospace t)
     (setq eshell-default-completion-function 'eshell-bash-completion)
     (defun eshell-bash-completion ()
       (while (pcomplete-here
