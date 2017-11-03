@@ -17,11 +17,13 @@ Emacs can be a window manager for X. Yes, really.
       :if (equal (system-name) "mars")
       :demand t
       :config
-      (setq exwm-randr-workspace-output-plist '(1 "DP-2"))
+      (setq exwm-randr-workspace-output-plist '(0 "eDP-1"
+                                                  1 "DP-2"
+                                                  2 "HDMI-1"))
       (add-hook 'exwm-randr-screen-change-hook
                 (lambda ()
                   (start-process-shell-command
-                   "xrandr" nil "xrandr --output DP-2 --right-of eDP-1 --auto")))
+                   "xrandr" nil "xrandr --output DP-2 --right-of eDP-1 --auto --output HDMI-1 --left-of eDP-1 --auto")))
       (exwm-randr-enable))
     ;; System tray
     (use-package exwm-systemtray
