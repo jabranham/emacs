@@ -45,7 +45,7 @@
   :init (setq epkg-repository
               (expand-file-name "var/epkgs/" user-emacs-directory)))
 
-(org-babel-load-file "~/code/emacs-g/emacs.org")
+(org-babel-load-file "~/.emacs.d/emacs.org")
 
 ;; Local Variables:
 ;; indent-tabs-mode: nil
