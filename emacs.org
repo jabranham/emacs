@@ -419,7 +419,7 @@ NOTE: ~pdf-tools~ only officially supports gnu/linux operating systems. I think 
     ;; Use C-RET in latex mode to jump to location in pdf file
     (setq pdf-sync-forward-display-pdf-key "<C-return>")
     ;; The t says to install the server without asking me
-    (pdf-tools-install)
+    (pdf-tools-install t)
     ;; Show full pages by default instead of fitting page width:
     (setq-default pdf-view-display-size 'fit-page)
     ;; Use pdf-tools to display pdfs from latex runs:
