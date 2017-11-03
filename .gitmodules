@@ -184,6 +184,7 @@
 [submodule "org"]
 	path = lib/org
 	url = git://orgmode.org/org-mode.git
+	branch = maint
 	load-path = lisp
 	info-path = doc
 	build-step = make compile autoloads info 
