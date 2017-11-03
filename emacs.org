@@ -656,18 +656,16 @@ This replaces =window-numbering= since =winum= can handle assigning numbers acro
 ** Frame management
 Prompt me to save changed buffers if I'm closing the last frame (and Emacs is running as a daemon):
 #+BEGIN_SRC emacs-lisp
-  (if (daemonp)
-      (progn
-        (defun my/save-if-last-frame (frame)
-          (when (eq 1 (cl-count-if
-                       (lambda (f)
-                         (eq
-                          (frame-parameter f 'display)
-                          (frame-parameter frame 'display)))
-                       (visible-frame-list)))
-            (save-some-buffers)))
-
-        (add-to-list 'delete-frame-functions #'my/save-if-last-frame)))
+  (when (daemonp)
+    (add-to-list 'delete-frame-functions
+                 (defun my/save-if-last-frame (frame)
+                   (when (eq 1 (cl-count-if
+                                (lambda (f)
+                                  (eq
+                                   (frame-parameter f 'display)
+                                   (frame-parameter frame 'display)))
+                                (visible-frame-list)))
+                     (save-some-buffers)))))
 
 #+END_SRC
 
@@ -804,33 +802,6 @@ Emacs undo system is incredibly powerful but a bit confusing. This package has a
   (use-package hydra)
 #+END_SRC
 
-** Move buffers
-Sometimes the buffers are in the wrong places. This lets me move them around.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package buffer-move
-  :disabled t
-    :bind
-    ("M-S-<up>" . buf-move-up)
-    ("M-S-<down>" . buf-move-down)
-    ("M-S-<left>" . buf-move-left)
-    ("M-S-<right>" . buf-move-right)
-    :config
-    (setq buffer-move-behavior 'move))
-#+END_SRC
-
-Here's a quick [[https://github.com/abo-abo/hydra][hydra]] that I wrote to quickly move buffers from window to window:
-
-#+BEGIN_SRC emacs-lisp
-  (defhydra hydra-window ()
-    "window management"
-    ("l" buf-move-left "left")
-    ("r" buf-move-right "right")
-    ("d" buf-move-down "down")
-    ("u" buf-move-up "up"))
-  (bind-key "C-c m b" #'hydra-window/body)
-#+END_SRC
-
 ** Auto indent
 
 [[https://github.com/Malabarba/aggressive-indent-mode][Aggressive indent mode]] keeps code indented automatically, even after rearranging stuff:
@@ -936,7 +907,25 @@ If a webpage requires more than eww can handle, I can switch to the system defau
     :commands (eww eww-search-words)
     :bind
     (:map eww-mode-map
-          ("0" . eww-browse-with-external-browser)))
+          ("0" . eww-browse-with-external-browser))
+    :config
+    ;; By default, =M-s M-w= searches for text in the region. I overwrite it to
+    ;; search for text in region if active and not whitespace, prompt otherwise.
+    ;; This is the default behavior starting with Emacs 26.1, so I can delete this
+    ;; when that's released
+    (defun eww-search-words ()
+      "Search the web for the text between BEG and END.
+     If region is active (and not whitespace), search the web for
+     the text between BEG and END.  Else, prompt the user for a search
+     string.  See the `eww-search-prefix' variable for the search
+     engine used."
+      (interactive)
+      (if (use-region-p)
+          (let ((region-string (buffer-substring (region-beginning) (region-end))))
+            (if (not (string-match-p "\\`[ \n\t\r\v\f]*\\'" region-string))
+                (eww region-string)
+              (call-interactively 'eww)))
+        (call-interactively 'eww))))
 #+END_SRC
 
 =eww-lnum= makes following links a little easier:
@@ -950,21 +939,9 @@ If a webpage requires more than eww can handle, I can switch to the system defau
           ("F" . eww-lnum-universal)))
 #+END_SRC
 
-By default, =M-s M-w= searches for text in the region. I overwrite it to search for text in region if active and not whitespace, prompt otherwise:
+
 #+BEGIN_SRC emacs-lisp
-  (defun eww-search-words ()
-    "Search the web for the text between BEG and END.
-     If region is active (and not whitespace), search the web for
-     the text between BEG and END.  Else, prompt the user for a search
-     string.  See the `eww-search-prefix' variable for the search
-     engine used."
-    (interactive)
-    (if (use-region-p)
-        (let ((region-string (buffer-substring (region-beginning) (region-end))))
-          (if (not (string-match-p "\\`[ \n\t\r\v\f]*\\'" region-string))
-              (eww region-string)
-            (call-interactively 'eww)))
-      (call-interactively 'eww)))
+
 #+END_SRC
 ** Tramp
 TRAMP allows me to visit remote files in my local Emacs instance.
@@ -1522,7 +1499,6 @@ Projectile makes using projects easier in emacs. It also plays well with helm, s
   (use-package projectile
     :config
     (projectile-mode)
-    (bind-key "c" #'helm-make-projectile projectile-command-map)
     (use-package helm-projectile
       :config
       (setq projectile-completion-system 'helm)
