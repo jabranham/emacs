@@ -169,6 +169,9 @@
 [submodule "markdown-mode"]
 	path = lib/markdown-mode
 	url = git@github.com:jrblevin/markdown-mode.git
+[submodule "mixed-pitch"]
+	path = lib/mixed-pitch
+	url = git@github.com:jabranham/mixed-pitch.git
 [submodule "mu4e-alert"]
 	path = lib/mu4e-alert
 	url = git@github.com:iqbalansari/mu4e-alert.git
