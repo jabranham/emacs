@@ -49,6 +49,7 @@
 
 ;; Local Variables:
 ;; indent-tabs-mode: nil
+;; no-byte-compile: t
 ;; End:
 
 ;;; init.el ends here
