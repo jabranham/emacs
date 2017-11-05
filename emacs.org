@@ -569,7 +569,7 @@ Also, we can substitute the [[http://fontawesome.io/icon/code-fork/][code fork]]
 
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
-    :defer 20
+    :defer 7
     :commands which-key-mode
     :config
     (which-key-mode))
@@ -1420,7 +1420,6 @@ Helm. A [[https://tuhdo.github.io/helm-intro.html][package in a league of its ow
 ** Helm and references (helm-bibtex)
 #+BEGIN_SRC emacs-lisp
   (use-package helm-bibtex
-    :demand t
     :bind
     (:map my/map
           ("r b" . my/find-bib-file))
@@ -1609,6 +1608,7 @@ And we can make it integrate with org-agenda:
 
 #+BEGIN_SRC emacs-lisp
   (use-package ox
+    :defer t
     :config
     ;; don't include a table of contents when exporting
     (setq org-export-with-toc nil)
@@ -1667,7 +1667,6 @@ This will make the contents of code blocks use the same font locking (syntax hig
 I use org-ref to manage my references.
 #+BEGIN_SRC emacs-lisp
   (use-package org-ref
-    :demand t ; make sure this gets loaded since I use it all the time
     :bind*
     (("C-c C-r" . org-ref-helm-insert-cite-link)
      :map bibtex-mode-map
@@ -2071,6 +2070,7 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
 
 #+BEGIN_SRC emacs-lisp
   (use-package eshell
+    :defer t
     :config
     (setq eshell-cmpl-cycle-completions nil
           ;; auto truncate after 20k lines
@@ -2540,6 +2540,7 @@ And to step through the history of a file:
 Ediff is great, but I have to tell it to use one frame (since I start Emacs before X/wayland, it defaults to using two frames).
 #+BEGIN_SRC emacs-lisp
   (use-package ediff
+    :defer t
     :config
     (defun my/ediff-prepare-buffer ()
       "Function to prepare ediff buffers. 
