@@ -229,6 +229,7 @@
     ("inderdisciplinary" "interdisciplinary" nil 0)
     ("individiauls'" "individuals'" nil 0)
     ("infomation" "information" nil 0)
+    ("ingrediants" "ingredients" nil 0)
     ("intrepret" "interpret" nil 2)
     ("intrepretation" "interpretation" nil 1)
     ("inversly" "inversely" nil 0)
@@ -507,9 +508,13 @@
 
 (define-abbrev-table 'tex-shell-abbrev-table '())
 
+(define-abbrev-table 'texinfo-mode-abbrev-table '())
+
 (define-abbrev-table 'text-mode-abbrev-table '())
 
 (define-abbrev-table 'url-cookie-mode-abbrev-table '())
+
+(define-abbrev-table 'vc-dir-mode-abbrev-table '())
 
 (define-abbrev-table 'vc-git-log-edit-mode-abbrev-table '())
 
