@@ -1551,6 +1551,14 @@ Org tags look like =:this:= at the end of a heading.
                                    ("@work" . ?w)
                                    ("@home" . ?h)
                                    (:endgroup . nil)))
+
+  ;; I keep my recipes in an org file and tag them based on what kind of dish they
+  ;; are. The level one headings are names, and each gets two level two headings
+  ;; --- ingredients and directions. To easily search via tag, I can restrict
+  ;; org-agenda to that buffer using < then hit m to match based on a tag.
+  (setq org-tags-exclude-from-inheritance
+        '("BREAKFAST" "DINNER" "DESSERT" "SIDE" "CHICKEN" "PORK" "SEAFOOD" "BEEF"
+          "PASTA" "SOUP" "SNACK" "DRINK" "LAMB"))
 #+END_SRC
 
 ** Calendar
