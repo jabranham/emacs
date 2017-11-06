@@ -416,8 +416,8 @@ NOTE: ~pdf-tools~ only officially supports gnu/linux operating systems. I think 
 #+BEGIN_SRC emacs-lisp
   (use-package pdf-tools
     :if (eq system-type 'gnu/linux)
+    :defer 3
     :config
-    (require 'pdf-occur)
     ;; Use C-RET in latex mode to jump to location in pdf file
     (setq pdf-sync-forward-display-pdf-key "<C-return>")
     ;; The t says to install the server without asking me
