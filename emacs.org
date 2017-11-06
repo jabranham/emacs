@@ -220,6 +220,7 @@ Emacs has an amazing help system built in.
 Set it up so Emacs can send system notifications:
 #+BEGIN_SRC emacs-lisp
   (use-package alert
+    :defer t
     :config
     (if (executable-find "notify-send")
         (setq alert-default-style 'libnotify)))
@@ -1621,6 +1622,7 @@ And we can make it integrate with org-agenda:
 Need to let org know how to export to latex letters:
 #+BEGIN_SRC emacs-lisp
   (use-package ox-latex
+    :defer t
     :config
     (setq org-latex-pdf-process '("latexmk -synctex=1 -xelatex %f"))
     (add-to-list 'org-latex-classes
@@ -2960,7 +2962,6 @@ ERC is Emacs's client for IRC.
           erc-port "6667"
           erc-server "irc.freenode.net"
           erc-password (password-store-get "irc.freenode.net"))
-    (setq erc-join-buffer 'bury)
     (setq erc-autojoin-channels-alist '(("freenode.net" "#emacs" "#archlinux")))
     (setq erc-server-reconnect-timeout 5)
     (setq erc-server-reconnect-attempts 12)
