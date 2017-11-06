@@ -2211,6 +2211,8 @@ ESS (Emacs Speaks Statistics) is a [[http://ess.r-project.org/][great project]] 
 
 #+BEGIN_SRC emacs-lisp
   (use-package ess-site
+    :commands (R R-mode)
+    :load-path "lib/ess/lisp"
     :bind
     (:map ess-mode-map
           ("C-a" . crux-move-beginning-of-line)
@@ -2223,7 +2225,7 @@ ESS (Emacs Speaks Statistics) is a [[http://ess.r-project.org/][great project]] 
           ("_"   . self-insert-command))
     :config
     (setq ess-nuke-trailing-whitespace-p t)
-    (setq ess-default-style 'Rstudio)
+    (setq ess-default-style 'RStudio)
     (setq ess-eval-visibly 'nowait) ; don't hog Emacs
     (setq ess-ask-for-ess-directory nil) ; don't ask for dir when starting a process
     (setq ess-eldoc-show-on-symbol t) ; show eldoc on symbol instead of only inside of parens
