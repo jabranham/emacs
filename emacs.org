@@ -1797,10 +1797,10 @@ Lock to current file: =C-u C-c C-x <=
      ("x" . my/org-agenda-mark-done)) ; overrides org-exit
     :init
     ;; set up org agenda files for the agenda
-    (setq org-agenda-files (list org-default-notes-file
-                                 my/org-inbox
-                                 my/org-notes
-                                 my/org-scheduled))
+    (setq org-agenda-files `(,org-default-notes-file
+                             ,my/org-inbox
+                             ,my/org-scheduled))
+    (setq org-agenda-text-search-extra-files `(,my/org-notes))
     ;; The calendar file might not exist yet, so only attempt to add it if it does:
     (defvar my/calendar-file (concat org-directory "gcal.org"))
     (if (file-readable-p my/calendar-file)
