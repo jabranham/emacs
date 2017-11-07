@@ -1658,11 +1658,10 @@ Org-babel is included in org. We just need to tell it which languages to load. A
 #+END_SRC
 
 *** Code block font locking
-This will make the contents of code blocks use the same font locking (syntax highlighting) as the major mode. It'll also make the tab key act like you want it to inside code blocks.
+This will make the tab key act like you want it to inside code blocks.
 
 #+BEGIN_SRC emacs-lisp
-  (setq org-src-fontify-natively     t
-        org-src-tab-acts-natively    t)
+  (setq org-src-tab-acts-natively    t)
 #+END_SRC
 
 ** References (org-ref)
