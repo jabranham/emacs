@@ -47,6 +47,8 @@
 
 (org-babel-load-file (concat user-emacs-directory "emacs.org"))
 
+(add-hook 'emacs-startup-hook (lambda () (message (concat "Booted in: " (emacs-init-time)))))
+
 ;; Local Variables:
 ;; indent-tabs-mode: nil
 ;; no-byte-compile: t
