@@ -243,6 +243,7 @@
     ("netweok" "network" nil 0)
     ("occured" "occurred" nil 0)
     ("partisanshpi" "partisanship" nil 0)
+    ("pecularities" "peculiarities" nil 0)
     ("phenomina" "phenomena" nil 0)
     ("politiacl" "political" nil 0)
     ("preferneces" "preferences" nil 3)
@@ -452,9 +453,7 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
 (define-abbrev-table 'reftex-select-bib-mode-abbrev-table '())
 
