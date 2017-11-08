@@ -1725,6 +1725,7 @@ I use org-ref to manage my references.
             ("LSQ" "Legislative Studies Quarterly" "Leg. Stud. Quar.")
             ("PA" "Political Analysis" "Pol. Analy.")
             ("PB" "Political Behavior" "Pol Behavior")
+            ("PC" "Political Communication" "Pol Comm")
             ("PoP" "Perspectives on Politics" "Perspect. polit.")
             ("POQ" "Public Opinion Quarterly" "Pub. Opin. Quar.")
             ("PP" "Party Politics" "Par Pol")
