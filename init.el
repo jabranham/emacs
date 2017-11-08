@@ -11,7 +11,7 @@
   (setq package-enable-at-startup nil)
   (setq inhibit-startup-buffer-menu t)
   (setq inhibit-startup-screen t)
-  (setq inhibit-startup-echo-area-message user-login-name)
+  (advice-add #'display-startup-echo-area-message :override #'ignore)
   (setq load-prefer-newer t)
   (scroll-bar-mode 0)
   (tool-bar-mode 0)
