@@ -94,6 +94,7 @@
 	path = lib/ess
 	url = git@github.com:emacs-ess/ESS.git
 	build-step = make
+	info-path = doc
 [submodule "exec-path-from-shell"]
 	path = lib/exec-path-from-shell
 	url = git@github.com:purcell/exec-path-from-shell.git
