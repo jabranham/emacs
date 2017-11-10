@@ -1943,9 +1943,11 @@ But I use it pretty much exclusively to notify me of upcoming org items I've sch
     (appt-activate 1) ; activate appt
     (setq appt-display-interval appt-message-warning-time) ; don't notify more than once
     (defun my/appt-display (time-til time msg)
-      (dotimes (i (length msg))
-        (alert (concat (nth i msg) " in " (nth i time-til) " minutes")
-               :title "Appt")))
+      (if (listp time-til)
+          (dotimes (i (length msg))
+            (alert (concat (nth i msg) " in " (nth i time-til) " minutes")
+                   :title "Appt"))
+        (alert msg " in " time-til " minutes" :title "Appt")))
     (setq appt-disp-window-function #'my/appt-display)
     (setq appt-delete-window-function (lambda () t)))
 #+END_SRC
