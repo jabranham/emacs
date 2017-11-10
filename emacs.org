@@ -849,7 +849,6 @@ This adds syntax highlighting for it (Emacs can do a decent job out-of-the box w
 Emacs can support multiple cursors. I don't use this much, but it's super handy when I do need it:
 #+BEGIN_SRC emacs-lisp
   (use-package multiple-cursors
-    :demand t
     :bind ("C-c m c" . my/mc-hydra/body)
     :commands (mc/edit-lines mc/mark-all-like-this)
     :config
