@@ -2281,6 +2281,7 @@ The package is called python, the mode is python-mode:
     :mode ("\\.py\\'". python-mode)
     :interpreter ("python" . python-mode)
     :config
+    (setq python-indent-guess-indent-offset-verbose nil)
     (setq python-indent-offset 4))
 #+END_SRC
 
