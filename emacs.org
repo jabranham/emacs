@@ -1228,7 +1228,7 @@ I integrate yasnippet with hippie-expand so using ~hippie-expand~ expands a snip
     ;; use hippie-expand instead
     (setq yas-minor-mode-map (make-sparse-keymap))
     :config
-    (push 'yas-hippie-try-expand hippie-expand-try-functions-list)
+    (add-to-list 'hippie-expand-try-functions-list #'yas-hippie-try-expand)
     ;; If region selected, wrap snippet around it:
     (setq yas-wrap-around-region t)
     ;; If competing snippets, use completing-read (helm) to select:
