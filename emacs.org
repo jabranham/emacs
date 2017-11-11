@@ -2460,15 +2460,6 @@ And to step through the history of a file:
 #+END_SRC
 
 *** Github
-**** Magithub
-#+BEGIN_SRC emacs-lisp
-  (use-package magithub
-    :disabled t
-    :after magit
-    :config
-    (magithub-feature-autoinject t))
-#+END_SRC
-
 * Diff
 ** ediff
 Ediff is great, but I have to tell it to use one frame (since I start Emacs before X/wayland, it defaults to using two frames).
