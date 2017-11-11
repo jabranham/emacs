@@ -2304,14 +2304,6 @@ Markdown relies on this package for =C-c '= to edit source code blocks (like org
     :defer t)
 #+END_SRC
 
-Of course, markdown contains a yaml header, so we need yaml-mode as well:
-
-#+BEGIN_SRC emacs-lisp
-  (use-package yaml-mode
-    :disabled t
-    :mode (("\\.yml\\'" . yaml-mode)))
-#+END_SRC
-
 * LaTeX
 AuCTeX is better than the built in tex mode; let's use it. It's good out of the box, but I like to use latexmk so that I don't have to remember to rerun the file X times to get references right.
 
