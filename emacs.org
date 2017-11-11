@@ -2244,14 +2244,6 @@ Elpy is a ton of customizations for python. Load it up:
       (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
       (add-hook 'elpy-mode-hook 'flycheck-mode)))
 #+END_SRC
-* Stan
-Stan is a Bayesian modeling language. Emacs has a mode for it (of course!)
-
-#+BEGIN_SRC emacs-lisp
-  (use-package stan-mode
-    :disabled t
-    :mode ("\\.stan\\'". stan-mode))
-#+END_SRC
 * CSV files
 Emacs can handle csv files with ease:
 #+BEGIN_SRC emacs-lisp
