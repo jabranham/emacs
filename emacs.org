@@ -737,31 +737,6 @@ Start the server:
     (setq-default abbrev-mode t))
 #+END_SRC
 
-** popwin
-[[https://github.com/m2ym/popwin-el][popwin]] describes itself as freeing me from the hell of annoying buffers. Let's see if that's true:
-
-#+BEGIN_SRC emacs-lisp
-  (use-package popwin
-    :disabled t
-    :config
-    ;; Helper functions from the helm wiki to deal with help windows and a weird
-    ;; interaction between helm and popwin:
-    (defun *-popwin-help-mode-off ()
-      "Turn `popwin-mode' off for *Help* buffers."
-      (when (boundp 'popwin:special-display-config)
-        (customize-set-variable 'popwin:special-display-config
-                                (delq 'help-mode popwin:special-display-config))))
-    (defun *-popwin-help-mode-on ()
-      "Turn `popwin-mode' on for *Help* buffers."
-      (when (boundp 'popwin:special-display-config)
-        (customize-set-variable 'popwin:special-display-config
-                                (add-to-list 'popwin:special-display-config 'help-mode nil #'eq))))
-    (add-hook 'helm-minibuffer-set-up-hook #'*-popwin-help-mode-off)
-    (add-hook 'helm-cleanup-hook #'*-popwin-help-mode-on)
-    ;; Turn on popwin
-    (popwin-mode 1))
-#+END_SRC
-
 ** Encryption
 #+BEGIN_SRC emacs-lisp
   (use-package epa
