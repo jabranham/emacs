@@ -849,14 +849,6 @@ Emacs can support multiple cursors. I don't use this much, but it's super handy 
     ("r" mc/mark-all-in-region-regexp :exit t)
     ("q" nil)))
 #+END_SRC
-** Expand region
-I can use ~C-=~ to expand the region incrementally:
-
-#+BEGIN_SRC emacs-lisp
-  (use-package expand-region
-:disabled t
-    :bind ("C-=" . er/expand-region))
-#+END_SRC
 ** Browser (eww)
 Use Emacs' built in =eww= broswer (the Emacs Web Wowser!) by default.
 =browse-url-browser-function= can take a list of regex's and associate a specific browser with matches. So use eww for everything except a few things that don't work well:
