@@ -897,21 +897,6 @@ If a webpage requires more than eww can handle, I can switch to the system defau
         (call-interactively 'eww))))
 #+END_SRC
 
-=eww-lnum= makes following links a little easier:
-#+BEGIN_SRC emacs-lisp
-  (use-package eww-lnum
-    :disabled t
-    :after eww
-    :bind
-    (:map eww-mode-map
-          ("f" . eww-lnum-follow)
-          ("F" . eww-lnum-universal)))
-#+END_SRC
-
-
-#+BEGIN_SRC emacs-lisp
-
-#+END_SRC
 ** Tramp
 TRAMP allows me to visit remote files in my local Emacs instance.
 It's pretty sweet.
