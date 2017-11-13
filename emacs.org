@@ -776,7 +776,9 @@ I use [[https://www.passwordstore.org/][pass]] to manage all my passwords and lo
     :if (executable-find "pass")
     :demand t
     :init
-    (use-package auth-password-store)
+    (use-package auth-password-store
+      :config
+      (auth-pass-enable))
     :config
     (setq password-store-password-length 20)
     (use-package helm-pass
@@ -1957,6 +1959,7 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to sync with google
 #+BEGIN_SRC emacs-lisp
   (use-package org-gcal
     :if (executable-find "pass")
+    :defer 10
     :functions (my/refresh-appt-with-delay my/sync-calendar-start)
     :config
     (setq org-gcal-client-id (password-store--run "emacs/emacs-gcal-client-id")
@@ -2002,7 +2005,7 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to sync with google
        0 (* 60 60) ; every hour
        'my/sync-calendar-with-delay))
     ;; Start syncing when Emacs starts:
-    (add-hook 'after-init-hook #'my/sync-calendar-start)
+    (my/sync-calendar-start)
     ;; fix bug in org-cal--notify
     (defun new/org-gcal--notify (title mes)
       (message "org-gcal::%s - %s" title mes))
@@ -2567,6 +2570,8 @@ Finally, we can get mu4e set up.
 #+BEGIN_SRC emacs-lisp
   (use-package mu4e
     :if (executable-find "mu")
+    :defer 10
+    :commands (mu4e)
     :load-path "/usr/share/emacs/site-lisp/mu4e"
     :bind
     (("C-x m" . mu4e-compose-new)
@@ -2585,7 +2590,7 @@ Finally, we can get mu4e set up.
      ("q" . mu4e-quit-session)
      :map my/map
      ("m" . my-mu4e-start))
-    :init
+    :config
     (setq mu4e-maildir "~/.mail")
     ;; Start mu4e in fullscreen
     (defun my-mu4e-start ()
@@ -2599,8 +2604,6 @@ Finally, we can get mu4e set up.
       (interactive)
       (kill-buffer)
       (jump-to-register :mu4e-fullscreen))
-    (add-hook 'after-init-hook
-              (lambda () (mu4e t))) ; starts mu4e silently when emacs starts
     (defun my/work-inbox ()
       "Jump to work email"
       (interactive)
@@ -2622,35 +2625,6 @@ Finally, we can get mu4e set up.
       (if (eq major-mode 'mu4e-headers-mode)
           (mu4e-headers-mark-for-delete)
         (mu4e-view-mark-for-delete)))
-
-    ;; Here we define a function that cleans up contacts. Stolen from:
-    ;; https://martinralbrecht.wordpress.com/2016/05/30/handling-email-with-emacs/
-    (defun malb/canonicalise-contact-name (name)
-      (let ((case-fold-search nil))
-        (setq name (or name ""))
-        (if (string-match-p "^[^ ]+@[^ ]+\.[^ ]" name)
-            ""
-          (progn
-            ;; drop email address
-            (setq name (replace-regexp-in-string "^\\(.*\\) [^ ]+@[^ ]+\.[^ ]" "\\1" name))
-            ;; strip quotes
-            (setq name (replace-regexp-in-string "^\"\\(.*\\)\"" "\\1" name))
-            ;; deal with YELL’d last names
-            (setq name (replace-regexp-in-string "^\\(\\<[[:upper:]]+\\>\\) \\(.*\\)" "\\2 \\1" name))
-            ;; Foo, Bar becomes Bar Foo
-            (setq name (replace-regexp-in-string "^\\(.*\\), \\([^ ]+\\).*" "\\2 \\1" name))
-            ;; look up names and replace from static table, TODO look this up by email
-            ;; (setq name (or (cdr (assoc name malb/mu4e-name-replacements)) name))
-            ))))
-    (defun malb/mu4e-contact-rewrite-function (contact)
-      (let* ((name (or (plist-get contact :name) ""))
-             (mail (plist-get contact :mail))
-             (case-fold-search nil))
-        (plist-put contact :name (malb/canonicalise-contact-name name))
-        contact))
-    (setq mu4e-contact-rewrite-function #'malb/mu4e-contact-rewrite-function)
-
-    :config
     (setq mu4e-contexts
           `( ,(make-mu4e-context
                :name "utexas"
@@ -2824,6 +2798,34 @@ Finally, we can get mu4e set up.
       ;; when mail is sent, automatically convert org body to HTML
       :config
       (setq org-mu4e-convert-to-html t))
+    ;; Here we define a function that cleans up contacts. Stolen from:
+    ;; https://martinralbrecht.wordpress.com/2016/05/30/handling-email-with-emacs/
+    (defun malb/canonicalise-contact-name (name)
+      (let ((case-fold-search nil))
+        (setq name (or name ""))
+        (if (string-match-p "^[^ ]+@[^ ]+\.[^ ]" name)
+            ""
+          (progn
+            ;; drop email address
+            (setq name (replace-regexp-in-string "^\\(.*\\) [^ ]+@[^ ]+\.[^ ]" "\\1" name))
+            ;; strip quotes
+            (setq name (replace-regexp-in-string "^\"\\(.*\\)\"" "\\1" name))
+            ;; deal with YELL’d last names
+            (setq name (replace-regexp-in-string "^\\(\\<[[:upper:]]+\\>\\) \\(.*\\)" "\\2 \\1" name))
+            ;; Foo, Bar becomes Bar Foo
+            (setq name (replace-regexp-in-string "^\\(.*\\), \\([^ ]+\\).*" "\\2 \\1" name))
+            ;; look up names and replace from static table, TODO look this up by email
+            ;; (setq name (or (cdr (assoc name malb/mu4e-name-replacements)) name))
+            ))))
+    (defun malb/mu4e-contact-rewrite-function (contact)
+      (let* ((name (or (plist-get contact :name) ""))
+             (mail (plist-get contact :mail))
+             (case-fold-search nil))
+        (plist-put contact :name (malb/canonicalise-contact-name name))
+        contact))
+    (setq mu4e-contact-rewrite-function #'malb/mu4e-contact-rewrite-function)
+    ;; starts mu4e silently when emacs starts
+    (mu4e t)
     ) ; finishes use-package mu4e
 #+END_SRC
 
@@ -2927,6 +2929,8 @@ This function helps with an expandable snippet. [[http://pragmaticemacs.com/emac
 #+BEGIN_SRC emacs-lisp
   (use-package mu4e-alert
     :if (executable-find "mu")
+    :defer t
+    :after mu4e
     :config
     (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
     (setq mu4e-alert-email-notification-types '(subjects))
@@ -2943,6 +2947,7 @@ I can use helm to help me search emails and contacts:
 
 #+BEGIN_SRC emacs-lisp
   (use-package helm-mu
+    :defer t
     :bind
     (("M-s m" . helm-mu)
      ("M-s c" . helm-mu-contacts)
