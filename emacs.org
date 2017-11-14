@@ -1333,6 +1333,9 @@ Projectile makes using projects easier in emacs. It also plays well with helm, s
   (use-package projectile
     :config
     (projectile-mode)
+    ;; Set `magit-repository-directories' to `projectile-known-projects':
+    (with-eval-after-load 'magit
+      (setq magit-repository-directories (mapcar (lambda (x) `(,x . 0)) projectile-known-projects)))
     (use-package helm-projectile
       :config
       (setq projectile-completion-system 'helm)
