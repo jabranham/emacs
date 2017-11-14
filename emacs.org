@@ -751,9 +751,7 @@ I use [[https://www.passwordstore.org/][pass]] to manage all my passwords and lo
     :if (executable-find "pass")
     :demand t
     :init
-    (use-package auth-password-store
-      :config
-      (auth-pass-enable))
+    (use-package auth-password-store)
     :config
     (setq password-store-password-length 20)
     (use-package helm-pass
