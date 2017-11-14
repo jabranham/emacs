@@ -4,7 +4,6 @@
 Highlights from my configuration:
 
 - Uses the [[https://github.com/emacscollective/borg][borg]] package manager instead of built-in package.el
-- Support for using Emacs as your window manager (yes, really) using EXWM
 - Extensive org setup 
 - Set up for quantitative analysis in R and python
 - Support for \LaTeX with auctex
