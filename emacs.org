@@ -1250,7 +1250,6 @@ Helm. A [[https://tuhdo.github.io/helm-intro.html][package in a league of its ow
     (setq helm-split-window-inside-p t)
     (setq helm-display-header-line nil)
     (setq helm-echo-input-in-header-line t)
-    (setq helm-ff-skip-boring-files t)
     (use-package helm-files
       :config
       (push ".git$" helm-boring-file-regexp-list))
