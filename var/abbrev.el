@@ -155,6 +155,8 @@
 
 (define-abbrev-table 'exwm-mode-abbrev-table '())
 
+(define-abbrev-table 'ffip-diff-mode-abbrev-table '())
+
 (define-abbrev-table 'flycheck-error-list-mode-abbrev-table '())
 
 (define-abbrev-table 'fundamental-mode-abbrev-table '())
@@ -227,6 +229,7 @@
     ("implicitely" "implicitly" nil 0)
     ("incongruent" "congruent" nil 0)
     ("inderdisciplinary" "interdisciplinary" nil 0)
+    ("indicies" "indices" nil 1)
     ("individiauls'" "individuals'" nil 0)
     ("infomation" "information" nil 0)
     ("ingrediants" "ingredients" nil 0)
@@ -268,11 +271,12 @@
     ("systme" "system" nil 0)
     ("taht" "that" nil 2)
     ("teh" "the" nil 4)
-    ("tihs" "this" nil 6)
+    ("tihs" "this" nil 7)
     ("travelling" "traveling" nil 0)
     ("ubt" "but" nil 0)
     ("underreact" "react" nil 0)
     ("unmanagable" "unmanageable" nil 0)
+    ("wiht" "with" nil 0)
    ))
 
 (define-abbrev-table 'gnus-article-edit-mode-abbrev-table '())
@@ -453,7 +457,9 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'reftex-select-bib-mode-abbrev-table '())
 
