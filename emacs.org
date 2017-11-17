@@ -1446,6 +1446,7 @@ And we can make it integrate with org-agenda:
   (use-package ox
     :defer t
     :config
+    (setq org-export-with-smart-quotes t)
     ;; don't include a table of contents when exporting
     (setq org-export-with-toc nil)
     ;; This lets me override all the export variables with a =#+BIND:= statement
