@@ -1646,6 +1646,7 @@ Lock to current file: =C-u C-c C-x <=
     :config
     (setq org-agenda-skip-deadline-if-done t ; remove done deadlines from agenda
           org-agenda-skip-scheduled-if-done t ; remove done scheduled from agenda
+          org-agenda-skip-timestamp-if-done t ; don't show timestamped things in agenda if they're done
           ;; don't show scheduled if the deadline is visible unless it's
           ;; also scheduled for today:
           org-agenda-skip-scheduled-if-deadline-is-shown 'not-today
