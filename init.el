@@ -42,6 +42,8 @@
 
 (use-package epkg
   :defer t
+  :bind
+  ("C-h P" . epkg-describe-package)
   :init (setq epkg-repository
               (expand-file-name "var/epkgs/" user-emacs-directory)))
 
