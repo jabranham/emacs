@@ -638,19 +638,31 @@ Start the server:
     (setq epa-pinentry-mode 'loopback))
 #+END_SRC
 ** Passwords
-I use [[https://www.passwordstore.org/][pass]] to manage all my passwords and login info. This lets me easily access it from within emacs:
+I use [[https://www.passwordstore.org/][pass]] to manage all my passwords and login info. 
 
 #+BEGIN_SRC emacs-lisp
   (use-package password-store
     :if (executable-find "pass")
-    :demand t
-    :init
-    (use-package auth-password-store)
     :config
-    (setq password-store-password-length 20)
-    (use-package helm-pass
-      :after 'helm
-      :bind ("M-s p" . helm-pass)))
+    ;; Set longer default password length
+    (setq password-store-password-length 20))
+#+END_SRC
+
+Integrate Emacs's builtin auth-source with pass:
+#+BEGIN_SRC emacs-lisp
+  (use-package auth-password-store
+    :if (executable-find "pass")
+    :demand t
+    :config
+    (auth-pass-enable))
+#+END_SRC
+
+Set up helm to easily find passwords:
+#+BEGIN_SRC emacs-lisp
+  (use-package helm-pass
+    :if (executable-find "pass")
+    :after 'helm
+    :bind ("M-s p" . helm-pass))
 #+END_SRC
 ** Undo-tree
 Emacs undo system is incredibly powerful but a bit confusing. This package has a great visualization system that helps out, bound to =C-x u= by default.
