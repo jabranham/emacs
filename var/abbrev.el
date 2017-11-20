@@ -206,6 +206,7 @@
     ("democraphic" "demographic" nil 0)
     ("discrepency" "discrepancy" nil 0)
     ("divy" "divvy" nil 0)
+    ("ebcause" "because" nil 0)
     ("educaiton" "education" nil 3)
     ("emperical" "empirical" nil 3)
     ("entirally" "entirely" nil 0)
