@@ -1799,7 +1799,7 @@ But I use it pretty much exclusively to notify me of upcoming org items I've sch
           (dotimes (i (length msg))
             (alert (concat (nth i msg) " in " (nth i time-til) " minutes")
                    :title "Appt"))
-        (alert msg " in " time-til " minutes" :title "Appt")))
+        (alert (concat msg " in " time-til " minutes") :title "Appt")))
     (setq appt-disp-window-function #'my/appt-display)
     (setq appt-delete-window-function (lambda () t)))
 #+END_SRC
