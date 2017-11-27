@@ -94,7 +94,9 @@
 	path = lib/ess
 	url = git@github.com:emacs-ess/ESS.git
 	build-step = make
+	build-step = borg-update-autoloads
 	info-path = doc
+	build-step = borg-makeinfo
 [submodule "exec-path-from-shell"]
 	path = lib/exec-path-from-shell
 	url = git@github.com:purcell/exec-path-from-shell.git

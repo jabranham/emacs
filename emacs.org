@@ -2064,8 +2064,7 @@ ESS (Emacs Speaks Statistics) is a [[http://ess.r-project.org/][great project]] 
 
 #+BEGIN_SRC emacs-lisp
   (use-package ess-site
-    :commands (R R-mode)
-    :mode (("\\.[Rr]\\'" . R-mode))
+    :demand t
     :load-path "lib/ess/lisp"
     :bind
     (:map ess-mode-map
