@@ -2158,7 +2158,12 @@ Emacs can handle csv files with ease:
   (use-package csv-mode
     :mode (("\\.csv" . csv-mode)))
 #+END_SRC
-
+* stan
+#+BEGIN_SRC emacs-lisp
+  (use-package stan-mode
+    :defer t
+    :mode ("\\.stan\\'" . stan-mode))
+#+END_SRC
 * Code and syntax checking
 Emacs can tell you magically if your code is wrong (or just ugly). Flycheck is a minor mode for this. Let's enable it globally.
 

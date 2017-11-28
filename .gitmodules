@@ -264,6 +264,10 @@
 [submodule "spacemacs-theme"]
 	path = lib/spacemacs-theme
 	url = git@github.com:nashamri/spacemacs-theme.git
+[submodule "stan-mode"]
+	path = lib/stan-mode
+	url = git@github.com:stan-dev/stan-mode.git
+	load-path = stan-mode
 [submodule "sx"]
 	path = lib/sx
 	url = git@github.com:vermiculus/sx.el.git
