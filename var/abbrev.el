@@ -257,7 +257,7 @@
     ("publically" "publicly" nil 0)
     ("reciept" "receipt" nil 0)
     ("reciepts" "receipts" nil 1)
-    ("recommentation" "recommendation" nil 0)
+    ("recommentation" "recommendation" nil 1)
     ("recursivelly" "recursively" nil 0)
     ("redundent" "redundant" nil 0)
     ("relaionship" "relationship" nil 0)
@@ -267,6 +267,7 @@
     ("republiacns" "republicans" nil 0)
     ("resembelence" "resemblance" nil 0)
     ("sentance" "sentence" nil 0)
+    ("sentances" "sentences" nil 0)
     ("seperate" "separate" nil 0)
     ("sincerally" "sincerely" nil 0)
     ("superflous" "superfluous" nil 0)
@@ -461,9 +462,7 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
 (define-abbrev-table 'reftex-select-bib-mode-abbrev-table '())
 
