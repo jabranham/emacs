@@ -2056,8 +2056,7 @@ Here are a few miscellaneous settings for shell modes, including inferior ~R~ pr
   (use-package comint
     :config
     (setq comint-scroll-to-bottom-on-input 'this)
-    (setq comint-scroll-to-bottom-on-output t)
-    (setq comint-move-point-for-output t))
+    (setq comint-move-point-for-output nil))
 #+END_SRC
 * R (with ESS)
 ESS (Emacs Speaks Statistics) is a [[http://ess.r-project.org/][great project]] and makes Emacs speak with R.
