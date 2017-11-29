@@ -230,8 +230,8 @@ It's because [[https://www.johndcook.com/blog/2012/09/15/the-paper-is-too-big/][
     :bind
     (:map my/map
           ("v" . visual-fill-column-mode))
-    :config
-    (add-hook 'elfeed-show-mode-hook #'visual-fill-column-mode))
+    :hook
+    (elfeed-show-mode . visual-fill-column-mode))
 #+END_SRC
 
 ** Highlight numbers
@@ -239,9 +239,8 @@ I like to see numbers in code:
 #+BEGIN_SRC emacs-lisp
   (use-package highlight-numbers
     :commands (highlight-numbers-mode)
-    :init
-    (add-hook 'prog-mode-hook #'highlight-numbers-mode)
-    (add-hook 'ess-mode-hook #'highlight-numbers-mode))
+    :hook
+    ((prog-mode ess-mode) . highlight-numbers-mode))
 #+END_SRC
 
 ** Scrolling
@@ -293,10 +292,11 @@ I'm not good at keeping track of parentheses. This makes me slightly better at i
           ("M-<left>" . sp-previous-sexp)
           ("C-<right>" . sp-forward-slurp-sexp)
           ("C-<left>" . sp-forward-barf-sexp))
+    :hook
+    (inferior-ess-mode . smartparens-strict-mode)
     :config
     (use-package smartparens-config)
     (setq sp-show-pair-from-inside t)
-    (add-hook 'inferior-ess-mode-hook #'smartparens-strict-mode)
     (smartparens-global-strict-mode)
     (show-smartparens-global-mode))
 #+END_SRC
@@ -386,12 +386,13 @@ List directory sizes using ~du~:
     :bind
     (:map dired-mode-map
           ("S" . dired-du-mode))
+    :hook
+    (dired-mode . my/dired-maybe-hide-details)
     :config
     (setq dired-du-size-format t)
     (defun my/dired-maybe-hide-details ()
       "Hide details (owner, permissions, etc) in dired unless dired-du-mode is active."
-      (unless dired-du-mode (dired-hide-details-mode)))
-    (add-hook 'dired-mode-hook #'my/dired-maybe-hide-details))
+      (unless dired-du-mode (dired-hide-details-mode))))
 #+END_SRC
 
 This lets me make directories on the fly similar to =mkdir -p=. [[http://mbork.pl/2016-07-25_Making_directories_on_the_fly][Thanks!]]
@@ -1028,8 +1029,8 @@ Company mode provides autocompletion of text and code.
           ("RET" . company-complete-selection)
           ("C-n" . company-select-next)
           ("C-p" . company-select-previous))
-    :init
-    (add-hook 'after-init-hook #'global-company-mode)
+    :hook
+    (after-init . global-company-mode)
     :config
     (setq company-minimum-prefix-length 2)
     (setq company-idle-delay 0.5)
@@ -1412,8 +1413,10 @@ Org tags look like =:this:= at the end of a heading.
 Not technically part of org, but I'll stick the calendar config here since I mainly use it along with org-agenda (config'ed below)
 #+BEGIN_SRC emacs-lisp
   (use-package calendar
+    :defer t
+    :hook
+    (calendar-today-visible . calendar-mark-today)
     :config
-    (add-hook 'calendar-today-visible-hook 'calendar-mark-today)
     (calendar-set-date-style 'iso)
     (setq calendar-week-start-day 0) ; weeks start on Sunday
     (setq calendar-date-display-form calendar-iso-date-display-form)
@@ -1523,6 +1526,8 @@ I use org-ref to manage my references.
      :map my/map
      ("r d" . doi-add-bibtex-entry)
      ("r i" . isbn-to-bibtex))
+    :hook
+    (org-ref-clean-bibtex-entry .my/fix-journal-name)
     :init
     (setq org-ref-completion-library 'org-ref-helm-bibtex)
     (setq org-ref-bibliography-notes "~/Sync/bibliography/notes.org"
@@ -1617,8 +1622,6 @@ I use org-ref to manage my references.
           (when bstring
             (bibtex-set-field "journal" bstring)
             (bibtex-fill-entry)))))
-
-    (add-hook 'org-ref-clean-bibtex-entry-hook #'my/fix-journal-name)
 
     (use-package doi-utils
       :config
@@ -1866,9 +1869,10 @@ I can use [[https://github.com/myuhe/org-gcal.el][org-gcal]] to sync with google
 
 #+BEGIN_SRC emacs-lisp
   (use-package org-bullets
+    :hook
+    (org-mode . org-bullets-mode)
     :config
-    (setq org-bullets-bullet-list '("•")) ; Default is '("◉" "○" "✸" "✿")
-    (add-hook 'org-mode-hook #'org-bullets-mode))
+    (setq org-bullets-bullet-list '("•")))
 #+END_SRC
 
 ** Misc
@@ -1926,6 +1930,10 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
 #+BEGIN_SRC emacs-lisp
   (use-package eshell
     :defer t
+    :hook
+    ;; Make urls clickable
+    (eshell-mode . goto-address-mode)
+    (eshell-mode . my/setup-eshell)
     :config
     (setq eshell-cmpl-cycle-completions nil
           ;; auto truncate after 20k lines
@@ -1942,8 +1950,6 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
           eshell-ls-initial-args "-ah"
           ;; treat 'echo' like shell echo
           eshell-plain-echo-behavior t)
-    ;; Make urls clickable
-    (add-hook 'eshell-mode-hook #'goto-address-mode)
     (setq eshell-scroll-to-bottom-on-input 'this)
     (defun my/eshell-remote (host)
       "Open eshell on a remote host. 
@@ -1955,17 +1961,13 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
       (eshell)
       (setq default-directory (concat "/" host ":"))
       (eshell-reset))
-    ;; for whatever reason, I can't seem to bind these keys with the
-    ;; normal :bind mechanism use-package provides. Here's a wonky
-    ;; workaround.
-    (add-hook
-     'eshell-mode-hook
-     (lambda ()
-       (progn
-         (eshell-cmpl-initialize)
-         (define-key eshell-mode-map [remap eshell-pcomplete] 'helm-esh-pcomplete)
-         (unbind-key "M-s" eshell-mode-map)
-         (bind-key "M-r" #'helm-eshell-history eshell-mode-map))))
+    (defun my/setup-eshell ()
+      "Set up eshell how I want.  To be called by `eshell-mode-hook'."
+      (progn
+        (eshell-cmpl-initialize)
+        (define-key eshell-mode-map [remap eshell-pcomplete] 'helm-esh-pcomplete)
+        (unbind-key "M-s" eshell-mode-map)
+        (bind-key "M-r" #'helm-eshell-history eshell-mode-map)))
   ;;; Fix 27405, expected in Emacs 26.1+.
   ;;; https://debbugs.gnu.org/cgi/bugreport.cgi?bug=27405
   ;;; Emacs' standard functions fail when output has empty lines.
@@ -2017,19 +2019,17 @@ Shell-mode uses a "dumb" terminal. Sometimes that's annoying, but this fixes the
 
 #+BEGIN_SRC emacs-lisp
   (use-package shell
-    :config
+    :hook
     ;; Make urls clickable
-    (add-hook 'shell-mode-hook #'goto-address-mode))
+    (shell-mode . goto-address-mode))
 #+END_SRC
 
 ** with editor
 Use Emacs as the =$EDITOR= environmental variable:
 #+BEGIN_SRC emacs-lisp
   (use-package with-editor
-    :init
-    (progn
-      (add-hook 'shell-mode-hook  'with-editor-export-editor)
-      (add-hook 'eshell-mode-hook 'with-editor-export-editor))
+    :hook
+    ((shell-mode eshell-mode) . with-editor-export-editor)
     :config
     (shell-command-with-editor-mode))
 #+END_SRC
@@ -2170,30 +2170,30 @@ Flycheck can check your R code too, but you'll need to install the ~lintr~ packa
 
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck ; checks for style and syntax
+    :hook
+    (after-init . global-flycheck-mode)
     :config
     (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
     ;; I don't care if code is commented out in R:
-    (setq flycheck-lintr-linters "with_defaults(commented_code_linter = NULL)")
-    (add-hook 'after-init-hook #'global-flycheck-mode))
+    (setq flycheck-lintr-linters "with_defaults(commented_code_linter = NULL)"))
 #+END_SRC
 
 Electric operator will turn ~a=10*5+2~ into ~a = 10 * 5 + 2~, so let's enable it for R:
 
 #+BEGIN_SRC emacs-lisp
   (use-package electric-operator
+    :hook
+    ((ess-mode python-mode) . electric-operator-mode)
     :config
-    (setq electric-operator-R-named-argument-style 'spaced)
-    (add-hook 'ess-mode-hook #'electric-operator-mode)
-    (add-hook 'python-mode-hook #'electric-operator-mode))
+    (setq electric-operator-R-named-argument-style 'spaced))
 #+END_SRC
 * Whitespace
 Whitespace is evil. Let's get rid of as much as possible. But we don't want to do this with files that already had whitespace (from someone else's project, for example). This mode will call ~whitespace-cleanup~ before buffers are saved (but smartly)!
 
 #+BEGIN_SRC emacs-lisp
   (use-package ws-butler
-    :config
-    (add-hook 'prog-mode-hook #'ws-butler-mode)
-    (add-hook 'ess-mode-hook #'ws-butler-mode))
+    :hook
+    ((prog-mode ess-mode) . ws-butler-mode))
 #+END_SRC
 
 * Markdown
@@ -2223,13 +2223,14 @@ AuCTeX is better than the built in tex mode; let's use it. It's good out of the 
   (use-package tex-site
     :defines (latex-help-cmd-alist latex-help-file)
     :mode ("\\.tex\\'" . TeX-latex-mode)
+    :hook
+    (LaTeX-mode . LaTeX-math-mode)
+    (LaTeX-mode . reftex-mode)
+    (LaTeX-mode . TeX-PDF-mode)
     :config
-    (add-hook 'LaTeX-mode-hook #'LaTeX-math-mode)
     (setq TeX-auto-save t
           TeX-parse-self t
           reftex-plug-into-AUCTeX t)
-    (add-hook 'LaTeX-mode-hook 'reftex-mode)
-    (add-hook 'LaTeX-mode-hook #'TeX-PDF-mode)
     (setq TeX-source-correlate-method 'synctex)
     (setq TeX-source-correlate-mode t)
     (eval-after-load "tex"
@@ -2238,7 +2239,7 @@ AuCTeX is better than the built in tex mode; let's use it. It's good out of the 
     (eval-after-load "tex"
       '(add-to-list 'TeX-command-list '("xelatexmk" "latexmk -synctex=1 -xelatex %s"
                                         TeX-run-compile nil t :help "Process file with xelatexmk")))
-    (add-hook 'TeX-mode-hook (lambda () (setq TeX-command-default "latexmk")))
+    (setq-default TeX-command-default "latexmk")
     ;; Stop littering everywhere with auto/ directories
     (setq-default TeX-auto-local
                   (expand-file-name "auctex/auto" (concat user-emacs-directory "var")))
@@ -2282,7 +2283,8 @@ You will need to change ~reftex-default-bibliography~ to wherever you keep your 
 
 #+BEGIN_SRC emacs-lisp
   (use-package reftex
-    :commands turn-on-reftex
+    :hook
+    (LaTeX-mode . turn-on-reftex)
     :init
     (setq reftex-cite-format
           '((?\C-m . "\\cite[]{%l}")
@@ -2295,9 +2297,7 @@ You will need to change ~reftex-default-bibliography~ to wherever you keep your 
             (?x . "[]{%l}")
             (?X . "{%l}")))
     (setq reftex-default-bibliography '("~/Sync/bibliography/references.bib"))
-    (setq reftex-extra-bindings t)
-    :config
-    (add-hook 'LaTeX-mode-hook #'turn-on-reftex))
+    (setq reftex-extra-bindings t))
 #+END_SRC
 
 ** Latex math
@@ -2305,9 +2305,8 @@ Cdlatex lets me write latex in org-mode. It's particularly useful for math. [[ht
 
 #+BEGIN_SRC emacs-lisp
   (use-package cdlatex
-    :config
-    (progn
-      (add-hook 'org-mode-hook 'org-cdlatex-mode)))
+    :hook
+    (org-mode . org-cdlatex-mode))
 #+END_SRC
 
 * Spell Check
@@ -2318,10 +2317,9 @@ Flyspell checks for spelling on the fly. I use aspell instead of ispell because 
   (use-package flyspell
     :init
     (setq flyspell-use-meta-tab nil)
-    :config
-    (add-hook 'text-mode-hook #'turn-on-flyspell)
-    (add-hook 'prog-mode-hook #'flyspell-prog-mode)
-    (add-hook 'ess-mode-hook #'flyspell-prog-mode))
+    :hook
+    (text-mode . turn-on-flyspell)
+    ((prog-mode ess-mode) . flyspell-prog-mode))
 #+END_SRC
 * Version control
 #+BEGIN_SRC emacs-lisp
@@ -2331,9 +2329,10 @@ Flyspell checks for spelling on the fly. I use aspell instead of ispell because 
 ** Diff highlights
 #+BEGIN_SRC emacs-lisp
   (use-package diff-hl
+    :hook
+    (magit-post-refresh . diff-hl-magit-post-refresh)
     :config
-    (global-diff-hl-mode)
-    (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh t))
+    (global-diff-hl-mode))
 #+END_SRC
 ** Git & Magit
 Magit is better than the command line for git. I don't modify much. I just bind it to =C-x g=. I also set it up that it will run alone in the frame, then restore your previous window configuration when you exit.
@@ -2378,6 +2377,8 @@ Ediff is great, but I have to tell it to use one frame (since I start Emacs befo
 #+BEGIN_SRC emacs-lisp
   (use-package ediff
     :defer t
+    :hook
+    (ediff-prepare-buffer . my/ediff-prepare-buffer)
     :config
     (defun my/ediff-prepare-buffer ()
       "Function to prepare ediff buffers. 
@@ -2387,7 +2388,6 @@ Ediff is great, but I have to tell it to use one frame (since I start Emacs befo
       (when (memq major-mode '(org-mode emacs-lisp-mode))
         ;; unfold org/elisp files
         (outline-show-all)))
-    (add-hook 'ediff-prepare-buffer-hook #'my/ediff-prepare-buffer)
     (setq ediff-window-setup-function #'ediff-setup-windows-plain))
 #+END_SRC
 * Email
@@ -2401,6 +2401,11 @@ Finally, we can get mu4e set up.
     :defer 10
     :commands (mu4e)
     :load-path "/usr/share/emacs/site-lisp/mu4e"
+    :hook
+    ;; Wrap lines at `fill-column' when viewing emails:
+    (mu4e-compose-mode . autofill-off-visual-on)
+    (mu4e-compose-mode . visual-fill-column-mode)
+    (mu4e-view-mode . visual-fill-column-mode)
     :bind
     (("C-x m" . mu4e-compose-new)
      ("<f9>" . my/work-inbox)
@@ -2593,19 +2598,17 @@ Finally, we can get mu4e set up.
     (setq message-citation-line-function 'message-insert-formatted-citation-line)
     ;; disable visual-line-mode in mu4e-headers (one line should be one email)
     (add-hook 'mu4e-headers-mode-hook (lambda () (visual-line-mode -1)))
-    ;; Wrap lines at `fill-column' when viewing emails:
-    (add-hook 'mu4e-compose-mode-hook #'visual-fill-column-mode)
-    (add-hook 'mu4e-view-mode-hook #'visual-fill-column-mode)
     ;; turn off autofill mode in mu4e compose
     (defun autofill-off-visual-on ()
       "Turn off auto-fill-mode and turn on visual-mode"
       (auto-fill-mode -1)
       (visual-line-mode))
-    (add-hook 'mu4e-compose-mode-hook #'autofill-off-visual-on)
     ;; use aV to open message in browser
     (add-to-list 'mu4e-view-actions
                  '("ViewInBrowser" . mu4e-action-view-in-browser) t)
     (use-package gnus-dired
+      :hook
+      (dired-mode . turn-on-gnus-dired-mode)
       ;; make the `gnus-dired-mail-buffers' function also work on
       ;; message-mode derived modes, such as mu4e-compose-mode
       :config
@@ -2619,8 +2622,7 @@ Finally, we can get mu4e set up.
                          (null message-sent-message-via))
                 (push (buffer-name buffer) buffers))))
           (nreverse buffers)))
-      (setq gnus-dired-mail-mode 'mu4e-user-agent)
-      (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode))
+      (setq gnus-dired-mail-mode 'mu4e-user-agent))
     ;; configure orgmode support in mu4e
     (use-package org-mu4e
       ;; when mail is sent, automatically convert org body to HTML
@@ -2710,6 +2712,8 @@ This function helps with an expandable snippet. [[http://pragmaticemacs.com/emac
 #+BEGIN_SRC emacs-lisp
   (use-package smtpmail
     :if (executable-find "mu")
+    :hook
+    (message-send . mbork/message-warn-if-no-attachments)
     :config
     ;; warn if no attachments
     (defun mbork/message-attachment-present-p ()
@@ -2748,9 +2752,7 @@ This function helps with an expandable snippet. [[http://pragmaticemacs.com/emac
                      (re-search-forward mbork/message-attachment-intent-re nil t)))
                  (not (mbork/message-attachment-present-p)))
         (unless (y-or-n-p mbork/message-attachment-reminder)
-          (keyboard-quit))))
-
-    (add-hook 'message-send-hook #'mbork/message-warn-if-no-attachments))
+          (keyboard-quit)))))
 #+END_SRC
 
 ** Mail alerts
@@ -2793,8 +2795,9 @@ ERC is Emacs's client for IRC.
   (use-package erc
     :if (executable-find "pass")
     :commands (erc)
+    :hook
+    (erc-mode . goto-address-mode)
     :config
-    (add-hook 'erc-mode-hook #'goto-address-mode)
     (erc-notifications-mode)
     (setq erc-nick "jabranham"
           erc-port "6667"
