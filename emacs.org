@@ -2948,9 +2948,11 @@ Who /wouldn't/ want their text editor to do so?
     ;; There is a correct way to write dates:
     ;; https://xkcd.com/1179/
     (setq ledger-default-date-format ledger-iso-date-format)
-    (setq ledger-reports '(("on-hand" "ledger bal \"(assets:cash|assets:savings|assets:simple|assets:investments|liabilities)\" -X $")
+    (setq ledger-reports '(("on-hand" "ledger bal \"(assets|liabilities)\" -X $")
                            ("account" "ledger reg %(account)")
                            ("expenses (this month)" "ledger bal ^exp -X $ -b \"this month\" ")
+                           ("cash-flow-monthly" "ledger -f %(ledger-file) -X $ --invert -b \"this month\" bal ^income ^expenses")
+                           ("cash-flow" "ledger -f %(ledger-file) -X $ --invert bal ^income ^expenses")
                            ("budget (this month)" "ledger budget ^exp -X $ -b \"this month\"  --flat")
                            ("budget (this year)" "ledger budget ^exp -X $ -b \"this year\"  --flat"))))
 #+END_SRC
