@@ -254,24 +254,6 @@ Emacs has some awful scrolling by default. This gets rid of that.
   (setq scroll-preserve-screen-position t)
   (setq scroll-conservatively 101)
   (setq view-read-only t) ; open read only buffers in view-mode
-  ;; the defaults C-v and M-v scroll a full page, which is too much.
-  ;; rebind to a half page:
-  (use-package view
-    :after hydra
-    :bind
-    ("C-v" . my/scrolling-forward/body)
-    ("M-v" . my/scrolling-backward/body)
-    :config
-    (defhydra my/scrolling-forward (:body-pre View-scroll-half-page-forward)
-      "Scroll without needing to hold C"
-      ("v" View-scroll-half-page-forward "down")
-      ("C-v" View-scroll-half-page-forward "down")
-      ("M-v" View-scroll-half-page-backward "up"))
-    (defhydra my/scrolling-backward (:body-pre View-scroll-half-page-backward)
-      "Scroll without needing to hold C"
-      ("v" View-scroll-half-page-forward "down")
-      ("C-v" View-scroll-half-page-forward "down")
-      ("M-v" View-scroll-half-page-backward "up")))
 #+END_SRC
 
 ** Smart parens
@@ -684,7 +666,35 @@ Emacs undo system is incredibly powerful but a bit confusing. This package has a
 [[https://github.com/abo-abo/hydra][Hydra]] is a nice package that lets you set up menus for related (or not) commands.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package hydra)
+  (use-package hydra
+    :bind
+    ("C-v" . my/scrolling-up/body)
+    ("M-v" . my/scrolling-down/body)
+    :config
+    ;; the defaults C-v and M-v scroll a full page, which is too much.
+    ;; rebind to a half page:
+    (defun my/scroll-down ()
+      "Scroll a half page up."
+      (interactive)
+      (let ((count (/ (1- (window-height)) 2)))
+        (progn
+          (scroll-down count))))
+    (defun my/scroll-up ()
+      "Scroll a half page up."
+      (interactive)
+      (let ((count (/ (1- (window-height)) 2)))
+        (progn
+          (scroll-up count))))
+    (defhydra my/scrolling-down (:body-pre my/scroll-down)
+      "Scroll without needing to hold C"
+      ("v" my/scroll-up "up")
+      ("C-v" my/scroll-up "up")
+      ("M-v" my/scroll-down "down"))
+    (defhydra my/scrolling-up (:body-pre my/scroll-up)
+      "Scroll without needing to hold C"
+      ("v" my/scroll-up "up")
+      ("C-v" my/scroll-up "up")
+      ("M-v" my/scroll-down "down")))
 #+END_SRC
 
 ** Auto indent
