@@ -1438,34 +1438,6 @@ Not technically part of org, but I'll stick the calendar config here since I mai
     (setq holiday-oriental-holidays nil))
 #+END_SRC
 
-*** Calfw - calendar
-calfw provides a nice calendar view:
-#+BEGIN_SRC emacs-lisp
-  (use-package calfw
-    :config
-    ;; Use unicode characters
-    (setq cfw:fchar-junction ?╋
-          cfw:fchar-vertical-line ?┃
-          cfw:fchar-horizontal-line ?━
-          cfw:fchar-left-junction ?┣
-          cfw:fchar-right-junction ?┫
-          cfw:fchar-top-junction ?┯
-          cfw:fchar-top-left-corner ?┏
-          cfw:fchar-top-right-corner ?┓))
-#+END_SRC
-And we can make it integrate with org-agenda:
-#+BEGIN_SRC emacs-lisp
-  (use-package calfw-org
-    :commands (cfw:open-org-calendar)
-    :bind
-    (:map my/map ("o" . cfw:open-org-calendar))
-    :config
-    ;; Overwrite some keybindings to be more like org-agenda's:
-    (setq cfw:org-overwrite-default-keybinding t)
-    ;; Only show items with a timestamp in the calendar:
-    (setq cfw:org-agenda-schedule-args '(:timestamp)))
-#+END_SRC
-
 ** Exporting
 
 #+BEGIN_SRC emacs-lisp

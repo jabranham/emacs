@@ -31,9 +31,6 @@
 [submodule "buttercup"]
 	path = lib/buttercup
 	url = git@github.com:jorgenschaefer/emacs-buttercup.git
-[submodule "calfw"]
-	path = lib/calfw
-	url = git@github.com:kiwanami/emacs-calfw.git
 [submodule "cdlatex"]
 	path = lib/cdlatex
 	url = git@github.com:cdominik/cdlatex.git
