@@ -1529,7 +1529,7 @@ I use org-ref to manage my references.
      ("r d" . doi-add-bibtex-entry)
      ("r i" . isbn-to-bibtex))
     :hook
-    (org-ref-clean-bibtex-entry .my/fix-journal-name)
+    (org-ref-clean-bibtex-entry . my/fix-journal-name)
     :init
     (setq org-ref-completion-library 'org-ref-helm-bibtex)
     (setq org-ref-bibliography-notes "~/Sync/bibliography/notes.org"
