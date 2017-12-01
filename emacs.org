@@ -268,12 +268,13 @@ I'm not good at keeping track of parentheses. This makes me slightly better at i
           ("C-M-e" . sp-end-of-sexp)
           ("C-M-f" . sp-forward-sexp)
           ("C-M-b" . sp-backward-sexp)
+          ("C-M-n" . sp-next-sexp)
+          ("C-M-p" . sp-previous-sexp)
           ("M-]" . sp-unwrap-sexp)
-          :map prog-mode-map
-          ("M-<right>" . sp-next-sexp)
-          ("M-<left>" . sp-previous-sexp)
           ("C-<right>" . sp-forward-slurp-sexp)
-          ("C-<left>" . sp-forward-barf-sexp))
+          ("C-<left>" . sp-forward-barf-sexp)
+          ("C-M-<left>" . sp-backward-slurp-sexp)
+          ("C-M-<right>" . sp-backward-barf-sexp))
     :hook
     (inferior-ess-mode . smartparens-strict-mode)
     :config
