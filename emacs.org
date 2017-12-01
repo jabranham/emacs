@@ -1945,6 +1945,8 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
     ;; Make urls clickable
     (eshell-mode . goto-address-mode)
     (eshell-mode . my/setup-eshell)
+    :bind
+    ("C-c C-M-e" . my/eshell-remote)
     :config
     (setq eshell-cmpl-cycle-completions nil
           ;; auto truncate after 20k lines
@@ -1970,7 +1972,7 @@ Eshell is Emacs' built-in shell. You get UNIX-y goodness even on Windows machine
        (list
         (completing-read "Host: " (pcmpl-ssh-config-hosts))))
       (eshell)
-      (setq default-directory (concat "/" host ":"))
+      (setq default-directory (concat "/ssh:" host ":"))
       (eshell-reset))
     (defun my/setup-eshell ()
       "Set up eshell how I want.  To be called by `eshell-mode-hook'."
