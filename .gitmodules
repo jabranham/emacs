@@ -7,6 +7,9 @@
 [submodule "alert"]
 	path = lib/alert
 	url = git@github.com:jwiegley/alert.git
+[submodule "anaconda-mode"]
+	path = lib/anaconda-mode
+	url = git@github.com:proofit404/anaconda-mode.git
 [submodule "async"]
 	path = lib/async
 	url = git@github.com:jwiegley/emacs-async.git
@@ -40,6 +43,9 @@
 [submodule "company"]
 	path = lib/company
 	url = git@github.com:company-mode/company-mode.git
+[submodule "company-anaconda"]
+	path = lib/company-anaconda
+	url = git@github.com:proofit404/company-anaconda.git
 [submodule "company-quickhelp"]
 	path = lib/company-quickhelp
 	url = git@github.com:expez/company-quickhelp.git
@@ -74,9 +80,6 @@
 [submodule "elfeed-org"]
 	path = lib/elfeed-org
 	url = git@github.com:remyhonig/elfeed-org.git
-[submodule "elpy"]
-	path = lib/elpy
-	url = git@github.com:jorgenschaefer/elpy.git
 [submodule "emacsql"]
 	path = lib/emacsql
 	url = git@github.com:skeeto/emacsql.git
@@ -103,9 +106,6 @@
 [submodule "finalize"]
 	path = lib/finalize
 	url = git@github.com:skeeto/elisp-finalize.git
-[submodule "find-file-in-project"]
-	path = lib/find-file-in-project
-	url = git@github.com:technomancy/find-file-in-project.git
 [submodule "flycheck"]
 	path = lib/flycheck
 	url = git@github.com:flycheck/flycheck.git
@@ -136,9 +136,6 @@
 [submodule "helm-projectile"]
 	path = lib/helm-projectile
 	url = git@github.com:bbatsov/helm-projectile.git
-[submodule "highlight-indentation"]
-	path = lib/highlight-indentation
-	url = git@github.com:antonj/Highlight-Indentation-for-Emacs.git
 [submodule "highlight-numbers"]
 	path = lib/highlight-numbers
 	url = git@github.com:Fanael/highlight-numbers.git
@@ -240,9 +237,9 @@
 [submodule "projectile"]
 	path = lib/projectile
 	url = git@github.com:bbatsov/projectile.git
-[submodule "pyvenv"]
-	path = lib/pyvenv
-	url = git@github.com:jorgenschaefer/pyvenv.git
+[submodule "pythonic"]
+	path = lib/pythonic
+	url = git@github.com:proofit404/pythonic.git
 [submodule "request"]
 	path = lib/request
 	url = git@github.com:tkf/emacs-request.git

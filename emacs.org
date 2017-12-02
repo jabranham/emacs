@@ -2124,17 +2124,17 @@ The package is called python, the mode is python-mode:
 
 Elpy is a ton of customizations for python. Load it up:
 
-** elpy
+** anaconda
 #+BEGIN_SRC emacs-lisp
-  (use-package elpy
-    :commands elpy-enable
-    :init (with-eval-after-load 'python (elpy-enable))
+  (use-package anaconda-mode
+    :hook
+    (python-mode . anaconda-mode)
+    (python-mode . anaconda-eldoc-mode))
+
+  (use-package company-anaconda
+    :after (anaconda-mode company)
     :config
-    ;; elpy needs jedi flake8 importmagic autopep8 to be installed
-    (elpy-enable)
-    (when (require 'flycheck nil t)
-      (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-      (add-hook 'elpy-mode-hook 'flycheck-mode)))
+    '(add-to-list 'company-backends 'company-anaconda))
 #+END_SRC
 * CSV files
 Emacs can handle csv files with ease:
