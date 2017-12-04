@@ -292,7 +292,7 @@ NOTE: ~pdf-tools~ only officially supports gnu/linux operating systems. I think 
 #+BEGIN_SRC emacs-lisp
   (use-package pdf-tools
     :if (eq system-type 'gnu/linux)
-    :defer 3
+    :magic ("%PDF" . pdf-view-mode)
     :config
     ;; Use C-RET in latex mode to jump to location in pdf file
     (setq pdf-sync-forward-display-pdf-key "<C-return>")
