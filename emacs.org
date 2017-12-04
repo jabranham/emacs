@@ -627,6 +627,7 @@ I use [[https://www.passwordstore.org/][pass]] to manage all my passwords and lo
 #+BEGIN_SRC emacs-lisp
   (use-package password-store
     :if (executable-find "pass")
+    :mode ("\\.password-store/.*\\.gpg\\'" . text-mode)
     :config
     ;; Set longer default password length
     (setq password-store-password-length 20))
