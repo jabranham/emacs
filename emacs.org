@@ -23,7 +23,7 @@ To quickly access scratch press =my/map f1=:
     "Switch to scratch buffer."
     (interactive)
     (switch-to-buffer "*scratch*"))
-  (bind-key "<f1>" #'my/get-scratch 'my/map)
+  (bind-key "<f1>" #'my/get-scratch my/map)
 #+END_SRC
 
 C-x C-c is originally bound to kill emacs. I accidentally type this from time to time which is super-frustrating.
@@ -1200,7 +1200,7 @@ It's nice to have a function to find this file quickly. Here's one:
     (interactive)
     (find-file (concat user-emacs-directory "emacs.org")))
 
-  (bind-key "e" #'my/find-emacs-file 'my/map)
+  (bind-key "e" #'my/find-emacs-file my/map)
 #+END_SRC
 ** Narrowing
 Emacs has a great system to "narrow" a buffer to just a smaller bit. This is useful in a whole bunch of unexpected ways. For example, if a function will do something to a whole buffer but you only want to apply it to part, you can just narrow to that bit of the buffer. Or narrow just to one org subtree when you have a massive org document. The narrow commands are a bit confusing by default. This cleans them up a bit and makes it more intuitive to use. I got this from [[http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html][this post]] (modified a bit).
@@ -1241,7 +1241,7 @@ Sometimes stuff gets out of whack, this helps me put it back in whack:
       (save-buffer)
       (revert-buffer :noconfirm t)))
 
-  (bind-key "G" #'my/save-and-revert-buffer 'my/map)
+  (bind-key "G" #'my/save-and-revert-buffer my/map)
 #+END_SRC
 
 * Helm
