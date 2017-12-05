@@ -2119,6 +2119,21 @@ The package is called python, the mode is python-mode:
     :mode ("\\.py\\'". python-mode)
     :interpreter ("python" . python-mode)
     :config
+    (bind-key "C-<return>" #'python-shell-send-region-or-line python-mode-map)
+    (defun python-shell-send-region-or-line ()
+      "Send the current region to the inferior python process if there is an active one, otherwise the current line."
+      (interactive)
+      (if (use-region-p)
+          (python-shell-send-region (region-beginning) (region-end))
+        (python-shell-send-line)))
+    (defun python-shell-send-line ()
+      "Send the current line to the inferior python process for evaluation."
+      (interactive)
+      (save-excursion
+        (end-of-line)
+        (let ((end (point)))
+          (beginning-of-line)
+          (python-shell-send-region (point) end))))
     (setq python-indent-guess-indent-offset-verbose nil)
     (setq python-indent-offset 4))
 #+END_SRC
