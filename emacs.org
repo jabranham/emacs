@@ -2152,7 +2152,7 @@ The package is called python, the mode is python-mode:
   (use-package company-anaconda
     :after (anaconda-mode company)
     :config
-    '(add-to-list 'company-backends 'company-anaconda))
+    (add-to-list 'company-backends 'company-anaconda))
 #+END_SRC
 * CSV files
 Emacs can handle csv files with ease:
