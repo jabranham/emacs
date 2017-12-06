@@ -2115,35 +2115,32 @@ ESS (Emacs Speaks Statistics) is a [[http://ess.r-project.org/][great project]] 
 * Python
 The package is called python, the mode is python-mode:
 #+BEGIN_SRC emacs-lisp
-  (use-package python
-    :mode ("\\.py\\'". python-mode)
-    :interpreter ("python" . python-mode)
+  (use-package python  
+    :defer t
     :config
-    (bind-key "C-<return>" #'python-shell-send-region-or-line python-mode-map)
-    (defun python-shell-send-region-or-line ()
+    (bind-key "C-<return>" #'python-shell-send-region-or-statement python-mode-map)
+    (defun python-shell-send-region-or-statement ()
       "Send the current region to the inferior python process if there is an active one, otherwise the current line."
       (interactive)
       (if (use-region-p)
           (python-shell-send-region (region-beginning) (region-end))
-        (python-shell-send-line)))
-    (defun python-shell-send-line ()
+        (python-shell-send-statement)))
+    (defun python-shell-send-statement ()
       "Send the current line to the inferior python process for evaluation."
       (interactive)
       (save-excursion
-        (end-of-line)
-        (let ((end (point)))
+        (let ((end (python-nav-end-of-statement))
+              (beginning (python-nav-beginning-of-statement)))
           (beginning-of-line)
           (python-shell-send-region (point) end))))
     (setq python-indent-guess-indent-offset-verbose nil)
     (setq python-indent-offset 4))
 #+END_SRC
 
-Elpy is a ton of customizations for python. Load it up:
-
 ** anaconda
 #+BEGIN_SRC emacs-lisp
   (use-package anaconda-mode
-    :hook
+    :hook 
     (python-mode . anaconda-mode)
     (python-mode . anaconda-eldoc-mode))
 
