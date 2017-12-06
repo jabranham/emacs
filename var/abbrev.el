@@ -236,6 +236,7 @@
     ("ingrediants" "ingredients" nil 0)
     ("intrepret" "interpret" nil 2)
     ("intrepretation" "interpretation" nil 1)
+    ("intrepreter" "interpreter" nil 0)
     ("inversly" "inversely" nil 0)
     ("iwth" "with" nil 2)
     ("judgements" "judgments" nil 0)
