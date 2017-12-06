@@ -2118,7 +2118,7 @@ The package is called python, the mode is python-mode:
   (use-package python  
     :defer t
     :config
-    (bind-key "C-<return>" #'python-shell-send-region-or-statement python-mode-map)
+    (bind-key "C-<return>" #'python-shell-send-region-or-statement-and-step python-mode-map)
     (defun python-shell-send-region-or-statement ()
       "Send the current region to the inferior python process if there is an active one, otherwise the current line."
       (interactive)
@@ -2133,6 +2133,11 @@ The package is called python, the mode is python-mode:
               (beginning (python-nav-beginning-of-statement)))
           (beginning-of-line)
           (python-shell-send-region (point) end))))
+    (defun python-shell-send-region-or-statement-and-step ()
+      "Call `python-shell-send-region-or-statement' and then `python-nav-forward-statement'."
+      (interactive)
+      (python-shell-send-region-or-statement)
+      (python-nav-forward-statement))
     (setq python-indent-guess-indent-offset-verbose nil)
     (setq python-indent-offset 4))
 #+END_SRC
