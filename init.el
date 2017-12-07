@@ -24,8 +24,8 @@
 
 (progn ;    `use-package'
   (setq use-package-enable-imenu-support t)
-  (setq use-package-verbose t)
-  (require 'use-package))
+  (require 'use-package)
+  (setq use-package-compute-statistics t))
 
 (use-package auto-compile
   :demand t
