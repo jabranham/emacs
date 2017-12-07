@@ -2209,6 +2209,10 @@ Markdown mode for Markdown editing!
            ("\\.md\\'" . markdown-mode)
            ("\\.Rmd\\'" . markdown-mode)
            ("\\.markdown\\'" . markdown-mode))
+    :bind
+    (:map markdown-mode-map
+          ("M-p" . markdown-previous-visible-heading)
+          ("M-n" . markdown-next-visible-heading))
     :config
     (setq-default markdown-enable-math t))
 #+END_SRC
