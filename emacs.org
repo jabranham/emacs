@@ -261,7 +261,6 @@ I'm not good at keeping track of parentheses. This makes me slightly better at i
 
 #+BEGIN_SRC emacs-lisp
   (use-package smartparens
-    :demand t
     :bind
     (:map smartparens-mode-map
           ("C-M-a" . sp-beginning-of-sexp)
@@ -277,11 +276,11 @@ I'm not good at keeping track of parentheses. This makes me slightly better at i
           ("C-M-<right>" . sp-backward-barf-sexp))
     :hook
     (inferior-ess-mode . smartparens-strict-mode)
+    (after-init . smartparens-global-strict-mode)
+    (after-init . show-smartparens-global-mode)
     :config
     (use-package smartparens-config)
-    (setq sp-show-pair-from-inside t)
-    (smartparens-global-strict-mode)
-    (show-smartparens-global-mode))
+    (setq sp-show-pair-from-inside t))
 #+END_SRC
 
 ** PDFs
