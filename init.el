@@ -111,7 +111,7 @@
   :config
   (setq appt-display-mode-line nil)
   (setq appt-display-interval appt-message-warning-time) ; don't notify more than once
-  (defun my/appt-display (time-til time msg)
+  (defun my/appt-display (time-til _time msg)
     (if (listp time-til)
         (dotimes (i (length msg))
           (alert (concat (nth i msg) " in " (nth i time-til) " minutes")
@@ -130,7 +130,7 @@
         ;; mode line for 3 seconds, but if you type something it
         ;; immediately goes away.  So just log it to *Messages* like a sane
         ;; person instead:
-        (lambda (text face &rest args)
+        (lambda (text _face &rest args)
           (message (format "Finished %s" (apply #'format text args)))))
   ;; do dired actions asynchronously
   (dired-async-mode))
@@ -1362,7 +1362,6 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
                  "^\\(.*\\), \\([^ ]+\\).*" "\\2 \\1" name))))))
   (defun malb/mu4e-contact-rewrite-function (contact)
     (let* ((name (or (plist-get contact :name) ""))
-           (mail (plist-get contact :mail))
            (case-fold-search nil))
       (plist-put contact :name (malb/canonicalise-contact-name name))
       contact))
@@ -1630,7 +1629,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
                                    (todo . " %i %-12:c")
                                    (tags . " %i %-12:c")
                                    (search . " %i %-12:c")))
-  (defun my/org-agenda-mark-done (&optional arg)
+  (defun my/org-agenda-mark-done (&optional _arg)
     "Mark current TODO as DONE.
 See `org-agenda-todo' for more details."
     (interactive "P")
@@ -1845,7 +1844,7 @@ See `org-agenda-todo' for more details."
           ("WEP" "West European Politics" "West Eur. Pol.")
           ("WP" "World Politics" "Wor Pol")))
 
-  (defun my/fix-journal-name (&optional key start end)
+  (defun my/fix-journal-name (&optional _key _start _end)
     "Replace journal name in a bibtex entry with the full name.
   The strings are defined in
   `org-ref-bibtex-journal-abbreviations'. The optional arguments
