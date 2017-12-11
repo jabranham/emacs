@@ -2058,17 +2058,16 @@ See `org-agenda-todo' for more details."
   ;; Turn on visual line mode for nice line wrapping
   (after-init . global-visual-line-mode)
   :bind
-  (:map my/transpose-map
-        ("f" . my/toggle-window-split)
-        ("c" . transpose-chars)
-        ("w" . transpose-words)          ;also M-t by default
-        ("l" . transpose-lines)
-        ("p" . transpose-paragraphs)
-        ("s" . transpose-sentences)
-        ("x" . transpose-sexps))
+  (:prefix-map my/transpose-map
+               :prefix "C-t"
+               ("f" . my/toggle-window-split)
+               ("c" . transpose-chars)
+               ("w" . transpose-words)          ;also M-t by default
+               ("l" . transpose-lines)
+               ("p" . transpose-paragraphs)
+               ("s" . transpose-sentences)
+               ("x" . transpose-sexps))
   :config
-  (bind-keys :prefix "C-t"
-             :prefix-map my/transpose-map)
   ;; single char delete commands kill active regions
   (setq delete-active-region 'kill)
   ;; save system clipboard before overwriting it
