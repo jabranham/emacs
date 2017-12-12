@@ -840,6 +840,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
     "This overwrites the bibtex-generate-autokey function that comes with Emacs.
 
   I want my keys to be formatted: authornameYEAR, then a letter if there is already an entry that matches authornameYEAR."
+    (interactive)
     ;; first we delete the existing key
     (bibtex-beginning-of-entry)
     (re-search-forward bibtex-entry-maybe-empty-head)
@@ -1776,8 +1777,6 @@ See `org-agenda-todo' for more details."
    :map my/map
    ("r d" . doi-add-bibtex-entry)
    ("r i" . isbn-to-bibtex))
-  :hook
-  (org-ref-clean-bibtex-entry . my/fix-journal-name)
   :init
   (setq org-ref-completion-library 'org-ref-helm-bibtex)
   (setq org-ref-bibliography-notes "~/Sync/bibliography/notes.org"
@@ -1872,6 +1871,8 @@ See `org-agenda-todo' for more details."
         (when bstring
           (bibtex-set-field "journal" bstring)
           (bibtex-fill-entry)))))
+
+  (add-hook 'org-ref-clean-bibtex-entry-hook #'my/fix-journal-name)
 
   (use-package doi-utils
     :config
