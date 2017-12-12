@@ -289,6 +289,7 @@ minibuffer."
   (delete-selection-mode))
 
 (use-package diff-hl
+  :defer 15
   ;; highlight changes to files on the side
   :hook
   (magit-post-refresh . diff-hl-magit-post-refresh)
