@@ -1937,9 +1937,9 @@ See `org-agenda-todo' for more details."
   ;; systems. I think that it will work on macs as well, but you may have
   ;; to finagle it a bit. Regardless, I tell emacs to only use it if the OS
   ;; is linux based.
-
   :if (eq system-type 'gnu/linux)
   :magic ("%PDF" . pdf-view-mode)
+  :defer 7
   :config
   ;; Use C-RET in latex mode to jump to location in pdf file
   (setq pdf-sync-forward-display-pdf-key "<C-return>")
