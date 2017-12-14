@@ -95,6 +95,16 @@
   ;; Set it up so Emacs can send system notifications:
   :defer t
   :config
+  (defun my/pause-notifications ()
+    "Pause notification display."
+    (interactive)
+    (shell-command "killall -SIGUSR1 dunst" nil nil)
+    (message "Notifications paused."))
+  (defun my/resume-notifications ()
+    "Resume notification display."
+    (interactive)
+    (shell-command "killall -SIGUSR2 dunst" nil nil)
+    (message "Notifications resumed."))
   (if (executable-find "notify-send")
       (setq alert-default-style 'libnotify)))
 
