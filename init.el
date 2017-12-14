@@ -323,8 +323,16 @@ minibuffer."
   ;; -a: show everything (including dotfiles)
   ;; -h: human-readable file sizes
   (setq dired-listing-switches "-alh --group-directories-first")
+  (defun my/dired-ediff-marked ()
+    "Run `ediff' on two marked files in a dired buffer."
+    (interactive)
+    (unless (eq 'dired-mode major-mode)
+      (error "For use in dired buffers only!"))
+    (let ((files (dired-get-marked-files)))
+      (when (not (eq 2 (length files)))
+        (error "Two files not marked."))
+      (ediff (car files) (nth 1 files))))
   ;; By default, dired asks you if you want to delete the dired buffer if you delete the folder. I can't think of a reason I'd ever want to do that, so just automate it:
-
   (define-advice dired-clean-up-after-deletion
       (:around (old-fun &rest r) kill-dired-buffer-quietly)
     (define-advice y-or-n-p (:around (old-fun prompt) just-yes)
@@ -332,8 +340,7 @@ minibuffer."
           t
         (funcall old-fun prompt)))
     (unwind-protect (apply old-fun r)
-      (advice-remove 'y-or-n-p #'y-or-n-p@just-yes)))
-  )
+      (advice-remove 'y-or-n-p #'y-or-n-p@just-yes))))
 
 (use-package dired-du
   ;; List directory sizes using du:
