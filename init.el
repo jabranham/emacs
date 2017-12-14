@@ -327,10 +327,10 @@ minibuffer."
     "Run `ediff' on two marked files in a dired buffer."
     (interactive)
     (unless (eq 'dired-mode major-mode)
-      (error "For use in dired buffers only!"))
+      (error "For use in dired buffers only"))
     (let ((files (dired-get-marked-files)))
       (when (not (eq 2 (length files)))
-        (error "Two files not marked."))
+        (error "Two files not marked"))
       (ediff (car files) (nth 1 files))))
   ;; By default, dired asks you if you want to delete the dired buffer if you delete the folder. I can't think of a reason I'd ever want to do that, so just automate it:
   (define-advice dired-clean-up-after-deletion
