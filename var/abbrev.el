@@ -45,6 +45,10 @@
 
 (define-abbrev-table 'TeX-output-mode-abbrev-table '())
 
+(define-abbrev-table 'anaconda-mode-view-mode-abbrev-table '())
+
+(define-abbrev-table 'apropos-mode-abbrev-table '())
+
 (define-abbrev-table 'awk-mode-abbrev-table
   '(
    ))
@@ -56,6 +60,8 @@
 (define-abbrev-table 'bookmark-bmenu-mode-abbrev-table '())
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
+
+(define-abbrev-table 'borg-build-mode-abbrev-table '())
 
 (define-abbrev-table 'c++-mode-abbrev-table
   '(
@@ -237,7 +243,8 @@
     ("ingrediants" "ingredients" nil 0)
     ("intrepret" "interpret" nil 2)
     ("intrepretation" "interpretation" nil 1)
-    ("intrepreter" "interpreter" nil 0)
+    ("intrepreter" "interpreter" nil 1)
+    ("intrepreting" "interpreting" nil 0)
     ("inversly" "inversely" nil 0)
     ("iwth" "with" nil 2)
     ("judgements" "judgments" nil 0)
@@ -273,10 +280,11 @@
     ("seperate" "separate" nil 0)
     ("sincerally" "sincerely" nil 0)
     ("superflous" "superfluous" nil 0)
+    ("suseptible" "susceptible" nil 0)
     ("synthasize" "synthesize" nil 0)
     ("systme" "system" nil 0)
     ("taht" "that" nil 2)
-    ("teh" "the" nil 5)
+    ("teh" "the" nil 6)
     ("tihs" "this" nil 7)
     ("travelling" "traveling" nil 0)
     ("ubt" "but" nil 0)
@@ -319,6 +327,8 @@
 (define-abbrev-table 'image-dired-display-image-mode-abbrev-table '())
 
 (define-abbrev-table 'image-dired-thumbnail-mode-abbrev-table '())
+
+(define-abbrev-table 'inferior-emacs-lisp-mode-abbrev-table '())
 
 (define-abbrev-table 'inferior-julia-mode-abbrev-table '())
 
@@ -464,7 +474,9 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'reftex-select-bib-mode-abbrev-table '())
 
