@@ -1527,7 +1527,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
         ;; make words italic or bold, hide / and *
         org-hide-emphasis-markers t
         ;; don't let me edit things I can't see
-        org-catch-invisible-edits 'error
+        org-catch-invisible-edits 'show-and-error
         ;; Make C-a and C-e work more like how I want:
         org-special-ctrl-a/e t
         ;; Let org's preview mechanism use imagemagick instead of dvipng:
