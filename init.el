@@ -2014,6 +2014,7 @@ See `org-agenda-todo' for more details."
   :config
   (projectile-mode)
   (projectile-cleanup-known-projects)
+  (setq projectile-require-project-root nil)
   ;; Set `magit-repository-directories' to `projectile-known-projects':
   (with-eval-after-load 'magit
     (setq magit-repository-directories (mapcar (lambda (x) `(,x . 0)) projectile-known-projects))))
