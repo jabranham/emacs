@@ -229,6 +229,7 @@
     ("imbalences" "imbalances" nil 0)
     ("implicitely" "implicitly" nil 0)
     ("incongruent" "congruent" nil 0)
+    ("increaase" "increase" nil 0)
     ("inderdisciplinary" "interdisciplinary" nil 0)
     ("indicies" "indices" nil 1)
     ("individiauls'" "individuals'" nil 0)
