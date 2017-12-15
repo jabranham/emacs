@@ -49,7 +49,8 @@
   (put 'downcase-region 'disabled nil)
   (put 'upcase-region 'disabled nil)
   (put 'narrow-to-region 'disabled nil)
-  )
+  ;; Prefer utf8
+  (prefer-coding-system 'utf-8))
 
 (progn ;    `borg'
   (add-to-list 'load-path (expand-file-name "lib/borg" user-emacs-directory))
