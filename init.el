@@ -1580,7 +1580,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   ;; Syncthing to keep these files in sync across computers.
   :bind
   (("C-c a" . org-agenda)
-   ("<f12>" . org-agenda)
+   ("<f5>" . org-agenda)
    :map my/map
    ("a" . my/agenda)
    :map org-agenda-mode-map
@@ -2346,7 +2346,7 @@ is already narrowed."
   ;; This is a collection of functions I wrote to help me manage installed
   ;; system packages with emacs. You can find the package on github:
   ;; https://github.com/jabranham/system-packages
-  :bind ("<f5>" . hydra/system-packages/body)
+  :bind ("<f12>" . hydra/system-packages/body)
   :config
   (defhydra hydra/system-packages ()
     "Manage system packages"
