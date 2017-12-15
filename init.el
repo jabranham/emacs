@@ -1584,6 +1584,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   ;; Syncthing to keep these files in sync across computers.
   :bind
   (("C-c a" . org-agenda)
+   ("<f12>" . org-agenda)
    :map my/map
    ("a" . my/agenda)
    :map org-agenda-mode-map
