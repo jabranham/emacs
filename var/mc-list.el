@@ -5,11 +5,14 @@
       '(
         crux-move-beginning-of-line
         indent-for-tab-command
+        org-beginning-of-line
+        org-end-of-line
         org-self-insert-command
         sp-backward-delete-char
         ))
 
 (setq mc/cmds-to-run-once
       '(
+        helm-M-x
         my/mc-hydra/mc/edit-lines-and-exit
         ))
