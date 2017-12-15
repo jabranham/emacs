@@ -1924,6 +1924,23 @@ See `org-agenda-todo' for more details."
   :defer t
   :config
   (setq org-latex-pdf-process '("latexmk -synctex=1 -xelatex %f"))
+  ;; add support for coloring code output.  Use minted if pygments is
+  ;; installed, otherwise fall back to the listings package, which doesn't
+  ;; require anything other than latex.
+  (if (executable-find "pygments")
+      ;; use minted
+      (progn
+        (setq org-latex-listings 'minted)
+        (add-to-list 'org-latex-packages-alist '("newfloat" "minted"))
+        ;; also need to figure out how to add -shell-escape option to `org-latex-pdf-process'
+        )
+    ;; else use listings
+    (progn
+      (setq org-latex-listings t)
+      (add-to-list 'org-latex-packages-alist '("" "listings"))
+      (add-to-list 'org-latex-packages-alist '("" "color"))))
+
+  ;; Add support for writing letters:
   (add-to-list 'org-latex-classes
                '("letter"
                  "\\documentclass[11pt]{letter}
