@@ -1920,6 +1920,13 @@ See `org-agenda-todo' for more details."
   ;; Set up src windows in their current window rather than another one:
   (setq org-src-window-setup 'current-window))
 
+(use-package outline
+  :defer t
+  :bind
+  (:map outline-mode-map
+        ("M-p" . outline-previous-visible-heading)
+        ("M-n" . outline-next-visible-heading)))
+
 (use-package ox
   ;; ox is org's export engine
   :defer t
