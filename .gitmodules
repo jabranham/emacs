@@ -103,9 +103,6 @@
 [submodule "f"]
 	path = lib/f
 	url = git@github.com:rejeep/f.el.git
-[submodule "finalize"]
-	path = lib/finalize
-	url = git@github.com:skeeto/elisp-finalize.git
 [submodule "flycheck"]
 	path = lib/flycheck
 	url = git@github.com:flycheck/flycheck.git
