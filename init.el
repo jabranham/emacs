@@ -1060,7 +1060,8 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
    ledger-reports
    '(("on-hand" "ledger bal \"(assets|liabilities)\" -X $")
      ("account" "ledger reg %(account)")
-     ("expenses (this month)" "ledger bal ^exp -X $ -b \"this month\" ")
+     ("expenses (monthly)" "ledger reg ^expenses -X $ -M ")
+     ("expenses (yearly)" "ledger reg ^expenses -X $ -Y ")
      ("cash-flow-monthly" "ledger -f %(ledger-file) -X $ --invert -b \"this month\" bal ^income ^expenses")
      ("cash-flow" "ledger -f %(ledger-file) -X $ --invert bal ^income ^expenses")
      ("budget (this month)" "ledger budget ^exp -X $ -b \"this month\"  --flat")
