@@ -2359,16 +2359,22 @@ is already narrowed."
   ;; This is a collection of functions I wrote to help me manage installed
   ;; system packages with emacs. You can find the package on github:
   ;; https://github.com/jabranham/system-packages
-  :bind ("<f12>" . hydra/system-packages/body)
-  :config
-  (defhydra hydra/system-packages ()
-    "Manage system packages"
-    ("i" system-packages-install "install" :exit t)
-    ("s" system-packages-search "search" :exit t)
-    ("U" system-packages-uninstall "uninstall" :exit t)
-    ("u" system-packages-update "update" :exit t)
-    ("l" system-packages-list-installed-packages "list installed" :exit t)
-    ("O" system-packages-remove-orphaned "remove orphans" :exit t)))
+  :bind
+  (:prefix-map my/system-packages-map
+               :prefix "<f12>"
+               ("i" . system-packages-install)
+               ("s" . system-packages-search)
+               ("U" . system-packages-uninstall)
+               ("D" . system-packages-list-dependencies-of)
+               ("I" . system-packages-get-info)
+               ("P" . system-packages-list-files-provided-by)
+               ("u" . system-packages-update)
+               ("O" . system-packages-remove-orphaned)
+               ("l" . system-packages-list-installed-packages)
+               ("C" . system-packages-clean-cache)
+               ("L" . system-packages-log)
+               ("v" . system-packages-verify-all-packages)
+               ("V" . system-packages-verify-all-dependencies)))
 
 (use-package systemd
   ;; systemd keeps track of daemons running and the like. This adds syntax
