@@ -352,7 +352,11 @@
 
 (define-abbrev-table 'ledger-check-mode-abbrev-table '())
 
-(define-abbrev-table 'ledger-mode-abbrev-table '())
+(define-abbrev-table 'ledger-mode-abbrev-table
+  '(
+    ("RET55" "VFFVX" nil 0)
+    ("STAR" "VGSTX" nil 0)
+    ))
 
 (define-abbrev-table 'ledger-reconcile-mode-abbrev-table '())
 
