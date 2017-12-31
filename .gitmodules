@@ -154,6 +154,7 @@
 [submodule "ledger-mode"]
 	path = lib/ledger-mode
 	url = git@github.com:ledger/ledger-mode.git
+	info-path = doc
 [submodule "log4e"]
 	path = lib/log4e
 	url = git@github.com:aki2o/log4e.git
