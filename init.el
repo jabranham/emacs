@@ -86,6 +86,12 @@
 
 ;;; end of early birds, alphabetical from here on out:
 
+(use-package abbrev
+  :config
+  (define-global-minor-mode global-abbrev-mode abbrev-mode abbrev-mode)
+  (global-abbrev-mode)
+  (setq save-abbrevs 'silently))
+
 (use-package aggressive-indent
   ;; Keep code indented automatically
   :defer 10
@@ -292,10 +298,7 @@ minibuffer."
   (("C-x i" . crux-ispell-word-then-abbrev)
    ("C-c e" . crux-sudo-edit)
    :map prog-mode-map
-   ("C-a" . crux-move-beginning-of-line))
-  :config
-  (setq save-abbrevs 'silently)
-  (setq-default abbrev-mode t))
+   ("C-a" . crux-move-beginning-of-line)))
 
 (use-package delsel
   :config
