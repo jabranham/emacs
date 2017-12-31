@@ -2723,6 +2723,7 @@ Disable smartparens and remember its initial state."
 ;; indent-tabs-mode: nil
 ;; fill-column: 75
 ;; sentence-end-double-space: t
+;; no-byte-compile: t
 ;; End:
 
 ;;; init.el ends here
