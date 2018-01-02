@@ -5,6 +5,6 @@ Highlights from my configuration:
 
 - Uses the [[https://github.com/emacscollective/borg][borg]] package manager instead of built-in package.el
 - Extensive org setup 
-- Set up for quantitative analysis in R and python
+- Set up for quantitative analysis in R
 - Support for \LaTeX with auctex
 - Support for references using org-ref
