@@ -192,6 +192,7 @@
     ("affectionatley" "affectionately" nil 0)
     ("ahve" "have" nil 0)
     ("ambivilent" "ambivalent" nil 0)
+    ("anomoly" "anomaly" nil 0)
     ("anonomous" "anonymous" nil 1)
     ("appdneix" "appendix" nil 0)
     ("arcipeligo" "archipelago" nil 0)
@@ -221,7 +222,7 @@
     ("excpetion" "exception" nil 0)
     ("exhasperation" "exasperation" nil 0)
     ("expidited" "expedited" nil 0)
-    ("explicitely" "explicitly" nil 1)
+    ("explicitely" "explicitly" nil 2)
     ("familarity" "familiarity" nil 0)
     ("folowwing" "following" nil 0)
     ("forcasting" "forecasting" nil 0)
@@ -272,6 +273,7 @@
     ("relaionship" "relationship" nil 0)
     ("relationshpi" "relationship" nil 0)
     ("remnents" "remnants" nil 0)
+    ("represnet" "represent" nil 0)
     ("repsonsiveness" "responsiveness" nil 0)
     ("republiacns" "republicans" nil 0)
     ("resembelence" "resemblance" nil 0)
@@ -283,12 +285,14 @@
     ("suseptible" "susceptible" nil 0)
     ("synthasize" "synthesize" nil 0)
     ("systme" "system" nil 0)
-    ("taht" "that" nil 2)
+    ("taht" "that" nil 3)
     ("teh" "the" nil 6)
     ("tihs" "this" nil 7)
     ("travelling" "traveling" nil 0)
+    ("tyranney" "tyranny" nil 0)
     ("ubt" "but" nil 0)
     ("underreact" "react" nil 0)
+    ("unfamilarity" "unfamiliarity" nil 0)
     ("unmanagable" "unmanageable" nil 0)
     ("wiht" "with" nil 0)
     ("woudl" "would" nil 0)
@@ -356,7 +360,7 @@
   '(
     ("RET55" "VFFVX" nil 0)
     ("STAR" "VGSTX" nil 0)
-    ))
+   ))
 
 (define-abbrev-table 'ledger-reconcile-mode-abbrev-table '())
 
@@ -478,9 +482,7 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
 (define-abbrev-table 'reftex-select-bib-mode-abbrev-table '())
 
