@@ -2061,6 +2061,24 @@ See `org-agenda-todo' for more details."
     (interactive)
     (python-shell-send-region-or-statement)
     (python-nav-forward-statement))
+  (define-minor-mode python-use-ipython-mode
+    ;; I don't really get the allure of ipython, but here's something that
+    ;; lets me switch back and forth:
+    "Make python mode use the ipython interpreter."
+    :lighter (" iPy")
+    (unless (executable-find "ipython")
+      (error "Could not find ipython executable"))
+    (if python-use-ipython-mode
+        ;; activate ipython stuff
+        (setq python-shell-buffer-name "Ipython"
+              python-shell-interpreter "ipython"
+              ;; https://emacs.stackexchange.com/q/24453/115
+              ;; https://debbugs.gnu.org/cgi/bugreport.cgi?bug=25306
+              python-shell-interpreter-args "--simple-prompt -i")
+      ;; else, deactivate everything
+      (setq python-shell-buffer-name "Python"
+            python-shell-interpreter "python"
+            python-shell-interpreter-args "-i")))
   (setq python-indent-guess-indent-offset-verbose nil)
   (setq python-indent-offset 4))
 
