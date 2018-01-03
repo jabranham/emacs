@@ -1545,6 +1545,8 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
         ;; imenu can go deep into menu structure since I use helm
         org-imenu-depth 6)
   (setq org-image-actual-width '(300))
+  (setq org-blank-before-new-entry '((heading . nil)
+                                     (plain-list-item . t)))
   ;; For whatever reason, I have to explicitely tell org how to open pdf
   ;; links.  I use pdf-tools.  If pdf-tools isn't installed, it will use
   ;; doc-view (shipped with Emacs) instead.
