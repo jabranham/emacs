@@ -1797,6 +1797,11 @@ See `org-agenda-todo' for more details."
     (message "org-gcal::%s - %s" title mes))
   (fset 'org-gcal--notify 'new/org-gcal--notify))
 
+(use-package org-indent
+  ;; org-indent-mode nicely aligns text with the outline level
+  :hook
+  (org-mode . org-indent-mode))
+
 (use-package org-protocol
   ;; This is necessary for the org-capture extension for Firefox:
   ;; https://addons.mozilla.org/en-US/firefox/addon/org-capture/
