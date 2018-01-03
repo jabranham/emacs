@@ -1062,7 +1062,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   (setq ledger-default-date-format ledger-iso-date-format)
   (setq
    ledger-reports
-   '(("on-hand" "ledger bal \"(assets|liabilities)\" -X $")
+   '(("on-hand" "ledger bal \"(assets|liabilities)\" -X $ --current")
      ("account" "ledger reg %(account)")
      ("expenses (monthly)" "ledger reg ^expenses -X $ -M ")
      ("expenses (yearly)" "ledger reg ^expenses -X $ -Y ")
