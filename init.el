@@ -16,6 +16,7 @@
   (setq user-emacs-directory (file-name-directory user-init-file))
   (message "Loading %s..." user-init-file)
   (setq package-enable-at-startup nil)
+  ;; (package-initialize)
   (setq inhibit-startup-buffer-menu t)
   (setq inhibit-startup-screen t)
   (advice-add #'display-startup-echo-area-message :override #'ignore)
@@ -65,6 +66,11 @@
   ;; Setup a personal keymap. I'll bind various things to this later on:
   (bind-keys :prefix "<f1>"
              :prefix-map my/map))
+
+(use-package subr-x
+  :config
+  (put 'if-let   'byte-obsolete-info nil)
+  (put 'when-let 'byte-obsolete-info nil))
 
 (use-package auto-compile
   :demand t
@@ -1079,7 +1085,8 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   :config
   (magit-add-section-hook 'magit-status-sections-hook
                           'magit-insert-modules
-                          'magit-insert-unpulled-from-upstream)
+                          'magit-insert-stashes
+                          'append)
   (setq magit-diff-refine-hunk 'all) ; get highlighted word diffs
   (setq magit-display-buffer-function
         #'magit-display-buffer-fullframe-status-v1))

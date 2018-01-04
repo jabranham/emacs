@@ -106,6 +106,9 @@
 [submodule "flycheck"]
 	path = lib/flycheck
 	url = git@github.com:flycheck/flycheck.git
+[submodule "ghub"]
+	path = lib/ghub
+	url = git@github.com:tarsius/ghub.git
 [submodule "git-modes"]
 	path = lib/git-modes
 	url = git@github.com:magit/git-modes.git
@@ -162,6 +165,9 @@
 	path = lib/magit
 	url = git@github.com:magit/magit.git
 	info-path = Documentation
+[submodule "magit-popup"]
+	path = lib/magit-popup
+	url = git@github.com:magit/magit-popup.git
 [submodule "markdown-mode"]
 	path = lib/markdown-mode
 	url = git@github.com:jrblevin/markdown-mode.git
