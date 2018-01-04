@@ -2658,16 +2658,6 @@ the current window and the windows state prior to that."
   :config
   (shell-command-with-editor-mode))
 
-(use-package wolfram
-  ;; Yes, Emacs can search and display results from wolfram alpha.
-  ;; Who /wouldn't/ want their text editor to do so?
-  :defer t
-  :if (executable-find "pass")
-  :bind
-  ("M-s q" . wolfram-alpha)
-  :config
-  (setq wolfram-alpha-app-id (password-store--run "api/wolframalpha")))
-
 (use-package ws-butler
   ;; Whitespace is evil.  Let's get rid of as much as possible.  But we
   ;; don't want to do this with files that already had whitespace (from
