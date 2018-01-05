@@ -815,9 +815,9 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
 (use-package helm
   ;; A package in a league of its own: https://tuhdo.github.io/helm-intro.html
   :bind
-  (("M-x" . helm-M-x)
-   ("C-x C-f" . helm-find-files)
-   ("M-y" . helm-show-kill-ring)
+  (([remap execute-extended-command] . helm-M-x)
+   ([remap find-file] . helm-find-files)
+   ([remap yank-pop] . helm-show-kill-ring)
    ("C-M-z" . helm-resume)
    ("C-x b" . helm-buffers-list)
    ("C-x C-b" . helm-buffers-list)
