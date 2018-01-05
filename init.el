@@ -577,9 +577,26 @@ See `eshell-prompt-regexp'."
       (eshell-next-prompt (- n))))
   (use-package pcomplete-extension
     :demand t)
-  (use-package eshell-git-prompt
-    :config
-    (eshell-git-prompt-use-theme 'powerline)))
+  (defun my/eshell-prompt ()
+    "Function that determines the eshell prompt.  Must set
+`eshell-prompt-function' to this for it to work."
+    (let ((path (abbreviate-file-name (eshell/pwd))))
+      (concat
+       ;; working directory
+       (format (propertize "(%s)")
+               (propertize path 'face '(:foreground "green")))
+       ;; git info
+       (when (and (fboundp #'magit-get-current-branch) ; magit might not be loaded yet
+                  (magit-get-current-branch))
+         (format (propertize "@%s")
+                 (propertize (magit-get-current-branch) 'face '(:foreground "orange"))))
+       ;; newline, then prompt
+       (propertize "\nλ" 'face '(:weight bold))
+       ;; need to have a space, otherwise the first text I type gets
+       ;; propertized to match λ:
+       " ")))
+  (setq-default eshell-prompt-regexp "^λ ")
+  (setq eshell-prompt-function #'my/eshell-prompt))
 
 (use-package ess-site
   ;; ESS (Emacs Speaks Statistics) is a great project that makes Emacs

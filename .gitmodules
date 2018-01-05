@@ -87,9 +87,6 @@
 [submodule "epkg"]
 	path = lib/epkg
 	url = git@github.com:emacscollective/epkg.git
-[submodule "eshell-git-prompt"]
-	path = lib/eshell-git-prompt
-	url = git@github.com:xuchunyang/eshell-git-prompt.git
 [submodule "ess"]
 	path = lib/ess
 	url = git@github.com:emacs-ess/ESS.git
