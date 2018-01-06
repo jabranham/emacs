@@ -281,6 +281,7 @@
     ("sentances" "sentences" nil 0)
     ("seperate" "separate" nil 0)
     ("sincerally" "sincerely" nil 0)
+    ("suitible" "suitable" nil 0)
     ("superflous" "superfluous" nil 0)
     ("suseptible" "susceptible" nil 0)
     ("synthasize" "synthesize" nil 0)
