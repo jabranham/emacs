@@ -945,7 +945,6 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   ;; Set up helm to easily find passwords, this relies on having pass set
   ;; up (with password-store package)
   :if (executable-find "pass")
-  :after 'helm
   :bind ("M-s p" . helm-pass))
 
 (use-package helm-projectile
