@@ -950,7 +950,6 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
 (use-package helm-projectile
   :after (helm projectile)
   :config
-  (setq projectile-completion-system 'helm)
   (helm-projectile-on))
 
 (use-package help
@@ -2058,6 +2057,7 @@ See `org-agenda-todo' for more details."
   ;; Projectile makes using projects easier in emacs.  It also plays well
   ;; with helm, so let's set that up.
   :config
+  (setq projectile-completion-system 'helm)
   (projectile-mode)
   (projectile-cleanup-known-projects)
   (setq projectile-require-project-root nil)
