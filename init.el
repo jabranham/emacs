@@ -1698,11 +1698,17 @@ See `org-agenda-todo' for more details."
            ((agenda "" nil)
             (tags "@home"
                   ((org-agenda-overriding-header "Tasks to do at home")
+                   (org-tags-match-list-sublevels nil)))
+            (tags "REFILE"
+                  ((org-agenda-overriding-header "Tasks to Refile")
                    (org-tags-match-list-sublevels nil)))))
           ("w" "Work Agenda"
            ((agenda "" nil)
             (tags "@work"
                   ((org-agenda-overriding-header "Tasks to do at work")
+                   (org-tags-match-list-sublevels nil)))
+            (tags "REFILE"
+                  ((org-agenda-overriding-header "Tasks to Refile")
                    (org-tags-match-list-sublevels nil)))))
           ("d" "deadlines"
            ((agenda ""
