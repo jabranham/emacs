@@ -2250,10 +2250,14 @@ Output file will be named by appending _pXX-pYY to INFILE."
         ("C-M-<left>" . sp-backward-slurp-sexp)
         ("C-M-<right>" . sp-backward-barf-sexp))
   :hook
-  ;; turn on strict mode to disallow leaving unmatched pairs:
-  (inferior-ess-mode . smartparens-strict-mode)
-  (after-init . smartparens-global-strict-mode)
+  ;; use it everywhere:
+  (after-init . smartparens-global-mode)
   (after-init . show-smartparens-global-mode)
+  ;; use `smartparens-strict-mode' in programming and LaTeX:
+  (inferior-ess-mode . smartparens-strict-mode)
+  (ess-mode . smartparens-strict-mode)
+  (prog-mode . smartparens-strict-mode)
+  (LaTeX-mode-hook . smartparens-strict-mode)
   :config
   (use-package smartparens-config)
   (setq sp-show-pair-from-inside t))
