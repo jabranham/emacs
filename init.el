@@ -1745,7 +1745,7 @@ See `org-agenda-todo' for more details."
           ("n" "note" entry (file ,my/org-notes)
            "* %?\n %i")
           ("b" "bib" entry (file+headline ,org-default-notes-file "Bibliography")
-           "* %a            :@work:\n \n %i")
+           "* TODO %a            :@work:\n \n %i")
           ("r" "refile+schedule" entry (file ,my/org-inbox)
            "* TODO %a %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+1d 9am\") t)"
            :immediate-finish t)
