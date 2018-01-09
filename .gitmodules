@@ -223,9 +223,6 @@
 [submodule "pkg-info"]
 	path = lib/pkg-info
 	url = git@github.com:lunaryorn/pkg-info.el.git
-[submodule "pkgbuild-mode"]
-	path = lib/pkgbuild-mode
-	url = git@github.com:juergenhoetzel/pkgbuild-mode.git
 [submodule "popup"]
 	path = lib/popup
 	url = git@github.com:auto-complete/popup-el.git
