@@ -2038,12 +2038,6 @@ See `org-agenda-todo' for more details."
   (setq TeX-view-program-selection '((output-pdf "pdf-tools")))
   (setq TeX-view-program-list '(("pdf-tools" "TeX-pdf-tools-sync-view"))))
 
-(use-package pkgbuild-mode
-  ;; Arch linux uses PKGBUILD files to describe built information for
-  ;; packages.  This provides an Emacs mode:
-
-  :mode ("/PKGBUILD$" . pkgbuild-mode))
-
 (use-package prog-mode
   :defer t
   :config
@@ -2142,6 +2136,11 @@ See `org-agenda-todo' for more details."
   ;; Start the server if not already running:
   (unless (server-running-p)
     (add-hook 'after-init-hook #'server-start t)))
+
+(use-package sh-script
+  :defer t
+  :mode
+  ("PKGBUILD" . sh-mode))
 
 (use-package shell
   :hook
