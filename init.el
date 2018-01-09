@@ -189,6 +189,45 @@
                     (point))))))
   (bash-completion-setup))
 
+(use-package bibtex
+  :defer t ; built-in with Emacs
+  :config
+  (setq bibtex-autokey-titleword-length 0
+        bibtex-autokey-titleword-separator ""
+        bibtex-autokey-titlewords 0
+        bibtex-autokey-year-length 4
+        bibtex-autokey-year-title-separator "")
+  (setq bibtex-align-at-equal-sign t)
+  ;; The default for bibtex-entry-format includes opts-or-alts, which deletes
+  ;; empty entries. I want to keep those around, though, because a lot of
+  ;; forthcoming articles get things like pages later:
+  (setq bibtex-entry-format '(required-fields numerical-fields))
+  (setq bibtex-files '("~/Sync/bibliography/references.bib"))
+  (add-hook 'bibtex-mode-hook (lambda () (set-fill-column most-positive-fixnum)))
+  (defun my/bibtex-generate-autokey ()
+    "This overwrites the bibtex-generate-autokey function that comes with Emacs.
+
+  I want my keys to be formatted: authornameYEAR, then a letter if there is already an entry that matches authornameYEAR."
+    (interactive)
+    ;; first we delete the existing key
+    (bibtex-beginning-of-entry)
+    (re-search-forward bibtex-entry-maybe-empty-head)
+    (if (match-beginning bibtex-key-in-head)
+        (delete-region (match-beginning bibtex-key-in-head)
+                       (match-end bibtex-key-in-head)))
+    (let* ((names (bibtex-autokey-get-names))
+           (year (bibtex-autokey-get-year))
+           (existing-keys (bibtex-parse-keys))
+           key)
+      (setq key (format "%s%s" names year))
+      (let ((ret key))
+        (cl-loop for c
+                 from ?b to ?z
+                 while (assoc ret existing-keys)
+                 do (setq ret (format "%s%c" key c)))
+        ret)))
+  (advice-add #'bibtex-generate-autokey :override #'my/bibtex-generate-autokey))
+
 (use-package browse-url
   :config
   ;; Use Emacs' built in eww broswer (the Emacs Web Wowser!) by default.
@@ -874,40 +913,6 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
         ("r b" . my/find-bib-file))
   :init
   ;; Set up how keys should look - authoryear
-  (setq bibtex-autokey-titleword-length 0
-        bibtex-autokey-titleword-separator ""
-        bibtex-autokey-titlewords 0
-        bibtex-autokey-year-length 4
-        bibtex-autokey-year-title-separator "")
-  (setq bibtex-align-at-equal-sign t)
-  ;; The default for bibtex-entry-format includes opts-or-alts, which deletes
-  ;; empty entries. I want to keep those around, though, because a lot of
-  ;; forthcoming articles get things like pages later:
-  (setq bibtex-entry-format '(required-fields numerical-fields))
-  (setq bibtex-files '("~/Sync/bibliography/references.bib"))
-  (add-hook 'bibtex-mode-hook (lambda () (set-fill-column most-positive-fixnum)))
-  (defun bibtex-generate-autokey ()
-    "This overwrites the bibtex-generate-autokey function that comes with Emacs.
-
-  I want my keys to be formatted: authornameYEAR, then a letter if there is already an entry that matches authornameYEAR."
-    (interactive)
-    ;; first we delete the existing key
-    (bibtex-beginning-of-entry)
-    (re-search-forward bibtex-entry-maybe-empty-head)
-    (if (match-beginning bibtex-key-in-head)
-        (delete-region (match-beginning bibtex-key-in-head)
-                       (match-end bibtex-key-in-head)))
-    (let* ((names (bibtex-autokey-get-names))
-           (year (bibtex-autokey-get-year))
-           (existing-keys (bibtex-parse-keys))
-           key)
-      (setq key (format "%s%s" names year))
-      (let ((ret key))
-        (cl-loop for c
-                 from ?b to ?z
-                 while (assoc ret existing-keys)
-                 do (setq ret (format "%s%c" key c)))
-        ret)))
   :config
   (defun my/find-bib-file ()
     "Find my main bib file."
