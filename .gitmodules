@@ -188,7 +188,7 @@
 	url = git@github.com:emacscollective/no-littering.git
 [submodule "org"]
 	path = lib/org
-	url = git://orgmode.org/org-mode.git
+	url = https://code.orgmode.org/bzg/org-mode.git
 	branch = maint
 	load-path = lisp
 	info-path = doc
