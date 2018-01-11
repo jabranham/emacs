@@ -842,7 +842,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   (setq flyspell-use-meta-tab nil)
   :hook
   (text-mode . turn-on-flyspell)
-  ((prog-mode ess-mode) . flyspell-prog-mode))
+  (prog-mode . flyspell-prog-mode))
 
 (use-package frame
   :defer t
@@ -975,7 +975,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   ;; I like to see numbers in code:
   :commands (highlight-numbers-mode)
   :hook
-  ((prog-mode ess-mode) . highlight-numbers-mode))
+  (prog-mode . highlight-numbers-mode))
 
 (use-package hippie-exp
   :bind
@@ -2261,7 +2261,6 @@ Output file will be named by appending _pXX-pYY to INFILE."
   (after-init . show-smartparens-global-mode)
   ;; use `smartparens-strict-mode' in programming and LaTeX:
   (inferior-ess-mode . smartparens-strict-mode)
-  (ess-mode . smartparens-strict-mode)
   (prog-mode . smartparens-strict-mode)
   (LaTeX-mode-hook . smartparens-strict-mode)
   :config
@@ -2701,7 +2700,7 @@ the current window and the windows state prior to that."
   ;; someone else's project, for example).  This mode will call
   ;; `whitespace-cleanup' before buffers are saved (but smartly)!
   :hook
-  ((prog-mode ess-mode) . ws-butler-mode))
+  (prog-mode . ws-butler-mode))
 
 (use-package yasnippet
   ;; Yasnippet allows you to type an abbreviation and then expand it into a
