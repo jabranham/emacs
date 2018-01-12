@@ -1,9 +1,9 @@
 [borg]
-	pushDefault = locutus
-	collective = emacsg
+	pushDefault = jabranham
 [submodule "aggressive-indent"]
 	path = lib/aggressive-indent
 	url = git@github.com:Malabarba/aggressive-indent-mode.git
+	remote = "jabranham git@github.com:jabranham/aggressive-indent-mode.git"
 [submodule "alert"]
 	path = lib/alert
 	url = git@github.com:jwiegley/alert.git
@@ -16,6 +16,7 @@
 [submodule "auctex"]
 	path = lib/auctex
 	url = git@github.com:emacsmirror/auctex.git
+	no-byte-compile = prv-xemacs.el
 [submodule "auth-password-store"]
 	path = lib/auth-password-store
 	url = git@github.com:DamienCassou/auth-password-store.git
@@ -31,6 +32,7 @@
 [submodule "borg"]
 	path = lib/borg
 	url = git@github.com:emacscollective/borg.git
+	remote = "jabranham git@github.com:jabranham/borg.git"
 [submodule "buttercup"]
 	path = lib/buttercup
 	url = git@github.com:jorgenschaefer/emacs-buttercup.git
@@ -74,12 +76,14 @@
 [submodule "electric-operator"]
 	path = lib/electric-operator
 	url = git@github.com:davidshepherd7/electric-operator.git
+	remote = "jabranham git@github.com:jabranham/electric-operator.git"
 [submodule "elfeed"]
 	path = lib/elfeed
 	url = git@github.com:skeeto/elfeed.git
 [submodule "elfeed-org"]
 	path = lib/elfeed-org
 	url = git@github.com:remyhonig/elfeed-org.git
+	remote = "jabranham git@github.com:jabranham/elfeed-org.git"
 [submodule "emacsql"]
 	path = lib/emacsql
 	url = git@github.com:skeeto/emacsql.git
@@ -93,6 +97,7 @@
 [submodule "ess"]
 	path = lib/ess
 	url = git@github.com:emacs-ess/ESS.git
+	remote = "jabranham git@github.com:jabranham/ESS.git"
 	build-step = make
 	build-step = borg-update-autoloads
 	info-path = doc
@@ -124,6 +129,7 @@
 [submodule "helm-bibtex"]
 	path = lib/helm-bibtex
 	url = git@github.com:tmalsburg/helm-bibtex.git
+	remote = "jabranham git@github.com:jabranham/helm-bibtex.git"
 [submodule "helm-c-yasnippet"]
 	path = lib/helm-c-yasnippet
 	url = git@github.com:emacs-jp/helm-c-yasnippet.git
@@ -157,6 +163,7 @@
 [submodule "ledger-mode"]
 	path = lib/ledger-mode
 	url = git@github.com:ledger/ledger-mode.git
+	remote = "jabranham git@github.com:jabranham/ledger-mode.git"
 	info-path = doc
 [submodule "log4e"]
 	path = lib/log4e
@@ -180,6 +187,7 @@
 [submodule "multiple-cursors"]
 	path = lib/multiple-cursors
 	url = git@github.com:magnars/multiple-cursors.el.git
+	remote = "jabranham git@github.com:jabranham/multiple-cursors.el.git"
 [submodule "names"]
 	path = lib/names
 	url = git@github.com:Malabarba/names.git
@@ -192,16 +200,18 @@
 	branch = maint
 	load-path = lisp
 	info-path = doc
-	build-step = make compile autoloads info 
+	build-step = make compile autoloads info
 [submodule "org-bullets"]
 	path = lib/org-bullets
 	url = git@github.com:emacsorphanage/org-bullets.git
+	remote = "jabranham git@github.com:jabranham/org-bullets.git"
 [submodule "org-gcal"]
 	path = lib/org-gcal
 	url = git@github.com:myuhe/org-gcal.el.git
 [submodule "org-ref"]
 	path = lib/org-ref
 	url = git@github.com:jkitchin/org-ref.git
+	remote = "jabranham git@github.com:jabranham/org-ref.git"
 [submodule "packed"]
 	path = lib/packed
 	url = git@github.com:emacscollective/packed.git
@@ -221,7 +231,7 @@
 	path = lib/pdf-tools
 	url = git@github.com:politza/pdf-tools.git
 	build-step = make
-	build-step = borg-byte-compile	
+	build-step = borg-byte-compile
 	build-step = borg-update-autoloads
 [submodule "pkg-info"]
 	path = lib/pkg-info
@@ -253,12 +263,14 @@
 [submodule "smartparens"]
 	path = lib/smartparens
 	url = git@github.com:Fuco1/smartparens.git
+	remote = "jabranham git@github.com:jabranham/smartparens.git"
 [submodule "spaceline"]
 	path = lib/spaceline
 	url = git@github.com:TheBB/spaceline.git
 [submodule "spacemacs-theme"]
 	path = lib/spacemacs-theme
 	url = git@github.com:nashamri/spacemacs-theme.git
+	remote = "jabranham git@github.com:jabranham/spacemacs-theme.git"
 [submodule "stan-mode"]
 	path = lib/stan-mode
 	url = git@github.com:stan-dev/stan-mode.git
