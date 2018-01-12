@@ -1161,7 +1161,6 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   :if (executable-find "mu")
   :defer 10
   :commands (mu4e)
-  :load-path "/usr/share/emacs/site-lisp/mu4e"
   :hook
   ;; Wrap lines at `fill-column' when viewing emails:
   (mu4e-compose-mode . autofill-off-visual-on)
