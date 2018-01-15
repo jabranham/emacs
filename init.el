@@ -1110,6 +1110,8 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
                           'magit-insert-modules
                           'magit-insert-stashes
                           'append)
+  ;; don't show recent commits in magit-status
+  (setq magit-log-section-commit-count 0)
   (setq magit-diff-refine-hunk 'all) ; get highlighted word diffs
   (setq magit-display-buffer-function
         #'magit-display-buffer-fullframe-status-v1))
