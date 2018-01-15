@@ -833,6 +833,9 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   :hook
   (after-init . global-flycheck-mode)
   :config
+  ;; flycheck for emacs lisp should check that declared functions _are_ actually declared:
+  (setq flycheck-emacs-lisp-check-declare t
+        flycheck-emacs-lisp-load-path 'inherit)
   ;; I don't care if code is commented out in R:
   (setq flycheck-lintr-linters "with_defaults(commented_code_linter = NULL)"))
 
