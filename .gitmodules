@@ -122,9 +122,6 @@
 [submodule "git-timemachine"]
 	path = lib/git-timemachine
 	url = git@github.com:pidu/git-timemachine.git
-[submodule "gntp"]
-	path = lib/gntp
-	url = git@github.com:tekai/gntp.el.git
 [submodule "helm"]
 	path = lib/helm
 	url = git@github.com:emacs-helm/helm.git
