@@ -67,11 +67,6 @@
   (bind-keys :prefix "<f1>"
              :prefix-map my/map))
 
-(use-package subr-x
-  :config
-  (put 'if-let   'byte-obsolete-info nil)
-  (put 'when-let 'byte-obsolete-info nil))
-
 (use-package auto-compile
   :demand t
   :hook
