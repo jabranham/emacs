@@ -17,6 +17,7 @@
 	path = lib/auctex
 	url = git@github.com:emacsmirror/auctex.git
 	no-byte-compile = prv-xemacs.el
+	no-byte-compile = prv-emacs.el
 [submodule "auth-password-store"]
 	path = lib/auth-password-store
 	url = git@github.com:DamienCassou/auth-password-store.git
