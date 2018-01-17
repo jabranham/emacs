@@ -266,6 +266,7 @@
 [submodule "spaceline"]
 	path = lib/spaceline
 	url = git@github.com:TheBB/spaceline.git
+	no-byte-compile = tests.el
 [submodule "spacemacs-theme"]
 	path = lib/spacemacs-theme
 	url = git@github.com:nashamri/spacemacs-theme.git
@@ -292,6 +293,7 @@
 [submodule "unfill"]
 	path = lib/unfill
 	url = git@github.com:purcell/unfill.git
+	no-byte-compile = test.el
 [submodule "use-package"]
 	path = lib/use-package
 	url = git@github.com:jwiegley/use-package.git
