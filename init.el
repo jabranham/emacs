@@ -2702,7 +2702,9 @@ the current window and the windows state prior to that."
   ;; someone else's project, for example).  This mode will call
   ;; `whitespace-cleanup' before buffers are saved (but smartly)!
   :hook
-  ((prog-mode ess-mode) . ws-butler-mode))
+  ((prog-mode ess-mode) . ws-butler-mode)
+  :config
+  (setq ws-butler-keep-whitespace-before-point nil))
 
 (use-package yasnippet
   ;; Yasnippet allows you to type an abbreviation and then expand it into a
