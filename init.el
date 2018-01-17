@@ -883,9 +883,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
    :map helm-map
    ("<tab>" . helm-execute-persistent-action)
    ("C-i" . helm-execute-persistent-action)
-   ("C-z" . helm-select-action)
-   :map my/map
-   ("c" . helm-calcul-expression))
+   ("C-z" . helm-select-action))
   :init
   (setq helm-command-prefix-key "M-,")
   (require 'helm-config)
