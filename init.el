@@ -2255,6 +2255,7 @@ Output file will be named by appending _pXX-pYY to INFILE."
         ("C-M-n" . sp-next-sexp)
         ("C-M-p" . sp-previous-sexp)
         ("M-]" . sp-unwrap-sexp)
+        ("M-]" . sp-rewrap-sexp)
         ("C-<right>" . sp-forward-slurp-sexp)
         ("C-<left>" . sp-forward-barf-sexp)
         ("C-M-<left>" . sp-backward-slurp-sexp)
