@@ -571,6 +571,11 @@ three ediff buffers (A, B, and C)."
         ;; treat 'echo' like shell echo
         eshell-plain-echo-behavior t)
   (setq eshell-scroll-to-bottom-on-input 'this)
+  (with-eval-after-load 'esh-module
+    ;; remove the welcome message:
+    (delq 'eshell-banner eshell-modules-list)
+    ;; use TRAMP sudo method to avoid retyping sudo password on multiple calls:
+    (push 'eshell-tramp eshell-modules-list))
   (defun my/eshell-remote (host)
     "Open eshell on a remote host.
 
