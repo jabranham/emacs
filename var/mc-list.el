@@ -4,6 +4,7 @@
 (setq mc/cmds-to-run-for-all
       '(
         crux-move-beginning-of-line
+        end-of-visual-line
         indent-for-tab-command
         org-beginning-of-line
         org-end-of-line
@@ -15,4 +16,8 @@
       '(
         helm-M-x
         my/mc-hydra/mc/edit-lines-and-exit
+        my/mc-hydra/mc/mark-all-in-region-regexp-and-exit
+        my/mc-hydra/mc/mark-next-like-this
+        my/mc-hydra/nil
+        my/save-everything-noconfirm
         ))
