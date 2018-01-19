@@ -7,6 +7,7 @@
 [submodule "alert"]
 	path = lib/alert
 	url = git@github.com:jwiegley/alert.git
+	remote = "jabranham git@github.com:jabranham/alert.git"
 [submodule "anaconda-mode"]
 	path = lib/anaconda-mode
 	url = git@github.com:proofit404/anaconda-mode.git
