@@ -1762,11 +1762,7 @@ See `org-agenda-todo' for more details."
            "* TODO %a            :@work:\n \n %i")
           ("r" "refile+schedule" entry (file ,my/org-inbox)
            "* TODO %a %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+1d 9am\") t)"
-           :immediate-finish t)
-          ("p" "Protocol" entry (file ,my/org-inbox)
-           "* TODO [[%:link][%:description]]\n%i" :immediate-finish t)
-          ("L" "Protocol Link" entry (file ,my/org-inbox)
-           "* TODO [[%:link][%:description]]" :immediate-finish t)))
+           :immediate-finish t)))
   (defun my/org-capture-refile-and-jump ()
     (interactive)
     "Refile the current capture, then jump to it."
@@ -1838,11 +1834,6 @@ See `org-agenda-todo' for more details."
   ;; org-indent-mode nicely aligns text with the outline level
   :hook
   (org-mode . org-indent-mode))
-
-(use-package org-protocol
-  ;; This is necessary for the org-capture extension for Firefox:
-  ;; https://addons.mozilla.org/en-US/firefox/addon/org-capture/
-  :demand t)
 
 (use-package org-ref
   ;; I use org-ref to manage my references.
