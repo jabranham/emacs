@@ -514,6 +514,11 @@ three ediff buffers (A, B, and C)."
   :config
   (elfeed-org))
 
+(use-package emacsbug
+  :defer t
+  :config
+  (setq report-emacs-bug-no-explanations t))
+
 (use-package epa
   ;; EasyPG Assistant for encryption
   :config
