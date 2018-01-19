@@ -1252,8 +1252,6 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
                      (smtpmail-default-smtp-server . "smtp.gmail.com")
                      (smtpmail-smtp-server         . "smtp.gmail.com")
                      (smtpmail-smtp-service        . 587)
-                     (send-mail-function           . smtpmail-send-it)
-                     (message-send-mail-ggfunction . smtpmail-send-it)
                      (smtpmail-stream-type         . starttls)
                      (mu4e-compose-signature-auto-include . t)
                      (mu4e-compose-signature       . (concat
@@ -1279,8 +1277,6 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
                      (smtpmail-smtp-user           . "james.alexander.branham@gu.se")
                      (smtpmail-smtp-server         . "localhost"); using davmail to access the Exchange server
                      (smtpmail-default-smtp-server . "localhost")
-                     (send-mail-function           . smtpmail-send-it)
-                     (message-send-mail-ggfunction . smtpmail-send-it)
                      (smtpmail-stream-type         . plain)
                      (smtpmail-smtp-service        . 1025)
                      (mu4e-compose-signature-auto-include . t)
@@ -1304,8 +1300,6 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
                      (smtpmail-default-smtp-server . "smtp.gmail.com")
                      (smtpmail-smtp-server         . "smtp.gmail.com")
                      (smtpmail-smtp-service        . 587)
-                     (send-mail-function           . smtpmail-send-it)
-                     (message-send-mail-ggfunction . smtpmail-send-it)
                      (smtpmail-stream-type         . starttls)
                      (mu4e-compose-signature-auto-include . nil)
                      (mu4e-drafts-folder           . "/gmail/[Gmail]/.Drafts")
@@ -2148,6 +2142,11 @@ See `org-agenda-todo' for more details."
   ;; Yes, please save my place when opening/closing files:
   :config
   (save-place-mode))
+
+(use-package sendmail
+  :defer t
+  :config
+  (setq send-mail-function #'smtpmail-send-it))
 
 (use-package server
   :if window-system
