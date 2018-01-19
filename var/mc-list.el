@@ -6,7 +6,9 @@
         crux-move-beginning-of-line
         end-of-visual-line
         indent-for-tab-command
+        kill-visual-line
         org-beginning-of-line
+        org-delete-char
         org-end-of-line
         org-self-insert-command
         sp-backward-delete-char
