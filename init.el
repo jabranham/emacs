@@ -1844,6 +1844,7 @@ See `org-agenda-todo' for more details."
   (org-mode . org-indent-mode))
 
 (use-package org-ref
+  :defer 15
   ;; I use org-ref to manage my references.
   :bind*
   (("C-c C-r" . org-ref-helm-insert-cite-link)
