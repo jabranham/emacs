@@ -607,27 +607,6 @@ Uses `pcmpl-ssh-config-hosts' to obtain a list of possible hosts."
       (define-key eshell-mode-map [remap eshell-pcomplete] 'helm-esh-pcomplete)
       (unbind-key "M-s" eshell-mode-map)
       (bind-key "M-r" #'helm-eshell-history eshell-mode-map)))
-;;; Fix 27405, expected in Emacs 26.1+.
-;;; https://debbugs.gnu.org/cgi/bugreport.cgi?bug=27405
-;;; Emacs' standard functions fail when output has empty lines.
-;;; The following implementation is more reliable.
-  (with-eval-after-load 'em-prompt
-    (defun eshell-next-prompt (n)
-      "Move to end of Nth next prompt in the buffer.
-See `eshell-prompt-regexp'."
-      (interactive "p")
-      (re-search-forward eshell-prompt-regexp nil t n)
-      (when eshell-highlight-prompt
-        (while (not (get-text-property (line-beginning-position) 'read-only) )
-          (re-search-forward eshell-prompt-regexp nil t n)))
-      (eshell-skip-prompt))
-
-    (defun eshell-previous-prompt (n)
-      "Move to end of Nth previous prompt in the buffer.
-See `eshell-prompt-regexp'."
-      (interactive "p")
-      (backward-char)
-      (eshell-next-prompt (- n))))
   (use-package pcomplete-extension
     :demand t)
   (defun my/eshell-prompt ()
@@ -739,25 +718,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   ;; If a webpage requires more than eww can handle, I can switch to the
   ;; system default by tapping &, but 0 is easier to type:
   (:map eww-mode-map
-        ("0" . eww-browse-with-external-browser))
-  :config
-  ;; By default, M-s M-w searches for text in the region.  I overwrite it
-  ;; to search for text in region if active and not whitespace, prompt
-  ;; otherwise.  This is the default behavior starting with Emacs 26.1, so
-  ;; I can delete this when that's released
-  (defun eww-search-words ()
-    "Search the web for the text between BEG and END.
-   If region is active (and not whitespace), search the web for
-   the text between BEG and END.  Else, prompt the user for a
-   search string.  See the `eww-search-prefix' variable for the
-   search engine used."
-    (interactive)
-    (if (use-region-p)
-        (let ((region-string (buffer-substring (region-beginning) (region-end))))
-          (if (not (string-match-p "\\`[ \n\t\r\v\f]*\\'" region-string))
-              (eww region-string)
-            (call-interactively 'eww)))
-      (call-interactively 'eww))))
+        ("0" . eww-browse-with-external-browser)))
 
 (use-package faces
   ;; faces are how Emacs determines how to display characters (font, size,
@@ -2548,9 +2509,7 @@ type."
   ;; Don't leave histfiles everywhere:
   (setq tramp-histfile-override t)
   ;; Use ssh by default:
-  (setq tramp-default-method "ssh")
-  ;; Tramp struggles with escaping things properly (dired in particular has issues with spaces/special characters; this is fixed if you build Emacs from the master branch of the git repo; Emacs 26), this fixes it for me:
-  (push "QUOTING_STYLE=literal" tramp-remote-process-environment))
+  (setq tramp-default-method "ssh"))
 
 (use-package undo-tree
   ;; Emacs undo system is incredibly powerful but a bit confusing.  This
