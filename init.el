@@ -2471,23 +2471,21 @@ is already narrowed."
         reftex-plug-into-AUCTeX t)
   (setq TeX-source-correlate-method 'synctex)
   (setq TeX-source-correlate-mode t)
-  (eval-after-load "tex"
-    '(add-to-list 'TeX-command-list '("latexmk" "latexmk -synctex=1 -pdf %s"
-                                      TeX-run-compile nil t :help "Process file with latexmk")))
-  (eval-after-load "tex"
-    '(add-to-list 'TeX-command-list '("xelatexmk" "latexmk -synctex=1 -xelatex %s"
-                                      TeX-run-compile nil t :help "Process file with xelatexmk")))
-  (eval-after-load "tex"
-    '(progn
-       ;; don't ask me to confirm the view command:
-       (remove '("View" "%V" TeX-run-discard-or-function t t :help "Run Viewer") 'TeX-command-list)
-       (add-to-list 'TeX-command-list
-                    '("View" "%V" TeX-run-discard-or-function nil t :help "Run Viewer"))))
+  (setq TeX-clean-confirm nil)
+  ;; TeX-command-list by default contains a bunch of stuff I'll never
+  ;; use. I use latexmk, xelatexmk, and View.  That's pretty much it.
+  ;; Maybe one day I'll add "clean" back to the list.
+  (setq-default TeX-command-list
+                '(("latexmk" "latexmk -synctex=1 -pdf %s"
+                   TeX-run-compile nil t :help "Process file with latexmk")
+                  ("View" "%V" TeX-run-discard-or-function nil t :help "Run Viewer")
+                  ("xelatexmk" "latexmk -synctex=1 -xelatex %s"
+                   TeX-run-compile nil t :help "Process file with xelatexmk")))
+  ;; Use latexmk by default:
   (setq-default TeX-command-default "latexmk")
   ;; Stop littering everywhere with auto/ directories
   (setq-default TeX-auto-local
-                (expand-file-name "auctex/auto" (concat user-emacs-directory "var")))
-  (setq TeX-clean-confirm nil)
+                (expand-file-name "auctex/auto" no-littering-var-directory))
   ;; revert pdf from file after compilation finishes
   (use-package tex-buf
     :defer t
