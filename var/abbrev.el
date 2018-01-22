@@ -256,6 +256,7 @@
     ("pecularities" "peculiarities" nil 0)
     ("phenomina" "phenomena" nil 0)
     ("politiacl" "political" nil 1)
+    ("postmortum" "postmortem" nil 0)
     ("preferneces" "preferences" nil 3)
     ("prevelance" "prevalence" nil 0)
     ("prominance" "prominence" nil 0)
