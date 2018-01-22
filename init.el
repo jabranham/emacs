@@ -390,16 +390,7 @@ minibuffer."
     (let ((files (dired-get-marked-files)))
       (when (not (eq 2 (length files)))
         (error "Two files not marked"))
-      (ediff (car files) (nth 1 files))))
-  ;; By default, dired asks you if you want to delete the dired buffer if you delete the folder. I can't think of a reason I'd ever want to do that, so just automate it:
-  (define-advice dired-clean-up-after-deletion
-      (:around (old-fun &rest r) kill-dired-buffer-quietly)
-    (define-advice y-or-n-p (:around (old-fun prompt) just-yes)
-      (if (string-prefix-p "Kill Dired buffer" prompt)
-          t
-        (funcall old-fun prompt)))
-    (unwind-protect (apply old-fun r)
-      (advice-remove 'y-or-n-p #'y-or-n-p@just-yes))))
+      (ediff (car files) (nth 1 files)))))
 
 (use-package dired-du
   ;; List directory sizes using du:
@@ -418,7 +409,12 @@ minibuffer."
   :hook
   (dired-load . (lambda () (load "dired-x")))
   :bind
-  ("C-x C-j" . dired-jump))
+  ("C-x C-j" . dired-jump)
+  :config
+  ;; By default, dired asks you if you want to delete the dired buffer if
+  ;; you delete the folder. I can't think of a reason I'd ever want to do
+  ;; that.
+  (setq dired-clean-confirm-killing-deleted-buffers nil))
 
 (use-package ediff
   ;; Ediff is great, but I have to tell it to use one frame (since I start
