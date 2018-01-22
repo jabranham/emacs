@@ -157,9 +157,6 @@
 [submodule "ivy"]
 	path = lib/ivy
 	url = git@github.com:abo-abo/swiper.git
-[submodule "julia-mode"]
-	path = lib/julia-mode
-	url = git@github.com:JuliaLang/julia-emacs.git
 [submodule "ledger-mode"]
 	path = lib/ledger-mode
 	url = git@github.com:ledger/ledger-mode.git
