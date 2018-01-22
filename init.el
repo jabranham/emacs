@@ -7,8 +7,8 @@
 
 ;;; Code:
 
-(when (version< emacs-version "25.3") ; Minimum version
-  (error "Your Emacs is too old -- this config requires v25.3 or higher"))
+(when (version< emacs-version "26") ; Minimum version
+  (error "Your Emacs is too old -- this config requires version 26 or higher"))
 
 ;;; Early birds
 (progn ;     startup & C source code vars
