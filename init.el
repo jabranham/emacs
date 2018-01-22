@@ -2158,6 +2158,9 @@ See `org-agenda-todo' for more details."
   ;; We can pop the mark back to where it used to be with =C-u C-SPC=. This
   ;; lets us keep popping by hitting =C-SPC=:
   (setq set-mark-command-repeat-pop t)
+  ;; Don't erase output in shell buffers since it's so easy to navigate
+  ;; around.
+  (setq shell-command-dont-erase-buffer 'beg-last-out)
   (defun my/toggle-window-split ()
     "Switch between 2 windows split horizontally or vertically."
     (interactive)
