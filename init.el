@@ -580,7 +580,7 @@ three ediff buffers (A, B, and C)."
         eshell-highlight-prompt nil
         ;; when I cd somewhere, about 90% of the time I follow with ls, so just go ahead and always do that:
         eshell-list-files-after-cd t
-        ;; also list all files w/ more info & human-readable filesizes:
+        ;; also list all files & human-readable filesizes:
         eshell-ls-initial-args "-ah"
         ;; treat 'echo' like shell echo
         eshell-plain-echo-behavior t)
