@@ -2161,6 +2161,8 @@ See `org-agenda-todo' for more details."
   ;; Don't erase output in shell buffers since it's so easy to navigate
   ;; around.
   (setq shell-command-dont-erase-buffer 'beg-last-out)
+  ;; Only show a shell buffer if there's something to show:
+  (setq async-shell-command-display-buffer nil)
   (defun my/toggle-window-split ()
     "Switch between 2 windows split horizontally or vertically."
     (interactive)
