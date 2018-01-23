@@ -295,12 +295,6 @@ minibuffer."
   (setq calendar-week-start-day 0) ; weeks start on Sunday
   (setq calendar-date-display-form calendar-iso-date-display-form))
 
-(use-package cdlatex
-  ;; Cdlatex lets me write latex in org-mode.  It's particularly useful for
-  ;; math.
-  :hook
-  (org-mode . org-cdlatex-mode))
-
 (use-package comint
   ;; comint is the mode from which inferior processes inherit, like the
   ;; python REPL or iESS modes (the R console)
