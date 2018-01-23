@@ -471,10 +471,10 @@ three ediff buffers (A, B, and C)."
   ;; though slightly modified functions to support syncing .elfeed between
   ;; machines makes sure elfeed reads index from disk before launching
   (defun bjm/elfeed-load-db-and-open ()
-    "Load the elfeed db from disk before opening."
+    "Load the elfeed db from disk before updating."
     (interactive)
-    (elfeed-db-load)
     (elfeed)
+    (elfeed-db-load)
     (elfeed-search-update--force)
     (elfeed-update))
   ;;write to disk when quiting
