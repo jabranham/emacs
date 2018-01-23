@@ -295,12 +295,6 @@ minibuffer."
   (setq calendar-week-start-day 0) ; weeks start on Sunday
   (setq calendar-date-display-form calendar-iso-date-display-form))
 
-(use-package cdlatex
-  ;; Cdlatex lets me write latex in org-mode.  It's particularly useful for
-  ;; math.
-  :hook
-  (org-mode . org-cdlatex-mode))
-
 (use-package comint
   ;; comint is the mode from which inferior processes inherit, like the
   ;; python REPL or iESS modes (the R console)
@@ -467,10 +461,10 @@ three ediff buffers (A, B, and C)."
   ;; though slightly modified functions to support syncing .elfeed between
   ;; machines makes sure elfeed reads index from disk before launching
   (defun bjm/elfeed-load-db-and-open ()
-    "Load the elfeed db from disk before opening."
+    "Load the elfeed db from disk before updating."
     (interactive)
-    (elfeed-db-load)
     (elfeed)
+    (elfeed-db-load)
     (elfeed-search-update--force)
     (elfeed-update))
   ;;write to disk when quiting
@@ -581,11 +575,11 @@ three ediff buffers (A, B, and C)."
         ;; treat 'echo' like shell echo
         eshell-plain-echo-behavior t)
   (setq eshell-scroll-to-bottom-on-input 'this)
-  (with-eval-after-load 'esh-module
-    ;; remove the welcome message:
-    (delq 'eshell-banner eshell-modules-list)
-    ;; use TRAMP sudo method to avoid retyping sudo password on multiple calls:
-    (push 'eshell-tramp eshell-modules-list))
+  (add-to-list 'eshell-load-hook
+               (lambda () ;; remove the welcome message:
+                 (delq 'eshell-banner eshell-modules-list)
+                 ;; use TRAMP sudo method to avoid retyping sudo password on multiple calls:
+                 (push 'eshell-tramp eshell-modules-list)))
   (defun my/eshell-remote (host)
     "Open eshell on a remote host.
 
