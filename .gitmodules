@@ -274,6 +274,7 @@
 [submodule "sx"]
 	path = lib/sx
 	url = git@github.com:vermiculus/sx.el.git
+	remote = "jabranham git@github.com:jabranham/sx.el.git"
 [submodule "system-packages"]
 	path = lib/system-packages
 	url = git@github.com:jabranham/system-packages.git
