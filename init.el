@@ -1788,6 +1788,8 @@ See `org-agenda-todo' for more details."
         org-gcal-file-alist '(("alex.branham@gmail.com" .  "~/org/gcal.org")))
   (setq org-gcal-down-days 186) ; get 6 months ahead of today
   (setq org-gcal-up-days 31) ; get 1 month before today
+  ;; don't archive events since they're in google calendar
+  (setq org-gcal-auto-archive nil)
   (add-to-list 'org-agenda-files my/calendar-file t)
   ;; Refresh calendars via org-gcal and automatically create appt-reminders.
   ;; Appt will be refreshed any time an org file is saved after 10 seconds of idle.
