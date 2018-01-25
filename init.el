@@ -1098,14 +1098,14 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   (setq ledger-default-date-format ledger-iso-date-format)
   (setq
    ledger-reports
-   '(("on-hand" "ledger bal \"(assets|liabilities)\" -X $ --current")
-     ("account" "ledger reg %(account)")
-     ("expenses (monthly)" "ledger reg ^expenses -X $ -M ")
-     ("expenses (yearly)" "ledger reg ^expenses -X $ -Y ")
-     ("cash-flow-monthly" "ledger -f %(ledger-file) -X $ --invert -b \"this month\" bal ^income ^expenses")
-     ("cash-flow" "ledger -f %(ledger-file) -X $ --invert bal ^income ^expenses")
-     ("budget (this month)" "ledger budget ^exp -X $ -b \"this month\"  --flat")
-     ("budget (this year)" "ledger budget ^exp -X $ -b \"this year\"  --flat"))))
+   '(("on-hand" "%(binary) -f %(ledger-file) bal \"(assets|liabilities)\" -X $ --current")
+     ("account" "%(binary) -f %(ledger-file) reg %(account)")
+     ("expenses (monthly)" "%(binary) -f %(ledger-file) reg ^expenses -X $ -M ")
+     ("expenses (yearly)" "%(binary) -f %(ledger-file) reg ^expenses -X $ -Y ")
+     ("cash-flow-monthly" "%(binary) -f %(ledger-file) -X $ --invert -b \"this month\" bal ^income ^expenses")
+     ("cash-flow" "%(binary) -f %(ledger-file) -X $ --invert bal ^income ^expenses")
+     ("budget (this month)" "%(binary) -f %(ledger-file) budget ^exp -X $ -b \"this month\"  --flat")
+     ("budget (this year)" "%(binary) -f %(ledger-file) budget ^exp -X $ -b \"this year\"  --flat"))))
 
 (use-package magit
   ;; magit is magical git
