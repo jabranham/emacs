@@ -1074,7 +1074,6 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   ;; ledger is a program that I use to keep track of finances. Emacs, of course,
   ;; can handle it quite nicely.
   :if (executable-find "ledger")
-  :mode ("\\.ledger$" . ledger-mode)
   :bind
   (:map ledger-mode-map
         ("C-c r" . ledger-reconcile)
