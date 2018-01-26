@@ -930,9 +930,10 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
     (find-file bibtex-completion-bibliography))
   (setq bibtex-completion-bibliography "~/Sync/bibliography/references.bib"
         bibtex-completion-library-path "~/Sync/bibliography/bibtex-pdfs"
-        bibtex-completion-notes-path "~/Sync/bibliography/notes.org"
-        bibtex-completion-notes-template-one-file
-        "\n* TODO ${year} - ${title}\n  :PROPERTIES:\n  :Custom_ID: ${=key=}\n  :AUTHOR: ${author}\n  :JOURNAL: ${journal}\n  :YEAR: ${year}\n  :VOLUME: ${volume}\n  :PAGES: ${pages}\n  :DOI: ${doi}\n  :URL: ${url}\n :END:\n"
+        bibtex-completion-notes-path "~/Sync/bibliography/notes"
+        bibtex-completion-notes-extension ".org"
+        bibtex-completion-notes-template-multiple-files
+        "* TODO ${year} - ${title}\n  :PROPERTIES:\n  :Custom_ID: ${=key=}\n  :AUTHOR: ${author}\n  :JOURNAL: ${journal}\n  :YEAR: ${year}\n  :VOLUME: ${volume}\n  :PAGES: ${pages}\n  :DOI: ${doi}\n  :URL: ${url}\n :END:\n"
         )
   (setq bibtex-completion-cite-default-command 'autocite)
   (setq bibtex-completion-cite-commands '("autocite" "textcite" "citep" "citet" "citeauthor" "citeyear" "Citep" "Citet")))
@@ -1851,7 +1852,8 @@ See `org-agenda-todo' for more details."
    ("r i" . isbn-to-bibtex))
   :init
   (setq org-ref-completion-library 'org-ref-helm-bibtex)
-  (setq org-ref-bibliography-notes "~/Sync/bibliography/notes.org"
+  (setq org-ref-notes-function #'my/org-ref-notes-function
+        org-ref-notes-directory "~/Sync/bibliography/notes"
         org-ref-default-bibliography '("~/Sync/bibliography/references.bib")
         org-ref-pdf-directory  "~/Sync/bibliography/bibtex-pdfs"
         org-ref-default-ref-type "autoref"
@@ -1865,6 +1867,12 @@ See `org-agenda-todo' for more details."
   (setq org-ref-show-broken-links nil)
   ;; Cleanup nil entries from articles.
   (add-hook 'org-ref-clean-bibtex-entry-hook #'orcb-clean-nil-opinionated t)
+
+  (defun my/org-ref-notes-function (thekey)
+    (let ((bibtex-completion-bibliography (org-ref-find-bibliography)))
+      (bibtex-completion-edit-notes
+       (list (car (org-ref-get-bibtex-key-and-file thekey))))))
+
 
   ;; Org-ref-bibtex is a package that helps me manage my bib file(s). I add the
   ;; my/fix-journal-name function to always put in the full name of the journal.
