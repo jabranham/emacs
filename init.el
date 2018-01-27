@@ -327,10 +327,11 @@ minibuffer."
   :config
   (add-to-list 'company-backends 'company-anaconda))
 
-(use-package compilation
+(use-package compile
   :defer t
   :config
-  (setq compilation-scroll-output 'first-error))
+  (setq compilation-scroll-output 'first-error)
+  (setq compilation-ask-about-save nil))
 
 (use-package csv-mode
   ;; Emacs can handle csv files with ease:
