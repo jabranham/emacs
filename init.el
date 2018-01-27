@@ -327,10 +327,11 @@ minibuffer."
   :config
   (add-to-list 'company-backends 'company-anaconda))
 
-(use-package compilation
+(use-package compile
   :defer t
   :config
-  (setq compilation-scroll-output 'first-error))
+  (setq compilation-scroll-output 'first-error)
+  (setq compilation-ask-about-save nil))
 
 (use-package csv-mode
   ;; Emacs can handle csv files with ease:
@@ -714,10 +715,11 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   ;; faces are how Emacs determines how to display characters (font, size,
   ;; color, etc)
   :defer t
+  :bind
+  ("C-h c" . describe-face) ; overrides describe-key-briefly from help.el
   :config
   (add-to-list 'default-frame-alist
                '(font . "monospace-12"))
-
   ;; The fixed-pitch-serif font face inherits from Monospace Serif from X,
   ;; which I haven't set.  I'll just tell Emacs to use Symbola instead of
   ;; setting it in X:
