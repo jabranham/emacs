@@ -23,8 +23,6 @@
   (setq load-prefer-newer t)
   ;; don't use popup boxes, just make the minibuffer ask
   (setq use-dialog-box nil)
-  ;; I don't work much with emacs-lisp, so the scratch buffer shouldn't be
-  ;; in emacs-lisp mode:
   (setq initial-major-mode #'org-mode
         initial-scratch-message "# Unsaved notes\n\n")
   ;; Delete my files by moving them to the trash. I'm human and
@@ -66,6 +64,7 @@
   ;; Setup a personal keymap. I'll bind various things to this later on:
   (bind-keys :prefix "<f1>"
              :prefix-map my/map))
+
 
 (use-package auto-compile
   :demand t
