@@ -457,7 +457,6 @@ three ediff buffers (A, B, and C)."
   (:map my/map
         ("s" . bjm/elfeed-load-db-and-open)
         :map elfeed-search-mode-map
-        ("q" . bjm/elfeed-save-db-and-bury)
         ("l" . my/get-elfeed-log-buffer))
   :init
   ;; thanks -
@@ -471,12 +470,6 @@ three ediff buffers (A, B, and C)."
     (elfeed-db-load)
     (elfeed-search-update--force)
     (elfeed-update))
-  ;;write to disk when quiting
-  (defun bjm/elfeed-save-db-and-bury ()
-    "Wrapper to save the elfeed db to disk before burying buffer"
-    (interactive)
-    (elfeed-db-save)
-    (quit-window))
   (setq elfeed-db-directory "~/Sync/.elfeed")
   :config
   ;; Overwrite the default print-entry function with one that prints date,
