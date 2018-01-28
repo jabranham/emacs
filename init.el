@@ -23,8 +23,6 @@
   (setq load-prefer-newer t)
   ;; don't use popup boxes, just make the minibuffer ask
   (setq use-dialog-box nil)
-  ;; I don't work much with emacs-lisp, so the scratch buffer shouldn't be
-  ;; in emacs-lisp mode:
   (setq initial-major-mode #'org-mode
         initial-scratch-message "# Unsaved notes\n\n")
   ;; Delete my files by moving them to the trash. I'm human and
@@ -66,6 +64,7 @@
   ;; Setup a personal keymap. I'll bind various things to this later on:
   (bind-keys :prefix "<f1>"
              :prefix-map my/map))
+
 
 (use-package auto-compile
   :demand t
@@ -454,7 +453,6 @@ three ediff buffers (A, B, and C)."
   (:map my/map
         ("s" . bjm/elfeed-load-db-and-open)
         :map elfeed-search-mode-map
-        ("q" . bjm/elfeed-save-db-and-bury)
         ("l" . my/get-elfeed-log-buffer))
   :init
   ;; thanks -
@@ -468,12 +466,6 @@ three ediff buffers (A, B, and C)."
     (elfeed-db-load)
     (elfeed-search-update--force)
     (elfeed-update))
-  ;;write to disk when quiting
-  (defun bjm/elfeed-save-db-and-bury ()
-    "Wrapper to save the elfeed db to disk before burying buffer"
-    (interactive)
-    (elfeed-db-save)
-    (quit-window))
   (setq elfeed-db-directory "~/Sync/.elfeed")
   :config
   ;; Overwrite the default print-entry function with one that prints date,
@@ -1456,16 +1448,16 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
 [_M-p_] Unmark  [_M-n_] Unmark  [_r_] Mark by regexp
 ^ ^             ^ ^             [_q_] Quit
 "
-  ("l" mc/edit-lines :exit t)
-  ("a" mc/mark-all-like-this :exit t)
-  ("n" mc/mark-next-like-this)
-  ("N" mc/skip-to-next-like-this)
-  ("M-n" mc/unmark-next-like-this)
-  ("p" mc/mark-previous-like-this)
-  ("P" mc/skip-to-previous-like-this)
-  ("M-p" mc/unmark-previous-like-this)
-  ("r" mc/mark-all-in-region-regexp :exit t)
-  ("q" nil)))
+    ("l" mc/edit-lines :exit t)
+    ("a" mc/mark-all-like-this :exit t)
+    ("n" mc/mark-next-like-this)
+    ("N" mc/skip-to-next-like-this)
+    ("M-n" mc/unmark-next-like-this)
+    ("p" mc/mark-previous-like-this)
+    ("P" mc/skip-to-previous-like-this)
+    ("M-p" mc/unmark-previous-like-this)
+    ("r" mc/mark-all-in-region-regexp :exit t)
+    ("q" nil)))
 
 (use-package mwheel
   :defer t
