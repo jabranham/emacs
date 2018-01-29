@@ -1845,7 +1845,7 @@ See `org-agenda-todo' for more details."
    ("r i" . isbn-to-bibtex))
   :init
   (setq org-ref-completion-library 'org-ref-helm-bibtex)
-  (setq org-ref-notes-function #'my/org-ref-notes-function
+  (setq org-ref-notes-function #'org-ref-notes-function-many-files
         org-ref-notes-directory "~/Sync/bibliography/notes"
         org-ref-default-bibliography '("~/Sync/bibliography/references.bib")
         org-ref-pdf-directory  "~/Sync/bibliography/bibtex-pdfs"
@@ -1860,12 +1860,6 @@ See `org-agenda-todo' for more details."
   (setq org-ref-show-broken-links nil)
   ;; Cleanup nil entries from articles.
   (add-hook 'org-ref-clean-bibtex-entry-hook #'orcb-clean-nil-opinionated t)
-
-  (defun my/org-ref-notes-function (thekey)
-    (let ((bibtex-completion-bibliography (org-ref-find-bibliography)))
-      (bibtex-completion-edit-notes
-       (list (car (org-ref-get-bibtex-key-and-file thekey))))))
-
 
   ;; Org-ref-bibtex is a package that helps me manage my bib file(s). I add the
   ;; my/fix-journal-name function to always put in the full name of the journal.
