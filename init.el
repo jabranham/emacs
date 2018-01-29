@@ -1,4 +1,4 @@
-;;; init.el --- user-init-file -*- lexical-binding: t -*-
+;;; init.el  -*- lexical-binding: t; -*-
 
 
 ;;; Commentary:
