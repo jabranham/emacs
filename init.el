@@ -854,6 +854,8 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   :config
   ;; don't bind C-x C-z to suspend-frame:
   (unbind-key "C-x C-z")
+  ;; In fact, I find suspend-frame so unhelpful let's disable it:
+  (put 'suspend-frame 'disabled t)
   ;; A blinking cursor gets kinda annoying, so get rid of it:
   (blink-cursor-mode -1))
 
