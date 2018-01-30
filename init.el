@@ -811,6 +811,8 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   :config
   ;; don't bind C-x C-z to suspend-frame:
   (unbind-key "C-x C-z")
+  ;; In fact, I find suspend-frame so unhelpful let's disable it:
+  (put 'suspend-frame 'disabled t)
   ;; A blinking cursor gets kinda annoying, so get rid of it:
   (blink-cursor-mode -1))
 
@@ -1047,6 +1049,9 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   ;; There is a correct way to write dates:
   ;; https://xkcd.com/1179/
   (setq ledger-default-date-format ledger-iso-date-format)
+  ;; Write info about the report in the `header-line', leaving the buffer
+  ;; just for the report items:
+  (setq ledger-report-use-header-line t)
   (setq
    ledger-reports
    '(("on-hand" "%(binary) -f %(ledger-file) bal \"(assets|liabilities)\" -X $ --current")
