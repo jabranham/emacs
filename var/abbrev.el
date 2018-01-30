@@ -242,6 +242,7 @@
     ("intrepreting" "interpreting" nil 0)
     ("inversly" "inversely" nil 0)
     ("iwth" "with" nil 2)
+    ("jsut" "just" nil 0)
     ("judgements" "judgments" nil 0)
     ("knwo" "know" nil 0)
     ("lcass" "class" nil 0)
