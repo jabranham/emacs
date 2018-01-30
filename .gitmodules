@@ -40,9 +40,6 @@
 	path = lib/borg
 	url = git@github.com:emacscollective/borg.git
 	remote = "jabranham git@github.com:jabranham/borg.git"
-[submodule "buttercup"]
-	path = lib/buttercup
-	url = git@github.com:jorgenschaefer/emacs-buttercup.git
 [submodule "closql"]
 	path = lib/closql
 	url = git@github.com:emacscollective/closql.git
