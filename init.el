@@ -1090,6 +1090,9 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   ;; There is a correct way to write dates:
   ;; https://xkcd.com/1179/
   (setq ledger-default-date-format ledger-iso-date-format)
+  ;; Write info about the report in the `header-line', leaving the buffer
+  ;; just for the report items:
+  (setq ledger-report-use-header-line t)
   (setq
    ledger-reports
    '(("on-hand" "%(binary) -f %(ledger-file) bal \"(assets|liabilities)\" -X $ --current")
