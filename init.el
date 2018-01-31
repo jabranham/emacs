@@ -2455,6 +2455,9 @@ is already narrowed."
     (:map LaTeX-mode-map
           ("M-p" . outline-previous-visible-heading)
           ("M-n" . outline-next-visible-heading)
+          ;; smartparens takes care of this but can't if auctex insists on
+          ;; rebinding it:
+          ("$" . self-insert-command)
           ("<backtab>" . org-cycle))
     :config
     (push "\\.fdb_latexmk" LaTeX-clean-intermediate-suffixes)
