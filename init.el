@@ -1772,7 +1772,7 @@ See `org-agenda-todo' for more details."
 
 (use-package org-eww
   ;; Org-eww lets me capture eww webpages with org-mode
-  :defer t)
+  :after eww)
 
 (use-package org-gcal
   ;; I can use org-gcal to sync with google calendar. Lots of ideas taken
