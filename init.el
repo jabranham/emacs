@@ -1729,7 +1729,7 @@ See `org-agenda-todo' for more details."
 
 (use-package org-eww
   ;; Org-eww lets me capture eww webpages with org-mode
-  :defer t)
+  :after eww)
 
 (use-package org-gcal
   ;; I can use org-gcal to sync with google calendar. Lots of ideas taken
@@ -2184,6 +2184,37 @@ See `org-agenda-todo' for more details."
             (set-window-buffer (next-window) next-win-buffer)
             (select-window first-win)
             (if this-win-2nd (other-window 1))))))
+  (defcustom my/keyboard-escape-quit-deletes-windows nil
+    "If non-nil, `keyboard-escape-quit' eventually calls `delete-other-windows'"
+    :group 'windows                     ; is this right?
+    :type 'boolean)
+  (defun my/keyboard-escape-quit ()
+    "Exit the current \"mode\" (in a generalized sense of the word).
+This command can exit an interactive command such as
+`query-replace', can clear out a prefix argument or a region, can
+get out of the minibuffer or other recursive edit, cancel the use
+of the current buffer (for special-purpose buffers), or go back
+to just one window (by deleting all but the selected window, but
+see `my/keyboard-escape-quit-deletes-windows')."
+    (interactive)
+    (cond ((eq last-command 'mode-exited) nil)
+	  ((region-active-p)
+	   (deactivate-mark))
+	  ((> (minibuffer-depth) 0)
+	   (abort-recursive-edit))
+	  (current-prefix-arg
+	   nil)
+	  ((> (recursion-depth) 0)
+	   (exit-recursive-edit))
+	  (buffer-quit-function
+	   (funcall buffer-quit-function))
+	  ((and (not (one-window-p t))
+                my/keyboard-escape-quit-deletes-windows)
+	   (delete-other-windows))
+	  ((string-match "^ \\*" (buffer-name (current-buffer)))
+	   (bury-buffer))))
+
+  (advice-add #'keyboard-escape-quit :override #'my/keyboard-escape-quit)
   (defun my/extract-pdf-pages (infile frompg topg)
     "Extracts pages from a pdf file.
 
