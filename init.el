@@ -291,6 +291,9 @@ minibuffer."
   (calendar-today-visible . calendar-mark-today)
   :config
   (calendar-set-date-style 'iso)
+  (setq calendar-location-name "Austin"
+        calendar-latitude [30 16 north]
+        calendar-longitude [97 44 west])
   (setq calendar-week-start-day 0) ; weeks start on Sunday
   (setq calendar-date-display-form calendar-iso-date-display-form))
 
