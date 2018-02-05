@@ -571,11 +571,6 @@ three ediff buffers (A, B, and C)."
         ;; treat 'echo' like shell echo
         eshell-plain-echo-behavior t)
   (setq eshell-scroll-to-bottom-on-input 'this)
-  (add-to-list 'eshell-load-hook
-               (lambda () ;; remove the welcome message:
-                 (delq 'eshell-banner eshell-modules-list)
-                 ;; use TRAMP sudo method to avoid retyping sudo password on multiple calls:
-                 (push 'eshell-tramp eshell-modules-list)))
   (defun my/eshell-remote (host)
     "Open eshell on a remote host.
 
@@ -615,6 +610,14 @@ Uses `pcmpl-ssh-config-hosts' to obtain a list of possible hosts."
        " ")))
   (setq-default eshell-prompt-regexp "^λ ")
   (setq eshell-prompt-function #'my/eshell-prompt))
+
+(use-package esh-module
+  :defer t
+  :config
+  ;; Don't show the welcome message banner:
+  (delq 'eshell-banner eshell-modules-list)
+  ;; use TRAMP sudo method to avoid retyping sudo password on multiple calls:
+  (push 'eshell-tramp eshell-modules-list))
 
 (use-package ess-site
   ;; ESS (Emacs Speaks Statistics) is a great project that makes Emacs
