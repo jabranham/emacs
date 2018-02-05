@@ -1304,6 +1304,8 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   (setq message-kill-buffer-on-exit t)
   (setq mu4e-use-fancy-chars t)
   (setq mu4e-headers-skip-duplicates t)
+  ;; Don't include related messages, as threads can be quite long:
+  (setq mu4e-headers-include-related nil)
   (setq mu4e-attachment-dir "~/Downloads")
   (setq mu4e-completing-read-function 'completing-read)
   ;; Use iso date format:
