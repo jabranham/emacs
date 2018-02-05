@@ -1319,7 +1319,6 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
                 :name "emacs-orgmode"
                 :query "maildir:/gmail/emacs-orgmode AND flag:unread"
                 :key ?o))
-  (defalias #'mu4e-view-save-attachment #'mu4e-view-save-attachment-multi)
   (setq mu4e-save-multiple-attachments-without-asking t) ; save all attachments in same dir
   ;; don't ask me to quit, just quit
   (setq mu4e-confirm-quit nil)
