@@ -798,11 +798,20 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   :hook
   (after-init . global-flycheck-mode)
   :config
-  ;; flycheck for emacs lisp should check that declared functions _are_ actually declared:
-  (setq flycheck-emacs-lisp-check-declare t
-        flycheck-emacs-lisp-load-path 'inherit)
+  ;; Prefer flymake when it's available:
+  (setq flycheck-global-modes
+        '(not emacs-lisp-mode python-mode ledger-mode))
   ;; I don't care if code is commented out in R:
   (setq flycheck-lintr-linters "with_defaults(commented_code_linter = NULL)"))
+
+(use-package flymake
+  :defer t
+  :hook
+  ((emacs-lisp-mode python-mode). flymake-mode)
+  :bind
+  (:map flymake-mode-map
+        ("M-P" . flymake-goto-prev-error)
+        ("M-N" . flymake-goto-next-error)))
 
 (use-package flyspell
   ;; on the fly spell checking
