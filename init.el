@@ -2634,12 +2634,15 @@ type."
   ;; It's because
   ;; [[https://www.johndcook.com/blog/2012/09/15/the-paper-is-too-big/][the
   ;; paper is too big]].
-
   :bind
   (:map my/map
         ("v" . visual-fill-column-mode))
   :hook
-  (elfeed-show-mode . visual-fill-column-mode))
+  (elfeed-show-mode . visual-fill-column-mode)
+  :config
+  ;; Center text in the middle of the screen rather than putting it all off
+  ;; to the left:
+  (setq-default visual-fill-column-center-text t))
 
 (use-package which-key
   ;; Which key shows key bindings for incomplete commands (prefixes) in a
