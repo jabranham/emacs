@@ -1108,9 +1108,9 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
      ("expenses (monthly)" "%(binary) -f %(ledger-file) reg ^expenses -X $ -M ")
      ("expenses (yearly)" "%(binary) -f %(ledger-file) reg ^expenses -X $ -Y ")
      ("cash-flow-monthly" "%(binary) -f %(ledger-file) -X $ --invert -b \"this month\" bal ^income ^expenses")
-     ("cash-flow" "%(binary) -f %(ledger-file) -X $ --invert bal ^income ^expenses")
+     ("cash-flow-YTD" "%(binary) -f %(ledger-file) -X $ --invert -b \"this year\" bal ^income ^expenses")
      ("budget (this month)" "%(binary) -f %(ledger-file) budget ^exp -X $ -b \"this month\"  --flat")
-     ("budget (this year)" "%(binary) -f %(ledger-file) budget ^exp -X $ -b \"this year\"  --flat"))))
+     ("budget (YTD)" "%(binary) -f %(ledger-file) budget ^exp -X $ -b \"this year\"  --flat"))))
 
 (use-package magit
   ;; magit is magical git
