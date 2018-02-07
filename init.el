@@ -641,6 +641,8 @@ Uses `pcmpl-ssh-config-hosts' to obtain a list of possible hosts."
   (setq ess-ask-for-ess-directory nil) ; don't ask for dir when starting a process
   (setq ess-eldoc-show-on-symbol t) ; show eldoc on symbol instead of only inside of parens
   (setq ess-use-ido nil) ; rely on helm instead of ido
+  ;; Don't warn me about commented code:
+  (setq ess-r-flymake-linters "with_defaults(commented_code_linter = NULL)")
   (progn
     ;; Save R history in one place rather than making .Rhistory files
     ;; everywhere. Make that folder if needed.
@@ -790,23 +792,22 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
                      (save-some-buffers))))))
 
 (use-package flycheck
-  ;; Emacs can tell you magically if your code is wrong (or just ugly).
-  ;; Flycheck is a minor mode for this.  Let's enable it globally.
-
-  ;; Flycheck can check your R code too, but you'll need to install the
-  ;; lintr R package (available on CRAN).
+  ;; Flycheck is an on-the-fly syntax checker.  Emacs used to not have a
+  ;; decent one built in, but starting with Emacs 26 built-in `flymake' is
+  ;; just as good as flycheck.  So I'll rely on flymake when I can and turn
+  ;; on flycheck when flymake doesn't have a backend.
+  :bind
+  (:map flycheck-mode-map
+        ("M-P" . flycheck-previous-error)
+        ("M-N" . flycheck-next-error))
   :hook
-  (after-init . global-flycheck-mode)
-  :config
-  ;; Prefer flymake when it's available:
-  (setq flycheck-global-modes
-        '(not emacs-lisp-mode python-mode ledger-mode))
-  ;; I don't care if code is commented out in R:
-  (setq flycheck-lintr-linters "with_defaults(commented_code_linter = NULL)"))
+  (LaTeX-mode . flycheck-mode))
 
 (use-package flymake
   :defer t
   :hook
+  ;; Some modes turn `flymake-mode' on by default, I have to tell these
+  ;; specifically to do it:
   ((emacs-lisp-mode python-mode). flymake-mode)
   :bind
   (:map flymake-mode-map
@@ -2248,8 +2249,6 @@ Output file will be named by appending _pXX-pYY to INFILE."
                                ".pdf ")
              infile)))
   )                                     ; end use-package simple
-
-
 
 (use-package smartparens
   ;; I'm not good at keeping track of parentheses. This makes me slightly
