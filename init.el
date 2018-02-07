@@ -1012,12 +1012,6 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
           try-expand-line))
   (setq hippie-expand-verbose nil))
 
-(use-package hl-line
-  :config
-  ;; I like the current line to be highlighted.  Makes it easy to see where
-  ;; I am:
-  (global-hl-line-mode))
-
 (use-package holidays
   :defer t
   :config
