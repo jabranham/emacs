@@ -2172,7 +2172,7 @@ See `org-agenda-todo' for more details."
   (setq set-mark-command-repeat-pop t)
   ;; Don't erase output in shell buffers since it's so easy to navigate
   ;; around.
-  (setq shell-command-dont-erase-buffer 'beg-last-out)
+  (setq shell-command-dont-erase-buffer t)
   ;; Only show a shell buffer if there's something to show:
   (setq async-shell-command-display-buffer nil)
   (defun my/toggle-window-split ()
