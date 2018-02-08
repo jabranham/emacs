@@ -1081,6 +1081,8 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   ;; ledger is a program that I use to keep track of finances. Emacs, of course,
   ;; can handle it quite nicely.
   :if (executable-find "ledger")
+  :hook
+  (ledger-mode . my/setup-ledger-mode)
   :bind
   (:map ledger-mode-map
         ("C-c r" . ledger-reconcile)
@@ -1095,11 +1097,17 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
     (interactive)
     (find-file my/ledger-file))
   :config
-  ;; disable company mode in ledger mode because ledger-mode comes
-  ;; with a great completion engine (magic TAB):
-  (add-hook 'ledger-mode-hook (lambda () (company-mode -1)))
-  (setq ledger-post-amount-alignment-column 70)
-  (setq ledger-post-amount-alignment-at :decimal)
+  (defun my/setup-ledger-mode ()
+    "Setup `ledger-mode' how I like."
+    ;; disable company mode in ledger mode because ledger-mode comes
+    ;; with a great completion engine (magic TAB):
+    (company-mode -1))
+  ;; Warn me about using accounts I haven't pre-defined:
+  (setq ledger-flymake-be-pedantic t
+        ledger-flymake-be-explicit t)
+  ;; Align transactions around column 70 at their decimal:
+  (setq ledger-post-amount-alignment-column 70
+        ledger-post-amount-alignment-at :decimal)
   ;; There is a correct way to write dates:
   ;; https://xkcd.com/1179/
   (setq ledger-default-date-format ledger-iso-date-format)
