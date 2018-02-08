@@ -513,6 +513,17 @@ three ediff buffers (A, B, and C)."
   :config
   (elfeed-org))
 
+(use-package elisp-mode
+  :defer t
+  :hook
+  ;; Turn on flymake for emacs-lisp:
+  (emacs-lisp-mode . my/setup-emacs-lisp-mode)
+  :config
+  (defun my/setup-emacs-lisp-mode ()
+    "Setup stuff for elisp."
+    ;; Sentences end with a double space in elisp:
+    (setq-local sentence-end-double-space t)))
+
 (use-package emacsbug
   :defer t
   :config
