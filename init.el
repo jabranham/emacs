@@ -2045,6 +2045,8 @@ See `org-agenda-todo' for more details."
   (:map python-mode-map
         ("C-<return>" . python-shell-send-region-or-statement-and-step))
   :config
+  ;; Use flake8 for flymake:
+  (setq python-flymake-command '("flake8" "-"))
   (defun python-shell-send-region-or-statement ()
     "Send the current region to the inferior python process if there is an active one, otherwise the current line."
     (interactive)
