@@ -11,6 +11,7 @@
 [submodule "anaconda-mode"]
 	path = lib/anaconda-mode
 	url = git@github.com:proofit404/anaconda-mode.git
+	remote = "jabranham git@github.com:jabranham/anaconda-mode.git"
 [submodule "async"]
 	path = lib/async
 	url = git@github.com:jwiegley/emacs-async.git
@@ -123,6 +124,7 @@
 [submodule "git-timemachine"]
 	path = lib/git-timemachine
 	url = git@github.com:pidu/git-timemachine.git
+	remote = "jabranham git@github.com:jabranham/git-timemachine.git"
 [submodule "helm"]
 	path = lib/helm
 	url = git@github.com:emacs-helm/helm.git
