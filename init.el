@@ -1102,6 +1102,9 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
     ;; disable company mode in ledger mode because ledger-mode comes
     ;; with a great completion engine (magic TAB):
     (company-mode -1))
+  ;; no need to check ledger version since I only load ledger-mode if
+  ;; ledger is installed:
+  (setq ledger-mode-should-check-version nil)
   ;; Warn me about using accounts I haven't pre-defined:
   (setq ledger-flymake-be-pedantic t
         ledger-flymake-be-explicit t)
