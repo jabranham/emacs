@@ -294,6 +294,8 @@ minibuffer."
   (setq calendar-location-name "Austin"
         calendar-latitude [30 16 north]
         calendar-longitude [97 44 west])
+  ;; show holidays on the calendar
+  (setq calendar-mark-holidays-flag t)
   (setq calendar-week-start-day 0) ; weeks start on Sunday
   (setq calendar-date-display-form calendar-iso-date-display-form))
 
@@ -861,6 +863,8 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
 ;;; Helm
 (use-package helm
   ;; A package in a league of its own: https://tuhdo.github.io/helm-intro.html
+  ;; load it soon after starting Emacs:
+  :defer 1
   :bind
   (("M-x" . helm-M-x)
    ("C-x C-f" . helm-find-files)
@@ -1069,6 +1073,9 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
     ;; disable company mode in ledger mode because ledger-mode comes
     ;; with a great completion engine (magic TAB):
     (company-mode -1))
+  ;; no need to check ledger version since I only load ledger-mode if
+  ;; ledger is installed:
+  (setq ledger-mode-should-check-version nil)
   ;; Warn me about using accounts I haven't pre-defined:
   (setq ledger-flymake-be-pedantic t
         ledger-flymake-be-explicit t)
