@@ -896,6 +896,8 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
 ;;; Helm
 (use-package helm
   ;; A package in a league of its own: https://tuhdo.github.io/helm-intro.html
+  ;; load it soon after starting Emacs:
+  :defer 1
   :bind
   (("M-x" . helm-M-x)
    ("C-x C-f" . helm-find-files)
