@@ -1054,6 +1054,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   :if (executable-find "ledger")
   :hook
   (ledger-mode . my/setup-ledger-mode)
+  (ledger-mode . ledger-flymake-enable)
   :bind
   (:map ledger-mode-map
         ("C-c r" . ledger-reconcile)
