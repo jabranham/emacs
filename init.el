@@ -655,7 +655,7 @@ Uses `pcmpl-ssh-config-hosts' to obtain a list of possible hosts."
   (setq ess-eldoc-show-on-symbol t) ; show eldoc on symbol instead of only inside of parens
   (setq ess-use-ido nil) ; rely on helm instead of ido
   ;; Don't warn me about commented code:
-  (setq ess-r-flymake-linters "with_defaults(commented_code_linter = NULL)")
+  (setq ess-r-flymake-linters "with_defaults(commented_code_linter = NULL), object_usage_linter = NULL")
   (progn
     ;; Save R history in one place rather than making .Rhistory files
     ;; everywhere. Make that folder if needed.
