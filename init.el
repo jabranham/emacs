@@ -1641,10 +1641,6 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
                            ,my/org-inbox
                            ,my/org-scheduled))
   (setq org-agenda-text-search-extra-files `(,my/org-notes))
-  ;; The calendar file might not exist yet, so only attempt to add it if it does:
-  (defvar my/calendar-file (concat org-directory "gcal.org"))
-  (if (file-readable-p my/calendar-file)
-      (add-to-list 'org-agenda-files my/calendar-file t))
   :config
   (setq org-agenda-skip-deadline-if-done t ; remove done deadlines from agenda
         org-agenda-skip-scheduled-if-done t ; remove done scheduled from agenda
@@ -1766,65 +1762,6 @@ See `org-agenda-todo' for more details."
 (use-package org-eww
   ;; Org-eww lets me capture eww webpages with org-mode
   :after eww)
-
-(use-package org-gcal
-  ;; I can use org-gcal to sync with google calendar. Lots of ideas taken
-  ;; from here:
-  ;; https://cestlaz.github.io/posts/using-emacs-26-gcal/
-  :if (executable-find "pass")
-  :defer 10
-  :functions (my/refresh-appt-with-delay my/sync-calendar-start)
-  :config
-  (setq org-gcal-client-id (password-store--run "emacs/emacs-gcal-client-id")
-        org-gcal-client-secret (password-store--run "emacs/emacs-gcal-client-secret")
-        org-gcal-file-alist '(("alex.branham@gmail.com" .  "~/org/gcal.org")))
-  (setq org-gcal-down-days 186) ; get 6 months ahead of today
-  (setq org-gcal-up-days 31) ; get 1 month before today
-  ;; don't archive events since they're in google calendar
-  (setq org-gcal-auto-archive nil)
-  (add-to-list 'org-agenda-files my/calendar-file t)
-  ;; Refresh calendars via org-gcal and automatically create appt-reminders.
-  ;; Appt will be refreshed any time an org file is saved after 10 seconds of idle.
-  ;; gcal will be synced after 1 minute of idle every hour.
-  ;; Start with `(my/sync-calendar-start)'
-  (defvar my/refresh-appt-timer nil
-    "Timer that `my/refresh-appt-with-delay' uses to reschedule itself, or nil.")
-  (defun my/refresh-appt-with-delay ()
-    (when my/refresh-appt-timer
-      (cancel-timer my/refresh-appt-timer))
-    (setq my/refresh-appt-timer
-          (run-with-idle-timer
-           10 nil
-           (lambda ()
-             (setq appt-time-msg-list nil)
-             (org-agenda-to-appt)
-             (message nil)))))
-
-  (defvar my/sync-calendar-timer nil
-    "Timer that `my/sync-calendar-with-delay' uses to reschedule itself, or nil.")
-  (defun my/sync-calendar-with-delay ()
-    (when my/sync-calendar-timer
-      (cancel-timer my/sync-calendar-timer))
-    (setq my/sync-calendar-timer
-          (run-with-idle-timer
-           60 nil
-           'org-gcal-fetch)))
-
-  (defun my/sync-calendar-start ()
-    (add-hook 'after-save-hook
-              (lambda ()
-                (when (eq major-mode 'org-mode)
-                  (my/refresh-appt-with-delay))))
-
-    (run-with-timer
-     0 (* 60 60) ; every hour
-     'my/sync-calendar-with-delay))
-  ;; Start syncing when Emacs starts:
-  (my/sync-calendar-start)
-  ;; fix bug in org-cal--notify
-  (defun new/org-gcal--notify (title mes)
-    (message "org-gcal::%s - %s" title mes))
-  (fset 'org-gcal--notify 'new/org-gcal--notify))
 
 (use-package org-indent
   ;; org-indent-mode nicely aligns text with the outline level

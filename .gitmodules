@@ -64,9 +64,6 @@
 	path = lib/dash
 	url = git@github.com:magnars/dash.el.git
 	no-makeinfo = dash-template.texi
-[submodule "deferred"]
-	path = lib/deferred
-	url = git@github.com:kiwanami/emacs-deferred.git
 [submodule "diff-hl"]
 	path = lib/diff-hl
 	url = git@github.com:dgutov/diff-hl.git
@@ -201,9 +198,6 @@
 	path = lib/org-bullets
 	url = git@github.com:emacsorphanage/org-bullets.git
 	remote = "jabranham git@github.com:jabranham/org-bullets.git"
-[submodule "org-gcal"]
-	path = lib/org-gcal
-	url = git@github.com:myuhe/org-gcal.el.git
 [submodule "org-ref"]
 	path = lib/org-ref
 	url = git@github.com:jkitchin/org-ref.git
@@ -247,9 +241,6 @@
 [submodule "pythonic"]
 	path = lib/pythonic
 	url = git@github.com:proofit404/pythonic.git
-[submodule "request"]
-	path = lib/request
-	url = git@github.com:tkf/emacs-request.git
 [submodule "s"]
 	path = lib/s
 	url = git@github.com:magnars/s.el.git
