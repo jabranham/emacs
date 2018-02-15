@@ -49,7 +49,9 @@
 
 (define-abbrev-table 'apropos-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table '())
+(define-abbrev-table 'awk-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'biblio-selection-mode-abbrev-table '())
 
@@ -61,9 +63,13 @@
 
 (define-abbrev-table 'borg-build-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table '())
+(define-abbrev-table 'c++-mode-abbrev-table
+  '(
+   ))
 
-(define-abbrev-table 'c-mode-abbrev-table '())
+(define-abbrev-table 'c-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -133,6 +139,8 @@
 
 (define-abbrev-table 'epkg-list-mode-abbrev-table '())
 
+(define-abbrev-table 'erc-dcc-chat-mode-abbrev-table '())
+
 (define-abbrev-table 'erc-list-menu-mode-abbrev-table '())
 
 (define-abbrev-table 'erc-mode-abbrev-table '())
@@ -158,6 +166,8 @@
 (define-abbrev-table 'ffip-diff-mode-abbrev-table '())
 
 (define-abbrev-table 'flycheck-error-list-mode-abbrev-table '())
+
+(define-abbrev-table 'flymake-diagnostics-buffer-mode-abbrev-table '())
 
 (define-abbrev-table 'fundamental-mode-abbrev-table '())
 
@@ -225,6 +235,7 @@
     ("horrendeously" "horrendously" nil 0)
     ("hte" "the" nil 2)
     ("htis" "this" nil 0)
+    ("hwo" "how" nil 0)
     ("hyphonating" "hyphenating" nil 0)
     ("ideosyncracies" "idiosyncrasies" nil 0)
     ("imbalences" "imbalances" nil 0)
@@ -340,7 +351,9 @@
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table '())
+(define-abbrev-table 'java-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'js-jsx-mode-abbrev-table '())
 
@@ -426,13 +439,17 @@
 
 (define-abbrev-table 'messages-buffer-mode-abbrev-table '())
 
+(define-abbrev-table 'mu4e-compose-mode-abbrev-table '())
+
 (define-abbrev-table 'mu4e-org-mode-abbrev-table '())
 
 (define-abbrev-table 'mu4e~update-mail-mode-abbrev-table '())
 
 (define-abbrev-table 'nxml-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table '())
+(define-abbrev-table 'objc-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -454,7 +471,9 @@
 
 (define-abbrev-table 'perl-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table '())
+(define-abbrev-table 'pike-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'pkgbuild-mode-abbrev-table '())
 
@@ -504,7 +523,9 @@
 
 (define-abbrev-table 'speedbar-mode-abbrev-table '())
 
-(define-abbrev-table 'stan-mode-abbrev-table '())
+(define-abbrev-table 'stan-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'sx-compose-mode-abbrev-table '())
 
