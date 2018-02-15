@@ -1659,6 +1659,8 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
    ("s" . org-agenda-schedule)
    ;; overrides org-exit
    ("x" . my/org-agenda-mark-done))
+  :hook
+  (org-agenda-mode . hl-line-mode)
   :init
   ;; Define some places where I keep tasks and notes.  I sync the org repo
   ;; with Syncthing.
