@@ -39,7 +39,7 @@
     ("`ti" "\\title" nil 0)
     ("`us" "\\usage" nil 0)
     ("`va" "\\value" nil 0)
-   ))
+    ))
 
 (define-abbrev-table 'TeX-error-overview-mode-abbrev-table '())
 
@@ -51,7 +51,7 @@
 
 (define-abbrev-table 'awk-mode-abbrev-table
   '(
-   ))
+    ))
 
 (define-abbrev-table 'biblio-selection-mode-abbrev-table '())
 
@@ -65,11 +65,11 @@
 
 (define-abbrev-table 'c++-mode-abbrev-table
   '(
-   ))
+    ))
 
 (define-abbrev-table 'c-mode-abbrev-table
   '(
-   ))
+    ))
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -235,7 +235,7 @@
     ("horrendeously" "horrendously" nil 0)
     ("hte" "the" nil 2)
     ("htis" "this" nil 0)
-    ("hwo" "how" nil 0)
+    ("hve" "have" nil 0)
     ("hyphonating" "hyphenating" nil 0)
     ("ideosyncracies" "idiosyncrasies" nil 0)
     ("imbalences" "imbalances" nil 0)
@@ -264,6 +264,7 @@
     ("multipled" "multiplied" nil 0)
     ("netweok" "network" nil 0)
     ("occured" "occurred" nil 0)
+    ("oen" "one" nil 0)
     ("partisanshpi" "partisanship" nil 0)
     ("pecularities" "peculiarities" nil 0)
     ("phenomina" "phenomena" nil 0)
@@ -271,6 +272,7 @@
     ("postmortum" "postmortem" nil 0)
     ("preferneces" "preferences" nil 3)
     ("prevelance" "prevalence" nil 0)
+    ("profeciency" "proficiency" nil 0)
     ("prominance" "prominence" nil 0)
     ("publically" "publicly" nil 0)
     ("reciept" "receipt" nil 0)
@@ -305,7 +307,7 @@
     ("unmanagable" "unmanageable" nil 0)
     ("wiht" "with" nil 0)
     ("woudl" "would" nil 0)
-   ))
+    ))
 
 (define-abbrev-table 'gnus-article-edit-mode-abbrev-table '())
 
@@ -353,7 +355,7 @@
 
 (define-abbrev-table 'java-mode-abbrev-table
   '(
-   ))
+    ))
 
 (define-abbrev-table 'js-jsx-mode-abbrev-table '())
 
@@ -369,7 +371,7 @@
   '(
     ("RET55" "VFFVX" nil 0)
     ("STAR" "VGSTX" nil 0)
-   ))
+    ))
 
 (define-abbrev-table 'ledger-reconcile-mode-abbrev-table '())
 
@@ -449,7 +451,7 @@
 
 (define-abbrev-table 'objc-mode-abbrev-table
   '(
-   ))
+    ))
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -473,7 +475,7 @@
 
 (define-abbrev-table 'pike-mode-abbrev-table
   '(
-   ))
+    ))
 
 (define-abbrev-table 'pkgbuild-mode-abbrev-table '())
 
@@ -525,7 +527,7 @@
 
 (define-abbrev-table 'stan-mode-abbrev-table
   '(
-   ))
+    ))
 
 (define-abbrev-table 'sx-compose-mode-abbrev-table '())
 
@@ -568,4 +570,3 @@
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
 
 (define-abbrev-table 'yaml-mode-abbrev-table '())
-
