@@ -25,6 +25,7 @@
 	build-step = make install
 	build-step = borg-update-autoloads
 	build-step = borg-makeinfo
+	remote = "jabranham git@github.com:jabranham/auctex.git"
 [submodule "auth-password-store"]
 	path = lib/auth-password-store
 	url = git@github.com:DamienCassou/auth-password-store.git

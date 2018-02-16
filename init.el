@@ -810,16 +810,14 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   :bind
   (:map flycheck-mode-map
         ("M-P" . flycheck-previous-error)
-        ("M-N" . flycheck-next-error))
-  :hook
-  (LaTeX-mode . flycheck-mode))
+        ("M-N" . flycheck-next-error)))
 
 (use-package flymake
   :defer t
   :hook
   ;; Some modes turn `flymake-mode' on by default, I have to tell these
   ;; specifically to do it:
-  ((emacs-lisp-mode python-mode). flymake-mode)
+  ((emacs-lisp-mode python-mode LaTeX-mode). flymake-mode)
   :bind
   (:map flymake-mode-map
         ("M-P" . flymake-goto-prev-error)
