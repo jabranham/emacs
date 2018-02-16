@@ -1332,16 +1332,6 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
                 :name "All Inboxes"
                 :query "maildir:/gmail/INBOX OR maildir:/utexas/INBOX OR maildir:/gu/INBOX"
                 :key ?i))
-  (add-to-list 'mu4e-bookmarks
-               (make-mu4e-bookmark
-                :name "mailing lists"
-                :query "maildir:/gmail/emacs-devel AND flag:unread"
-                :key ?e))
-  (add-to-list 'mu4e-bookmarks
-               (make-mu4e-bookmark
-                :name "emacs-orgmode"
-                :query "maildir:/gmail/emacs-orgmode AND flag:unread"
-                :key ?o))
   (setq mu4e-save-multiple-attachments-without-asking t) ; save all attachments in same dir
   ;; don't ask me to quit, just quit
   (setq mu4e-confirm-quit nil)
@@ -1363,9 +1353,6 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   (setq mu4e-view-show-addresses t)
   (setq mu4e-hide-index-messages t)
   (setq mu4e-view-show-images t)
-  ;; use imagemagick, if available
-  (when (fboundp 'imagemagick-register-types)
-    (imagemagick-register-types))
   (setq message-kill-buffer-on-exit t)
   (setq mu4e-use-fancy-chars t)
   (setq mu4e-headers-skip-duplicates t)
@@ -1387,8 +1374,6 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   (setq message-citation-line-format "On %a %d %b %Y at %R, %f wrote:\n")
   ;; choose to use the formatted string
   (setq message-citation-line-function 'message-insert-formatted-citation-line)
-  ;; disable visual-line-mode in mu4e-headers (one line should be one email)
-  (add-hook 'mu4e-headers-mode-hook (lambda () (visual-line-mode -1)))
   ;; turn off autofill mode in mu4e compose
   (defun autofill-off-visual-on ()
     "Turn off auto-fill-mode and turn on visual-mode"
