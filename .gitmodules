@@ -110,9 +110,6 @@
 [submodule "f"]
 	path = lib/f
 	url = git@github.com:rejeep/f.el.git
-[submodule "flycheck"]
-	path = lib/flycheck
-	url = git@github.com:flycheck/flycheck.git
 [submodule "ghub"]
 	path = lib/ghub
 	url = git@github.com:magit/ghub.git

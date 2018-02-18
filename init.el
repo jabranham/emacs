@@ -802,16 +802,6 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
                                 (visible-frame-list)))
                      (save-some-buffers))))))
 
-(use-package flycheck
-  ;; Flycheck is an on-the-fly syntax checker.  Emacs used to not have a
-  ;; decent one built in, but starting with Emacs 26 built-in `flymake' is
-  ;; just as good as flycheck.  So I'll rely on flymake when I can and turn
-  ;; on flycheck when flymake doesn't have a backend.
-  :bind
-  (:map flycheck-mode-map
-        ("M-P" . flycheck-previous-error)
-        ("M-N" . flycheck-next-error)))
-
 (use-package flymake
   :defer t
   :hook
