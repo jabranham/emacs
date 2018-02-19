@@ -1077,14 +1077,14 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   (setq ledger-report-use-header-line t)
   (setq
    ledger-reports
-   '(("on-hand" "%(binary) -f %(ledger-file) bal \"(assets|liabilities)\" -X $ --current")
-     ("account" "%(binary) -f %(ledger-file) reg %(account)")
-     ("expenses (monthly)" "%(binary) -f %(ledger-file) reg ^expenses -X $ -M ")
-     ("expenses (yearly)" "%(binary) -f %(ledger-file) reg ^expenses -X $ -Y ")
-     ("cash-flow-monthly" "%(binary) -f %(ledger-file) -X $ --invert -b \"this month\" bal ^income ^expenses")
-     ("cash-flow-YTD" "%(binary) -f %(ledger-file) -X $ --invert -b \"this year\" bal ^income ^expenses")
-     ("budget (this month)" "%(binary) -f %(ledger-file) budget ^exp -X $ -b \"this month\"  --flat")
-     ("budget (YTD)" "%(binary) -f %(ledger-file) budget ^exp -X $ -b \"this year\"  --flat"))))
+   '(("on-hand"             "%(binary) -f %(ledger-file) bal assets liabilities -X $ --current")
+     ("account"             "%(binary) -f %(ledger-file) reg %(account)")
+     ("expenses (monthly)"  "%(binary) -f %(ledger-file) reg expenses -X $ -M ")
+     ("expenses (yearly)"   "%(binary) -f %(ledger-file) reg expenses -X $ -Y ")
+     ("cash-flow-monthly"   "%(binary) -f %(ledger-file) -X $ --invert -b \"this month\" bal income expenses")
+     ("cash-flow-YTD"       "%(binary) -f %(ledger-file) -X $ --invert -b \"this year\"  bal income expenses")
+     ("budget (this month)" "%(binary) -f %(ledger-file) budget ^exp -X $ -b \"this month\" --flat")
+     ("budget (YTD)"        "%(binary) -f %(ledger-file) budget ^exp -X $ -b \"this year\" --flat"))))
 
 (use-package magit
   ;; magit is magical git
@@ -2648,7 +2648,7 @@ the current window and the windows state prior to that."
   ;; someone else's project, for example).  This mode will call
   ;; `whitespace-cleanup' before buffers are saved (but smartly)!
   :hook
-  ((prog-mode ess-mode) . ws-butler-mode)
+  ((prog-mode ess-mode ledger-mode) . ws-butler-mode)
   :config
   (setq ws-butler-keep-whitespace-before-point nil))
 
