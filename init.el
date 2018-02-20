@@ -473,6 +473,9 @@ three ediff buffers (A, B, and C)."
     (elfeed-update))
   (setq elfeed-db-directory "~/Sync/.elfeed")
   :config
+  (defun my/setup-elfeed-show-mode ()
+    "Setup `elfeed-show-mode'."
+    (setq-local shr-width 80))
   ;; Overwrite the default print-entry function with one that prints date,
   ;; then feed-title, then title:
   (defun my/elfeed-print-entry (entry)
@@ -2528,22 +2531,6 @@ type."
   (setq vc-follow-symlinks t)
   ;; always make backup files.  Of everything.  Always.
   (setq vc-make-backup-files t))
-
-(use-package visual-fill-column
-  ;; I like lines wrapping at around 80 characters. Fun nugget: the reason
-  ;; \LaTeX default margins look so huge isn't because the margins are too big.
-  ;; It's because
-  ;; [[https://www.johndcook.com/blog/2012/09/15/the-paper-is-too-big/][the
-  ;; paper is too big]].
-  :bind
-  (:map my/map
-        ("v" . visual-fill-column-mode))
-  :hook
-  (elfeed-show-mode . visual-fill-column-mode)
-  :config
-  ;; Center text in the middle of the screen rather than putting it all off
-  ;; to the left:
-  (setq-default visual-fill-column-center-text t))
 
 (use-package which-key
   ;; Which key shows key bindings for incomplete commands (prefixes) in a
