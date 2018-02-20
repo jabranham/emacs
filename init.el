@@ -1204,7 +1204,6 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   :hook
   ;; Wrap lines at `fill-column' when viewing emails:
   (mu4e-compose-mode . autofill-off-visual-on)
-  (mu4e-compose-mode . visual-fill-column-mode)
   :bind
   (("C-x m" . mu4e-compose-new)
    ("<f9>" . my/work-inbox)
