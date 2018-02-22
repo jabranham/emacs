@@ -1126,6 +1126,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   ;; Write info about the report in the `header-line', leaving the buffer
   ;; just for the report items:
   (setq ledger-report-use-header-line t)
+  (setq ledger-report-resize-window nil)
   (setq
    ledger-reports
    '(("on-hand"             "%(binary) -f %(ledger-file) bal assets liabilities -X $ --current")
