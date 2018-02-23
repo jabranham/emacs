@@ -256,9 +256,6 @@
 [submodule "s"]
 	path = lib/s
 	url = git@github.com:magnars/s.el.git
-[submodule "shell-pop"]
-	path = lib/shell-pop
-	url = git@github.com:kyagi/shell-pop-el.git
 [submodule "smartparens"]
 	path = lib/smartparens
 	url = git@github.com:Fuco1/smartparens.git

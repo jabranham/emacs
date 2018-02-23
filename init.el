@@ -575,6 +575,7 @@ three ediff buffers (A, B, and C)."
   (eshell-mode . goto-address-mode)
   (eshell-mode . my/setup-eshell)
   :bind
+  ("C-c M-e" . eshell)
   ("C-c C-M-e" . my/eshell-remote)
   :config
   (setq eshell-cmpl-cycle-completions nil
@@ -2182,15 +2183,6 @@ See `org-agenda-todo' for more details."
   (shell-mode . goto-address-mode)
   :config
   (setenv "PAGER" "cat"))
-
-(use-package shell-pop
-  ;; 'pop' up a little shell at the bottom of the frame
-  :bind ("C-c M-e" . shell-pop)
-  :init
-  (setq shell-pop-window-position 'bottom
-        shell-pop-window-height 33
-        shell-pop-full-span t
-        shell-pop-shell-type '("eshell" "*eshell*" (lambda nil (eshell)))))
 
 (use-package simple
   :defer t
