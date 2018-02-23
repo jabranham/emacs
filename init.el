@@ -477,7 +477,7 @@ three ediff buffers (A, B, and C)."
     (elfeed-update))
   (setq elfeed-db-directory "~/Sync/.elfeed")
   :hook
-  (elfeed-show-mode . my/elfeed-setup-show-mode)
+  (elfeed-show-mode . my/setup-elfeed-show-mode)
   :config
   (defun my/setup-elfeed-show-mode ()
     "Setup `elfeed-show-mode'."
