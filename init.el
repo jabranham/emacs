@@ -2191,6 +2191,7 @@ See `org-agenda-todo' for more details."
   ;; Turn on visual line mode for nice line wrapping
   (after-init . global-visual-line-mode)
   :bind
+  ("M-/" . cycle-spacing)
   (:prefix-map my/transpose-map
                :prefix "C-t"
                ("f" . my/toggle-window-split)
