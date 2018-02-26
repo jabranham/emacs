@@ -2084,6 +2084,7 @@ See `org-agenda-todo' for more details."
   ;; Turn on visual line mode for nice line wrapping
   (after-init . global-visual-line-mode)
   :bind
+  ("M-/" . cycle-spacing)
   (:prefix-map my/transpose-map
                :prefix "C-t"
                ("f" . my/toggle-window-split)
@@ -2703,9 +2704,6 @@ Disable smartparens and remember its initial state."
   (add-hook 'term-mode-hook (lambda () (yas-minor-mode -1)))
   (unbind-key "C-c &" yas-minor-mode-map)
   (yas-global-mode))
-
-(add-hook 'emacs-startup-hook
-          (lambda () (message (concat "Booted in: " (emacs-init-time)))))
 
 ;; Local Variables:
 ;; indent-tabs-mode: nil
