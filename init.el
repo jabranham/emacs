@@ -2811,9 +2811,6 @@ Disable smartparens and remember its initial state."
   (unbind-key "C-c &" yas-minor-mode-map)
   (yas-global-mode))
 
-(add-hook 'emacs-startup-hook
-          (lambda () (message (concat "Booted in: " (emacs-init-time)))))
-
 ;; Local Variables:
 ;; indent-tabs-mode: nil
 ;; fill-column: 75
