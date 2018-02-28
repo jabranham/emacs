@@ -51,9 +51,9 @@
 [submodule "company-anaconda"]
 	path = lib/company-anaconda
 	url = git@github.com:proofit404/company-anaconda.git
-[submodule "company-quickhelp"]
-	path = lib/company-quickhelp
-	url = git@github.com:expez/company-quickhelp.git
+[submodule "company-childframe"]
+	path = lib/company-childframe
+	url = git@github.com:tumashu/company-childframe.git
 [submodule "crux"]
 	path = lib/crux
 	url = git@github.com:bbatsov/crux.git
@@ -230,9 +230,9 @@
 [submodule "popup"]
 	path = lib/popup
 	url = git@github.com:auto-complete/popup-el.git
-[submodule "pos-tip"]
-	path = lib/pos-tip
-	url = git@github.com:pitkali/pos-tip.git
+[submodule "posframe"]
+	path = lib/posframe
+	url = git@github.com:tumashu/posframe.git
 [submodule "powerline"]
 	path = lib/powerline
 	url = git@github.com:milkypostman/powerline.git

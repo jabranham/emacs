@@ -320,16 +320,18 @@ minibuffer."
   :config
   (setq company-minimum-prefix-length 2)
   (setq company-idle-delay 0.5)
-  (setq company-require-match nil)
-  (use-package company-quickhelp
-    :config
-    (company-quickhelp-mode)))
+  (setq company-require-match nil))
 
 (use-package company-anaconda
   ;; company for integration with anaconda (loaded above)
   :after (anaconda-mode company)
   :config
   (add-to-list 'company-backends 'company-anaconda))
+
+(use-package company-childframe
+  :defer 10
+  :config
+  (company-childframe-mode))
 
 (use-package compile
   :defer t
