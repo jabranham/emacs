@@ -207,6 +207,7 @@
     ("convienent" "convenient" nil 0)
     ("countires" "countries" nil 0)
     ("criticise" "criticize" nil 0)
+    ("definately" "definitely" nil 0)
     ("demcoratic" "democratic" nil 0)
     ("democraphic" "demographic" nil 0)
     ("discrepency" "discrepancy" nil 0)
