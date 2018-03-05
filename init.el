@@ -2266,23 +2266,18 @@ there are no attachments."
   (spaceline-helm-mode)
   (setq-default
    powerline-default-separator 'wave
-   spaceline-flycheck-bullet "❖ %s"
    spaceline-separator-dir-left '(right . right)
    spaceline-separator-dir-right '(left . left))
   (spaceline-install
     'main
     '((window-number)
-      (buffer-modified)
-      (projectile-root)
       ((remote-host buffer-id) :face highlight-face)
+      (version-control)
       (major-mode)
       (process))
     '((selection-info :face region :when mark-active)
-      ((flycheck-error flycheck-warning flycheck-info) :when active)
-      (which-function)
-      (version-control)
-      (line-column)
       (global)
+      (line-column)
       (buffer-position)))
   (setq-default mode-line-format '("%e" (:eval (spaceline-ml-main)))))
 
