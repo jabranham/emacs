@@ -852,8 +852,6 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
 (use-package gitignore-mode
   :defer t)
 
-
-
 ;;; Helm
 (use-package helm
   ;; A package in a league of its own: https://tuhdo.github.io/helm-intro.html
@@ -1164,6 +1162,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   :hook
   ;; Wrap lines at `fill-column' when viewing emails:
   (mu4e-compose-mode . autofill-off-visual-on)
+  (mu4e-headers-mode . my/setup-mu4e-headers)
   :bind
   (("C-x m" . mu4e-compose-new)
    ("<f9>" . my/work-inbox)
@@ -1207,6 +1206,12 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
     (window-configuration-to-register :mu4e-fullscreen)
     (mu4e~headers-jump-to-maildir "/gmail/INBOX")
     (delete-other-windows))
+  (defun my/setup-mu4e-headers ()
+    "Set up mu4e headers."
+    ;; Don't wrap long lines, let me scroll a single line horizontally
+    (visual-line-mode -1)
+    (setq-local auto-hscroll-mode 'current-line)
+    (toggle-truncate-lines 1))
 
   (defun my/org-mu4e-store-and-capture ()
     "Similar to `org-mu4e-store-and-capture', but use \"r\" capture template and then mark the email for deletion."
