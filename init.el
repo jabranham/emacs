@@ -910,6 +910,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
    ("M-y" . helm-show-kill-ring)
    ("C-M-z" . helm-resume)
    ([remap occur] . helm-occur)
+   ([remap bookmark-jump] . helm-bookmarks)
    ("C-x b" . helm-buffers-list)
    ("C-x C-b" . helm-buffers-list)
    ("M-s M-g" . helm-google-suggest)
