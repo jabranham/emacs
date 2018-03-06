@@ -351,6 +351,20 @@ minibuffer."
   (compilation-ask-about-save nil)
   (compilation-scroll-output 'first-error))
 
+(use-package conf-mode
+  :mode (("\\.service\\'" . conf-unix-mode)
+         ("\\.timer\\'" . conf-unix-mode)
+         ("\\.target\\'" . conf-unix-mode)
+         ("\\.mount\\'" . conf-unix-mode)
+         ("\\.automount\\'" . conf-unix-mode)
+         ("\\.slice\\'" . conf-unix-mode)
+         ("\\.socket\\'" . conf-unix-mode)
+         ("\\.path\\'" . conf-unix-mode)
+         ("\\.netdev\\'" . conf-unix-mode)
+         ("\\.network\\'" . conf-unix-mode)
+         ("\\.link\\'" . conf-unix-mode)
+         ("\\.automount\\'" . conf-unix-mode)))
+
 (use-package csv-mode
   ;; Emacs can handle csv files with ease:
   :mode (("\\.csv" . csv-mode)))
@@ -2298,12 +2312,6 @@ is already narrowed."
                ("L" . system-packages-log)
                ("v" . system-packages-verify-all-packages)
                ("V" . system-packages-verify-all-dependencies)))
-
-(use-package systemd
-  ;; systemd keeps track of daemons running and the like. This adds syntax
-  ;; highlighting for it (Emacs can do a decent job out-of-the box with
-  ;; conf-mode)
-  :defer t)
 
 (use-package tex-site
   ;; AuCTeX is better than the built in tex mode; let's use it.  It's good

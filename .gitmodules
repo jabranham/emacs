@@ -268,9 +268,6 @@
 [submodule "system-packages"]
 	path = lib/system-packages
 	url = git@github.com:jabranham/system-packages.git
-[submodule "systemd"]
-	path = lib/systemd
-	url = git@github.com:holomorph/systemd-mode.git
 [submodule "tablist"]
 	path = lib/tablist
 	url = git@github.com:politza/tablist.git
