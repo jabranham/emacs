@@ -369,14 +369,6 @@ minibuffer."
   ;; Emacs can handle csv files with ease:
   :mode (("\\.csv" . csv-mode)))
 
-(use-package crux
-  ;; collection of "stuff."
-  :bind
-  (("C-x i" . crux-ispell-word-then-abbrev)
-   ("C-c e" . crux-sudo-edit)
-   :map prog-mode-map
-   ("C-a" . crux-move-beginning-of-line)))
-
 (use-package delsel
   :config
   ;; Emacs by default doesn't replace selected text if you start typing
@@ -673,7 +665,6 @@ Uses `pcmpl-ssh-config-hosts' to obtain a list of possible hosts."
   :load-path "lib/ess/lisp"
   :bind
   (:map ess-mode-map
-        ("C-a" . crux-move-beginning-of-line)
         ("M-=" . ess-insert-S-assign)
         ("_"   . self-insert-command)
         ("M-p" . my/add-pipe)

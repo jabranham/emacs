@@ -54,10 +54,6 @@
 [submodule "company-childframe"]
 	path = lib/company-childframe
 	url = git@github.com:tumashu/company-childframe.git
-[submodule "crux"]
-	path = lib/crux
-	url = git@github.com:bbatsov/crux.git
-	remote = "jabranham git@github.com:jabranham/crux.git"	
 [submodule "csv-mode"]
 	path = lib/csv-mode
 	url = git@github.com:emacsmirror/csv-mode.git
