@@ -850,6 +850,9 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
 (use-package flyspell
   ;; on the fly spell checking
   :custom
+  (flyspell-abbrev-p t)
+  (flyspell-issue-welcome-flag nil)
+  (flyspell-use-global-abbrev-table-p t)
   (flyspell-use-meta-tab nil)
   :hook
   (text-mode . turn-on-flyspell)
