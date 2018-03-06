@@ -2321,6 +2321,7 @@ is already narrowed."
   :mode ("\\.tex\\'" . TeX-latex-mode)
   :custom
   (TeX-auto-save t)
+  (TeX-electric-escape t)
   (TeX-parse-self t)
   (reftex-plug-into-AUCTeX t)
   (TeX-source-correlate-method 'synctex)
