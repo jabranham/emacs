@@ -2070,6 +2070,7 @@ See `org-agenda-todo' for more details."
   (set-mark-command-repeat-pop t)
   (shell-command-dont-erase-buffer t "Don't erase output in shell buffers since it's so easy to navigate around.")
   (async-shell-command-display-buffer nil "Only show a shell buffer if there's something to show.")
+  (kill-ring-max 500)
   :config
   (defun my/toggle-window-split ()
     "Switch between 2 windows split horizontally or vertically."
