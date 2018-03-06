@@ -1748,12 +1748,17 @@ See `org-agenda-todo' for more details."
   ;; Set this to nil; it slows down org a LOT. Agenda generation takes under a
   ;; second when it is nil and over 7 seconds when t:
   (org-ref-show-broken-links nil)
-  :hook
-  ;; Cleanup nil entries from articles.
-  (org-ref-clean-bibtex-entry . orcb-clean-nil-opinionated)
-  ;; Fix journal names in bibtex entries
-  (org-ref-clean-bibtex-entry . my/fix-journal-name)
   :config
+  ;; TODO: I can't use use-package's :hook keyword to add these two hooks
+  ;; because org-ref-clean-bibtex-entry-hook then gets defined before the
+  ;; defcustom, which means the other functions don't get added to it.
+
+  ;; Cleanup nil entries from articles.
+  (add-hook 'org-ref-clean-bibtex-entry-hook #'orcb-clean-nil-opinionated)
+  ;; Fix journal names in bibtex entries
+  (add-hook 'org-ref-clean-bibtex-entry-hook #'my/fix-journal-name)
+
+
   (defvar my/notes-template
     "* TODO %y - %t\n :PROPERTIES:\n  :Custom_ID: %k\n  :AUTHOR: %9a\n  :JOURNAL: %j\n  :YEAR: %y\n  :VOLUME: %v\n  :PAGES: %p\n  :DOI: %D\n  :URL: %U\n :END:\n")
   (setq org-ref-note-title-format my/notes-template)
