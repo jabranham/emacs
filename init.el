@@ -836,6 +836,8 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
 
 (use-package flymake
   :defer t
+  :custom
+  (flymake-proc-compilation-prevents-syntax-check nil)
   :hook
   ;; Some modes turn `flymake-mode' on by default, I have to tell these
   ;; specifically to do it:
