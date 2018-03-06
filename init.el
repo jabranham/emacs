@@ -68,16 +68,17 @@
 
 (use-package auto-compile
   :demand t
+  :custom
+  (auto-compile-mode-line-counter t "Show compile info in the mode-line")
+  (auto-compile-source-recreate-deletes-dest t)
+  (auto-compile-toggle-deletes-nonlib-dest t)
+  (auto-compile-update-autoloads t)
+  (auto-compile-display-buffer nil "Don't display compile buffer")
   :hook
   (auto-compile-inhibit-compile . auto-compile-inhibit-compile-detached-git-head)
   :config
   (auto-compile-on-load-mode)
-  (auto-compile-on-save-mode)
-  (setq auto-compile-display-buffer               nil)
-  (setq auto-compile-mode-line-counter            t)
-  (setq auto-compile-source-recreate-deletes-dest t)
-  (setq auto-compile-toggle-deletes-nonlib-dest   t)
-  (setq auto-compile-update-autoloads             t))
+  (auto-compile-on-save-mode))
 
 ;; Finally, I set up no-littering, which keeps my .emacs.d folder clean by
 ;; putting files into appropriate subfolders rather than letting them get
@@ -88,10 +89,11 @@
 ;;; end of early birds, alphabetical from here on out:
 
 (use-package abbrev
+  :custom
+  (save-abbrevs 'silently)
   :config
   (define-global-minor-mode global-abbrev-mode abbrev-mode abbrev-mode)
-  (global-abbrev-mode)
-  (setq save-abbrevs 'silently))
+  (global-abbrev-mode))
 
 (use-package aggressive-indent
   ;; Keep code indented automatically
@@ -102,6 +104,8 @@
 (use-package alert
   ;; Set it up so Emacs can send system notifications:
   :defer t
+  :custom
+  (alert-default-style 'libnotify)
   :config
   (defun my/pause-notifications ()
     "Pause notification display."
@@ -112,9 +116,7 @@
     "Resume notification display."
     (interactive)
     (shell-command "killall -SIGUSR2 dunst" nil nil)
-    (message "Notifications resumed."))
-  (if (executable-find "notify-send")
-      (setq alert-default-style 'libnotify)))
+    (message "Notifications resumed.")))
 
 (use-package anaconda-mode
   ;; sets up some nice things in python buffers:
@@ -126,30 +128,34 @@
   ;; keep track of appointments
   :hook
   (after-init . appt-activate)
+  :custom
+  (appt-delete-window-function (lambda () t))
+  (appt-disp-window-function #'my/appt-display)
+  (appt-display-interval 12 "Don't notify more than once")
+  (appt-message-warning-time 12)
+  (appt-display-mode-line nil)
   :config
-  (setq appt-display-mode-line nil)
-  (setq appt-display-interval appt-message-warning-time) ; don't notify more than once
   (defun my/appt-display (time-til _time msg)
     (if (listp time-til)
         (dotimes (i (length msg))
           (alert (concat (nth i msg) " in " (nth i time-til) " minutes")
                  :title "Appt"))
-      (alert (concat msg " in " time-til " minutes") :title "Appt")))
-  (setq appt-disp-window-function #'my/appt-display)
-  (setq appt-delete-window-function (lambda () t)))
+      (alert (concat msg " in " time-til " minutes") :title "Appt"))))
 
 (use-package async
-  :config
   ;; Async is written to let things be more async-y in Emacs.  I use it for
   ;; dired-async mode mostly.
-  (setq dired-async-message-function
-        ;; For whatever reason, the default for this *doesn't* log it to
-        ;; *Messages*.  Instead, it just displays the notification in the
-        ;; mode line for 3 seconds, but if you type something it
-        ;; immediately goes away.  So just log it to *Messages* like a sane
-        ;; person instead:
-        (lambda (text _face &rest args)
-          (message (format "Finished %s" (apply #'format text args)))))
+  :custom
+  (dired-async-message-function #'my/dired-async-message-function)
+  :config
+  (defun my/dired-async-message-function (text _face &rest args)
+    "Log messages from dired-async to messages buffer."
+    ;; For whatever reason, the default for this *doesn't* log it to
+    ;; *Messages*.  Instead, it just displays the notification in the
+    ;; mode line for 3 seconds, but if you type something it
+    ;; immediately goes away.  So just log it to *Messages* like a sane
+    ;; person instead:
+    (message (format "Finished %s" (apply #'format text args))))
   ;; do dired actions asynchronously
   (dired-async-mode))
 
@@ -161,20 +167,21 @@
   (auth-pass-enable))
 
 (use-package autorevert
+  :custom
+  (global-auto-revert-non-file-buffers t)
+  (auto-revert-verbose nil)
   :config
   ;; Emacs should refresh buffers automatically so if they've changed on
   ;; disk the buffer will update.
-  (setq global-auto-revert-non-file-buffers t)
-  (setq auto-revert-verbose nil)
   (global-auto-revert-mode))
 
 (use-package bash-completion
   ;; We can set it up so that we get pretty good bash completion in
   ;; shell-mode and eshell.  Note that for this to work, you'll need
   ;; bash-completion installed.
+  :custom
+  (bash-completion-nospace t)
   :config
-  (setq bash-completion-nospace t)
-  (setq eshell-default-completion-function 'eshell-bash-completion)
   (defun eshell-bash-completion ()
     (while (pcomplete-here
             (nth 2 (bash-completion-dynamic-complete-nocomint
@@ -185,19 +192,24 @@
 
 (use-package bibtex
   :defer t ; built-in with Emacs
-  :config
-  (setq bibtex-autokey-titleword-length 0
-        bibtex-autokey-titleword-separator ""
-        bibtex-autokey-titlewords 0
-        bibtex-autokey-year-length 4
-        bibtex-autokey-year-title-separator "")
-  (setq bibtex-align-at-equal-sign t)
+  :custom
+  (bibtex-autokey-titleword-length 0)
+  (bibtex-autokey-titleword-separator "")
+  (bibtex-autokey-titlewords 0)
+  (bibtex-autokey-year-length 4)
+  (bibtex-autokey-year-title-separator "")
+  (bibtex-align-at-equal-sign t)
   ;; The default for bibtex-entry-format includes opts-or-alts, which deletes
   ;; empty entries. I want to keep those around, though, because a lot of
   ;; forthcoming articles get things like pages later:
-  (setq bibtex-entry-format '(required-fields numerical-fields))
-  (setq bibtex-files '("~/Sync/bibliography/references.bib"))
-  (add-hook 'bibtex-mode-hook (lambda () (set-fill-column most-positive-fixnum)))
+  (bibtex-entry-format '(required-fields numerical-fields))
+  (bibtex-files '("~/Sync/bibliography/references.bib"))
+  :hook
+  (bibtex-mode-hook #'my/setup-bibtex-mode)
+  :config
+  (defun my/setup-bibtex-mode ()
+    "Set up bibtex mode."
+    (set-fill-column most-positive-fixnum))
   (defun my/bibtex-generate-autokey ()
     "This overwrites the bibtex-generate-autokey function that comes with Emacs.
 
@@ -232,23 +244,23 @@
   (advice-add #'bibtex-mark-entry :override #'my/bibtex-mark-entry))
 
 (use-package browse-url
-  :config
+  :custom
   ;; Use Emacs' built in eww broswer (the Emacs Web Wowser!) by default.
   ;; browse-url-browser-function can take a list of regex's and associate a
   ;; specific browser with matches.  So use eww for everything except a few
   ;; things that don't work well:
-  (setq browse-url-browser-function
-        '((".*login.utexas.*" . browse-url-firefox)
-          (".*utdirect.*utexas.*" . browse-url-firefox)
-          (".*reddit.*" . browse-url-firefox)
-          (".*github.*" . browse-url-firefox)
-          (".*youtube.*" . browse-url-firefox)
-          (".*youtu.be*" . browse-url-firefox)
-          (".apsanet.*" . browse-url-firefox)
-          (".interfolio.*" . browse-url-firefox)
-          (".academicjobsonline.*" . browse-url-firefox)
-          (".accounts.google.com*" . browse-url-firefox)
-          ("." . eww-browse-url))))
+  (browse-url-browser-function
+   '((".*login.utexas.*" . browse-url-firefox)
+     (".*utdirect.*utexas.*" . browse-url-firefox)
+     (".*reddit.*" . browse-url-firefox)
+     (".*github.*" . browse-url-firefox)
+     (".*youtube.*" . browse-url-firefox)
+     (".*youtu.be*" . browse-url-firefox)
+     (".apsanet.*" . browse-url-firefox)
+     (".interfolio.*" . browse-url-firefox)
+     (".academicjobsonline.*" . browse-url-firefox)
+     (".accounts.google.com*" . browse-url-firefox)
+     ("." . eww-browse-url))))
 
 (use-package calc
   :defer t
@@ -286,25 +298,25 @@ minibuffer."
 (use-package calendar
   ;; Yes, my text editor comes with a calendar built in.  Doesn't yours?
   :defer t
+  :custom
+  (calendar-location-name "Austin")
+  (calendar-latitude [30 16 north])
+  (calendar-longitude [97 44 west])
+  (calendar-mark-holidays-flag t "Show holidays in the calendar")
+  (calendar-week-start-day 0 "Weeks start on Sunday")
   :hook
   ;; make today easier to find, visually:
   (calendar-today-visible . calendar-mark-today)
   :config
-  (calendar-set-date-style 'iso)
-  (setq calendar-location-name "Austin"
-        calendar-latitude [30 16 north]
-        calendar-longitude [97 44 west])
-  ;; show holidays on the calendar
-  (setq calendar-mark-holidays-flag t)
-  (setq calendar-week-start-day 0) ; weeks start on Sunday
-  (setq calendar-date-display-form calendar-iso-date-display-form))
+  (setq calendar-date-display-form calendar-iso-date-display-form)
+  (calendar-set-date-style 'iso))
 
 (use-package comint
   ;; comint is the mode from which inferior processes inherit, like the
   ;; python REPL or iESS modes (the R console)
-  :config
-  (setq comint-scroll-to-bottom-on-input 'this)
-  (setq comint-move-point-for-output nil))
+  :custom
+  (comint-move-point-for-output nil)
+  (comint-scroll-to-bottom-on-input 'this))
 
 (use-package company
   ;; Company mode provides autocompletion of text and code.
@@ -317,10 +329,10 @@ minibuffer."
         ("C-p" . company-select-previous))
   :hook
   (after-init . global-company-mode)
-  :config
-  (setq company-minimum-prefix-length 2)
-  (setq company-idle-delay 0.5)
-  (setq company-require-match nil))
+  :custom
+  (company-idle-delay 0.5)
+  (company-require-match nil)
+  (company-minimum-prefix-length 2))
 
 (use-package company-anaconda
   ;; company for integration with anaconda (loaded above)
@@ -335,9 +347,9 @@ minibuffer."
 
 (use-package compile
   :defer t
-  :config
-  (setq compilation-scroll-output 'first-error)
-  (setq compilation-ask-about-save nil))
+  :custom
+  (compilation-ask-about-save nil)
+  (compilation-scroll-output 'first-error))
 
 (use-package csv-mode
   ;; Emacs can handle csv files with ease:
@@ -370,19 +382,20 @@ minibuffer."
   ;; Emacs can act as your file finder/explorer.  Dired is the built-in way
   ;; to do this.
   :defer t
+  :custom
+  (dired-auto-revert-buffer t)
+  (dired-dwim-target t)
+  (dired-recursive-copies 'always)
+  (dired-recursive-deletes 'always)
+  ;; -l: long listing format REQUIRED in dired-listing-switches
+  ;; -a: show everything (including dotfiles)
+  ;; -h: human-readable file sizes
+  (dired-listing-switches "-alh --group-directories-first")
   :bind
   (("C-x C-d" . dired) ; overrides list-directory, which I never use
    :map  dired-mode-map
    ("l" . dired-up-directory)) ; use l to go up in dired
   :config
-  (setq dired-auto-revert-buffer t)
-  (setq dired-dwim-target t)
-  (setq dired-recursive-copies 'always)
-  (setq dired-recursive-deletes 'always)
-  ;; -l: long listing format REQUIRED in dired-listing-switches
-  ;; -a: show everything (including dotfiles)
-  ;; -h: human-readable file sizes
-  (setq dired-listing-switches "-alh --group-directories-first")
   (defun my/dired-ediff-marked ()
     "Run `ediff' on two marked files in a dired buffer."
     (interactive)
@@ -398,10 +411,11 @@ minibuffer."
   :bind
   (:map dired-mode-map
         ("S" . dired-du-mode))
+  :custom
+  (dired-du-size-format t)
   :hook
   (dired-mode . my/dired-maybe-hide-details)
   :config
-  (setq dired-du-size-format t)
   (defun my/dired-maybe-hide-details ()
     "Hide details (owner, permissions, etc) in dired unless dired-du-mode is active."
     (unless dired-du-mode (dired-hide-details-mode))))
@@ -411,16 +425,18 @@ minibuffer."
   (dired-load . (lambda () (load "dired-x")))
   :bind
   ("C-x C-j" . dired-jump)
-  :config
+  :custom
   ;; By default, dired asks you if you want to delete the dired buffer if
   ;; you delete the folder. I can't think of a reason I'd ever want to do
   ;; that.
-  (setq dired-clean-confirm-killing-deleted-buffers nil))
+  (dired-clean-confirm-killing-deleted-buffers nil))
 
 (use-package ediff
   ;; Ediff is great, but I have to tell it to use one frame (since I start
   ;; Emacs before X/wayland, it defaults to using two frames).
   :defer t
+  :custom
+  (ediff-window-setup-function #'ediff-setup-windows-plain)
   :hook
   (ediff-prepare-buffer . my/ediff-prepare-buffer)
   :config
@@ -431,8 +447,7 @@ Runs with `ediff-prepare-buffer-hook' so that it gets run on all
 three ediff buffers (A, B, and C)."
     (when (memq major-mode '(org-mode emacs-lisp-mode))
       ;; unfold org/elisp files
-      (outline-show-all)))
-  (setq ediff-window-setup-function #'ediff-setup-windows-plain))
+      (outline-show-all))))
 
 (use-package edit-indirect
   ;; Markdown relies on this package for to edit source code blocks like
@@ -442,17 +457,16 @@ three ediff buffers (A, B, and C)."
 (use-package eldoc
   ;; eldoc shows useful information in the minibuffer and is enabled by default.
   :defer t
-  :config
-  ;; We can speed it up a bit though:
-  (setq eldoc-idle-delay 0.1))
+  :custom
+  (eldoc-idle-delay 0.1 "We can speed it up a bit."))
 
 (use-package electric-operator
   ;; Electric operator will turn ~a=10*5+2~ into ~a = 10 * 5 + 2~, so let's
   ;; enable it for R:
   :hook
   ((ess-mode python-mode) . electric-operator-mode)
-  :config
-  (setq electric-operator-R-named-argument-style 'spaced))
+  :custom
+  (electric-operator-R-named-argument-style 'spaced))
 
 (use-package elfeed
   ;; Manage RSS and atom feeds from within Emacs!
@@ -461,6 +475,9 @@ three ediff buffers (A, B, and C)."
         ("s" . bjm/elfeed-load-db-and-open)
         :map elfeed-search-mode-map
         ("l" . my/get-elfeed-log-buffer))
+  :custom
+  (elfeed-db-directory "~/Sync/.elfeed")
+  (elfeed-search-print-entry-function #'my/elfeed-print-entry)
   :init
   ;; thanks -
   ;; http://pragmaticemacs.com/emacs/read-your-rss-feeds-in-emacs-with-elfeed/
@@ -473,13 +490,19 @@ three ediff buffers (A, B, and C)."
     (elfeed-db-load)
     (elfeed-search-update--force)
     (elfeed-update))
-  (setq elfeed-db-directory "~/Sync/.elfeed")
   :hook
   (elfeed-show-mode . my/setup-elfeed-show-mode)
+  (elfeed-search-mode . my/setup-elfeed-search-mode)
   :config
   (defun my/setup-elfeed-show-mode ()
     "Setup `elfeed-show-mode'."
-    (setq-local shr-width 80))
+    (setq-local shr-width 80)
+    ;; Scale down huge images:
+    (setq-local shr-max-image-proportion 0.6))
+  (defun my/setup-elfeed-search-mode ()
+    "Setup `elfeed-search-mode'."
+    ;; Don't use visual line mode in elfeed-search:
+    (visual-line-mode -1))
   ;; Overwrite the default print-entry function with one that prints date,
   ;; then feed-title, then title:
   (defun my/elfeed-print-entry (entry)
@@ -500,11 +523,6 @@ three ediff buffers (A, B, and C)."
       (when feed-title
         (insert (propertize feed-column 'face 'elfeed-search-feed-face) " "))
       (insert (propertize title-column 'face title-faces) " ")))
-  (setq elfeed-search-print-entry-function #'my/elfeed-print-entry)
-  ;; Scale down huge images:
-  (setq shr-max-image-proportion 0.6)
-  ;; Don't use visual line mode in elfeed-search:
-  (add-hook 'elfeed-search-mode-hook (lambda () (visual-line-mode -1)))
   (defun my/get-elfeed-log-buffer ()
     "Show elfeed log."
     (interactive)
@@ -513,8 +531,8 @@ three ediff buffers (A, B, and C)."
 
 (use-package elfeed-org
   :after elfeed
-  :init
-  (setq rmh-elfeed-org-files '("~/Sync/.elfeed/rmh-elfeed.org"))
+  :custom
+  (rmh-elfeed-org-files '("~/Sync/.elfeed/rmh-elfeed.org"))
   :config
   (elfeed-org))
 
@@ -531,43 +549,55 @@ three ediff buffers (A, B, and C)."
 
 (use-package emacsbug
   :defer t
-  :config
-  (setq report-emacs-bug-no-explanations t))
+  :custom
+  (report-emacs-bug-no-explanations t))
 
 (use-package epa
   ;; EasyPG Assistant for encryption
-  :config
-  (setq epa-pinentry-mode 'loopback))
+  :custom
+  (epa-pinentry-mode 'loopback))
 
 (use-package epkg
   :defer t
   :bind
   ("C-h P" . epkg-describe-package)
-  :init (setq epkg-repository
-              (expand-file-name "var/epkgs/" user-emacs-directory)))
+  :custom
+  (epkg-repository (expand-file-name "var/epkgs/" user-emacs-directory)))
 
 (use-package erc
   ;; ERC is Emacs's client for IRC.
   :if (executable-find "pass")
   :commands (erc)
+  :custom
+  (erc-autojoin-channels-alist '(("freenode.net" "#emacs" "#archlinux")))
+  (erc-join-buffer 'bury)
+  (erc-lurker-hide-list '("JOIN" "PART" "QUIT"))
+  (erc-password (password-store-get "irc.freenode.net"))
+  (erc-port "6667")
+  (erc-server "irc.freenode.net")
+  (erc-server-reconnect-attempts 12)
+  (erc-server-reconnect-timeout 5)
+  (erc-nick "jabranham")
   :hook
   (erc-mode . goto-address-mode)
-  :config
-  (erc-notifications-mode)
-  (setq erc-nick "jabranham"
-        erc-port "6667"
-        erc-server "irc.freenode.net"
-        erc-password (password-store-get "irc.freenode.net"))
-  (setq erc-join-buffer 'bury)
-  (setq erc-autojoin-channels-alist '(("freenode.net" "#emacs" "#archlinux")))
-  (setq erc-server-reconnect-timeout 5)
-  (setq erc-server-reconnect-attempts 12)
-  (setq erc-lurker-hide-list '("JOIN" "PART" "QUIT")))
+  (erc-mode . erc-notifications-mode))
 
 (use-package eshell
   ;; Eshell is Emacs' built-in shell.  You get UNIX-y goodness even on
   ;; Windows machines, plus it can evaluate elisp.
   :defer t
+  :custom
+  (eshell-buffer-maximum-lines 20000 "Auto truncate after 20k lines")
+  (eshell-highlight-prompt nil "My prompt is easy enough to see")
+  (eshell-hist-ignoredups t "No duplicates in history")
+  (eshell-history-size 1024 "history size")
+  (eshell-list-files-after-cd t "List files after cd.")
+  (eshell-ls-initial-args "-ah" "Also list all files & human-readable filesizes.")
+  (eshell-plain-echo-behavior t "treat 'echo' like shell echo")
+  (eshell-prompt-function #'my/eshell-prompt)
+  (eshell-prompt-regexp "^λ ")
+  (eshell-scroll-to-bottom-on-input 'this)
+  (eshell-cmpl-cycle-completions nil)
   :hook
   ;; Make urls clickable
   (eshell-mode . goto-address-mode)
@@ -576,22 +606,6 @@ three ediff buffers (A, B, and C)."
   ("C-c M-e" . eshell)
   ("C-c C-M-e" . my/eshell-remote)
   :config
-  (setq eshell-cmpl-cycle-completions nil
-        ;; auto truncate after 20k lines
-        eshell-buffer-maximum-lines 20000
-        ;; history size
-        eshell-history-size 1024
-        ;; no duplicates in history
-        eshell-hist-ignoredups t
-        ;; my prompt is easy enough to see
-        eshell-highlight-prompt nil
-        ;; when I cd somewhere, about 90% of the time I follow with ls, so just go ahead and always do that:
-        eshell-list-files-after-cd t
-        ;; also list all files & human-readable filesizes:
-        eshell-ls-initial-args "-ah"
-        ;; treat 'echo' like shell echo
-        eshell-plain-echo-behavior t)
-  (setq eshell-scroll-to-bottom-on-input 'this)
   (defun my/eshell-remote (host)
     "Open eshell on a remote host.
 
@@ -628,9 +642,7 @@ Uses `pcmpl-ssh-config-hosts' to obtain a list of possible hosts."
        (propertize "\nλ" 'face '(:weight bold))
        ;; need to have a space, otherwise the first text I type gets
        ;; propertized to match λ:
-       " ")))
-  (setq-default eshell-prompt-regexp "^λ ")
-  (setq eshell-prompt-function #'my/eshell-prompt))
+       " "))))
 
 (use-package esh-module
   :defer t
@@ -655,19 +667,18 @@ Uses `pcmpl-ssh-config-hosts' to obtain a list of possible hosts."
         :map inferior-ess-mode-map
         ("M-=" . ess-insert-S-assign)
         ("_"   . self-insert-command))
+  :custom
+  (ess-ask-for-ess-directory nil "Don't ask for dir when starting a procecss")
+  (ess-default-style 'RStudio)
+  (ess-eldoc-show-on-symbol t "Show eldoc on symbol instead of only inside of parens")
+  (ess-eval-visibly 'nowait "Don't hog Emacs")
+  (ess-history-directory (concat user-emacs-directory "var/Rhist/") "Save R history in one place rather than making .Rhistory files everywhere.")
+  (ess-pdf-viewer-pref "emacsclient")
+  (ess-use-ido nil "I prefer helm.")
+  (ess-nuke-trailing-whitespace-p t)
   :config
-  (setq ess-nuke-trailing-whitespace-p t)
-  (setq ess-default-style 'RStudio)
-  (setq ess-eval-visibly 'nowait) ; don't hog Emacs
-  (setq ess-ask-for-ess-directory nil) ; don't ask for dir when starting a process
-  (setq ess-eldoc-show-on-symbol t) ; show eldoc on symbol instead of only inside of parens
-  (setq ess-use-ido nil) ; rely on helm instead of ido
-  (progn
-    ;; Save R history in one place rather than making .Rhistory files
-    ;; everywhere. Make that folder if needed.
-    (setq ess-history-directory (concat user-emacs-directory "var/Rhist/"))
-    (mkdir ess-history-directory t))
-  (setq ess-pdf-viewer-pref "emacsclient")
+  ;; Make that folder if needed.
+  (mkdir ess-history-directory t)
   (defun my/add-pipe ()
     "Adds a pipe operator %>% with one space to the left and then
 starts a newline with proper indentation"
@@ -753,7 +764,6 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   :bind
   ;; Everywhere else you can zoom with C-- and C-+.  Let's make Emacs
   ;; follow that convention:
-
   ("C-+" . text-scale-increase)
   ("C--" . text-scale-decrease))
 
@@ -823,8 +833,8 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
 
 (use-package flyspell
   ;; on the fly spell checking
-  :init
-  (setq flyspell-use-meta-tab nil)
+  :custom
+  (flyspell-use-meta-tab nil)
   :hook
   (text-mode . turn-on-flyspell)
   ((prog-mode ess-mode) . flyspell-prog-mode))
@@ -842,8 +852,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
 (use-package git-timemachine
   ;; And to step through the history of a file:
   :bind
-  ("C-x M-g t" . git-timemachine)
-  :commands (git-timemachine))
+  ("C-x M-g t" . git-timemachine))
 
 (use-package gitattributes-mode
   :defer t)
@@ -874,16 +883,16 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
    ("<tab>" . helm-execute-persistent-action)
    ("C-i" . helm-execute-persistent-action)
    ("C-z" . helm-select-action))
+  :custom
+  (helm-display-header-line nil)
+  (helm-echo-input-in-header-line t)
+  (helm-net-prefer-curl t)
+  (helm-split-window-default-side 'below)
+  (helm-split-window-inside-p t)
+  (helm-command-prefix-key "M-,")
   :init
-  (setq helm-command-prefix-key "M-,")
   (require 'helm-config)
   :config
-  (when (executable-find "curl")
-    (setq helm-net-prefer-curl t))
-  (setq helm-split-window-default-side 'below)
-  (setq helm-split-window-inside-p t)
-  (setq helm-display-header-line nil)
-  (setq helm-echo-input-in-header-line t)
   (use-package helm-files
     :config
     (push ".git$" helm-boring-file-regexp-list))
@@ -898,22 +907,19 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   :bind
   (:map my/map
         ("r b" . my/find-bib-file))
-  :init
-  ;; Set up how keys should look - authoryear
+  :custom
+  (bibtex-completion-bibliography "~/Sync/bibliography/references.bib")
+  (bibtex-completion-cite-default-command 'autocite)
+  (bibtex-completion-library-path "~/Sync/bibliography/bibtex-pdfs")
+  (bibtex-completion-notes-extension ".org")
+  (bibtex-completion-notes-path "~/Sync/bibliography/notes")
+  (bibtex-completion-notes-template-multiple-files "* TODO ${year} - ${title}\n  :PROPERTIES:\n  :Custom_ID: ${=key=}\n  :AUTHOR: ${author}\n  :JOURNAL: ${journal}\n  :YEAR: ${year}\n  :VOLUME: ${volume}\n  :PAGES: ${pages}\n  :DOI: ${doi}\n  :URL: ${url}\n :END:\n")
+  (bibtex-completion-cite-commands '("autocite" "textcite" "citep" "citet" "citeauthor" "citeyear" "Citep" "Citet"))
   :config
   (defun my/find-bib-file ()
     "Find my main bib file."
     (interactive)
-    (find-file bibtex-completion-bibliography))
-  (setq bibtex-completion-bibliography "~/Sync/bibliography/references.bib"
-        bibtex-completion-library-path "~/Sync/bibliography/bibtex-pdfs"
-        bibtex-completion-notes-path "~/Sync/bibliography/notes"
-        bibtex-completion-notes-extension ".org"
-        bibtex-completion-notes-template-multiple-files
-        "* TODO ${year} - ${title}\n  :PROPERTIES:\n  :Custom_ID: ${=key=}\n  :AUTHOR: ${author}\n  :JOURNAL: ${journal}\n  :YEAR: ${year}\n  :VOLUME: ${volume}\n  :PAGES: ${pages}\n  :DOI: ${doi}\n  :URL: ${url}\n :END:\n"
-        )
-  (setq bibtex-completion-cite-default-command 'autocite)
-  (setq bibtex-completion-cite-commands '("autocite" "textcite" "citep" "citet" "citeauthor" "citeyear" "Citep" "Citet")))
+    (find-file bibtex-completion-bibliography)))
 
 (use-package helm-c-yasnippet
   ;; I can use this when I can't remember the exact name of a snippet.
@@ -955,9 +961,9 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
         ("v" . describe-variable)
         ("f" . describe-function)
         ("k" . describe-key))
-  :config
+  :custom
   ;; This makes emacs switch focus to help windows:
-  (setq help-window-select t))
+  (help-window-select t))
 
 (use-package highlight-numbers
   ;; I like to see numbers in code:
@@ -969,34 +975,34 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   :bind
   (("M-SPC" . hippie-expand)
    ([remap dabbrev-expand] . hippie-expand))
-  :config
-  (setq hippie-expand-try-functions-list
-        '(;; Try to expand word "dynamically", searching the current buffer.
-          try-expand-dabbrev
-          ;; Try to expand word "dynamically", searching all other buffers.
-          try-expand-dabbrev-all-buffers
-          ;; Try to complete text as a file name, as many characters as unique.
-          try-complete-file-name-partially
-          ;; Try to complete text as a file name.
-          try-complete-file-name
-          ;; Try to expand word "dynamically", searching the kill ring.
-          try-expand-dabbrev-from-kill
-          ;; Try to complete the current line to an entire line in the buffer.
-          try-expand-list
-          ;; Try to complete the current line to an entire line in the buffer.
-          try-expand-line))
-  (setq hippie-expand-verbose nil))
+  :custom
+  (hippie-expand-try-functions-list
+   '(;; Try to expand word "dynamically", searching the current buffer.
+     try-expand-dabbrev
+     ;; Try to expand word "dynamically", searching all other buffers.
+     try-expand-dabbrev-all-buffers
+     ;; Try to complete text as a file name, as many characters as unique.
+     try-complete-file-name-partially
+     ;; Try to complete text as a file name.
+     try-complete-file-name
+     ;; Try to expand word "dynamically", searching the kill ring.
+     try-expand-dabbrev-from-kill
+     ;; Try to complete the current line to an entire line in the buffer.
+     try-expand-list
+     ;; Try to complete the current line to an entire line in the buffer.
+     try-expand-line))
+  (hippie-expand-verbose nil))
 
 (use-package holidays
   :defer t
-  :config
+  :custom
   ;; Emacs knows about holidays, but there are lots that don't affect me.
   ;; Let's hide them
-  (setq holiday-christian-holidays nil)
-  (setq holiday-bahai-holidays nil)
-  (setq holiday-hebrew-holidays nil)
-  (setq holiday-islamic-holidays nil)
-  (setq holiday-oriental-holidays nil))
+  (holiday-bahai-holidays nil)
+  (holiday-hebrew-holidays nil)
+  (holiday-islamic-holidays nil)
+  (holiday-oriental-holidays nil)
+  (holiday-christian-holidays nil))
 
 (use-package hydra
   ;; Hydra is a nice package that lets you set up menus for related (or not)
@@ -1053,6 +1059,24 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
         ("C-c r" . ledger-reconcile)
         :map my/map
         ("l" . my/ledger-file))
+  :custom
+  (ledger-default-date-format "%Y-%m-%d" "ISO dates.")
+  (ledger-flymake-be-explicit t "Warn about account typos.")
+  (ledger-flymake-be-pedantic t "Warn about account typos.")
+  (ledger-post-amount-alignment-at :decimal "Align at decimal place.")
+  (ledger-post-amount-alignment-column 70 "Align at column 70")
+  (ledger-report-resize-window nil "Don't resize windows.")
+  (ledger-report-use-header-line t "Write info in the `header-line', leaving buffer for reports.")
+  (ledger-mode-should-check-version nil "Assume ledger is up-to-date.")
+  (ledger-reports
+   '(("on-hand"             "%(binary) -f %(ledger-file) bal assets liabilities -X $ --current")
+     ("account"             "%(binary) -f %(ledger-file) reg %(account)")
+     ("expenses (monthly)"  "%(binary) -f %(ledger-file) reg expenses -X $ -M ")
+     ("expenses (yearly)"   "%(binary) -f %(ledger-file) reg expenses -X $ -Y ")
+     ("cash-flow-monthly"   "%(binary) -f %(ledger-file) -X $ --invert -b \"this month\" bal income expenses")
+     ("cash-flow-YTD"       "%(binary) -f %(ledger-file) -X $ --invert -b \"this year\"  bal income expenses")
+     ("budget (this month)" "%(binary) -f %(ledger-file) budget ^exp -X $ -b \"this month\" --flat")
+     ("budget (YTD)"        "%(binary) -f %(ledger-file) budget ^exp -X $ -b \"this year\" --flat")))
   :init
   (defvar my/ledger-file
     (expand-file-name "~/Sync/Finances/finances.ledger")
@@ -1066,49 +1090,22 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
     "Setup `ledger-mode' how I like."
     ;; disable company mode in ledger mode because ledger-mode comes
     ;; with a great completion engine (magic TAB):
-    (company-mode -1))
-  ;; no need to check ledger version since I only load ledger-mode if
-  ;; ledger is installed:
-  (setq ledger-mode-should-check-version nil)
-  ;; Warn me about using accounts I haven't pre-defined:
-  (setq ledger-flymake-be-pedantic t
-        ledger-flymake-be-explicit t)
-  ;; Align transactions around column 70 at their decimal:
-  (setq ledger-post-amount-alignment-column 70
-        ledger-post-amount-alignment-at :decimal)
-  ;; There is a correct way to write dates:
-  ;; https://xkcd.com/1179/
-  (setq ledger-default-date-format ledger-iso-date-format)
-  ;; Write info about the report in the `header-line', leaving the buffer
-  ;; just for the report items:
-  (setq ledger-report-use-header-line t)
-  (setq ledger-report-resize-window nil)
-  (setq
-   ledger-reports
-   '(("on-hand"             "%(binary) -f %(ledger-file) bal assets liabilities -X $ --current")
-     ("account"             "%(binary) -f %(ledger-file) reg %(account)")
-     ("expenses (monthly)"  "%(binary) -f %(ledger-file) reg expenses -X $ -M ")
-     ("expenses (yearly)"   "%(binary) -f %(ledger-file) reg expenses -X $ -Y ")
-     ("cash-flow-monthly"   "%(binary) -f %(ledger-file) -X $ --invert -b \"this month\" bal income expenses")
-     ("cash-flow-YTD"       "%(binary) -f %(ledger-file) -X $ --invert -b \"this year\"  bal income expenses")
-     ("budget (this month)" "%(binary) -f %(ledger-file) budget ^exp -X $ -b \"this month\" --flat")
-     ("budget (YTD)"        "%(binary) -f %(ledger-file) budget ^exp -X $ -b \"this year\" --flat"))))
+    (company-mode -1)))
 
 (use-package magit
   ;; magit is magical git
   :bind
   ("C-x g" . magit-status)
   ("C-x M-g b" . magit-blame)
+  :custom
+  (magit-log-section-commit-count 0 "Don't show recent commits in magit-status.")
+  (magit-diff-refine-hunk 'all "Get highlighted word diffs.")
+  (magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
   :config
   (magit-add-section-hook 'magit-status-sections-hook
                           'magit-insert-modules
                           'magit-insert-stashes
-                          'append)
-  ;; don't show recent commits in magit-status
-  (setq magit-log-section-commit-count 0)
-  (setq magit-diff-refine-hunk 'all) ; get highlighted word diffs
-  (setq magit-display-buffer-function
-        #'magit-display-buffer-fullframe-status-v1))
+                          'append))
 
 (use-package markdown-mode
   ;; Markdown mode for Markdown editing!
@@ -1121,14 +1118,13 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   (:map markdown-mode-map
         ("M-p" . markdown-previous-visible-heading)
         ("M-n" . markdown-next-visible-heading))
-  :config
-  (setq-default markdown-enable-math t))
+  :custom
+  (markdown-enable-math t))
 
 (use-package minibuffer
   :defer t
-  :config
-  ;; Ignore file case when trying to find stuff:
-  (setq read-file-name-completion-ignore-case t))
+  :custom
+  (read-file-name-completion-ignore-case t "Ignore file case when trying to find stuff:"))
 
 (use-package mixed-pitch
   ;; Emacs was an editor originally designed for code, so it defaults to a
@@ -1153,8 +1149,8 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   :bind
   ;; We can use shift-mouse for selecting from point:
   ("<S-down-mouse-1>" . mouse-save-then-kill)
-  :config
-  (setq mouse-yank-at-point t ))
+  :custom
+  (mouse-yank-at-point t ))
 
 (use-package mu4e
   :if (executable-find "mu")
@@ -1181,9 +1177,46 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
    ("q" . mu4e-quit-session)
    :map my/map
    ("m" . my-mu4e-start))
+  :custom
+  (mu4e-maildir "~/.mail")
+  (mu4e-context-policy 'pick-first)
+  (mu4e-maildir-shortcuts '(("/utexas/INBOX"  . ?u)
+                            ("/gmail/INBOX" . ?g)))
+  (mu4e-save-multiple-attachments-without-asking t "Save all attachments in same dir.")
+  (mu4e-confirm-quit nil "Don't ask me to quit, just quit.")
+  (mail-user-agent 'mu4e-user-agent)
+  (mu4e-sent-messages-behavior 'delete "Don't save message to Sent Messages, Gmail/IMAP takes care of this.")
+  (mu4e-get-mail-command "mbsync -a")
+  (mu4e-update-interval 80 "In seconds.")
+  (mu4e-change-filenames-when-moving t "For mbsync")
+  (mu4e-user-mail-address-list '("branham@utexas.edu"
+                                 "alex.branham@gmail.com"
+                                 "james.alexander.branham@gu.se"))
+  (mu4e-compose-dont-reply-to-self t "Don't reply to self.")
+  (mu4e-compose-complete-only-personal t)
+  (mu4e-compose-complete-only-after "2015-01-01")
+  (mu4e-view-show-addresses t)
+  (mu4e-hide-index-messages t)
+  (mu4e-view-show-images t)
+  (message-kill-buffer-on-exit t)
+  (mu4e-use-fancy-chars t)
+  (mu4e-headers-skip-duplicates t)
+  (mu4e-headers-include-related nil "Don't include related messages, as threads can be quite long.")
+  (mu4e-attachment-dir "~/Downloads")
+  (mu4e-completing-read-function 'completing-read)
+  (mu4e-headers-date-format "%F" "ISO dates.")
+  (mu4e-headers-fields '((:human-date    .  11)
+                         (:flags         .   6)
+                         (:mailing-list   .  10)
+                         (:from-or-to    .  22)
+                         (:subject       .  nil)))
+  ;; next two are from:
+  ;; http://pragmaticemacs.com/emacs/customise-the-reply-quote-string-in-mu4e/ :
+  ;; customize the reply-quote-string
+  (message-citation-line-format "On %a %d %b %Y at %R, %f wrote:\n")
+  ;; choose to use the formatted string
+  (message-citation-line-function #'message-insert-formatted-citation-line)
   :config
-  (setq mu4e-maildir "~/.mail")
-  ;; Start mu4e in fullscreen
   (defun my-mu4e-start ()
     (interactive)
     (window-configuration-to-register :mu4e-fullscreen)
@@ -1213,7 +1246,6 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
     (visual-line-mode -1)
     (setq-local auto-hscroll-mode 'current-line)
     (toggle-truncate-lines 1))
-
   (defun my/org-mu4e-store-and-capture ()
     "Similar to `org-mu4e-store-and-capture', but use \"r\" capture template and then mark the email for deletion."
     (interactive)
@@ -1292,56 +1324,6 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
                      (mu4e-drafts-folder           . "/gmail/[Gmail]/.Drafts")
                      (mu4e-sent-folder             . "/gmail/[Gmail]/.Sent Mail")
                      (mu4e-trash-folder            . "/gmail/[Gmail]/.Trash")))))
-  (setq mu4e-context-policy 'pick-first)
-  (setq mu4e-maildir-shortcuts '( ("/utexas/INBOX"  . ?u)
-                                  ("/gmail/INBOX" . ?g)))
-  (add-to-list 'mu4e-bookmarks
-               (make-mu4e-bookmark
-                :name "All Inboxes"
-                :query "maildir:/gmail/INBOX OR maildir:/utexas/INBOX OR maildir:/gu/INBOX"
-                :key ?i))
-  (setq mu4e-save-multiple-attachments-without-asking t) ; save all attachments in same dir
-  ;; don't ask me to quit, just quit
-  (setq mu4e-confirm-quit nil)
-  (setq mail-user-agent 'mu4e-user-agent)
-  ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
-  (setq mu4e-sent-messages-behavior 'delete)
-  (setq mu4e-get-mail-command "mbsync -a"   ;; or fetchmail, or ...
-        mu4e-update-interval 80) ;; in seconds
-  (setq mu4e-change-filenames-when-moving t)
-  ;; setup some handy shortcuts
-  ;; you can quickly switch to your Inbox -- press ``ji''
-  ;; then, when you want archive some messages, move them to
-  ;; the 'All Mail' folder by pressing ``ma''.
-  ;; something about ourselves
-  (setq mu4e-user-mail-address-list '("branham@utexas.edu" "alex.branham@gmail.com" "james.alexander.branham@gu.se"))
-  (setq mu4e-compose-dont-reply-to-self t) ; don't reply to self
-  (setq mu4e-compose-complete-only-personal t)
-  (setq mu4e-compose-complete-only-after "2015-01-01")
-  (setq mu4e-view-show-addresses t)
-  (setq mu4e-hide-index-messages t)
-  (setq mu4e-view-show-images t)
-  (setq message-kill-buffer-on-exit t)
-  (setq mu4e-use-fancy-chars t)
-  (setq mu4e-headers-skip-duplicates t)
-  ;; Don't include related messages, as threads can be quite long:
-  (setq mu4e-headers-include-related nil)
-  (setq mu4e-attachment-dir "~/Downloads")
-  (setq mu4e-completing-read-function 'completing-read)
-  ;; Use iso date format:
-  (setq mu4e-headers-date-format "%F")
-  (setq mu4e-headers-fields
-        '((:human-date    .  11)
-          (:flags         .   6)
-          (:mailing-list   .  10)
-          (:from-or-to    .  22)
-          (:subject       .  nil)))
-  ;; next two are from:
-  ;; http://pragmaticemacs.com/emacs/customise-the-reply-quote-string-in-mu4e/ :
-  ;; customize the reply-quote-string
-  (setq message-citation-line-format "On %a %d %b %Y at %R, %f wrote:\n")
-  ;; choose to use the formatted string
-  (setq message-citation-line-function 'message-insert-formatted-citation-line)
   ;; turn off autofill mode in mu4e compose
   (defun autofill-off-visual-on ()
     "Turn off auto-fill-mode and turn on visual-mode"
@@ -1450,14 +1432,14 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   :if (executable-find "mu")
   :defer 10
   :after mu4e
+  :custom
+  (mu4e-alert-email-notification-types '(subjects))
+  (mu4e-alert-set-window-urgency nil)
+  (mu4e-alert-interesting-mail-query (concat
+                                      "flag:unread AND maildir:\"/utexas/INBOX\""
+                                      " OR flag:unread AND maildir:\"/gmail/INBOX\""
+                                      " OR flag:unread AND maildir:\"/gu/INBOX\""))
   :config
-  (setq mu4e-alert-email-notification-types '(subjects))
-  (setq mu4e-alert-set-window-urgency nil)
-  (setq mu4e-alert-interesting-mail-query
-        (concat
-         "flag:unread AND maildir:\"/utexas/INBOX\""
-         " OR flag:unread AND maildir:\"/gmail/INBOX\""
-         " OR flag:unread AND maildir:\"/gu/INBOX\""))
   (mu4e-alert-enable-mode-line-display)
   (mu4e-alert-enable-notifications))
 
@@ -1489,18 +1471,17 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
 
 (use-package mwheel
   :defer t
-  :config
-  (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ; one line at a time
-  (setq mouse-wheel-progressive-speed nil) ; don't accelerate scrolling
-  (setq mouse-wheel-follow-mouse 't) ; scroll window under mouse
-  )
+  :custom
+  (mouse-wheel-scroll-amount '(1 ((shift) . 1)) "One line at a time.")
+  (mouse-wheel-progressive-speed nil "Don't accelerate scrolling.")
+  (mouse-wheel-follow-mouse 't "Scroll window under mouse."))
 
 (use-package ob-core
   ;; ob is org-babel, which lets org know about code and code blocks
   :defer t
-  :config
-  ;; don't ask to confirm evaluation.  I know what I'm getting myself into.
-  (setq org-confirm-babel-evaluate nil))
+  :custom
+  ;; I know what I'm getting myself into.
+  (org-confirm-babel-evaluate nil "Don't ask to confirm evaluation."))
 
 (use-package org
   ;; Org mode is a great thing. I use it for writing academic papers,
@@ -1522,6 +1503,57 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
    ;; C-c C-t is bound to `org-todo' by default, but I want it
    ;; bound to C-c t as well:
    ("C-c t" . org-todo))
+  :custom
+  (org-pretty-entities t "UTF8 all the things!")
+  (org-support-shift-select t "Holding shift and moving point should select things.")
+  (org-fontify-quote-and-verse-blocks t "Provide a special face for quote and verse blocks.")
+  (org-M-RET-may-split-line nil "M-RET may never split a line.")
+  (org-enforce-todo-dependencies t "Can't finish parent before children.")
+  (org-enforce-todo-checkbox-dependencies t "Can't finish parent before children.")
+  (org-hide-emphasis-markers t "Make words italic or bold, hide / and *.")
+  (org-catch-invisible-edits 'show-and-error "Don't let me edit things I can't see.")
+  (org-special-ctrl-a/e t "Make C-a and C-e work more like how I want:.")
+  (org-preview-latex-default-process 'imagemagick "Let org's preview mechanism use imagemagick instead of dvipng.")
+  (org-imenu-depth 6 "Imenu can go deep into menu structure since I use helm.")
+  (org-image-actual-width '(300))
+  (org-blank-before-new-entry '((heading . nil)
+                                (plain-list-item . nil)))
+  ;; For whatever reason, I have to explicitely tell org how to open pdf
+  ;; links.  I use pdf-tools.  If pdf-tools isn't installed, it will use
+  ;; doc-view (shipped with Emacs) instead.
+  (org-file-apps
+   '((auto-mode . emacs)
+     ("\\.mm\\'" . default)
+     ("\\.x?html?\\'" . default)
+     ("\\.pdf\\'" . emacs)))
+  (org-highlight-latex-and-related '(latex entities) "set up fontlocking for latex")
+  (org-startup-with-inline-images t "Show inline images.")
+  (org-log-done t)
+  (org-goto-interface 'outline-path-completion)
+  (org-ellipsis "⬎")
+  (org-tag-persistent-alist '(("jobs" . ?j)
+                              (:startgroup . nil)
+                              ("@work" . ?w)
+                              ("@home" . ?h)
+                              (:endgroup . nil)))
+  ;; I keep my recipes in an org file and tag them based on what kind of
+  ;; dish they are.  The level one headings are names, and each gets two
+  ;; level two headings --- ingredients and directions.  To easily search via
+  ;; tag, I can restrict org-agenda to that buffer using < then hit m to
+  ;; match based on a tag.
+  (org-tags-exclude-from-inheritance
+   '("BREAKFAST" "DINNER" "DESSERT" "SIDE" "CHICKEN" "PORK" "SEAFOOD"
+     "BEEF" "PASTA" "SOUP" "SNACK" "DRINK" "LAMB"))
+  ;; Org-refile lets me quickly move around headings in org files.  It
+  ;; plays nicely with org-capture, which I use to turn emails into TODOs
+  ;; easily (among other things, of course)
+  (org-outline-path-complete-in-steps nil)
+  (org-refile-allow-creating-parent-nodes 'confirm)
+  (org-refile-use-outline-path t)
+  (org-refile-targets '((org-default-notes-file . (:maxlevel . 6))
+                        (my/org-inbox . (:maxlevel . 2))
+                        (my/org-scheduled . (:level . 1))
+                        (my/org-notes . (:maxlevel . 6))))
   :config
   ;; These are the programming languages org should teach itself:
   (org-babel-do-load-languages
@@ -1532,69 +1564,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
      (R . t)
      (shell . t)))
   ;; remove C-c [ from adding org file to front of agenda
-  (unbind-key "C-c [" org-mode-map)
-  (setq org-pretty-entities t ; UTF8 all the things!
-        ;; holding shift and moving point should select things
-        org-support-shift-select t
-        ;; provide a special face for quote and verse blocks
-        org-fontify-quote-and-verse-blocks t
-        ;; M-RET may never split a line
-        org-M-RET-may-split-line nil
-        ;; can't finish parent before children
-        org-enforce-todo-dependencies t
-        ;; can't finish parent before children
-        org-enforce-todo-checkbox-dependencies t
-        ;; make words italic or bold, hide / and *
-        org-hide-emphasis-markers t
-        ;; don't let me edit things I can't see
-        org-catch-invisible-edits 'show-and-error
-        ;; Make C-a and C-e work more like how I want:
-        org-special-ctrl-a/e t
-        ;; Let org's preview mechanism use imagemagick instead of dvipng:
-        org-preview-latex-default-process 'imagemagick
-        ;; imenu can go deep into menu structure since I use helm
-        org-imenu-depth 6)
-  (setq org-image-actual-width '(300))
-  (setq org-blank-before-new-entry '((heading . nil)
-                                     (plain-list-item . nil)))
-  ;; For whatever reason, I have to explicitely tell org how to open pdf
-  ;; links.  I use pdf-tools.  If pdf-tools isn't installed, it will use
-  ;; doc-view (shipped with Emacs) instead.
-  (setq org-file-apps
-        '((auto-mode . emacs)
-          ("\\.mm\\'" . default)
-          ("\\.x?html?\\'" . default)
-          ("\\.pdf\\'" . emacs)))
-
-  (setq org-highlight-latex-and-related '(latex entities)) ; set up fontlocking for latex
-  (setq org-startup-with-inline-images t) ; show inline images
-  (setq org-log-done t)
-  (setq org-goto-interface (quote outline-path-completion))
-  (setq org-ellipsis "⬎")
-  ;; Org tags look like :this: at the end of a heading.
-  (setq org-tag-persistent-alist '(("jobs" . ?j)
-                                   (:startgroup . nil)
-                                   ("@work" . ?w)
-                                   ("@home" . ?h)
-                                   (:endgroup . nil)))
-  ;; I keep my recipes in an org file and tag them based on what kind of
-  ;; dish they are.  The level one headings are names, and each gets two
-  ;; level two headings --- ingredients and directions.  To easily search via
-  ;; tag, I can restrict org-agenda to that buffer using < then hit m to
-  ;; match based on a tag.
-  (setq org-tags-exclude-from-inheritance
-        '("BREAKFAST" "DINNER" "DESSERT" "SIDE" "CHICKEN" "PORK" "SEAFOOD"
-          "BEEF" "PASTA" "SOUP" "SNACK" "DRINK" "LAMB"))
-  ;; Org-refile lets me quickly move around headings in org files.  It
-  ;; plays nicely with org-capture, which I use to turn emails into TODOs
-  ;; easily (among other things, of course)
-  (setq org-outline-path-complete-in-steps nil)
-  (setq org-refile-allow-creating-parent-nodes (quote confirm))
-  (setq org-refile-use-outline-path t)
-  (setq org-refile-targets '((org-default-notes-file . (:maxlevel . 6))
-                             (my/org-inbox . (:maxlevel . 2))
-                             (my/org-scheduled . (:level . 1))
-                             (my/org-notes . (:maxlevel . 6)))))
+  (unbind-key "C-c [" org-mode-map))
 
 (use-package org-agenda
   ;; Here's where I set which files are added to org-agenda, which controls
@@ -1612,13 +1582,73 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
    ("s" . org-agenda-schedule)
    ;; overrides org-exit
    ("x" . my/org-agenda-mark-done))
+  :custom
+  (org-directory "~/org/" "Kept in sync with syncthing.")
+  (org-default-notes-file (concat org-directory "todo.org"))
+  (org-agenda-skip-deadline-if-done t "Remove done deadlines from agenda.")
+  (org-agenda-skip-scheduled-if-done t "Remove done scheduled from agenda.")
+  (org-agenda-skip-timestamp-if-done t "Don't show timestamped things in agenda if they're done.")
+  (org-agenda-skip-scheduled-if-deadline-is-shown 'not-today "Don't show scheduled if the deadline is visible unless it's also scheduled for today.")
+  (org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled "Skip deadline warnings if it is scheduled.")
+  (org-deadline-warning-days 3 "warn me 3 days before a deadline")
+  (org-agenda-tags-todo-honor-ignore-options t "Ignore scheduled items in tags todo searches.")
+  (org-agenda-tags-column 'auto)
+  (org-agenda-window-setup 'only-window "Use current window for agenda.")
+  (org-agenda-restore-windows-after-quit t "Restore previous config after I'm done.")
+  (org-agenda-span 'day) ; just show today. I can "vw" to view the week
+  (org-agenda-time-grid
+   '((daily today remove-match) (800 1000 1200 1400 1600 1800 2000)
+     "" "") "By default, the time grid has a lot of ugly "-----" lines. Remove those.")
+  (org-agenda-scheduled-leaders '("" "%2dx ") "I don't need to know that something is scheduled.  That's why it's appearing on the agenda in the first place.")
+  (org-agenda-block-separator 8212 "Use nice unicode character instead of ugly = to separate agendas:")
+  (org-agenda-deadline-leaders '("Deadline: " "In %d days: " "OVERDUE %d day: ") "Make deadlines, especially overdue ones, stand out more:")
+  (org-agenda-current-time-string "⸻ NOW ⸻")
+  ;; The agenda is ugly by default. It doesn't properly align items and it
+  ;; includes weird punctuation. Fix it:
+  (org-agenda-prefix-format '((agenda . "%-12c%-14t%s")
+                              (timeline . "  % s")
+                              (todo . " %i %-12:c")
+                              (tags . " %i %-12:c")
+                              (search . " %i %-12:c")))
+  (org-agenda-custom-commands
+   '((" " "Agenda"
+      ((agenda "" nil)
+       (tags "REFILE"
+             ((org-agenda-overriding-header "Tasks to Refile")
+              (org-tags-match-list-sublevels nil)))))
+     ("h" "Home Agenda"
+      ((agenda "" nil)
+       (tags "@home"
+             ((org-agenda-overriding-header "Tasks to do at home")
+              (org-tags-match-list-sublevels nil)))
+       (tags "REFILE"
+             ((org-agenda-overriding-header "Tasks to Refile")
+              (org-tags-match-list-sublevels nil)))))
+     ("w" "Work Agenda"
+      ((agenda "" nil)
+       (tags "@work"
+             ((org-agenda-overriding-header "Tasks to do at work")
+              (org-tags-match-list-sublevels nil)))
+       (tags "REFILE"
+             ((org-agenda-overriding-header "Tasks to Refile")
+              (org-tags-match-list-sublevels nil)))))
+     ("d" "deadlines"
+      ((agenda ""
+               ((org-agenda-entry-types '(:deadline))
+                (org-agenda-span 'fortnight)
+                (org-agenda-time-grid nil)
+                (org-deadline-warning-days 0)
+                (org-agenda-skip-deadline-if-done nil)))))
+     ("b" "bibliography"
+      ((tags "CATEGORY=\"bib\""
+             ((org-agenda-overriding-header "You've got a lot of reading to do...")))))
+     ("u" "unscheduled"
+      ((todo  "TODO"
+              ((org-agenda-overriding-header "Unscheduled tasks")
+               (org-agenda-todo-ignore-with-date t)))))))
   :hook
   (org-agenda-mode . hl-line-mode)
   :init
-  ;; Define some places where I keep tasks and notes.  I sync the org repo
-  ;; with Syncthing.
-  (setq org-directory "~/org/")
-  (setq org-default-notes-file (concat org-directory "todo.org"))
   (defconst my/org-inbox (concat org-directory "refile.org")
     "Inbox for tasks/todo.")
   (defconst my/org-notes (concat org-directory "notes.org")
@@ -1631,81 +1661,11 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
                            ,my/org-scheduled))
   (setq org-agenda-text-search-extra-files `(,my/org-notes))
   :config
-  (setq org-agenda-skip-deadline-if-done t ; remove done deadlines from agenda
-        org-agenda-skip-scheduled-if-done t ; remove done scheduled from agenda
-        org-agenda-skip-timestamp-if-done t ; don't show timestamped things in agenda if they're done
-        ;; don't show scheduled if the deadline is visible unless it's
-        ;; also scheduled for today:
-        org-agenda-skip-scheduled-if-deadline-is-shown 'not-today
-        ;; skip deadline warnings if it is scheduled
-        org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled
-        org-deadline-warning-days 3) ; warn me 3 days before a deadline
-  (setq org-agenda-tags-todo-honor-ignore-options t) ; ignore scheduled items in tags todo searches
-  (setq org-agenda-tags-column 'auto)
-  (setq org-agenda-window-setup 'only-window ; use current window for agenda
-        ;; restore previous config after I'm done
-        org-agenda-restore-windows-after-quit t)
-  (setq org-agenda-span 'day) ; just show today. I can "vw" to view the week
-  ;; By default, the time grid has a lot of ugly "-----" lines. Remove those:
-  (setq org-agenda-time-grid
-        '((daily today remove-match) (800 1000 1200 1400 1600 1800 2000)
-          "" ""))
-  ;; I don't need to know that something is scheduled. That's why it's appearing
-  ;; on the agenda in the first place:
-  (setq org-agenda-scheduled-leaders '("" "%2dx "))
-  ;; Use nice unicode character instead of ugly = to separate agendas:
-  (setq org-agenda-block-separator 8212)
-  ;; Make deadlines, especially overdue ones, stand out more:
-  (setq org-agenda-deadline-leaders '("Deadline: " "In %d days: " "OVERDUE %d day: "))
-  (setq org-agenda-current-time-string "⸻ NOW ⸻")
-  ;; The agenda is ugly by default. It doesn't properly align items and it
-  ;; includes weird punctuation. Fix it:
-  (setq org-agenda-prefix-format '((agenda . "%-12c%-14t%s")
-                                   (timeline . "  % s")
-                                   (todo . " %i %-12:c")
-                                   (tags . " %i %-12:c")
-                                   (search . " %i %-12:c")))
   (defun my/org-agenda-mark-done (&optional _arg)
     "Mark current TODO as DONE.
 See `org-agenda-todo' for more details."
     (interactive "P")
     (org-agenda-todo "DONE"))
-  (setq org-agenda-custom-commands
-        '((" " "Agenda"
-           ((agenda "" nil)
-            (tags "REFILE"
-                  ((org-agenda-overriding-header "Tasks to Refile")
-                   (org-tags-match-list-sublevels nil)))))
-          ("h" "Home Agenda"
-           ((agenda "" nil)
-            (tags "@home"
-                  ((org-agenda-overriding-header "Tasks to do at home")
-                   (org-tags-match-list-sublevels nil)))
-            (tags "REFILE"
-                  ((org-agenda-overriding-header "Tasks to Refile")
-                   (org-tags-match-list-sublevels nil)))))
-          ("w" "Work Agenda"
-           ((agenda "" nil)
-            (tags "@work"
-                  ((org-agenda-overriding-header "Tasks to do at work")
-                   (org-tags-match-list-sublevels nil)))
-            (tags "REFILE"
-                  ((org-agenda-overriding-header "Tasks to Refile")
-                   (org-tags-match-list-sublevels nil)))))
-          ("d" "deadlines"
-           ((agenda ""
-                    ((org-agenda-entry-types '(:deadline))
-                     (org-agenda-span 'fortnight)
-                     (org-agenda-time-grid nil)
-                     (org-deadline-warning-days 0)
-                     (org-agenda-skip-deadline-if-done nil)))))
-          ("b" "bibliography"
-           ((tags "CATEGORY=\"bib\""
-                  ((org-agenda-overriding-header "You've got a lot of reading to do...")))))
-          ("u" "unscheduled"
-           ((todo  "TODO"
-                   ((org-agenda-overriding-header "Unscheduled tasks")
-                    (org-agenda-todo-ignore-with-date t)))))))
   (defun my/agenda (&optional arg)
     (interactive)
     (org-agenda arg " ")))
@@ -1714,8 +1674,8 @@ See `org-agenda-todo' for more details."
   ;; UTF-8 bullets for org headings
   :hook
   (org-mode . org-bullets-mode)
-  :config
-  (setq org-bullets-bullet-list '("•")))
+  :custom
+  (org-bullets-bullet-list '("•") "Use unicode bullets instead of *"))
 
 (use-package org-capture
   ;; I use org-capture to create short notes about all kinds of things.  I
@@ -1726,27 +1686,21 @@ See `org-agenda-todo' for more details."
   :bind
   (:map org-capture-mode-map
         ("C-c C-j" . my/org-capture-refile-and-jump))
-  :config
+  :custom
   ;; And now for the capture templates themselves.  It's a bit complicated,
   ;; but the manual does a great job explaining.
-  (setq org-capture-templates
-        `(
-          ("s" "store" entry (file ,my/org-inbox)
-           "* TODO %?\n %a \n %i")
-          ("t" "task" entry (file  ,my/org-inbox)
-           "* TODO %? \n %i")
-          ("n" "note" entry (file ,my/org-notes)
-           "* %?\n %i")
-          ("b" "bib" entry (file+headline ,org-default-notes-file "Bibliography")
-           "* TODO %a            :@work:\n \n %i")
-          ("r" "refile+schedule" entry (file ,my/org-inbox)
-           "* TODO %a %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+1d 9am\") t)"
-           :immediate-finish t)))
-  (defun my/org-capture-refile-and-jump ()
-    (interactive)
-    "Refile the current capture, then jump to it."
-    (org-capture-refile)
-    (org-refile-goto-last-stored)))
+  (org-capture-templates
+   `(("s" "store" entry (file ,my/org-inbox)
+      "* TODO %?\n %a \n %i")
+     ("t" "task" entry (file  ,my/org-inbox)
+      "* TODO %? \n %i")
+     ("n" "note" entry (file ,my/org-notes)
+      "* %?\n %i")
+     ("b" "bib" entry (file+headline ,org-default-notes-file "Bibliography")
+      "* TODO %a            :@work:\n \n %i")
+     ("r" "refile+schedule" entry (file ,my/org-inbox)
+      "* TODO %a %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+1d 9am\") t)"
+      :immediate-finish t))))
 
 (use-package org-eww
   ;; Org-eww lets me capture eww webpages with org-mode
@@ -1767,24 +1721,26 @@ See `org-agenda-todo' for more details."
    :map my/map
    ("r d" . doi-add-bibtex-entry)
    ("r i" . isbn-to-bibtex))
-  :init
-  (setq org-ref-completion-library 'org-ref-helm-bibtex)
-  (setq org-ref-notes-function #'org-ref-notes-function-many-files
-        org-ref-notes-directory "~/Sync/bibliography/notes"
-        org-ref-default-bibliography '("~/Sync/bibliography/references.bib")
-        org-ref-pdf-directory  "~/Sync/bibliography/bibtex-pdfs"
-        org-ref-default-ref-type "autoref"
-        org-ref-default-citation-link "autocite")
+  :custom
+  (org-ref-completion-library 'org-ref-helm-bibtex)
+  (org-ref-notes-function #'org-ref-notes-function-many-files)
+  (org-ref-notes-directory "~/Sync/bibliography/notes")
+  (org-ref-default-bibliography '("~/Sync/bibliography/references.bib"))
+  (org-ref-pdf-directory  "~/Sync/bibliography/bibtex-pdfs")
+  (org-ref-default-ref-type "autoref")
+  (org-ref-default-citation-link "autocite")
+  ;; Set this to nil; it slows down org a LOT. Agenda generation takes under a
+  ;; second when it is nil and over 7 seconds when t:
+  (org-ref-show-broken-links nil)
+  :hook
+  ;; Cleanup nil entries from articles.
+  (org-ref-clean-bibtex-entry . orcb-clean-nil-opinionated)
+  ;; Fix journal names in bibtex entries
+  (org-ref-clean-bibtex-entry . my/fix-journal-name)
   :config
   (defvar my/notes-template
     "* TODO %y - %t\n :PROPERTIES:\n  :Custom_ID: %k\n  :AUTHOR: %9a\n  :JOURNAL: %j\n  :YEAR: %y\n  :VOLUME: %v\n  :PAGES: %p\n  :DOI: %D\n  :URL: %U\n :END:\n")
   (setq org-ref-note-title-format my/notes-template)
-  ;; Set this to nil; it slows down org a LOT. Agenda generation takes under a
-  ;; second when it is nil and over 7 seconds when t:
-  (setq org-ref-show-broken-links nil)
-  ;; Cleanup nil entries from articles.
-  (add-hook 'org-ref-clean-bibtex-entry-hook #'orcb-clean-nil-opinionated t)
-
   ;; Org-ref-bibtex is a package that helps me manage my bib file(s). I add the
   ;; my/fix-journal-name function to always put in the full name of the journal.
   ;; I also add it to the cleaning hook so that it's taken care of for me more
@@ -1862,25 +1818,20 @@ See `org-agenda-todo' for more details."
         (when bstring
           (bibtex-set-field "journal" bstring)
           (bibtex-fill-entry)))))
-
-  (add-hook 'org-ref-clean-bibtex-entry-hook #'my/fix-journal-name)
-
   (use-package doi-utils
     :config
     (setq doi-utils-open-pdf-after-download t))
   (use-package org-ref-isbn
-    :config
-    (setq org-ref-isbn-exclude-fields '("form" "lang" "lccn" "oclcnum")))
+    :custom
+    (org-ref-isbn-exclude-fields '("form" "lang" "lccn" "oclcnum")))
   (use-package org-ref-latex))
 
 (use-package org-src
   ;; org source code examples
   :defer t
-  :config
-  ;; This will make the tab key act like you want it to inside code blocks.
-  (setq org-src-tab-acts-natively t)
-  ;; Set up src windows in their current window rather than another one:
-  (setq org-src-window-setup 'current-window))
+  :custom
+  (org-src-tab-acts-natively t "This will make the tab key act like you want it to inside code blocks.")
+  (org-src-window-setup 'current-window "Set up src windows in their current window rather than another one."))
 
 (use-package outline
   :defer t
@@ -1892,19 +1843,19 @@ See `org-agenda-todo' for more details."
 (use-package ox
   ;; ox is org's export engine
   :defer t
-  :config
-  (setq org-export-with-smart-quotes t)
-  ;; don't include a table of contents when exporting
-  (setq org-export-with-toc nil)
+  :custom
+  (org-export-with-smart-quotes t)
+  (org-export-with-toc nil "Don't include a table of contents when exporting.")
   ;; This lets me override all the export variables with a =#+BIND:= statement
   ;; at the beginning of org-mode files for export:
-  (setq org-export-allow-bind-keywords t))
+  (org-export-allow-bind-keywords t))
 
 (use-package ox-latex
   ;; org's latex/pdf exporting engine
   :defer t
+  :custom
+  (org-latex-pdf-process '("latexmk -synctex=1 -xelatex %f"))
   :config
-  (setq org-latex-pdf-process '("latexmk -synctex=1 -xelatex %f"))
   ;; add support for coloring code output.  Use minted if pygments is
   ;; installed, otherwise fall back to the listings package, which doesn't
   ;; require anything other than latex.
@@ -1940,9 +1891,8 @@ See `org-agenda-todo' for more details."
   ;; https://www.passwordstore.org/
   :if (executable-find "pass")
   :mode ("\\.password-store/.*\\.gpg\\'" . text-mode)
-  :config
-  ;; Set longer default password length
-  (setq password-store-password-length 20))
+  :custom
+  (password-store-password-length 20 "Set longer default password length."))
 
 (use-package pdf-tools
   ;; I like emacs, so why not view PDFs in it?  The built-in docview mode
@@ -1955,38 +1905,35 @@ See `org-agenda-todo' for more details."
   :if (eq system-type 'gnu/linux)
   :magic ("%PDF" . pdf-view-mode)
   :defer 7
+  :custom
+  (pdf-sync-forward-display-pdf-key "<C-return>" "Use C-RET in latex mode to jump to location in pdf file")
+  (pdf-view-display-size 'fit-page "Show full pages by default instead of fitting page width.")
+  (TeX-view-program-selection '((output-pdf "pdf-tools")) "Use pdf-tools to display pdfs from latex runs.")
+  (TeX-view-program-list '(("pdf-tools" "TeX-pdf-tools-sync-view")))
   :config
-  ;; Use C-RET in latex mode to jump to location in pdf file
-  (setq pdf-sync-forward-display-pdf-key "<C-return>")
   ;; The t says to install the server without asking me --- this may take a
   ;; second
-  (pdf-tools-install t)
-  ;; Show full pages by default instead of fitting page width:
-  (setq-default pdf-view-display-size 'fit-page)
-  ;; Use pdf-tools to display pdfs from latex runs:
-  (setq TeX-view-program-selection '((output-pdf "pdf-tools")))
-  (setq TeX-view-program-list '(("pdf-tools" "TeX-pdf-tools-sync-view"))))
+  (pdf-tools-install t))
 
 (use-package prog-mode
-  :defer t
-  :config
-  (setq prettify-symbols-unprettify-at-point 'right-edge)
   ;; Prettify-symbols-mode will replace some symbols (like "lambda") with
   ;; their prettier cousins (like λ), but smartly as it's configured by
   ;; major modes themselves.
+  :defer t
+  :custom
+  (prettify-symbols-unprettify-at-point 'right-edge)
+  :config
   (global-prettify-symbols-mode))
 
 (use-package projectile
   ;; Projectile makes using projects easier in emacs.  It also plays well
   ;; with helm, so let's set that up.
+  :custom
+  (projectile-completion-system 'helm)
+  (projectile-require-project-root nil)
   :config
-  (setq projectile-completion-system 'helm)
   (projectile-mode)
-  (projectile-cleanup-known-projects)
-  (setq projectile-require-project-root nil)
-  ;; Set `magit-repository-directories' to `projectile-known-projects':
-  (with-eval-after-load 'magit
-    (setq magit-repository-directories (mapcar (lambda (x) `(,x . 0)) projectile-known-projects))))
+  (projectile-cleanup-known-projects))
 
 (use-package python
   ;; The package is called python, the mode is python-mode. Confusingly, there's
@@ -1995,9 +1942,12 @@ See `org-agenda-todo' for more details."
   :bind
   (:map python-mode-map
         ("C-<return>" . python-shell-send-region-or-statement-and-step))
-  :config
+  :custom
   ;; Use flake8 for flymake:
-  (setq python-flymake-command '("flake8" "-"))
+  (python-flymake-command '("flake8" "-"))
+  (python-indent-guess-indent-offset-verbose nil)
+  (python-indent-offset 4)
+  :config
   (defun python-shell-send-region-or-statement ()
     "Send the current region to the inferior python process if there is an active one, otherwise the current line."
     (interactive)
@@ -2033,28 +1983,26 @@ See `org-agenda-todo' for more details."
       ;; else, deactivate everything
       (setq python-shell-buffer-name "Python"
             python-shell-interpreter "python"
-            python-shell-interpreter-args "-i")))
-  (setq python-indent-guess-indent-offset-verbose nil)
-  (setq python-indent-offset 4))
+            python-shell-interpreter-args "-i"))))
 
 (use-package reftex
   ;; I use helm-bibtex to manage my references, but ReFTeX is still great
   ;; to have around for cross-references in latex files.
   :hook
   (LaTeX-mode . turn-on-reftex)
-  :init
-  (setq reftex-cite-format
-        '((?\C-m . "\\cite[]{%l}")
-          (?t . "\\citet{%l}")
-          (?p . "\\citep[]{%l}")
-          (?a . "\\autocite{%l}")
-          (?A . "\\textcite{%l}")
-          (?P . "[@%l]")
-          (?T . "@%l [p. ]")
-          (?x . "[]{%l}")
-          (?X . "{%l}")))
-  (setq reftex-default-bibliography '("~/Sync/bibliography/references.bib"))
-  (setq reftex-extra-bindings t))
+  :custom
+  (reftex-cite-format
+   '((?\C-m . "\\cite[]{%l}")
+     (?t . "\\citet{%l}")
+     (?p . "\\citep[]{%l}")
+     (?a . "\\autocite{%l}")
+     (?A . "\\textcite{%l}")
+     (?P . "[@%l]")
+     (?T . "@%l [p. ]")
+     (?x . "[]{%l}")
+     (?X . "{%l}")))
+  (reftex-default-bibliography '("~/Sync/bibliography/references.bib"))
+  (reftex-extra-bindings t))
 
 (use-package saveplace
   ;; Yes, please save my place when opening/closing files:
@@ -2063,8 +2011,8 @@ See `org-agenda-todo' for more details."
 
 (use-package sendmail
   :defer t
-  :config
-  (setq send-mail-function #'smtpmail-send-it))
+  :custom
+  (send-mail-function #'smtpmail-send-it))
 
 (use-package server
   :if window-system
@@ -2102,19 +2050,13 @@ See `org-agenda-todo' for more details."
                ("p" . transpose-paragraphs)
                ("s" . transpose-sentences)
                ("x" . transpose-sexps))
+  :custom
+  (delete-active-region 'kill "Single char delete commands kill active regions.")
+  (save-interprogram-paste-before-kill t "Save system clipboard before overwriting it.")
+  (set-mark-command-repeat-pop t)
+  (shell-command-dont-erase-buffer t "Don't erase output in shell buffers since it's so easy to navigate around.")
+  (async-shell-command-display-buffer nil "Only show a shell buffer if there's something to show.")
   :config
-  ;; single char delete commands kill active regions
-  (setq delete-active-region 'kill)
-  ;; save system clipboard before overwriting it
-  (setq save-interprogram-paste-before-kill t)
-  ;; We can pop the mark back to where it used to be with =C-u C-SPC=. This
-  ;; lets us keep popping by hitting =C-SPC=:
-  (setq set-mark-command-repeat-pop t)
-  ;; Don't erase output in shell buffers since it's so easy to navigate
-  ;; around.
-  (setq shell-command-dont-erase-buffer t)
-  ;; Only show a shell buffer if there's something to show:
-  (setq async-shell-command-display-buffer nil)
   (defun my/toggle-window-split ()
     "Switch between 2 windows split horizontally or vertically."
     (interactive)
@@ -2175,6 +2117,8 @@ Output file will be named by appending _pXX-pYY to INFILE."
         ("C-<left>" . sp-forward-barf-sexp)
         ("C-M-<left>" . sp-backward-slurp-sexp)
         ("C-M-<right>" . sp-backward-barf-sexp))
+  :custom
+  (sp-show-pair-from-inside t)
   :hook
   ;; use it everywhere:
   (after-init . smartparens-global-mode)
@@ -2185,8 +2129,7 @@ Output file will be named by appending _pXX-pYY to INFILE."
   (prog-mode . smartparens-strict-mode)
   (LaTeX-mode-hook . smartparens-strict-mode)
   :config
-  (use-package smartparens-config)
-  (setq sp-show-pair-from-inside t))
+  (use-package smartparens-config))
 
 (use-package smtpmail
   :hook
@@ -2235,14 +2178,14 @@ there are no attachments."
 (use-package spaceline-config
   ;; The default modeline is nice enough, but this one is much better
   ;; looking
+  :custom
+  (spaceline-window-numbers-unicode t)
+  (spaceline-workspace-numbers-unicode t)
+  (powerline-default-separator 'wave)
+  (spaceline-separator-dir-left '(right . right))
+  (spaceline-separator-dir-right '(left . left))
   :config
-  (setq spaceline-window-numbers-unicode t)
-  (setq spaceline-workspace-numbers-unicode t)
   (spaceline-helm-mode)
-  (setq-default
-   powerline-default-separator 'wave
-   spaceline-separator-dir-left '(right . right)
-   spaceline-separator-dir-right '(left . left))
   (spaceline-install
     'main
     '((window-number)
@@ -2368,31 +2311,30 @@ is already narrowed."
   ;; remember to rerun the file X times to get references right.
   :defines (latex-help-cmd-alist latex-help-file)
   :mode ("\\.tex\\'" . TeX-latex-mode)
+  :custom
+  (TeX-auto-save t)
+  (TeX-parse-self t)
+  (reftex-plug-into-AUCTeX t)
+  (TeX-source-correlate-method 'synctex)
+  (TeX-source-correlate-mode t)
+  (TeX-clean-confirm nil)
+  ;; TeX-command-list by default contains a bunch of stuff I'll never
+  ;; use. I use latexmk, xelatexmk, and View.  That's pretty much it.
+  ;; Maybe one day I'll add "clean" back to the list.
+  (TeX-command-list
+   '(("latexmk" "latexmk -synctex=1 -pdf %s"
+      TeX-run-compile nil t :help "Process file with latexmk")
+     ("View" "%V" TeX-run-discard-or-function nil t :help "Run Viewer")
+     ("xelatexmk" "latexmk -synctex=1 -xelatex %s"
+      TeX-run-compile nil t :help "Process file with xelatexmk")))
+  (TeX-command-default "latexmk" "Use latexmk by default.")
+  (TeX-auto-local
+   (expand-file-name "auctex/auto" no-littering-var-directory) "Stop littering everywhere with auto/ directories")
   :hook
   (LaTeX-mode . LaTeX-math-mode)
   (LaTeX-mode . reftex-mode)
   (LaTeX-mode . TeX-PDF-mode)
   :config
-  (setq TeX-auto-save t
-        TeX-parse-self t
-        reftex-plug-into-AUCTeX t)
-  (setq TeX-source-correlate-method 'synctex)
-  (setq TeX-source-correlate-mode t)
-  (setq TeX-clean-confirm nil)
-  ;; TeX-command-list by default contains a bunch of stuff I'll never
-  ;; use. I use latexmk, xelatexmk, and View.  That's pretty much it.
-  ;; Maybe one day I'll add "clean" back to the list.
-  (setq-default TeX-command-list
-                '(("latexmk" "latexmk -synctex=1 -pdf %s"
-                   TeX-run-compile nil t :help "Process file with latexmk")
-                  ("View" "%V" TeX-run-discard-or-function nil t :help "Run Viewer")
-                  ("xelatexmk" "latexmk -synctex=1 -xelatex %s"
-                   TeX-run-compile nil t :help "Process file with xelatexmk")))
-  ;; Use latexmk by default:
-  (setq-default TeX-command-default "latexmk")
-  ;; Stop littering everywhere with auto/ directories
-  (setq-default TeX-auto-local
-                (expand-file-name "auctex/auto" no-littering-var-directory))
   ;; revert pdf from file after compilation finishes
   (use-package tex-buf
     :defer t
@@ -2452,11 +2394,9 @@ type."
   ;; TRAMP allows me to visit remote files in my local Emacs instance.  It's
   ;; pretty sweet.
   :defer t
-  :config
-  ;; Don't leave histfiles everywhere:
-  (setq tramp-histfile-override t)
-  ;; Use ssh by default:
-  (setq tramp-default-method "ssh"))
+  :custom
+  (tramp-histfile-override t "Don't leave histfiles everywhere.")
+  (tramp-default-method "ssh" "Use ssh by default."))
 
 (use-package undo-tree
   ;; Emacs undo system is incredibly powerful but a bit confusing.  This
@@ -2465,9 +2405,10 @@ type."
   :demand t
   :bind
   ("C-z" . undo-tree-undo)
+  :custom
+  (undo-tree-visualizer-timestamps t)
+  (undo-tree-visualizer-diff t)
   :config
-  (setq undo-tree-visualizer-timestamps t)
-  (setq undo-tree-visualizer-diff t)
   (global-undo-tree-mode))
 
 (use-package unfill
@@ -2493,11 +2434,9 @@ type."
 
 (use-package vc-hooks
   :defer t
-  :config
-  ;; don't ask to follow symlinks
-  (setq vc-follow-symlinks t)
-  ;; always make backup files.  Of everything.  Always.
-  (setq vc-make-backup-files t))
+  :custom
+  (vc-follow-symlinks t "Don't ask to follow symlinks.")
+  (vc-make-backup-files t "Always make backup files.  Of everything.  Always."))
 
 (use-package which-key
   ;; Which key shows key bindings for incomplete commands (prefixes) in a
@@ -2572,6 +2511,7 @@ the current window and the windows state prior to that."
   (bind-key "<f1>" #'my/get-scratch my/map))
 
 (use-package winum
+  :demand t
   ;; I can use winum to quickly jump from window to window.
   :bind*
   ("M-0" . winum-select-window-0-or-10)
@@ -2584,9 +2524,10 @@ the current window and the windows state prior to that."
   ("M-7" . winum-select-window-7)
   ("M-8" . winum-select-window-8)
   ("M-9" . winum-select-window-9)
-  :init
-  (setq winum-scope 'frame-local)
-  (setq winum-auto-setup-mode-line nil)
+  :custom
+  (winum-scope 'frame-local)
+  (winum-auto-setup-mode-line nil)
+  :config
   (winum-mode))
 
 (use-package with-editor
@@ -2603,8 +2544,8 @@ the current window and the windows state prior to that."
   ;; `whitespace-cleanup' before buffers are saved (but smartly)!
   :hook
   ((prog-mode ess-mode ledger-mode) . ws-butler-mode)
-  :config
-  (setq ws-butler-keep-whitespace-before-point nil))
+  :custom
+  (ws-butler-keep-whitespace-before-point nil))
 
 (use-package yasnippet
   ;; Yasnippet allows you to type an abbreviation and then expand it into a
