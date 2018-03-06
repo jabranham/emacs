@@ -2141,7 +2141,7 @@ Output file will be named by appending _pXX-pYY to INFILE."
   (inferior-ess-mode . smartparens-strict-mode)
   (ess-mode . smartparens-strict-mode)
   (prog-mode . smartparens-strict-mode)
-  (LaTeX-mode-hook . smartparens-strict-mode)
+  (LaTeX-mode . smartparens-strict-mode)
   :config
   (use-package smartparens-config))
 
