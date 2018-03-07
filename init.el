@@ -2574,7 +2574,7 @@ the current window and the windows state prior to that."
   ;; someone else's project, for example).  This mode will call
   ;; `whitespace-cleanup' before buffers are saved (but smartly)!
   :hook
-  ((prog-mode ess-mode ledger-mode) . ws-butler-mode)
+  ((prog-mode ess-mode ledger-mode gitconfig-mode) . ws-butler-mode)
   :custom
   (ws-butler-keep-whitespace-before-point nil))
 
