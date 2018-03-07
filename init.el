@@ -752,18 +752,11 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   :defer t
   :bind
   ("C-h c" . describe-face) ; overrides describe-key-briefly from help.el
+  :custom-face
+  (fixed-pitch-serif ((t (:font "Symbola"))))
   :config
   (add-to-list 'default-frame-alist
-               '(font . "monospace-12"))
-  ;; The fixed-pitch-serif font face inherits from Monospace Serif from X,
-  ;; which I haven't set.  I'll just tell Emacs to use Symbola instead of
-  ;; setting it in X:
-  (if (daemonp)
-      (add-hook 'after-make-frame-functions
-                (lambda (frame)
-                  (set-face-attribute 'fixed-pitch-serif frame
-                                      :font "Symbola")))
-    (set-face-attribute 'fixed-pitch-serif nil :font "Symbola")))
+               '(font . "monospace-12")))
 
 (use-package face-remap
   :bind
