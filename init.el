@@ -91,9 +91,8 @@
 (use-package abbrev
   :custom
   (save-abbrevs 'silently)
-  :config
-  (define-global-minor-mode global-abbrev-mode abbrev-mode abbrev-mode)
-  (global-abbrev-mode))
+  :hook
+  (text-mode . abbrev-mode))
 
 (use-package aggressive-indent
   ;; Keep code indented automatically
