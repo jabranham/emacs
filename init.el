@@ -463,7 +463,7 @@ three ediff buffers (A, B, and C)."
   ;; eldoc shows useful information in the minibuffer and is enabled by default.
   :defer t
   :custom
-  (eldoc-idle-delay 0.1 "We can speed it up a bit."))
+  (eldoc-idle-delay 0 "We can speed it up a bit."))
 
 (use-package electric-operator
   ;; Electric operator will turn ~a=10*5+2~ into ~a = 10 * 5 + 2~, so let's
