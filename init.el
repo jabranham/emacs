@@ -2394,6 +2394,8 @@ there are no attachments."
 (use-package spacemacs-dark-theme
   ;; By default, emacs starts with a blindingly white theme.  Let's get rid
   ;; of that pronto.
+  :custom
+  (spacemacs-theme-underline-parens nil)
   :init
   (defvar my/theme 'spacemacs-dark
     "The theme I'm using.")
