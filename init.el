@@ -531,7 +531,7 @@ three ediff buffers (A, B, and C)."
   (defun my/get-elfeed-log-buffer ()
     "Show elfeed log."
     (interactive)
-    (view-buffer-other-window "*elfeed-log*"))
+    (switch-to-buffer-other-window (get-buffer "*elfeed-log*")))
   (use-package elfeed-link))
 
 (use-package elfeed-org
