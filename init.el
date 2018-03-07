@@ -987,7 +987,9 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
    ([remap dabbrev-expand] . hippie-expand))
   :custom
   (hippie-expand-try-functions-list
-   '(;; Try to expand word "dynamically", searching the current buffer.
+   '(;; try yasnippet:
+     yas-hippie-try-expand
+     ;; Try to expand word "dynamically", searching the current buffer.
      try-expand-dabbrev
      ;; Try to expand word "dynamically", searching all other buffers.
      try-expand-dabbrev-all-buffers
@@ -2145,7 +2147,25 @@ Output file will be named by appending _pXX-pYY to INFILE."
   (prog-mode . smartparens-strict-mode)
   (LaTeX-mode . smartparens-strict-mode)
   :config
-  (use-package smartparens-config))
+  (use-package smartparens-config)
+  (defvar smartparens-mode-original-value)
+
+  (defun disable-sp-hippie-advice (&rest _)
+    (setq smartparens-mode-original-value smartparens-mode)
+    (setq smartparens-mode nil)
+    t) ; We should still return t.
+  ;; This advice could be added to other functions that usually insert
+  ;; balanced parens, like `try-expand-list'.
+  (advice-add 'yas-hippie-try-expand :after-while #'disable-sp-hippie-advice)
+
+  (defun reenable-sp-hippie-advice (&rest _)
+    (when (boundp 'smartparens-mode-original-value)
+      (setq smartparens-mode smartparens-mode-original-value)
+      (makunbound 'smartparens-mode-original-value)))
+  (advice-add 'hippie-expand :after #'reenable-sp-hippie-advice
+              ;; Set negative depth to make sure we go after
+              ;; `sp-auto-complete-advice'.
+              '((depth . -100))))
 
 (use-package smtpmail
   :hook
@@ -2563,68 +2583,23 @@ the current window and the windows state prior to that."
   ;; template. We can look at yasnippet's documentation on github:
   ;; https://github.com/capitaomorte/yasnippet.
 
-  ;; Yasnippet by default checks for snippets in two places: a path relative to yasnippet.el (these are the default snippets that come with the package). If I want to make my own, I can put then in ~.emacs.d/snippets~ and it should find them there as well.
+  ;; If I want to make my own, I can put them in `yas-snippet-dirs'
 
-  ;; I integrate yasnippet with hippie-expand so using ~hippie-expand~ expands a snippet if I have one, and then otherwise tries the hippie-expand functions.
+  ;; I integrate yasnippet with hippie-expand so using `hippie-expand'
+  ;; expands a snippet if I have one, and then otherwise tries the
+  ;; `hippie-expand' functions.
 
   :after hippie-exp
   :demand t
+  :custom
+  (yas-wrap-around-region t)
+  (yas-prompt-functions '(yas-completing-prompt) "If competing snippets, use completing-read (helm) to select:")
+  ;; (yas-alias-to-yas/prefix-p nil "Don't make old style yas/ symbols.")
   :init
   ;; disable yas minor mode map
   ;; use hippie-expand instead
   (setq yas-minor-mode-map (make-sparse-keymap))
-
-  ;; Yasnippet has a bug that the Spacemacs people figured out a fix for.
-  ;; I've shamelessly copy/pasted the fix here:
-
-  ;; Yasnippet and Smartparens
-
-  ;; If enabled, smartparens will mess snippets expanded by
-  ;; `hippie-expand'.  We want to temporarily disable Smartparens during
-  ;; the snippet expansion and switch it back to the initial state when
-  ;; done.
-  ;;
-  ;; However, there is an asymmetry in Yasnippet's hooks:
-  ;; * `yas-before-expand-snippet-hook' is called for all snippet expansions,
-  ;; including the nested ones.
-  ;; * `yas-after-exit-snippet-hook' is called only for the top level snippet,
-  ;; but NOT for the nested ones.
-  ;;
-  ;; That's why we introduce `spacemacs--yasnippet-expanding' below.
-
-  (defvar spacemacs--smartparens-enabled-initially t
-    "Stored whether smartparens is originally enabled or not.")
-  (defvar spacemacs--yasnippet-expanding nil
-    "Whether the snippet expansion is in progress.")
-
-  (defun spacemacs//smartparens-disable-before-expand-snippet ()
-    "Handler for `yas-before-expand-snippet-hook'.
-Disable smartparens and remember its initial state."
-    ;; Remember the initial smartparens state only once, when expanding a top-level snippet.
-    (unless spacemacs--yasnippet-expanding
-      (setq spacemacs--yasnippet-expanding t
-            spacemacs--smartparens-enabled-initially smartparens-mode))
-    (smartparens-mode -1))
-
-  (defun spacemacs//smartparens-restore-after-exit-snippet ()
-    "Handler for `yas-after-exit-snippet-hook'.
- Restore the initial state of smartparens."
-    (setq spacemacs--yasnippet-expanding nil)
-    (when spacemacs--smartparens-enabled-initially
-      (smartparens-mode 1)))
-
-  (with-eval-after-load 'smartparens
-    (add-hook 'yas-before-expand-snippet-hook
-              #'spacemacs//smartparens-disable-before-expand-snippet)
-    (add-hook 'yas-after-exit-snippet-hook
-              #'spacemacs//smartparens-restore-after-exit-snippet))
-
   :config
-  (add-to-list 'hippie-expand-try-functions-list #'yas-hippie-try-expand)
-  ;; If region selected, wrap snippet around it:
-  (setq yas-wrap-around-region t)
-  ;; If competing snippets, use completing-read (helm) to select:
-  (setq yas-prompt-functions '(yas-completing-prompt))
   (add-hook 'term-mode-hook (lambda () (yas-minor-mode -1)))
   (unbind-key "C-c &" yas-minor-mode-map)
   (yas-global-mode))
