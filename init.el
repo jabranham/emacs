@@ -205,7 +205,7 @@
   (bibtex-entry-format '(required-fields numerical-fields))
   (bibtex-files '("~/Sync/bibliography/references.bib"))
   :hook
-  (bibtex-mode-hook #'my/setup-bibtex-mode)
+  (bibtex-mode . my/setup-bibtex-mode)
   :config
   (defun my/setup-bibtex-mode ()
     "Set up bibtex mode."
