@@ -19,12 +19,10 @@
 	path = lib/auctex
 	url = https://git.savannah.gnu.org/git/auctex.git
 	info-path = doc
+	build-step = make extraclean
 	build-step = ./autogen.sh
 	build-step = ./configure --prefix=$HOME
 	build-step = make
-	build-step = make install
-	build-step = borg-update-autoloads
-	build-step = borg-makeinfo
 	remote = "jabranham git@github.com:jabranham/auctex.git"
 [submodule "auth-password-store"]
 	path = lib/auth-password-store

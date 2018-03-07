@@ -2340,7 +2340,10 @@ is already narrowed."
   ;; out of the box, but I like to use latexmk so that I don't have to
   ;; remember to rerun the file X times to get references right.
   :defines (latex-help-cmd-alist latex-help-file)
-  :mode ("\\.tex\\'" . TeX-latex-mode)
+  ;; this :demand adds almost nothing and ensures that auctex gets to set
+  ;; itself up properly. That's necessary because of how weirdly it gets
+  ;; loaded.
+  :demand t
   :custom
   (TeX-auto-save t)
   (TeX-electric-escape t)
