@@ -158,12 +158,12 @@
   ;; do dired actions asynchronously
   (dired-async-mode))
 
-(use-package auth-password-store
+(use-package auth-source-pass
   ;; Integrate Emacs's builtin auth-source with pass:
   :if (executable-find "pass")
   :demand t
   :config
-  (auth-pass-enable))
+  (auth-source-pass-enable))
 
 (use-package autorevert
   :custom

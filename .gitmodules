@@ -24,9 +24,6 @@
 	build-step = ./configure --prefix=$HOME
 	build-step = make
 	remote = "jabranham git@github.com:jabranham/auctex.git"
-[submodule "auth-password-store"]
-	path = lib/auth-password-store
-	url = git@github.com:DamienCassou/auth-password-store.git
 [submodule "auto-compile"]
 	path = lib/auto-compile
 	url = git@github.com:emacscollective/auto-compile.git
