@@ -680,6 +680,33 @@ Uses `pcmpl-ssh-config-hosts' to obtain a list of possible hosts."
   (ess-pdf-viewer-pref "emacsclient")
   (ess-use-ido nil "I prefer helm.")
   (ess-nuke-trailing-whitespace-p t)
+  (ess-R-font-lock-keywords
+   '((ess-R-fl-keyword:modifiers . t)
+     (ess-R-fl-keyword:fun-defs . t)
+     (ess-R-fl-keyword:keywords . t)
+     (ess-R-fl-keyword:assign-ops . t)
+     (ess-R-fl-keyword:constants . t)
+     (ess-fl-keyword:fun-calls . t)
+     (ess-fl-keyword:numbers . t)
+     (ess-fl-keyword:operators . t)
+     (ess-fl-keyword:delimiters . nil)
+     (ess-fl-keyword:= . t)
+     (ess-R-fl-keyword:F&T . t)))
+  (inferior-R-font-lock-keywords
+   '((ess-S-fl-keyword:prompt . t)
+     (ess-R-fl-keyword:messages . t)
+     (ess-R-fl-keyword:modifiers . t)
+     (ess-R-fl-keyword:fun-defs . t)
+     (ess-R-fl-keyword:keywords . t)
+     (ess-R-fl-keyword:assign-ops . t)
+     (ess-R-fl-keyword:constants . t)
+     (ess-fl-keyword:matrix-labels . t)
+     (ess-fl-keyword:fun-calls . t)
+     (ess-fl-keyword:numbers . nil)
+     (ess-fl-keyword:operators . t)
+     (ess-fl-keyword:delimiters . nil)
+     (ess-fl-keyword:= . t)
+     (ess-R-fl-keyword:F&T . t)))
   :config
   ;; Make that folder if needed.
   (mkdir ess-history-directory t)
@@ -971,7 +998,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   ;; I like to see numbers in code:
   :commands (highlight-numbers-mode)
   :hook
-  ((prog-mode ess-mode) . highlight-numbers-mode))
+  ((prog-mode) . highlight-numbers-mode))
 
 (use-package hippie-exp
   :bind
