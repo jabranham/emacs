@@ -2212,6 +2212,7 @@ there are no attachments."
   (powerline-default-separator 'wave)
   (spaceline-separator-dir-left '(right . right))
   (spaceline-separator-dir-right '(left . left))
+  (mode-line-format '("%e" (:eval (spaceline-ml-main))))
   :config
   (spaceline-helm-mode)
   (spaceline-install
@@ -2224,8 +2225,7 @@ there are no attachments."
     '((selection-info :face region :when mark-active)
       (global)
       (line-column)
-      (buffer-position)))
-  (setq-default mode-line-format '("%e" (:eval (spaceline-ml-main)))))
+      (buffer-position))))
 
 ;;; Theme
 
