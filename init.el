@@ -1117,6 +1117,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
     (interactive)
     (find-file my/ledger-file))
   :config
+  (setq ledger-account-name-or-directive-regex ledger-account-directive-regex)
   (defun my/setup-ledger-mode ()
     "Setup `ledger-mode' how I like."
     ;; disable company mode in ledger mode because ledger-mode comes
