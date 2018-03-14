@@ -163,9 +163,15 @@
 [submodule "markdown-mode"]
 	path = lib/markdown-mode
 	url = git@github.com:jrblevin/markdown-mode.git
+[submodule "minions"]
+	path = lib/minions
+	url = git@github.com:tarsius/minions.git
 [submodule "mixed-pitch"]
 	path = lib/mixed-pitch
 	url = git@github.com:jabranham/mixed-pitch.git
+[submodule "moody"]
+	path = lib/moody
+	url = git@github.com:tarsius/moody.git
 [submodule "mu4e-alert"]
 	path = lib/mu4e-alert
 	url = git@github.com:iqbalansari/mu4e-alert.git
@@ -224,9 +230,6 @@
 [submodule "posframe"]
 	path = lib/posframe
 	url = git@github.com:tumashu/posframe.git
-[submodule "powerline"]
-	path = lib/powerline
-	url = git@github.com:milkypostman/powerline.git
 [submodule "projectile"]
 	path = lib/projectile
 	url = git@github.com:bbatsov/projectile.git
@@ -240,10 +243,6 @@
 	path = lib/smartparens
 	url = git@github.com:Fuco1/smartparens.git
 	remote = "jabranham git@github.com:jabranham/smartparens.git"
-[submodule "spaceline"]
-	path = lib/spaceline
-	url = git@github.com:TheBB/spaceline.git
-	no-byte-compile = tests.el
 [submodule "spacemacs-theme"]
 	path = lib/spacemacs-theme
 	url = git@github.com:nashamri/spacemacs-theme.git

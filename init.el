@@ -1158,6 +1158,14 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   :custom
   (read-file-name-completion-ignore-case t "Ignore file case when trying to find stuff:"))
 
+(use-package minions
+  ;; Set up how minor modes are displayed in the mode-line
+  :custom
+  (minions-direct '(flymake-mode) "I always want flymake-mode visible because it shows counts of errors/warnings.")
+  (minions-mode-line-lighter "…" "Don't wink at me.")
+  :hook
+  (after-init . minions-mode))
+
 (use-package mixed-pitch
   ;; Emacs was an editor originally designed for code, so it defaults to a
   ;; fixed-width font for most things.  It's perfectly capable of handling
@@ -1175,6 +1183,17 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
         ("f" . mixed-pitch-mode))
   :config
   (set-face-attribute 'variable-pitch nil :family "Linux Libertine" :height 160))
+
+(use-package moody
+  ;; Set up the `mode-line'
+  :custom
+  (x-underline-at-descent-line t)
+  :custom-face
+  (mode-line ((t (:box nil :background "#5d4d7a" :underline "#5d4d7a" :overline "#5d4d7a"))))
+  (mode-line-inactive ((t (:box nil :underline "#5d4d7a" :overline "#5d4d7a"))))
+  :config
+  (moody-replace-mode-line-buffer-identification)
+  (moody-replace-vc-mode))
 
 (use-package mouse
   :defer t
@@ -2088,6 +2107,7 @@ See `org-agenda-todo' for more details."
                ("s" . transpose-sentences)
                ("x" . transpose-sexps))
   :custom
+  (column-number-mode t "Turn on column numbers in mode-line.")
   (delete-active-region 'kill "Single char delete commands kill active regions.")
   (save-interprogram-paste-before-kill t "Save system clipboard before overwriting it.")
   (set-mark-command-repeat-pop t)
@@ -2230,32 +2250,6 @@ there are no attachments."
                (not (mbork/message-attachment-present-p)))
       (unless (y-or-n-p mbork/message-attachment-reminder)
         (keyboard-quit)))))
-
-(use-package spaceline-config
-  ;; The default modeline is nice enough, but this one is much better
-  ;; looking
-  :custom
-  (spaceline-window-numbers-unicode t)
-  (spaceline-workspace-numbers-unicode t)
-  (powerline-default-separator 'wave)
-  (spaceline-separator-dir-left '(right . right))
-  (spaceline-separator-dir-right '(left . left))
-  (mode-line-format '("%e" (:eval (spaceline-ml-main))))
-  :config
-  (spaceline-helm-mode)
-  (spaceline-install
-    'main
-    '((window-number)
-      ((remote-host buffer-id) :face highlight-face)
-      (version-control)
-      (major-mode)
-      (process))
-    '((selection-info :face region :when mark-active)
-      (global)
-      (line-column)
-      (buffer-position))))
-
-;;; Theme
 
 (use-package spacemacs-dark-theme
   ;; By default, emacs starts with a blindingly white theme.  Let's get rid
@@ -2582,7 +2576,9 @@ the current window and the windows state prior to that."
   ("M-9" . winum-select-window-9)
   :custom
   (winum-scope 'frame-local)
-  (winum-auto-setup-mode-line nil)
+  (winum-auto-setup-mode-line t)
+  :custom-face
+  (winum-face ((t (:foreground "yellow"))))
   :config
   (winum-mode))
 
