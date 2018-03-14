@@ -329,7 +329,7 @@ minibuffer."
   :hook
   ((prog-mode ess-mode) . company-mode)
   :custom
-  (company-idle-delay 0.5)
+  (company-idle-delay 0.25)
   (company-require-match nil)
   (company-minimum-prefix-length 2))
 
