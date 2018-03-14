@@ -2324,6 +2324,8 @@ is already narrowed."
   :custom
   (TeX-auto-save t)
   (TeX-electric-escape t)
+  (TeX-electric-math t "Smart $ behavior")
+  (TeX-electric-sub-and-superscript t)
   (TeX-parse-self t)
   (reftex-plug-into-AUCTeX t)
   (TeX-source-correlate-method 'synctex)
@@ -2357,9 +2359,6 @@ is already narrowed."
     (:map LaTeX-mode-map
           ("M-p" . outline-previous-visible-heading)
           ("M-n" . outline-next-visible-heading)
-          ;; smartparens takes care of this but can't if auctex insists on
-          ;; rebinding it:
-          ("$" . self-insert-command)
           ("<backtab>" . org-cycle))
     :config
     (push "\\.fdb_latexmk" LaTeX-clean-intermediate-suffixes)
