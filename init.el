@@ -327,7 +327,7 @@ minibuffer."
         ("C-n" . company-select-next)
         ("C-p" . company-select-previous))
   :hook
-  (after-init . global-company-mode)
+  ((prog-mode ess-mode) . company-mode)
   :custom
   (company-idle-delay 0.5)
   (company-require-match nil)
