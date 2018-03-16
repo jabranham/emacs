@@ -2352,11 +2352,9 @@ is already narrowed."
   :config
   ;; revert pdf from file after compilation finishes
   (use-package tex-buf
-    :defer t
     :config
     (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer))
   (use-package latex
-    :defer t
     :bind
     (:map LaTeX-mode-map
           ("M-p" . outline-previous-visible-heading)
