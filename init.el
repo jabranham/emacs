@@ -465,6 +465,10 @@ three ediff buffers (A, B, and C)."
   :custom
   (eldoc-idle-delay 0 "We can speed it up a bit."))
 
+(use-package elec-pair
+  :custom
+  (electric-pair-mode t))
+
 (use-package electric-operator
   ;; Electric operator will turn ~a=10*5+2~ into ~a = 10 * 5 + 2~, so let's
   ;; enable it for R:
@@ -1942,6 +1946,12 @@ See `org-agenda-todo' for more details."
   ;; I end sentences with a single space.
   (setq sentence-end-double-space nil))
 
+(use-package paren
+  :custom
+  (show-paren-when-point-inside-paren t)
+  (show-paren-delay 0)
+  (show-paren-mode t))
+
 (use-package password-store
   ;; I use pass to manage all my passwords and login info ---
   ;; https://www.passwordstore.org/
@@ -2158,55 +2168,6 @@ Output file will be named by appending _pXX-pYY to INFILE."
              infile)))
   )                                     ; end use-package simple
 
-(use-package smartparens
-  ;; I'm not good at keeping track of parentheses. This makes me slightly
-  ;; better at it. It also keeps track of other things that should "match"
-  ;; like {}, [], "", ``'' (in latex mode), etc.
-  :bind
-  (:map smartparens-mode-map
-        ("C-M-a" . sp-beginning-of-sexp)
-        ("C-M-e" . sp-end-of-sexp)
-        ("C-M-f" . sp-forward-sexp)
-        ("C-M-b" . sp-backward-sexp)
-        ("C-M-n" . sp-next-sexp)
-        ("C-M-p" . sp-previous-sexp)
-        ("M-]" . sp-rewrap-sexp)
-        ("C-<right>" . sp-forward-slurp-sexp)
-        ("C-<left>" . sp-forward-barf-sexp)
-        ("C-M-<left>" . sp-backward-slurp-sexp)
-        ("C-M-<right>" . sp-backward-barf-sexp))
-  :custom
-  (sp-show-pair-from-inside t)
-  :hook
-  ;; use it everywhere:
-  (after-init . smartparens-global-mode)
-  (after-init . show-smartparens-global-mode)
-  ;; use `smartparens-strict-mode' in programming and LaTeX:
-  (inferior-ess-mode . smartparens-strict-mode)
-  (ess-mode . smartparens-strict-mode)
-  (prog-mode . smartparens-strict-mode)
-  (LaTeX-mode . smartparens-strict-mode)
-  :config
-  (use-package smartparens-config)
-  (defvar smartparens-mode-original-value)
-
-  (defun disable-sp-hippie-advice (&rest _)
-    (setq smartparens-mode-original-value smartparens-mode)
-    (setq smartparens-mode nil)
-    t) ; We should still return t.
-  ;; This advice could be added to other functions that usually insert
-  ;; balanced parens, like `try-expand-list'.
-  (advice-add 'yas-hippie-try-expand :after-while #'disable-sp-hippie-advice)
-
-  (defun reenable-sp-hippie-advice (&rest _)
-    (when (boundp 'smartparens-mode-original-value)
-      (setq smartparens-mode smartparens-mode-original-value)
-      (makunbound 'smartparens-mode-original-value)))
-  (advice-add 'hippie-expand :after #'reenable-sp-hippie-advice
-              ;; Set negative depth to make sure we go after
-              ;; `sp-auto-complete-advice'.
-              '((depth . -100))))
-
 (use-package smtpmail
   :hook
   (message-send . mbork/message-warn-if-no-attachments)
@@ -2363,6 +2324,8 @@ is already narrowed."
   :custom
   (TeX-auto-save t)
   (TeX-electric-escape t)
+  (TeX-electric-math t "Smart $ behavior")
+  (TeX-electric-sub-and-superscript t)
   (TeX-parse-self t)
   (reftex-plug-into-AUCTeX t)
   (TeX-source-correlate-method 'synctex)
@@ -2396,9 +2359,6 @@ is already narrowed."
     (:map LaTeX-mode-map
           ("M-p" . outline-previous-visible-heading)
           ("M-n" . outline-next-visible-heading)
-          ;; smartparens takes care of this but can't if auctex insists on
-          ;; rebinding it:
-          ("$" . self-insert-command)
           ("<backtab>" . org-cycle))
     :config
     (push "\\.fdb_latexmk" LaTeX-clean-intermediate-suffixes)

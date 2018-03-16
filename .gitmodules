@@ -239,10 +239,6 @@
 [submodule "s"]
 	path = lib/s
 	url = git@github.com:magnars/s.el.git
-[submodule "smartparens"]
-	path = lib/smartparens
-	url = git@github.com:Fuco1/smartparens.git
-	remote = "jabranham git@github.com:jabranham/smartparens.git"
 [submodule "spacemacs-theme"]
 	path = lib/spacemacs-theme
 	url = git@github.com:nashamri/spacemacs-theme.git
