@@ -2315,13 +2315,9 @@ is already narrowed."
                ("V" . system-packages-verify-all-dependencies)))
 
 (use-package tex-site
-  ;; AuCTeX is better than the built in tex mode; let's use it.  It's good
-  ;; out of the box, but I like to use latexmk so that I don't have to
-  ;; remember to rerun the file X times to get references right.
-  :defines (latex-help-cmd-alist latex-help-file)
-  ;; this :demand adds almost nothing and ensures that auctex gets to set
-  ;; itself up properly. That's necessary because of how weirdly it gets
-  ;; loaded.
+  ;; AuCTeX is better than the built in tex mode; let's use it.  This
+  ;; demand adds almost nothing and ensures that auctex gets to set itself
+  ;; up properly. That's necessary because of how weirdly it gets loaded.
   :demand t
   :custom
   (TeX-auto-save t)
