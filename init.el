@@ -1192,7 +1192,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   ;; Set up the `mode-line'
   :demand
   :custom
-  (moody-mode-line-height 40)
+  (moody-mode-line-height (if (string= (system-name) "mars") 22 40))
   (x-underline-at-descent-line t)
   :custom-face
   (mode-line ((t (:box nil :background "#5d4d7a" :underline "#5d4d7a" :overline "#5d4d7a"))))
