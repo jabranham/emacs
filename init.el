@@ -160,6 +160,10 @@
   :config
   (auth-pass-enable))
 
+(use-package auto-insert
+  :custom
+  (auto-insert-mode t))
+
 (use-package autorevert
   :config
   ;; Emacs should refresh buffers automatically so if they've changed on
