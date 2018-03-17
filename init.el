@@ -165,6 +165,10 @@
   :config
   (auth-source-pass-enable))
 
+(use-package auto-insert
+  :custom
+  (auto-insert-mode t))
+
 (use-package autorevert
   :custom
   (global-auto-revert-non-file-buffers t)
