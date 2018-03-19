@@ -1091,7 +1091,6 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   ;; can handle it quite nicely.
   :if (executable-find "ledger")
   :hook
-  (ledger-mode . my/setup-ledger-mode)
   (ledger-mode . ledger-flymake-enable)
   :bind
   (:map ledger-mode-map
@@ -1125,12 +1124,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
     (interactive)
     (find-file my/ledger-file))
   :config
-  (setq ledger-account-name-or-directive-regex ledger-account-directive-regex)
-  (defun my/setup-ledger-mode ()
-    "Setup `ledger-mode' how I like."
-    ;; disable company mode in ledger mode because ledger-mode comes
-    ;; with a great completion engine (magic TAB):
-    (company-mode -1)))
+  (setq ledger-account-name-or-directive-regex ledger-account-directive-regex))
 
 (use-package magit
   ;; magit is magical git
