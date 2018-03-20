@@ -7,7 +7,7 @@
 
 ;;; Code:
 
-(when (version< emacs-version "26") ; Minimum version
+(when (< emacs-major-version 26) ; Minimum version
   (error "Your Emacs is too old -- this config requires version 26 or higher"))
 
 ;;; Early birds
