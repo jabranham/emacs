@@ -2321,19 +2321,17 @@ is already narrowed."
   ;; use. I use latexmk, xelatexmk, and View.  That's pretty much it.
   ;; Maybe one day I'll add "clean" back to the list.
   (TeX-command-list
-   '(("latexmk" "latexmk -synctex=1 -pdf %s"
+   '(("latexmk" "latexmk -synctex=1 -quiet -pdf %s"
       TeX-run-compile nil t :help "Process file with latexmk")
      ("View" "%V" TeX-run-discard-or-function nil t :help "Run Viewer")
-     ("xelatexmk" "latexmk -synctex=1 -xelatex %s"
+     ("xelatexmk" "latexmk -synctex=1 -quiet -xelatex %s"
       TeX-run-compile nil t :help "Process file with xelatexmk")))
-  (TeX-command-default "latexmk" "Use latexmk by default.")
-  (TeX-auto-local
-   (expand-file-name "auctex/auto" no-littering-var-directory) "Stop littering everywhere with auto/ directories")
   :hook
   (LaTeX-mode . LaTeX-math-mode)
   (LaTeX-mode . reftex-mode)
   (LaTeX-mode . TeX-PDF-mode)
   :config
+  (setq-default TeX-command-default "latexmk" "Use latexmk by default.")
   ;; revert pdf from file after compilation finishes
   (use-package tex-buf
     :config
