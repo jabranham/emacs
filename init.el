@@ -1652,7 +1652,6 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   ;; The agenda is ugly by default. It doesn't properly align items and it
   ;; includes weird punctuation. Fix it:
   (org-agenda-prefix-format '((agenda . "%-12c%-14t%s")
-                              (timeline . "  % s")
                               (todo . " %i %-12:c")
                               (tags . " %i %-12:c")
                               (search . " %i %-12:c")))
@@ -2112,7 +2111,7 @@ See `org-agenda-todo' for more details."
   (delete-active-region 'kill "Single char delete commands kill active regions.")
   (save-interprogram-paste-before-kill t "Save system clipboard before overwriting it.")
   (set-mark-command-repeat-pop t)
-  (shell-command-dont-erase-buffer t "Don't erase output in shell buffers since it's so easy to navigate around.")
+  (shell-command-dont-erase-buffer 'save-point "Don't erase output in shell buffers since it's so easy to navigate around.")
   (async-shell-command-display-buffer nil "Only show a shell buffer if there's something to show.")
   (kill-ring-max 500)
   :config
