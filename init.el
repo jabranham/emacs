@@ -993,12 +993,6 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   ;; This makes emacs switch focus to help windows:
   (help-window-select t))
 
-(use-package highlight-numbers
-  ;; I like to see numbers in code:
-  :commands (highlight-numbers-mode)
-  :hook
-  ((prog-mode) . highlight-numbers-mode))
-
 (use-package hippie-exp
   :bind
   (("M-SPC" . hippie-expand)

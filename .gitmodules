@@ -130,9 +130,6 @@
 [submodule "helm-projectile"]
 	path = lib/helm-projectile
 	url = git@github.com:bbatsov/helm-projectile.git
-[submodule "highlight-numbers"]
-	path = lib/highlight-numbers
-	url = git@github.com:Fanael/highlight-numbers.git
 [submodule "ht"]
 	path = lib/ht
 	url = git@github.com:Wilfred/ht.el.git
@@ -203,9 +200,6 @@
 [submodule "packed"]
 	path = lib/packed
 	url = git@github.com:emacscollective/packed.git
-[submodule "parent-mode"]
-	path = lib/parent-mode
-	url = git@github.com:Fanael/parent-mode.git
 [submodule "parsebib"]
 	path = lib/parsebib
 	url = git@github.com:joostkremers/parsebib.git
