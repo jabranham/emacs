@@ -165,7 +165,7 @@
   :config
   (auth-source-pass-enable))
 
-(use-package auto-insert
+(use-package autoinsert
   :custom
   (auto-insert-mode t))
 
