@@ -949,12 +949,6 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
     (interactive)
     (find-file bibtex-completion-bibliography)))
 
-(use-package helm-c-yasnippet
-  ;; I can use this when I can't remember the exact name of a snippet.
-  :after yasnippet
-  :bind
-  ("M-`" . helm-yas-complete))
-
 (use-package helm-mu
   :defer t
   :after (helm mu4e)
@@ -2540,6 +2534,8 @@ the current window and the windows state prior to that."
   (yas-wrap-around-region t)
   (yas-prompt-functions '(yas-completing-prompt) "If competing snippets, use completing-read (helm) to select:")
   ;; (yas-alias-to-yas/prefix-p nil "Don't make old style yas/ symbols.")
+  :bind
+  ("M-`" . yas-insert-snippet)
   :init
   ;; disable yas minor mode map
   ;; use hippie-expand instead

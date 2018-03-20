@@ -118,9 +118,6 @@
 	path = lib/helm-bibtex
 	url = git@github.com:tmalsburg/helm-bibtex.git
 	remote = "jabranham git@github.com:jabranham/helm-bibtex.git"
-[submodule "helm-c-yasnippet"]
-	path = lib/helm-c-yasnippet
-	url = git@github.com:emacs-jp/helm-c-yasnippet.git
 [submodule "helm-mu"]
 	path = lib/helm-mu
 	url = git@github.com:emacs-helm/helm-mu.git
