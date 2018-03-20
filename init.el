@@ -1644,7 +1644,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   (org-agenda-span 'day) ; just show today. I can "vw" to view the week
   (org-agenda-time-grid
    '((daily today remove-match) (800 1000 1200 1400 1600 1800 2000)
-     "" "") "By default, the time grid has a lot of ugly "-----" lines. Remove those.")
+     "" "") "By default, the time grid has a lot of ugly '-----' lines. Remove those.")
   (org-agenda-scheduled-leaders '("" "%2dx ") "I don't need to know that something is scheduled.  That's why it's appearing on the agenda in the first place.")
   (org-agenda-block-separator 8212 "Use nice unicode character instead of ugly = to separate agendas:")
   (org-agenda-deadline-leaders '("Deadline: " "In %d days: " "OVERDUE %d day: ") "Make deadlines, especially overdue ones, stand out more:")
