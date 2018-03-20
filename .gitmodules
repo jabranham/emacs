@@ -257,9 +257,6 @@
 [submodule "tablist"]
 	path = lib/tablist
 	url = git@github.com:politza/tablist.git
-[submodule "undo-tree"]
-	path = lib/undo-tree
-	url = http://www.dr-qubit.org/git/undo-tree.git
 [submodule "unfill"]
 	path = lib/unfill
 	url = git@github.com:purcell/unfill.git

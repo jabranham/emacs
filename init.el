@@ -2097,6 +2097,7 @@ See `org-agenda-todo' for more details."
   (after-init . global-visual-line-mode)
   :bind
   ("M-/" . cycle-spacing)
+  ("C-z" . undo)
   (:prefix-map my/transpose-map
                :prefix "C-t"
                ("f" . my/toggle-window-split)
@@ -2389,19 +2390,6 @@ type."
   :custom
   (tramp-histfile-override t "Don't leave histfiles everywhere.")
   (tramp-default-method "ssh" "Use ssh by default."))
-
-(use-package undo-tree
-  ;; Emacs undo system is incredibly powerful but a bit confusing.  This
-  ;; package has a great visualization system that helps out, bound to C-x
-  ;; u by default.
-  :demand t
-  :bind
-  ("C-z" . undo-tree-undo)
-  :custom
-  (undo-tree-visualizer-timestamps t)
-  (undo-tree-visualizer-diff t)
-  :config
-  (global-undo-tree-mode))
 
 (use-package unfill
   ;; fill-paragraph is nice, but emacs weirdly lacks a convenient way to
