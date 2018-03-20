@@ -2332,7 +2332,7 @@ is already narrowed."
   (LaTeX-mode . reftex-mode)
   (LaTeX-mode . TeX-PDF-mode)
   :config
-  (setq-default TeX-command-default "latexmk" "Use latexmk by default.")
+  (setq-default TeX-command-default "latexmk")
   ;; revert pdf from file after compilation finishes
   (use-package tex-buf
     :config
