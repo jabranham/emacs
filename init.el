@@ -30,7 +30,7 @@
   (setq delete-by-moving-to-trash t)
   ;; Emacs has some awful scrolling by default. This gets rid of that.
   (setq scroll-step 1) ; keyboard scroll one line at a time
-  (setq scroll-preserve-screen-position t)
+  (setq scroll-preserve-screen-position 'always)
   (setq scroll-conservatively 101)
   (setq next-screen-context-lines 5)
   ;; Don't ever use tabs. Always use spaces.
