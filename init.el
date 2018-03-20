@@ -235,16 +235,7 @@
                  while (assoc ret existing-keys)
                  do (setq ret (format "%s%c" key c)))
         ret)))
-  (advice-add #'bibtex-generate-autokey :override #'my/bibtex-generate-autokey)
-  ;; the built-in bibtex-mark-entry function does not activate the mark.
-  ;; I've submitted a patch that fixes that, hopefully it makes it into
-  ;; Emacs 26.
-  (defun my/bibtex-mark-entry ()
-    "Put mark at beginning, point at end of current BibTeX entry."
-    (interactive)
-    (push-mark (bibtex-beginning-of-entry) :activate t)
-    (bibtex-end-of-entry))
-  (advice-add #'bibtex-mark-entry :override #'my/bibtex-mark-entry))
+  (advice-add #'bibtex-generate-autokey :override #'my/bibtex-generate-autokey))
 
 (use-package browse-url
   :custom
