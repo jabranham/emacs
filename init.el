@@ -334,11 +334,6 @@ minibuffer."
   :config
   (add-to-list 'company-backends 'company-anaconda))
 
-(use-package company-childframe
-  :defer 10
-  :config
-  (company-childframe-mode))
-
 (use-package compile
   :defer t
   :custom

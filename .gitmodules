@@ -46,9 +46,6 @@
 [submodule "company-anaconda"]
 	path = lib/company-anaconda
 	url = git@github.com:proofit404/company-anaconda.git
-[submodule "company-childframe"]
-	path = lib/company-childframe
-	url = git@github.com:tumashu/company-childframe.git
 [submodule "csv-mode"]
 	path = lib/csv-mode
 	url = git@github.com:emacsmirror/csv-mode.git
@@ -218,9 +215,6 @@
 [submodule "popup"]
 	path = lib/popup
 	url = git@github.com:auto-complete/popup-el.git
-[submodule "posframe"]
-	path = lib/posframe
-	url = git@github.com:tumashu/posframe.git
 [submodule "projectile"]
 	path = lib/projectile
 	url = git@github.com:bbatsov/projectile.git
