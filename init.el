@@ -1013,14 +1013,14 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
 
 (use-package holidays
   :defer t
-  :custom
+  :init
   ;; Emacs knows about holidays, but there are lots that don't affect me.
   ;; Let's hide them
-  (holiday-bahai-holidays nil)
-  (holiday-hebrew-holidays nil)
-  (holiday-islamic-holidays nil)
-  (holiday-oriental-holidays nil)
-  (holiday-christian-holidays nil))
+  (setq holiday-bahai-holidays nil
+        holiday-hebrew-holidays nil
+        holiday-islamic-holidays nil
+        holiday-oriental-holidays nil
+        holiday-christian-holidays nil))
 
 (use-package hydra
   ;; Hydra is a nice package that lets you set up menus for related (or not)
