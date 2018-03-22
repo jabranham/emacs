@@ -1216,7 +1216,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   (mail-user-agent 'mu4e-user-agent)
   (mu4e-sent-messages-behavior 'delete "Don't save message to Sent Messages, Gmail/IMAP takes care of this.")
   (mu4e-get-mail-command "mbsync -a")
-  (mu4e-update-interval 80 "In seconds.")
+  (mu4e-update-interval 60 "In seconds.")
   (mu4e-change-filenames-when-moving t "For mbsync")
   (mu4e-user-mail-address-list '("branham@utexas.edu"
                                  "alex.branham@gmail.com"
