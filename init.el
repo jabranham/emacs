@@ -932,7 +932,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
         ("r b" . my/find-bib-file))
   :custom
   (bibtex-completion-bibliography "~/Sync/bibliography/references.bib")
-  (bibtex-completion-cite-default-command 'autocite)
+  (bibtex-completion-cite-default-command "autocite")
   (bibtex-completion-library-path "~/Sync/bibliography/bibtex-pdfs")
   (bibtex-completion-notes-extension ".org")
   (bibtex-completion-notes-path "~/Sync/bibliography/notes")
@@ -1557,7 +1557,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
      ("\\.pdf\\'" . emacs)))
   (org-highlight-latex-and-related '(latex entities) "set up fontlocking for latex")
   (org-startup-with-inline-images t "Show inline images.")
-  (org-log-done t)
+  (org-log-done 'time)
   (org-goto-interface 'outline-path-completion)
   (org-ellipsis "⬎")
   (org-tag-persistent-alist '(("jobs" . ?j)
