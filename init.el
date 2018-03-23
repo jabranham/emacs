@@ -1603,8 +1603,6 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   :bind
   (("C-c a" . org-agenda)
    ("<f5>" . org-agenda)
-   :map my/map
-   ("a" . my/agenda)
    :map org-agenda-mode-map
    ;; overrides org-agenda-redo, which I use "g" for anyway
    ("r" . org-agenda-refile)
@@ -1640,11 +1638,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
                               (tags . " %i %-12:c")
                               (search . " %i %-12:c")))
   (org-agenda-custom-commands
-   '((" " "Agenda"
-      ((agenda "" nil)
-       (tags "REFILE"
-             ((org-agenda-overriding-header "Tasks to Refile")
-              (org-tags-match-list-sublevels nil)))))
+   '(
      ("h" "Home Agenda"
       ((agenda "" nil)
        (tags "@home"
@@ -1694,10 +1688,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
     "Mark current TODO as DONE.
 See `org-agenda-todo' for more details."
     (interactive "P")
-    (org-agenda-todo "DONE"))
-  (defun my/agenda (&optional arg)
-    (interactive)
-    (org-agenda arg " ")))
+    (org-agenda-todo "DONE")))
 
 (use-package org-bullets
   ;; UTF-8 bullets for org headings
