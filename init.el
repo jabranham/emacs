@@ -356,7 +356,7 @@ minibuffer."
 
 (use-package csv-mode
   ;; Emacs can handle csv files with ease:
-  :mode (("\\.csv" . csv-mode)))
+  :defer)
 
 (use-package delsel
   :config
