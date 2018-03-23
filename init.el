@@ -2123,7 +2123,8 @@ See `org-agenda-todo' for more details."
             (set-window-buffer (selected-window) this-win-buffer)
             (set-window-buffer (next-window) next-win-buffer)
             (select-window first-win)
-            (if this-win-2nd (other-window 1))))))
+            (if this-win-2nd (other-window 1))))
+      (user-error "Not two windows")))
   (defun my/extract-pdf-pages (infile frompg topg)
     "Extracts pages from a pdf file.
 
