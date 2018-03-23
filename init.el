@@ -705,8 +705,9 @@ Uses `pcmpl-ssh-config-hosts' to obtain a list of possible hosts."
   ;; Make that folder if needed.
   (mkdir ess-history-directory t)
   (defun my/add-pipe ()
-    "Adds a pipe operator %>% with one space to the left and then
-starts a newline with proper indentation"
+    "Add a pipe operator %>%.
+
+Ensure one space to the left and start a newline with indentation."
     (interactive)
     (just-one-space 1)
     (insert "%>%")
@@ -715,7 +716,7 @@ starts a newline with proper indentation"
   ;; following lets me do so without needing to insert blank lines or
   ;; something:
   (defun my/ess-beginning-of-pipe-or-end-of-line ()
-    "Find point position of end of line or beginning of pipe %>%"
+    "Find point position of end of line or beginning of pipe %>%."
     (if (search-forward "%>%" (line-end-position) t)
         (let ((pos (progn
                      (beginning-of-line)
@@ -799,7 +800,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   ;; (visiting files), but asks about each one.  Let's create a binding to
   ;; save all file visiting buffers without asking:
   (defun my/save-everything-noconfirm ()
-    "Calls `save-some-buffers' but doesn't confirm about saving."
+    "Call `save-some-buffers' but don't confirm saving."
     (interactive)
     (save-some-buffers t))
   (bind-key "s-s" #'my/save-everything-noconfirm)
