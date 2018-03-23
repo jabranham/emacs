@@ -290,16 +290,17 @@
     ("republiacns" "republicans" nil 0)
     ("resembelence" "resemblance" nil 0)
     ("sentance" "sentence" nil 0)
-    ("sentances" "sentences" nil 0)
+    ("sentances" "sentences" nil 1)
     ("seperate" "separate" nil 0)
     ("sincerally" "sincerely" nil 0)
+    ("substantivelly" "substantively" nil 0)
     ("suitible" "suitable" nil 0)
     ("superflous" "superfluous" nil 0)
     ("suseptible" "susceptible" nil 0)
     ("synthasize" "synthesize" nil 0)
     ("systme" "system" nil 0)
     ("taht" "that" nil 3)
-    ("teh" "the" nil 6)
+    ("teh" "the" nil 8)
     ("tihs" "this" nil 10)
     ("travelling" "traveling" nil 0)
     ("tyranney" "tyranny" nil 0)
@@ -457,6 +458,8 @@
 (define-abbrev-table 'occur-mode-abbrev-table '())
 
 (define-abbrev-table 'org-export-stack-mode-abbrev-table '())
+
+(define-abbrev-table 'org-lint--report-mode-abbrev-table '())
 
 (define-abbrev-table 'org-mode-abbrev-table '())
 
