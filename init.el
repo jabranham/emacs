@@ -42,13 +42,13 @@
   (tool-bar-mode 0)
   (menu-bar-mode 0)
   ;; remove auditory clutter:
-  (setq ring-bell-function 'ignore)
+  (setq ring-bell-function #'ignore)
   ;; Emacs thinks that some new users may find some commands confusing, so
   ;; they're disabled by default. I use these every now and then, so let's
   ;; enable them by default:
-  (put 'downcase-region 'disabled nil)
-  (put 'upcase-region 'disabled nil)
-  (put 'narrow-to-region 'disabled nil)
+  (put #'downcase-region 'disabled nil)
+  (put #'upcase-region 'disabled nil)
+  (put #'narrow-to-region 'disabled nil)
   ;; Prefer utf8
   (prefer-coding-system 'utf-8))
 
