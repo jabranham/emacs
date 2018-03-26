@@ -1164,6 +1164,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
 (use-package moody
   ;; Set up the `mode-line'
   :demand
+  :after spacemacs-dark-theme
   :custom
   (moody-mode-line-height (if (string= (system-name) "mars") 22 40))
   (x-underline-at-descent-line t)
