@@ -631,14 +631,14 @@ Uses `pcmpl-ssh-config-hosts' to obtain a list of possible hosts."
       (concat
        ;; working directory
        (format (propertize "(%s)")
-               (propertize path 'face '(:foreground "green")))
+               (propertize path 'face '(:inherit eshell-prompt)))
        ;; git info
        (when (and (fboundp #'magit-get-current-branch) ; magit might not be loaded yet
                   (magit-get-current-branch))
          (format (propertize "@%s")
-                 (propertize (magit-get-current-branch) 'face '(:foreground "orange"))))
+                 (propertize (magit-get-current-branch) 'face '(:foreground "light slate grey"))))
        ;; newline, then prompt
-       (propertize "\nλ" 'face '(:weight bold))
+       (propertize "\nλ" 'face '(:inherit eshell-prompt))
        ;; need to have a space, otherwise the first text I type gets
        ;; propertized to match λ:
        " "))))
