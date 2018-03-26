@@ -559,7 +559,8 @@ three ediff buffers (A, B, and C)."
 (use-package epkg
   :defer t
   :bind
-  ("C-h P" . epkg-describe-package)
+  ("C-h P" . epkg-list-packages)
+  ("C-h p" . epkg-describe-package)
   :custom
   (epkg-repository (expand-file-name "var/epkgs/" user-emacs-directory)))
 
