@@ -866,7 +866,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   (exwm-randr-workspace-output-plist '(0 "eDP-1"
                                          1 "DP-2"
                                          2 "HDMI-1"))
-  :config
+  :hook
   (exwm-randr-screen-change . my/exwm-manage-screens)
   :config
   (defun my/exwm-manage-screens ()
