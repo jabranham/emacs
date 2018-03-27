@@ -872,7 +872,19 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   ;; In fact, I find suspend-frame so unhelpful let's disable it:
   (put #'suspend-frame 'disabled t)
   ;; A blinking cursor gets kinda annoying, so get rid of it:
-  (blink-cursor-mode -1))
+  (blink-cursor-mode -1)
+  (defvar my/theme 'spacemacs-dark
+    "The theme I'm using.")
+  (defun my/setup-frame-theme (&optional frame)
+    "Setup theme for FRAME."
+    (when frame (select-frame frame))
+    (if (window-system frame)
+        (ignore-errors
+          (load-theme my/theme t))))
+  ;; If running as a daemon, wait to load the theme:
+  (if (daemonp)
+      (add-hook 'after-make-frame-functions #'my/setup-frame-theme)
+    (my/setup-frame-theme)))
 
 (use-package git-timemachine
   ;; And to step through the history of a file:
@@ -2186,32 +2198,7 @@ there are no attachments."
   ;; of that pronto.
   :custom
   (spacemacs-theme-underline-parens nil)
-  (spacemacs-theme-comment-italic t)
-  :init
-  (defvar my/theme 'spacemacs-dark
-    "The theme I'm using.")
-  (defvar my/theme-window-loaded nil)
-  (defvar my/theme-terminal-loaded nil)
-  (if (daemonp)
-      (add-hook 'after-make-frame-functions
-                (lambda (frame)
-                  (select-frame frame)
-                  (if (window-system frame)
-                      (unless my/theme-window-loaded
-                        (if my/theme-terminal-loaded
-                            (enable-theme my/theme)
-                          (load-theme my/theme t))
-                        (setq my/theme-window-loaded t))
-                    (unless my/theme-terminal-loaded
-                      (if my/theme-window-loaded
-                          (enable-theme my/theme)
-                        (load-theme my/theme t))
-                      (setq my/theme-terminal-loaded t)))))
-    (progn
-      (load-theme my/theme t)
-      (if (display-graphic-p)
-          (setq my/theme-window-loaded t)
-        (setq my/theme-terminal-loaded t)))))
+  (spacemacs-theme-comment-italic t))
 
 (use-package stan-mode
   ;; stan is a language to write Bayesian models in
