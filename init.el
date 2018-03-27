@@ -2277,7 +2277,7 @@ is already narrowed."
   :custom
   (TeX-auto-save t)
   (TeX-electric-escape t)
-  (TeX-electric-math '("$" . "$") "Smart $ behavior")
+  (TeX-electric-math '("\\(" . "\\)") "Smart $ behavior")
   (TeX-electric-sub-and-superscript t)
   (TeX-parse-self t)
   (reftex-plug-into-AUCTeX t)
