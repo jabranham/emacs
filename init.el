@@ -771,7 +771,6 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
 (use-package exwm
   :demand t
   :custom
-  (exwm-workspace-number 2 "Two workspaces on startup")
   ;; show all X windows in all workspaces
   (exwm-workspace-show-all-buffers t)
   (exwm-layout-show-all-buffers t)
