@@ -2,4 +2,4 @@
 
 ;; Copyright (C) 2018  J. Alexander Branham
 
-(setq borg-emacs-arguments "-q")
+(setq borg-emacs-arguments '("-q"))
