@@ -768,6 +768,115 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   (:map eww-mode-map
         ("0" . eww-browse-with-external-browser)))
 
+(use-package exwm
+  :demand t
+  :custom
+  (exwm-workspace-number 2 "Two workspaces on startup")
+  ;; show all X windows in all workspaces
+  (exwm-workspace-show-all-buffers t)
+  (exwm-layout-show-all-buffers t)
+  :hook
+  (after-init . my/start-background-programs)
+  (exwm-floating-exit . exwm-layout-show-mode-line)
+  (exwm-floating-setup . exwm-layout-hide-mode-line)
+  (exwm-update-class . my/update-class-name)
+  :config
+  ;; Make class name the buffer name
+  (defun my/update-class-name ()
+    "Update X class name of buffer."
+    (exwm-workspace-rename-buffer exwm-class-name))
+  (defmacro my/switch-workspace (i)
+    "Return a command switching to workspace number I."
+    `(lambda () (interactive) (exwm-workspace-switch-create ,i)))
+  (defun my/application-launch (&optional command)
+    (interactive (list (read-shell-command "$ ")))
+    (start-process-shell-command command nil command))
+  (defun my/mute ()
+    "Mute"
+    (interactive)
+    (start-process "" nil "pactl" "set-sink-mute" "0" "toggle"))
+  (defun my/volume-up ()
+    "Volume up"
+    (interactive)
+    (start-process "" nil "pactl" "set-sink-volume" "0" "+5%"))
+  (defun my/volume-down ()
+    "Volume down"
+    (interactive)
+    (start-process "" nil "pactl" "set-sink-volume" "0" "-5%"))
+  (defun my/mute-mic ()
+    "Toggle mic mute status"
+    (interactive)
+    (start-process "" nil "pactl" "set-source-mute" "1" "toggle"))
+  (defun my/lock-screen ()
+    "Lock screen"
+    (interactive)
+    (shell-command "i3lock  -c 000000"))
+  ;; Keybindings that exwm won't pass on to X windows:
+  (exwm-input-set-key (kbd "s-r") #'exwm-reset)
+  (exwm-input-set-key (kbd "s-t") #'exwm-workspace-swap)
+  (exwm-input-set-key (kbd "s-0") (my/switch-workspace 0))
+  (exwm-input-set-key (kbd "s-1") (my/switch-workspace 1))
+  (exwm-input-set-key (kbd "s-2") (my/switch-workspace 2))
+  (exwm-input-set-key (kbd "s-3") (my/switch-workspace 3))
+  (exwm-input-set-key (kbd "s-4") (my/switch-workspace 4))
+  (exwm-input-set-key (kbd "s-5") (my/switch-workspace 5))
+  (exwm-input-set-key (kbd "s-6") (my/switch-workspace 6))
+  (exwm-input-set-key (kbd "s-7") (my/switch-workspace 7))
+  (exwm-input-set-key (kbd "s-8") (my/switch-workspace 8))
+  (exwm-input-set-key (kbd "s-9") (my/switch-workspace 9))
+  (exwm-input-set-key (kbd "s-d") #'my/application-launch)
+  (exwm-input-set-key (kbd "<XF86AudioMute>") #'my/mute)
+  (exwm-input-set-key (kbd "<XF86AudioRaiseVolume>") #'my/volume-up)
+  (exwm-input-set-key (kbd "<XF86AudioLowerVolume>") #'my/volume-down)
+  (exwm-input-set-key (kbd "<XF86AudioMicMute>") #'my/mute-mic)
+  (exwm-input-set-key (kbd "s-l") #'my/lock-screen)
+  ;; Use C-q to sent next key to X application literally.
+  (define-key exwm-mode-map [?\C-q] #'exwm-input-send-next-key)
+  (push ?\C-q exwm-input-prefix-keys)
+
+  ;; Line-editing shortcuts
+  (exwm-input-set-simulation-keys
+   '(([?\C-b] . left)
+     ([?\C-f] . right)
+     ([?\C-p] . up)
+     ([?\C-n] . down)
+     ([?\C-a] . home)
+     ([?\C-e] . end)
+     ([?\M-v] . prior)
+     ([?\C-v] . next)
+     ([?\C-d] . delete)
+     ([?\C-k] . (S-end delete))))
+  ;; Start some daemons:
+  (defun my/start-background-programs ()
+    "Start some processes. Hooks into `after-init-hook'."
+    (start-process "" nil "nm-applet") ; Networkmanager
+    (start-process "" nil "xfce4-power-manager") ; power info & screen brightness
+    (start-process "" nil "syncthing-gtk" "--minimized") ; syncthing
+    (start-process "" nil "systemctl" "--user" "start" "redshift.service") ; redshift in evenings to reduce eye strain
+    (start-process "" nil "compton"))
+  ;; Enable EXWM
+  (exwm-enable))
+
+(use-package exwm-randr
+  ;; Xrandr (multi-screen)
+  :after exwm
+  ;; Only load if I'm on my laptop:
+  :if (string= (system-name) "mars")
+  :demand t
+  :custom
+  (exwm-randr-workspace-output-plist '(0 "eDP-1"
+                                         1 "DP-2"
+                                         2 "HDMI-1"))
+  :config
+  (exwm-randr-screen-change . my/exwm-manage-screens)
+  :config
+  (defun my/exwm-manage-screens ()
+    "Manage screen placement.
+To be added to `exwm-randr-screen-change-hook'."
+    (start-process-shell-command
+     "xrandr" nil "xrandr --output DP-2 --right-of eDP-1 --auto --output HDMI-1 --left-of eDP-1 --auto"))
+  (exwm-randr-enable))
+
 (use-package faces
   ;; faces are how Emacs determines how to display characters (font, size,
   ;; color, etc)
