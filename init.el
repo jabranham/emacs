@@ -2186,6 +2186,7 @@ there are no attachments."
   ;; of that pronto.
   :custom
   (spacemacs-theme-underline-parens nil)
+  (spacemacs-theme-comment-italic t)
   :init
   (defvar my/theme 'spacemacs-dark
     "The theme I'm using.")
