@@ -774,19 +774,48 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   ;; show all X windows in all workspaces
   (exwm-workspace-show-all-buffers t)
   (exwm-layout-show-all-buffers t)
+  (exwm-input-simulation-keys
+   ;; simulation keys so that e.g. `C-n' goes down in most X applications
+   '(([?\C-b] . left)
+     ([?\C-f] . right)
+     ([?\C-p] . up)
+     ([?\C-n] . down)
+     ([?\C-a] . home)
+     ([?\C-e] . end)
+     ([?\M-v] . prior)
+     ([?\C-v] . next)
+     ([?\C-d] . delete)
+     ([?\C-k] . (S-end delete))))
+  ;; Keybindings that exwm won't pass on to X windows:
+  (exwm-input-global-keys
+   `((,(kbd "s-r") . exwm-reset)
+     (,(kbd "s-t") . exwm-workspace-swap)
+     ,@(mapcar (lambda (i)
+                 `(,(kbd (format "s-%d" i)) .
+                   (lambda ()
+                     (interactive)
+                     (exwm-workspace-switch-create ,i))))
+               (number-sequence 0 9))
+     (,(kbd "s-d") . my/application-launch)
+     (,(kbd "<XF86AudioMute>") . my/mute)
+     (,(kbd "<XF86AudioRaiseVolume>") . my/volume-up)
+     (,(kbd "<XF86AudioLowerVolume>") . my/volume-down)
+     (,(kbd "<XF86AudioMicMute>") . my/mute-mic)
+     (,(kbd "s-l"). my/lock-screen)))
   :hook
   (after-init . my/start-background-programs)
   (exwm-floating-exit . exwm-layout-show-mode-line)
   (exwm-floating-setup . exwm-layout-hide-mode-line)
   (exwm-update-class . my/update-class-name)
+  :bind
+  (:map exwm-mode-map
+        ;; Use C-q to sent next key to X application literally.
+        ("C-q" . exwm-input-send-next-key))
   :config
   ;; Make class name the buffer name
   (defun my/update-class-name ()
     "Update X class name of buffer."
     (exwm-workspace-rename-buffer exwm-class-name))
-  (defmacro my/switch-workspace (i)
-    "Return a command switching to workspace number I."
-    `(lambda () (interactive) (exwm-workspace-switch-create ,i)))
   (defun my/application-launch (&optional command)
     (interactive (list (read-shell-command "$ ")))
     (start-process-shell-command command nil command))
@@ -810,41 +839,6 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
     "Lock screen"
     (interactive)
     (shell-command "i3lock  -c 000000"))
-  ;; Keybindings that exwm won't pass on to X windows:
-  (exwm-input-set-key (kbd "s-r") #'exwm-reset)
-  (exwm-input-set-key (kbd "s-t") #'exwm-workspace-swap)
-  (exwm-input-set-key (kbd "s-0") (my/switch-workspace 0))
-  (exwm-input-set-key (kbd "s-1") (my/switch-workspace 1))
-  (exwm-input-set-key (kbd "s-2") (my/switch-workspace 2))
-  (exwm-input-set-key (kbd "s-3") (my/switch-workspace 3))
-  (exwm-input-set-key (kbd "s-4") (my/switch-workspace 4))
-  (exwm-input-set-key (kbd "s-5") (my/switch-workspace 5))
-  (exwm-input-set-key (kbd "s-6") (my/switch-workspace 6))
-  (exwm-input-set-key (kbd "s-7") (my/switch-workspace 7))
-  (exwm-input-set-key (kbd "s-8") (my/switch-workspace 8))
-  (exwm-input-set-key (kbd "s-9") (my/switch-workspace 9))
-  (exwm-input-set-key (kbd "s-d") #'my/application-launch)
-  (exwm-input-set-key (kbd "<XF86AudioMute>") #'my/mute)
-  (exwm-input-set-key (kbd "<XF86AudioRaiseVolume>") #'my/volume-up)
-  (exwm-input-set-key (kbd "<XF86AudioLowerVolume>") #'my/volume-down)
-  (exwm-input-set-key (kbd "<XF86AudioMicMute>") #'my/mute-mic)
-  (exwm-input-set-key (kbd "s-l") #'my/lock-screen)
-  ;; Use C-q to sent next key to X application literally.
-  (define-key exwm-mode-map [?\C-q] #'exwm-input-send-next-key)
-  (push ?\C-q exwm-input-prefix-keys)
-
-  ;; Line-editing shortcuts
-  (exwm-input-set-simulation-keys
-   '(([?\C-b] . left)
-     ([?\C-f] . right)
-     ([?\C-p] . up)
-     ([?\C-n] . down)
-     ([?\C-a] . home)
-     ([?\C-e] . end)
-     ([?\M-v] . prior)
-     ([?\C-v] . next)
-     ([?\C-d] . delete)
-     ([?\C-k] . (S-end delete))))
   ;; Start some daemons:
   (defun my/start-background-programs ()
     "Start some processes. Hooks into `after-init-hook'."
