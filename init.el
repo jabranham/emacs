@@ -916,6 +916,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
    ("M-o" . helm-semantic-or-imenu)
    ("C-h SPC" . helm-all-mark-rings)
    ("M-s g" . helm-grep-do-git-grep)
+   ("C-h a" . helm-man-woman)
    :map helm-map
    ("<tab>" . helm-execute-persistent-action)
    ("C-i" . helm-execute-persistent-action)
