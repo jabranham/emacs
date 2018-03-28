@@ -1934,6 +1934,11 @@ See `org-agenda-todo' for more details."
   (show-paren-delay 0)
   (show-paren-mode t))
 
+(use-package password-cache
+  :defer
+  :custom
+  (password-cache-expiry 60 "Cache passwords for a minute."))
+
 (use-package password-store
   ;; I use pass to manage all my passwords and login info ---
   ;; https://www.passwordstore.org/
