@@ -3,7 +3,9 @@
 
 ;;; Commentary:
 ;; This is my personal Emacs config.  It works for me, but probably won't
-;; for you.
+;; for you.  The general idea is to load a few things early that need to be
+;; set early, like the package manager, and then use `use-package' to
+;; load/defer/config everything else alphabetically.
 
 ;;; Code:
 
