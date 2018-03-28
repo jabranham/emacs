@@ -806,6 +806,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   (after-init . my/start-background-programs)
   (exwm-floating-exit . exwm-layout-show-mode-line)
   (exwm-floating-setup . exwm-layout-hide-mode-line)
+  (exwm-manage-finish . my/exwm-manage)
   (exwm-update-class . my/update-class-name)
   :bind
   (:map exwm-mode-map
@@ -819,6 +820,10 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   (defun my/application-launch (&optional command)
     (interactive (list (read-shell-command "$ ")))
     (start-process-shell-command command nil command))
+  (defun my/exwm-manage ()
+    "Setup X applications."
+    (when (string= "Firefox" exwm-class-name)
+      (exwm-layout-hide-mode-line)))
   (defun my/mute ()
     "Mute"
     (interactive)
