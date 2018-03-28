@@ -3,7 +3,9 @@
 
 ;;; Commentary:
 ;; This is my personal Emacs config.  It works for me, but probably won't
-;; for you.
+;; for you.  The general idea is to load a few things early that need to be
+;; set early, like the package manager, and then use `use-package' to
+;; load/defer/config everything else alphabetically.
 
 ;;; Code:
 
@@ -12,27 +14,29 @@
 
 ;;; Early birds
 (progn ;     startup & C source code vars
-  (setq user-init-file (or load-file-name buffer-file-name))
-  (setq user-emacs-directory (file-name-directory user-init-file))
+  (setq user-init-file (or load-file-name buffer-file-name)
+        user-emacs-directory (file-name-directory user-init-file))
   (message "Loading %s..." user-init-file)
-  (setq package-enable-at-startup nil)
   ;; (package-initialize)
-  (setq inhibit-startup-buffer-menu t)
-  (setq inhibit-startup-screen t)
+  (setq inhibit-startup-buffer-menu t
+        inhibit-startup-screen t
+        package-enable-at-startup nil
+        load-prefer-newer t
+        ;; don't use popup boxes, just make the minibuffer ask
+        use-dialog-box nil
+        initial-major-mode #'org-mode
+        initial-scratch-message "# Unsaved notes\n\n"
+        ;; Delete my files by moving them to the trash. I'm human and
+        ;; occasionally delete things that I actually want later:
+        delete-by-moving-to-trash t
+        ;; Emacs has some awful scrolling by default. This gets rid of that.
+        scroll-step 1 ; keyboard scroll one line at a time
+        scroll-preserve-screen-position 'always
+        scroll-conservatively 101
+        next-screen-context-lines 5
+        ;; remove auditory clutter:
+        ring-bell-function #'ignore)
   (advice-add #'display-startup-echo-area-message :override #'ignore)
-  (setq load-prefer-newer t)
-  ;; don't use popup boxes, just make the minibuffer ask
-  (setq use-dialog-box nil)
-  (setq initial-major-mode #'org-mode
-        initial-scratch-message "# Unsaved notes\n\n")
-  ;; Delete my files by moving them to the trash. I'm human and
-  ;; occasionally delete things that I actually want later:
-  (setq delete-by-moving-to-trash t)
-  ;; Emacs has some awful scrolling by default. This gets rid of that.
-  (setq scroll-step 1) ; keyboard scroll one line at a time
-  (setq scroll-preserve-screen-position 'always)
-  (setq scroll-conservatively 101)
-  (setq next-screen-context-lines 5)
   ;; Don't ever use tabs. Always use spaces.
   (setq-default indent-tabs-mode nil)
   ;; for the lazy:
@@ -41,8 +45,6 @@
   (scroll-bar-mode 0)
   (tool-bar-mode 0)
   (menu-bar-mode 0)
-  ;; remove auditory clutter:
-  (setq ring-bell-function #'ignore)
   ;; Emacs thinks that some new users may find some commands confusing, so
   ;; they're disabled by default. I use these every now and then, so let's
   ;; enable them by default:
@@ -1023,6 +1025,7 @@ To be added to `exwm-randr-screen-change-hook'."
    ("M-o" . helm-semantic-or-imenu)
    ("C-h SPC" . helm-all-mark-rings)
    ("M-s g" . helm-grep-do-git-grep)
+   ("C-h a" . helm-man-woman)
    :map helm-map
    ("<tab>" . helm-execute-persistent-action)
    ("C-i" . helm-execute-persistent-action)
@@ -2038,6 +2041,11 @@ See `org-agenda-todo' for more details."
   (show-paren-delay 0)
   (show-paren-mode t))
 
+(use-package password-cache
+  :defer
+  :custom
+  (password-cache-expiry 60 "Cache passwords for a minute."))
+
 (use-package password-store
   ;; I use pass to manage all my passwords and login info ---
   ;; https://www.passwordstore.org/
@@ -2212,32 +2220,40 @@ See `org-agenda-todo' for more details."
   (async-shell-command-display-buffer nil "Only show a shell buffer if there's something to show.")
   (kill-ring-max 500)
   :config
-  (defun my/toggle-window-split ()
-    "Switch between 2 windows split horizontally or vertically."
-    (interactive)
-    (if (= (count-windows) 2)
-        (let* ((this-win-buffer (window-buffer))
-               (next-win-buffer (window-buffer (next-window)))
-               (this-win-edges (window-edges (selected-window)))
-               (next-win-edges (window-edges (next-window)))
-               (this-win-2nd (not (and (<= (car this-win-edges)
-                                           (car next-win-edges))
-                                       (<= (cadr this-win-edges)
-                                           (cadr next-win-edges)))))
-               (splitter
-                (if (= (car this-win-edges)
-                       (car (window-edges (next-window))))
-                    'split-window-horizontally
-                  'split-window-vertically)))
-          (delete-other-windows)
-          (let ((first-win (selected-window)))
-            (funcall splitter)
-            (if this-win-2nd (other-window 1))
-            (set-window-buffer (selected-window) this-win-buffer)
-            (set-window-buffer (next-window) next-win-buffer)
-            (select-window first-win)
-            (if this-win-2nd (other-window 1))))
-      (user-error "Not two windows")))
+  (defun my/toggle-window-split (&optional arg)
+    "Switch between 2 windows split horizontally or vertically.
+With ARG, swap them instead."
+    (interactive "P")
+    (unless (= (count-windows) 2)
+      (user-error "Not two windows"))
+    ;; Swap two windows
+    (if arg
+        (let ((this-win-buffer (window-buffer))
+              (next-win-buffer (window-buffer (next-window))))
+          (set-window-buffer (selected-window) next-win-buffer)
+          (set-window-buffer (next-window) this-win-buffer))
+      ;; Swap between horizontal and vertical splits
+      (let* ((this-win-buffer (window-buffer))
+             (next-win-buffer (window-buffer (next-window)))
+             (this-win-edges (window-edges (selected-window)))
+             (next-win-edges (window-edges (next-window)))
+             (this-win-2nd (not (and (<= (car this-win-edges)
+                                         (car next-win-edges))
+                                     (<= (cadr this-win-edges)
+                                         (cadr next-win-edges)))))
+             (splitter
+              (if (= (car this-win-edges)
+                     (car (window-edges (next-window))))
+                  'split-window-horizontally
+                'split-window-vertically)))
+        (delete-other-windows)
+        (let ((first-win (selected-window)))
+          (funcall splitter)
+          (if this-win-2nd (other-window 1))
+          (set-window-buffer (selected-window) this-win-buffer)
+          (set-window-buffer (next-window) next-win-buffer)
+          (select-window first-win)
+          (if this-win-2nd (other-window 1))))))
   (defun my/extract-pdf-pages (infile frompg topg)
     "Extracts pages from a pdf file.
 
