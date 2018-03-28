@@ -12,27 +12,29 @@
 
 ;;; Early birds
 (progn ;     startup & C source code vars
-  (setq user-init-file (or load-file-name buffer-file-name))
-  (setq user-emacs-directory (file-name-directory user-init-file))
+  (setq user-init-file (or load-file-name buffer-file-name)
+        user-emacs-directory (file-name-directory user-init-file))
   (message "Loading %s..." user-init-file)
-  (setq package-enable-at-startup nil)
   ;; (package-initialize)
-  (setq inhibit-startup-buffer-menu t)
-  (setq inhibit-startup-screen t)
+  (setq inhibit-startup-buffer-menu t
+        inhibit-startup-screen t
+        package-enable-at-startup nil
+        load-prefer-newer t
+        ;; don't use popup boxes, just make the minibuffer ask
+        use-dialog-box nil
+        initial-major-mode #'org-mode
+        initial-scratch-message "# Unsaved notes\n\n"
+        ;; Delete my files by moving them to the trash. I'm human and
+        ;; occasionally delete things that I actually want later:
+        delete-by-moving-to-trash t
+        ;; Emacs has some awful scrolling by default. This gets rid of that.
+        scroll-step 1 ; keyboard scroll one line at a time
+        scroll-preserve-screen-position 'always
+        scroll-conservatively 101
+        next-screen-context-lines 5
+        ;; remove auditory clutter:
+        ring-bell-function #'ignore)
   (advice-add #'display-startup-echo-area-message :override #'ignore)
-  (setq load-prefer-newer t)
-  ;; don't use popup boxes, just make the minibuffer ask
-  (setq use-dialog-box nil)
-  (setq initial-major-mode #'org-mode
-        initial-scratch-message "# Unsaved notes\n\n")
-  ;; Delete my files by moving them to the trash. I'm human and
-  ;; occasionally delete things that I actually want later:
-  (setq delete-by-moving-to-trash t)
-  ;; Emacs has some awful scrolling by default. This gets rid of that.
-  (setq scroll-step 1) ; keyboard scroll one line at a time
-  (setq scroll-preserve-screen-position 'always)
-  (setq scroll-conservatively 101)
-  (setq next-screen-context-lines 5)
   ;; Don't ever use tabs. Always use spaces.
   (setq-default indent-tabs-mode nil)
   ;; for the lazy:
@@ -41,8 +43,6 @@
   (scroll-bar-mode 0)
   (tool-bar-mode 0)
   (menu-bar-mode 0)
-  ;; remove auditory clutter:
-  (setq ring-bell-function #'ignore)
   ;; Emacs thinks that some new users may find some commands confusing, so
   ;; they're disabled by default. I use these every now and then, so let's
   ;; enable them by default:
