@@ -2105,32 +2105,40 @@ See `org-agenda-todo' for more details."
   (async-shell-command-display-buffer nil "Only show a shell buffer if there's something to show.")
   (kill-ring-max 500)
   :config
-  (defun my/toggle-window-split ()
-    "Switch between 2 windows split horizontally or vertically."
-    (interactive)
-    (if (= (count-windows) 2)
-        (let* ((this-win-buffer (window-buffer))
-               (next-win-buffer (window-buffer (next-window)))
-               (this-win-edges (window-edges (selected-window)))
-               (next-win-edges (window-edges (next-window)))
-               (this-win-2nd (not (and (<= (car this-win-edges)
-                                           (car next-win-edges))
-                                       (<= (cadr this-win-edges)
-                                           (cadr next-win-edges)))))
-               (splitter
-                (if (= (car this-win-edges)
-                       (car (window-edges (next-window))))
-                    'split-window-horizontally
-                  'split-window-vertically)))
-          (delete-other-windows)
-          (let ((first-win (selected-window)))
-            (funcall splitter)
-            (if this-win-2nd (other-window 1))
-            (set-window-buffer (selected-window) this-win-buffer)
-            (set-window-buffer (next-window) next-win-buffer)
-            (select-window first-win)
-            (if this-win-2nd (other-window 1))))
-      (user-error "Not two windows")))
+  (defun my/toggle-window-split (&optional arg)
+    "Switch between 2 windows split horizontally or vertically.
+With ARG, swap them instead."
+    (interactive "P")
+    (unless (= (count-windows) 2)
+      (user-error "Not two windows"))
+    ;; Swap two windows
+    (if arg
+        (let ((this-win-buffer (window-buffer))
+              (next-win-buffer (window-buffer (next-window))))
+          (set-window-buffer (selected-window) next-win-buffer)
+          (set-window-buffer (next-window) this-win-buffer))
+      ;; Swap between horizontal and vertical splits
+      (let* ((this-win-buffer (window-buffer))
+             (next-win-buffer (window-buffer (next-window)))
+             (this-win-edges (window-edges (selected-window)))
+             (next-win-edges (window-edges (next-window)))
+             (this-win-2nd (not (and (<= (car this-win-edges)
+                                         (car next-win-edges))
+                                     (<= (cadr this-win-edges)
+                                         (cadr next-win-edges)))))
+             (splitter
+              (if (= (car this-win-edges)
+                     (car (window-edges (next-window))))
+                  'split-window-horizontally
+                'split-window-vertically)))
+        (delete-other-windows)
+        (let ((first-win (selected-window)))
+          (funcall splitter)
+          (if this-win-2nd (other-window 1))
+          (set-window-buffer (selected-window) this-win-buffer)
+          (set-window-buffer (next-window) next-win-buffer)
+          (select-window first-win)
+          (if this-win-2nd (other-window 1))))))
   (defun my/extract-pdf-pages (infile frompg topg)
     "Extracts pages from a pdf file.
 
