@@ -803,7 +803,8 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
      (,(kbd "<XF86AudioRaiseVolume>") . my/volume-up)
      (,(kbd "<XF86AudioLowerVolume>") . my/volume-down)
      (,(kbd "<XF86AudioMicMute>") . my/mute-mic)
-     (,(kbd "s-l"). my/lock-screen)))
+     (,(kbd "s-l") . my/lock-screen)
+     (,(kbd "<s-print>") . my/take-screenshot)))
   :hook
   (after-init . my/start-background-programs)
   (exwm-floating-exit . exwm-layout-show-mode-line)
@@ -811,6 +812,12 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   (exwm-manage-finish . my/exwm-manage)
   (exwm-update-class . my/update-class-name)
   :bind
+  (:prefix-map my/power-menu-map
+               :prefix "s-C"
+               ("e" . save-buffers-kill-emacs)
+               ("l" . my/lock-screen)
+               ("s" . my/system-suspend)
+               ("r" . my/system-reboot))
   (:map exwm-mode-map
         ;; Use C-q to sent next key to X application literally.
         ("C-q" . exwm-input-send-next-key))
@@ -846,6 +853,26 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
     "Lock screen"
     (interactive)
     (shell-command "i3lock  -c 000000"))
+  (defun my/system-suspend ()
+    "Suspend system."
+    (interactive)
+    (when (y-or-n-p "Suspend system? ")
+      (shell-command "systemctl suspend")))
+  (defun my/system-reboot ()
+    "Reboot system."
+    (interactive)
+    (when (y-or-n-p "Reboot system? ")
+      (shell-command "systemctl reboot")))
+  (defun my/take-screenshot (&optional arg)
+    "Take a screenshot.
+With ARG, take an area-selection screenshot."
+    (interactive "P")
+    (mkdir "~/Pictures/screenshots/" t)
+    (start-process-shell-command
+     "scrot" nil
+     (concat "scrot " (when arg "-s ")
+             "-z "                      ; no beeping
+             "~/Pictures/screenshots/screenshot_%Y%m%d_%H%M%S.png")))
   ;; Start some daemons:
   (defun my/start-background-programs ()
     "Start some processes. Hooks into `after-init-hook'."
