@@ -809,16 +809,16 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   (exwm-floating-exit . exwm-layout-show-mode-line)
   (exwm-floating-setup . exwm-layout-hide-mode-line)
   (exwm-manage-finish . my/exwm-manage)
-  (exwm-update-title-hook . ambrevar/exwm-rename-buffer-to-title)
+  (exwm-update-class . my/update-class-name)
   :bind
   (:map exwm-mode-map
         ;; Use C-q to sent next key to X application literally.
         ("C-q" . exwm-input-send-next-key))
   :config
-  ;; Rename buffer to window title.
-  (defun my/exwm-rename-buffer-to-title ()
-    "Rename buffer of X window to the title."
-    (exwm-workspace-rename-buffer exwm-title))
+  ;; Make class name the buffer name
+  (defun my/update-class-name ()
+    "Update X class name of buffer."
+    (exwm-workspace-rename-buffer exwm-class-name))
   (defun my/application-launch (&optional command)
     (interactive (list (read-shell-command "$ ")))
     (start-process-shell-command command nil command))
