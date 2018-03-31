@@ -804,7 +804,8 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
      (,(kbd "<XF86AudioLowerVolume>") . my/volume-down)
      (,(kbd "<XF86AudioMicMute>") . my/mute-mic)
      (,(kbd "s-l") . my/lock-screen)
-     (,(kbd "<s-print>") . my/take-screenshot)))
+     (,(kbd "<s-print>") . my/take-screenshot)
+     (,(kbd "s-p") . helm-pass)))
   :hook
   (after-init . my/start-background-programs)
   (exwm-floating-exit . exwm-layout-show-mode-line)
