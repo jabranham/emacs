@@ -989,6 +989,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   ;; Emacs has an amazing help system built in. C-h v, C-h f, and C-h k are
   ;; bound to describe-variable, describe-function, and describe-key
   ;; respectively.
+  :no-require t
   :bind
   (:map help-mode-map
         ;; shortcuts for searching from *Help* buffers
