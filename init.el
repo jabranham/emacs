@@ -2230,6 +2230,12 @@ See `org-agenda-todo' for more details."
   :bind
   ("M-/" . cycle-spacing)
   ("C-z" . undo)
+  ;; The -dwim versions of these three commands are new in Emacs 26 and
+  ;; better than their non-dwim counterparts, so override those default
+  ;; bindings:
+  ("M-l" . downcase-dwim)
+  ("M-c" . capitalize-dwim)
+  ("M-u" . upcase-dwim)
   (:prefix-map my/transpose-map
                :prefix "C-t"
                ("f" . my/toggle-window-split)
