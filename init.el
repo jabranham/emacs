@@ -669,7 +669,7 @@ Uses `pcmpl-ssh-config-hosts' to obtain a list of possible hosts."
         ("M-=" . ess-insert-S-assign)
         ("_"   . self-insert-command))
   :custom
-  (ess-ask-for-ess-directory nil "Don't ask for dir when starting a procecss")
+  (ess-ask-for-ess-directory nil "Don't ask for dir when starting a process")
   (ess-default-style 'RStudio)
   (ess-eldoc-show-on-symbol t "Show eldoc on symbol instead of only inside of parens")
   (ess-eval-visibly 'nowait "Don't hog Emacs")
