@@ -1014,25 +1014,13 @@ To be added to `exwm-randr-screen-change-hook'."
 
 (use-package frame
   :defer t
+  :custom
+  (blink-cursor-mode nil "Don't blink the cursor. It's annoying.")
   :config
   ;; don't bind C-x C-z to suspend-frame:
   (unbind-key "C-x C-z")
   ;; In fact, I find suspend-frame so unhelpful let's disable it:
-  (put #'suspend-frame 'disabled t)
-  ;; A blinking cursor gets kinda annoying, so get rid of it:
-  (blink-cursor-mode -1)
-  (defvar my/theme 'spacemacs-dark
-    "The theme I'm using.")
-  (defun my/setup-frame-theme (&optional frame)
-    "Setup theme for FRAME."
-    (when frame (select-frame frame))
-    (if (window-system frame)
-        (ignore-errors
-          (load-theme my/theme t))))
-  ;; If running as a daemon, wait to load the theme:
-  (if (daemonp)
-      (add-hook 'after-make-frame-functions #'my/setup-frame-theme)
-    (my/setup-frame-theme)))
+  (put #'suspend-frame 'disabled t))
 
 (use-package git-timemachine
   ;; And to step through the history of a file:
@@ -2356,12 +2344,23 @@ there are no attachments."
       (unless (y-or-n-p mbork/message-attachment-reminder)
         (keyboard-quit)))))
 
-(use-package spacemacs-dark-theme
+(use-package spacemacs-common
   ;; By default, emacs starts with a blindingly white theme.  Let's get rid
   ;; of that pronto.
   :custom
   (spacemacs-theme-underline-parens nil)
-  (spacemacs-theme-comment-italic t))
+  (spacemacs-theme-comment-italic t)
+  :config
+  (defun my/setup-frame-theme (&optional frame)
+    "Setup theme for FRAME."
+    (when frame (select-frame frame))
+    (if (window-system frame)
+        (ignore-errors
+          (load-theme 'spacemacs-dark t))))
+  ;; If running as a daemon, wait to load the theme:
+  (if (daemonp)
+      (add-hook 'after-make-frame-functions #'my/setup-frame-theme)
+    (my/setup-frame-theme)))
 
 (use-package stan-mode
   ;; stan is a language to write Bayesian models in
