@@ -553,11 +553,6 @@ three ediff buffers (A, B, and C)."
   :custom
   (report-emacs-bug-no-explanations t))
 
-(use-package epa
-  ;; EasyPG Assistant for encryption
-  :custom
-  (epa-pinentry-mode 'loopback))
-
 (use-package epkg
   :defer t
   :bind
