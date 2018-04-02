@@ -873,11 +873,26 @@ With ARG, take an area-selection screenshot."
   ;; Start some daemons:
   (defun my/start-background-programs ()
     "Start some processes. Hooks into `after-init-hook'."
-    (start-process "" nil "nm-applet") ; Networkmanager
-    (start-process "" nil "xfce4-power-manager") ; power info & screen brightness
-    (start-process "" nil "syncthing-gtk" "--minimized") ; syncthing
-    (start-process "" nil "systemctl" "--user" "start" "redshift.service") ; redshift in evenings to reduce eye strain
-    (start-process "" nil "compton"))
+    (make-process
+     :name "NM-applet" :buffer nil
+     :command '("nm-applet") ; Networkmanager
+     :noquery t)
+    (make-process
+     :name "Power Manager" :buffer nil
+     :command '("xfce4-power-manager"); power info & screen brightness
+     :noquery t)
+    (make-process
+     :name "Syncthing" :buffer nil
+     :command '("syncthing-gtk" "--minimized") ; syncthing
+     :noquery t)
+    (make-process
+     :name "Redshift" :buffer nil
+     ;; redshift in evenings to reduce eye strain
+     :command '("systemctl" "--user" "start" "redshift.service"))
+    (make-process
+     :name "Compton" :buffer nil
+     :command '("compton")
+     :noquery t))
   ;; Enable EXWM
   (exwm-enable))
 
