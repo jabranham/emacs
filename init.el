@@ -606,7 +606,7 @@ three ediff buffers (A, B, and C)."
   (erc-autojoin-channels-alist '(("freenode.net" "#emacs" "#archlinux")))
   (erc-join-buffer 'bury)
   (erc-lurker-hide-list '("JOIN" "PART" "QUIT"))
-  (erc-password (password-store-get "irc.freenode.net"))
+
   (erc-port "6667")
   (erc-server-reconnect-attempts 12)
   (erc-server-reconnect-timeout 5)
@@ -616,7 +616,8 @@ three ediff buffers (A, B, and C)."
   (erc-mode . erc-notifications-mode)
   :config
   ;; Don't put this in :custom because it causes erc to get loaded.
-  (setq erc-server "irc.freenode.net"))
+  (setq erc-server "irc.freenode.net"
+        erc-password (password-store-get "irc.freenode.net")))
 
 (use-package eshell
   ;; Eshell is Emacs' built-in shell.  You get UNIX-y goodness even on
