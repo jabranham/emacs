@@ -571,13 +571,15 @@ three ediff buffers (A, B, and C)."
   (erc-lurker-hide-list '("JOIN" "PART" "QUIT"))
   (erc-password (password-store-get "irc.freenode.net"))
   (erc-port "6667")
-  (erc-server "irc.freenode.net")
   (erc-server-reconnect-attempts 12)
   (erc-server-reconnect-timeout 5)
   (erc-nick "jabranham")
   :hook
   (erc-mode . goto-address-mode)
-  (erc-mode . erc-notifications-mode))
+  (erc-mode . erc-notifications-mode)
+  :config
+  ;; Don't put this in :custom because it causes erc to get loaded.
+  (setq erc-server "irc.freenode.net"))
 
 (use-package eshell
   ;; Eshell is Emacs' built-in shell.  You get UNIX-y goodness even on
