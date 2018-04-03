@@ -146,6 +146,7 @@
 (use-package async
   ;; Async is written to let things be more async-y in Emacs.  I use it for
   ;; dired-async mode mostly.
+  :defer 7
   :custom
   (dired-async-message-function #'my/dired-async-message-function)
   :config
