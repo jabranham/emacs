@@ -193,9 +193,9 @@
   (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
   (bind-keys
    :map LaTeX-mode-map
-         ("M-p" . outline-previous-visible-heading)
-         ("M-n" . outline-next-visible-heading)
-         ("<backtab>" . org-cycle)))
+   ("M-p" . outline-previous-visible-heading)
+   ("M-n" . outline-next-visible-heading)
+   ("<backtab>" . org-cycle)))
 
 (use-package auth-source-pass
   ;; Integrate Emacs's builtin auth-source with pass:
