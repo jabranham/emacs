@@ -276,25 +276,6 @@
         ret)))
   (advice-add #'bibtex-generate-autokey :override #'my/bibtex-generate-autokey))
 
-(use-package browse-url
-  :custom
-  ;; Use Emacs' built in eww broswer (the Emacs Web Wowser!) by default.
-  ;; browse-url-browser-function can take a list of regex's and associate a
-  ;; specific browser with matches.  So use eww for everything except a few
-  ;; things that don't work well:
-  (browse-url-browser-function
-   '((".*login.utexas.*" . browse-url-firefox)
-     (".*utdirect.*utexas.*" . browse-url-firefox)
-     (".*reddit.*" . browse-url-firefox)
-     (".*github.*" . browse-url-firefox)
-     (".*youtube.*" . browse-url-firefox)
-     (".*youtu.be*" . browse-url-firefox)
-     (".apsanet.*" . browse-url-firefox)
-     (".interfolio.*" . browse-url-firefox)
-     (".academicjobsonline.*" . browse-url-firefox)
-     (".accounts.google.com*" . browse-url-firefox)
-     ("." . eww-browse-url))))
-
 (use-package calc
   :defer t
   :bind
