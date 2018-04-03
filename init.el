@@ -161,6 +161,42 @@
   ;; do dired actions asynchronously
   (dired-async-mode))
 
+(use-package auctex
+  ;; AuCTeX is better than the built in tex mode; let's use it.
+  :mode ("\\.tex\\'" . TeX-latex-mode)
+  :custom
+  (TeX-auto-save t)
+  (TeX-electric-escape t)
+  (TeX-electric-math '("\\(" . "\\)") "Smart $ behavior")
+  (TeX-electric-sub-and-superscript t)
+  (TeX-parse-self t)
+  (reftex-plug-into-AUCTeX t)
+  (TeX-source-correlate-method 'synctex)
+  (TeX-source-correlate-mode t)
+  (TeX-clean-confirm nil)
+  ;; TeX-command-list by default contains a bunch of stuff I'll never
+  ;; use. I use latexmk, xelatexmk, and View.  That's pretty much it.
+  ;; Maybe one day I'll add "clean" back to the list.
+  (TeX-command-list
+   '(("latexmk" "latexmk -synctex=1 -quiet -pdf %s"
+      TeX-run-compile nil t :help "Process file with latexmk")
+     ("View" "%V" TeX-run-discard-or-function nil t :help "Run Viewer")
+     ("xelatexmk" "latexmk -synctex=1 -quiet -xelatex %s"
+      TeX-run-compile nil t :help "Process file with xelatexmk")))
+  :hook
+  (LaTeX-mode . LaTeX-math-mode)
+  (LaTeX-mode . reftex-mode)
+  (LaTeX-mode . TeX-PDF-mode)
+  :config
+  (setq-default TeX-command-default "latexmk")
+  ;; revert pdf from file after compilation finishes
+  (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+  (bind-keys
+   :map LaTeX-mode-map
+         ("M-p" . outline-previous-visible-heading)
+         ("M-n" . outline-next-visible-heading)
+         ("<backtab>" . org-cycle)))
+
 (use-package auth-source-pass
   ;; Integrate Emacs's builtin auth-source with pass:
   :if (executable-find "pass")
@@ -2439,51 +2475,6 @@ is already narrowed."
                ("L" . system-packages-log)
                ("v" . system-packages-verify-all-packages)
                ("V" . system-packages-verify-all-dependencies)))
-
-(use-package tex-site
-  ;; AuCTeX is better than the built in tex mode; let's use it.  This
-  ;; demand adds almost nothing and ensures that auctex gets to set itself
-  ;; up properly. That's necessary because of how weirdly it gets loaded.
-  :demand t
-  :custom
-  (TeX-auto-save t)
-  (TeX-electric-escape t)
-  (TeX-electric-math '("\\(" . "\\)") "Smart $ behavior")
-  (TeX-electric-sub-and-superscript t)
-  (TeX-parse-self t)
-  (reftex-plug-into-AUCTeX t)
-  (TeX-source-correlate-method 'synctex)
-  (TeX-source-correlate-mode t)
-  (TeX-clean-confirm nil)
-  ;; TeX-command-list by default contains a bunch of stuff I'll never
-  ;; use. I use latexmk, xelatexmk, and View.  That's pretty much it.
-  ;; Maybe one day I'll add "clean" back to the list.
-  (TeX-command-list
-   '(("latexmk" "latexmk -synctex=1 -quiet -pdf %s"
-      TeX-run-compile nil t :help "Process file with latexmk")
-     ("View" "%V" TeX-run-discard-or-function nil t :help "Run Viewer")
-     ("xelatexmk" "latexmk -synctex=1 -quiet -xelatex %s"
-      TeX-run-compile nil t :help "Process file with xelatexmk")))
-  :hook
-  (LaTeX-mode . LaTeX-math-mode)
-  (LaTeX-mode . reftex-mode)
-  (LaTeX-mode . TeX-PDF-mode)
-  :config
-  (setq-default TeX-command-default "latexmk")
-  ;; revert pdf from file after compilation finishes
-  (use-package tex-buf
-    :config
-    (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer))
-  (use-package latex
-    :bind
-    (:map LaTeX-mode-map
-          ("M-p" . outline-previous-visible-heading)
-          ("M-n" . outline-next-visible-heading)
-          ("<backtab>" . org-cycle))
-    :config
-    (push "\\.fdb_latexmk" LaTeX-clean-intermediate-suffixes)
-    (push "\\.fls" LaTeX-clean-intermediate-suffixes)
-    (push "\\.synctex.gz" LaTeX-clean-intermediate-suffixes)))
 
 (use-package text-mode
   :hook
