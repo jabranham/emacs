@@ -670,11 +670,9 @@ Uses `pcmpl-ssh-config-hosts' to obtain a list of possible hosts."
   ;; use TRAMP sudo method to avoid retyping sudo password on multiple calls:
   (push 'eshell-tramp eshell-modules-list))
 
-(use-package ess-site
+(use-package ess-mode
   ;; ESS (Emacs Speaks Statistics) is a great project that makes Emacs
   ;; speak with R and other statistical languages
-  :demand t
-  :load-path "lib/ess/lisp"
   :bind
   (:map ess-mode-map
         ("M-=" . ess-insert-S-assign)
