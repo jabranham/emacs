@@ -40,7 +40,7 @@
   ;; Don't ever use tabs. Always use spaces.
   (setq-default indent-tabs-mode nil)
   ;; for the lazy:
-  (fset 'yes-or-no-p 'y-or-n-p)
+  (defalias 'yes-or-no-p 'y-or-n-p)
   ;; remove visual clutter:
   (scroll-bar-mode 0)
   (tool-bar-mode 0)
