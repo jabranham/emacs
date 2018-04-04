@@ -163,6 +163,8 @@
 
 (use-package auctex
   ;; AuCTeX is better than the built in tex mode; let's use it.
+  :demand t
+  :load tex-site
   :mode ("\\.tex\\'" . TeX-latex-mode)
   :custom
   (TeX-auto-save t)
@@ -191,11 +193,12 @@
   (setq-default TeX-command-default "latexmk")
   ;; revert pdf from file after compilation finishes
   (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
-  (bind-keys
-   :map LaTeX-mode-map
-   ("M-p" . outline-previous-visible-heading)
-   ("M-n" . outline-next-visible-heading)
-   ("<backtab>" . org-cycle)))
+  (with-eval-after-load "latex"
+    (bind-keys
+     :map LaTeX-mode-map
+     ("M-p" . outline-previous-visible-heading)
+     ("M-n" . outline-next-visible-heading)
+     ("<backtab>" . org-cycle))))
 
 (use-package auth-source-pass
   ;; Integrate Emacs's builtin auth-source with pass:
