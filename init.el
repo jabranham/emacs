@@ -276,6 +276,15 @@
         ret)))
   (advice-add #'bibtex-generate-autokey :override #'my/bibtex-generate-autokey))
 
+(use-package browse-url
+  :custom
+  ;; Use Emacs' built in eww broswer (the Emacs Web Wowser!) by default.
+  ;; browse-url-browser-function can take a list of regex's and associate a
+  ;; specific browser with matches.  So use eww for everything except a few
+  ;; things that don't work well:
+  (browse-url-browser-function
+   '(("." . browse-url-firefox))))
+
 (use-package calc
   :defer t
   :bind
