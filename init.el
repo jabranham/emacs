@@ -12,6 +12,9 @@
 (when (< emacs-major-version 26) ; Minimum version
   (error "Your Emacs is too old -- this config requires version 26 or higher"))
 
+;; Temporarily raise the gc threshold
+(setq gc-cons-threshold most-positive-fixnum)
+
 ;;; Early birds
 (progn ;     startup & C source code vars
   (setq user-init-file (or load-file-name buffer-file-name)
@@ -2677,6 +2680,10 @@ the current window and the windows state prior to that."
   (add-hook 'term-mode-hook (lambda () (yas-minor-mode -1)))
   (unbind-key "C-c &" yas-minor-mode-map)
   (yas-global-mode))
+
+;; Restore gc threshold
+(run-with-idle-timer 10 nil
+                     (lambda () (setq gc-cons-threshold 800000)))
 
 ;; Local Variables:
 ;; indent-tabs-mode: nil
