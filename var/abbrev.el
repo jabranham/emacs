@@ -209,6 +209,7 @@
     ("conceptualiation" "conceptualization" nil 0)
     ("conversley" "conversely" nil 0)
     ("conversly" "conversely" nil 0)
+    ("convienence" "convenience" nil 0)
     ("convienent" "convenient" nil 0)
     ("countires" "countries" nil 0)
     ("criticise" "criticize" nil 0)
