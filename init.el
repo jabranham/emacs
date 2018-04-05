@@ -1705,6 +1705,8 @@ To be added to `exwm-randr-screen-change-hook'."
    ;; C-c C-t is bound to `org-todo' by default, but I want it
    ;; bound to C-c t as well:
    ("C-c t" . org-todo))
+  :hook
+  (org-mode . my/setup-org-mode)
   :custom
   (org-pretty-entities t "UTF8 all the things!")
   (org-support-shift-select t "Holding shift and moving point should select things.")
@@ -1766,7 +1768,24 @@ To be added to `exwm-randr-screen-change-hook'."
      (R . t)
      (shell . t)))
   ;; remove C-c [ from adding org file to front of agenda
-  (unbind-key "C-c [" org-mode-map))
+  (unbind-key "C-c [" org-mode-map)
+  (defun my/setup-org-mode ()
+    "Setup org-mode."
+    ;; An alist of symbols to prettify, see `prettify-symbols-alist'.
+    ;; Whether the symbol actually gets prettified is controlled by
+    ;; `org-pretty-compose-p', which see.
+    (setq-local prettify-symbols-alist '(("*" . ?•)))
+    (setq-local prettify-symbols-compose-predicate #'my/org-pretty-compose-p))
+  (defun my/org-pretty-compose-p (start end match)
+    "Return t if the symbol should be prettified.
+START and END are the start and end points, MATCH is the string
+match.  See also `prettify-symbols-compose-predicate'."
+    (if (string= match "*")
+        ;; prettify asterisks in headings
+        (and (org-match-line org-outline-regexp-bol)
+             (< end (match-end 0)))
+      ;; else rely on the default function
+      (funcall #'prettify-symbols-default-compose-p start end match))))
 
 (use-package org-agenda
   ;; Here's where I set which files are added to org-agenda, which controls
@@ -1861,13 +1880,6 @@ To be added to `exwm-randr-screen-change-hook'."
 See `org-agenda-todo' for more details."
     (interactive "P")
     (org-agenda-todo "DONE")))
-
-(use-package org-bullets
-  ;; UTF-8 bullets for org headings
-  :hook
-  (org-mode . org-bullets-mode)
-  :custom
-  (org-bullets-bullet-list '("•") "Use unicode bullets instead of *"))
 
 (use-package org-capture
   ;; I use org-capture to create short notes about all kinds of things.  I

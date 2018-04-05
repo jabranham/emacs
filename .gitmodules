@@ -180,10 +180,6 @@
 	load-path = lisp
 	info-path = doc
 	build-step = make compile autoloads info
-[submodule "org-bullets"]
-	path = lib/org-bullets
-	url = git@github.com:emacsorphanage/org-bullets.git
-	remote = "jabranham git@github.com:jabranham/org-bullets.git"
 [submodule "org-ref"]
 	path = lib/org-ref
 	url = git@github.com:jkitchin/org-ref.git
