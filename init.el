@@ -2667,7 +2667,7 @@ the current window and the windows state prior to that."
   (yas-global-mode))
 
 ;; Restore gc threshold
-(run-with-idle-timer 10 nil
+(run-with-idle-timer 5 nil
                      (lambda () (setq gc-cons-threshold 800000)))
 
 ;; Local Variables:
