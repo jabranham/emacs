@@ -27,9 +27,6 @@
 [submodule "auto-compile"]
 	path = lib/auto-compile
 	url = git@github.com:emacscollective/auto-compile.git
-[submodule "bash-completion"]
-	path = lib/bash-completion
-	url = git@github.com:szermatt/emacs-bash-completion.git
 [submodule "biblio"]
 	path = lib/biblio
 	url = git@github.com:cpitclaudel/biblio.el.git

@@ -223,21 +223,6 @@
   ;; disk the buffer will update.
   (global-auto-revert-mode))
 
-(use-package bash-completion
-  ;; We can set it up so that we get pretty good bash completion in
-  ;; shell-mode and eshell.  Note that for this to work, you'll need
-  ;; bash-completion installed.
-  :custom
-  (bash-completion-nospace t)
-  :config
-  (defun eshell-bash-completion ()
-    (while (pcomplete-here
-            (nth 2 (bash-completion-dynamic-complete-nocomint
-                    (save-excursion
-                      (eshell-bol) (point))
-                    (point))))))
-  (bash-completion-setup))
-
 (use-package bibtex
   :defer t ; built-in with Emacs
   :custom
