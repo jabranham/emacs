@@ -671,18 +671,17 @@ Uses `pcmpl-ssh-config-hosts' to obtain a list of possible hosts."
   ;; use TRAMP sudo method to avoid retyping sudo password on multiple calls:
   (push 'eshell-tramp eshell-modules-list))
 
-(use-package ess-mode
+(use-package ess-site
   ;; ESS (Emacs Speaks Statistics) is a great project that makes Emacs
   ;; speak with R and other statistical languages
+  :demand
   :bind
   (:map ess-mode-map
         ("M-=" . ess-insert-S-assign)
-        ("_"   . self-insert-command)
         ("M-p" . my/add-pipe)
         ("C-|" . my/ess-eval-pipe-through-line)
         :map inferior-ess-mode-map
-        ("M-=" . ess-insert-S-assign)
-        ("_"   . self-insert-command))
+        ("M-=" . ess-insert-S-assign))
   :custom
   (ess-ask-for-ess-directory nil "Don't ask for dir when starting a process")
   (ess-default-style 'RStudio)
@@ -722,6 +721,7 @@ Uses `pcmpl-ssh-config-hosts' to obtain a list of possible hosts."
   :config
   ;; Make that folder if needed.
   (mkdir ess-history-directory t)
+  (defalias 'ess-smart-S-assign #'self-insert-command)
   (defun my/add-pipe ()
     "Add a pipe operator %>%.
 
