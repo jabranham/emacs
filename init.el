@@ -249,6 +249,7 @@
   ;; forthcoming articles get things like pages later:
   (bibtex-entry-format '(required-fields numerical-fields))
   (bibtex-files '("~/Sync/bibliography/references.bib"))
+  (bibtex-file-path "~/Sync/bibliography/references.bib")
   :hook
   (bibtex-mode . my/setup-bibtex-mode)
   :config
@@ -2128,7 +2129,7 @@ See `org-agenda-todo' for more details."
   (pdf-sync-forward-display-pdf-key "<C-return>" "Use C-RET in latex mode to jump to location in pdf file")
   (pdf-view-display-size 'fit-page "Show full pages by default instead of fitting page width.")
   (TeX-view-program-selection '((output-pdf "pdf-tools")) "Use pdf-tools to display pdfs from latex runs.")
-  (TeX-view-program-list '(("pdf-tools" "TeX-pdf-tools-sync-view")))
+  (TeX-view-program-list '(("pdf-tools" ("TeX-pdf-tools-sync-view") nil)))
   :config
   ;; The t says to install the server without asking me --- this may take a
   ;; second
