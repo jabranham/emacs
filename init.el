@@ -840,6 +840,8 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
         ;; Use C-q to sent next key to X application literally.
         ("C-q" . exwm-input-send-next-key))
   :config
+  ;; Setting this to 0 makes windowing events much snappier
+  (setq x-wait-for-event-timeout 0)
   ;; Make class name the buffer name
   (defun my/update-class-name ()
     "Update X class name of buffer."
