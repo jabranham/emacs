@@ -842,6 +842,10 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   :config
   ;; Setting this to 0 makes windowing events much snappier
   (setq x-wait-for-event-timeout 0)
+  ;; Create all 10 workspaces on startup.  This increases startup time a
+  ;; bit, but if I try to switch to a workspace that doesn't exist it
+  ;; messes up the window configuration.
+  (setq exwm-workspace-number 10)
   ;; Make class name the buffer name
   (defun my/update-class-name ()
     "Update X class name of buffer."
