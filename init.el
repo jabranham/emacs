@@ -690,6 +690,7 @@ Uses `pcmpl-ssh-config-hosts' to obtain a list of possible hosts."
   (ess-history-directory (concat user-emacs-directory "var/Rhist/") "Save R history in one place rather than making .Rhistory files everywhere.")
   (ess-pdf-viewer-pref "emacsclient")
   (ess-use-ido nil "I prefer helm.")
+  (ess-plain-first-buffername nil "Name first R process R:1")
   (ess-nuke-trailing-whitespace-p t)
   (ess-R-font-lock-keywords
    '((ess-R-fl-keyword:modifiers . t)
