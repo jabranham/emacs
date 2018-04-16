@@ -918,7 +918,7 @@ With ARG, take an area-selection screenshot."
      :command '("systemctl" "--user" "start" "redshift.service"))
     (make-process
      :name "Compton" :buffer nil
-     :command '("compton")
+     :command '("compton" "-no-fading-openclose")
      :noquery t))
   ;; Enable EXWM
   (exwm-enable))
