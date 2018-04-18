@@ -184,9 +184,6 @@
 	path = lib/org-ref
 	url = git@github.com:jkitchin/org-ref.git
 	remote = "jabranham git@github.com:jabranham/org-ref.git"
-[submodule "package-lint"]
-	path = lib/package-lint
-	url = git@github.com:purcell/package-lint.git
 [submodule "packed"]
 	path = lib/packed
 	url = git@github.com:emacscollective/packed.git
