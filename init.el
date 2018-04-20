@@ -1248,7 +1248,10 @@ To be added to `exwm-randr-screen-change-hook'."
   (:map ledger-mode-map
         ("C-c r" . ledger-reconcile)
         :map my/map
-        ("l" . my/ledger-file))
+        ("l" . my/ledger-file)
+        :map ledger-report-mode-map
+        ("n" . next-line)
+        ("p" . previous-line))
   :custom
   (ledger-default-date-format "%Y-%m-%d" "ISO dates.")
   (ledger-flymake-be-explicit t "Warn about account typos.")
