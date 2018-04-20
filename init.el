@@ -1345,9 +1345,6 @@ To be added to `exwm-randr-screen-change-hook'."
   :custom
   (moody-mode-line-height (if (string= (system-name) "mars") 22 40))
   (x-underline-at-descent-line t)
-  :custom-face
-  (mode-line ((t (:box nil :background "#5d4d7a" :underline "#5d4d7a" :overline "#5d4d7a"))))
-  (mode-line-inactive ((t (:box nil :underline "#5d4d7a" :overline "#5d4d7a"))))
   :config
   (moody-replace-mode-line-buffer-identification)
   (moody-replace-vc-mode))
@@ -2394,6 +2391,10 @@ there are no attachments."
   :custom
   (spacemacs-theme-underline-parens nil)
   (spacemacs-theme-comment-italic t)
+  :custom-face
+  ;; spacemacs-dark conflicts with moody.el, so override here:
+  (mode-line ((t (:box nil :background "#5d4d7a" :underline "#5d4d7a" :overline "#5d4d7a"))))
+  (mode-line-inactive ((t (:box nil :underline "#5d4d7a" :overline "#5d4d7a"))))
   :config
   (defun my/setup-frame-theme (&optional frame)
     "Setup theme for FRAME."
