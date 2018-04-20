@@ -915,6 +915,8 @@ With ARG, take an area-selection screenshot."
      :name "Redshift" :buffer nil
      ;; redshift in evenings to reduce eye strain
      :command '("systemctl" "--user" "start" "redshift.service"))
+    (when (string= (system-name) "earth")
+      (setenv "allow_rgb10_configs" "false"))
     (make-process
      :name "Compton" :buffer nil
      :command '("compton" "--no-fading-openclose")
