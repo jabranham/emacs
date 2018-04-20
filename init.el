@@ -1276,6 +1276,12 @@ To be added to `exwm-randr-screen-change-hook'."
     (interactive)
     (find-file my/ledger-file))
   :config
+  (defun my/ledger-report--header-function ()
+    "Use in place of `ledger-report--header-function'."
+    ;; TODO: Remove the file name from ledger-report-cmd before reporting
+    (format "Ledger Report: %s"
+            (propertize ledger-report-cmd 'face 'font-lock-comment-face)))
+  (setq ledger-report-header-line-fn #'my/ledger-report--header-function)
   (setq ledger-account-name-or-directive-regex ledger-account-directive-regex))
 
 (use-package magit
