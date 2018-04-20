@@ -1292,8 +1292,10 @@ To be added to `exwm-randr-screen-change-hook'."
 (use-package magit
   ;; magit is magical git
   :bind
-  ("C-x g" . magit-status)
-  ("C-x M-g b" . magit-blame)
+  (("C-x g" . magit-status)
+   ("C-x M-g b" . magit-blame)
+   :map dired-mode-map
+   ("h" . magit-dired-log))
   :custom
   (magit-log-section-commit-count 0 "Don't show recent commits in magit-status.")
   (magit-diff-refine-hunk 'all "Get highlighted word diffs.")
