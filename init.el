@@ -343,7 +343,7 @@ minibuffer."
         ("C-n" . company-select-next)
         ("C-p" . company-select-previous))
   :hook
-  ((prog-mode ess-mode) . company-mode)
+  (prog-mode . company-mode)
   :custom
   (company-idle-delay 0.25)
   (company-require-match nil)
@@ -1038,7 +1038,7 @@ To be added to `exwm-randr-screen-change-hook'."
   (flyspell-use-meta-tab nil)
   :hook
   (text-mode . turn-on-flyspell)
-  ((prog-mode ess-mode) . flyspell-prog-mode))
+  (prog-mode . flyspell-prog-mode))
 
 (use-package frame
   :defer t
@@ -2666,7 +2666,7 @@ the current window and the windows state prior to that."
   ;; someone else's project, for example).  This mode will call
   ;; `whitespace-cleanup' before buffers are saved (but smartly)!
   :hook
-  ((prog-mode ess-mode ledger-mode gitconfig-mode) . ws-butler-mode)
+  ((prog-mode ledger-mode gitconfig-mode) . ws-butler-mode)
   :custom
   (ws-butler-keep-whitespace-before-point nil))
 
