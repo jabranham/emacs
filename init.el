@@ -1790,6 +1790,7 @@ To be added to `exwm-randr-screen-change-hook'."
     ;; An alist of symbols to prettify, see `prettify-symbols-alist'.
     ;; Whether the symbol actually gets prettified is controlled by
     ;; `org-pretty-compose-p', which see.
+    (setq-local prettify-symbols-unprettify-at-point nil)
     (setq-local prettify-symbols-alist '(("*" . ?•)))
     (setq-local prettify-symbols-compose-predicate #'my/org-pretty-compose-p))
   (defun my/org-pretty-compose-p (start end match)
