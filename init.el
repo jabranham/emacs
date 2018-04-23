@@ -170,6 +170,8 @@
   :load tex-site
   :mode ("\\.tex\\'" . TeX-latex-mode)
   :custom
+  (TeX-lisp-directory (expand-file-name "~/.emacs.d/lib/auctex"))
+  (TeX-data-directory (expand-file-name "~/.emacs.d/lib/auctex"))
   (TeX-auto-save t)
   (TeX-electric-escape t)
   (TeX-electric-math '("\\(" . "\\)") "Smart $ behavior")
@@ -199,9 +201,9 @@
   (use-package latex
     :bind
     (:map LaTeX-mode-map
-    ("M-p" . outline-previous-visible-heading)
-    ("M-n" . outline-next-visible-heading)
-    ("<backtab>" . org-cycle))))
+          ("M-p" . outline-previous-visible-heading)
+          ("M-n" . outline-next-visible-heading)
+          ("<backtab>" . org-cycle))))
 
 (use-package auth-source-pass
   ;; Integrate Emacs's builtin auth-source with pass:
