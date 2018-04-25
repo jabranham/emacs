@@ -13,7 +13,7 @@
   (error "Your Emacs is too old -- this config requires version 26 or higher"))
 
 ;; Temporarily raise the gc threshold
-(setq gc-cons-threshold most-positive-fixnum)
+(setq gc-cons-threshold (* 50 1000 1000))
 
 ;;; Early birds
 (progn ;     startup & C source code vars
