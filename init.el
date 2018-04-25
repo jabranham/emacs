@@ -2663,9 +2663,7 @@ the current window and the windows state prior to that."
   :config
   (setq winum-scope 'frame-local)
   (setq winum-auto-setup-mode-line t)
-  ;; Call winum--init rather than winum-mode to avoid setting a keymap I
-  ;; don't want.
-  (winum--init))
+  (winum-mode))
 
 (use-package with-editor
   ;; Use Emacs as the $EDITOR environmental variable:
