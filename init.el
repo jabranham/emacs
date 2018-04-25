@@ -94,6 +94,7 @@
 ;;; end of early birds, alphabetical from here on out:
 
 (use-package abbrev
+  :defer 2
   :custom
   (save-abbrevs 'silently)
   :hook
@@ -130,8 +131,7 @@
 
 (use-package appt
   ;; keep track of appointments
-  :hook
-  (after-init . appt-activate)
+  :defer 2
   :custom
   (appt-delete-window-function (lambda () t))
   (appt-disp-window-function #'my/appt-display)
@@ -144,12 +144,13 @@
         (dotimes (i (length msg))
           (alert (concat (nth i msg) " in " (nth i time-til) " minutes")
                  :title "Appt"))
-      (alert (concat msg " in " time-til " minutes") :title "Appt"))))
+      (alert (concat msg " in " time-til " minutes") :title "Appt")))
+  (appt-activate))
 
 (use-package async
   ;; Async is written to let things be more async-y in Emacs.  I use it for
   ;; dired-async mode mostly.
-  :defer 7
+  :defer 1
   :custom
   (dired-async-message-function #'my/dired-async-message-function)
   :config
@@ -166,7 +167,6 @@
 
 (use-package auctex
   ;; AuCTeX is better than the built in tex mode; let's use it.
-  :demand t
   :load tex-site
   :mode ("\\.tex\\'" . TeX-latex-mode)
   :custom
@@ -213,10 +213,12 @@
   (auth-source-pass-enable))
 
 (use-package autoinsert
-  :custom
-  (auto-insert-mode t))
+  :defer 2
+  :config
+  (auto-insert-mode))
 
 (use-package autorevert
+  :defer 1
   :custom
   (global-auto-revert-non-file-buffers t)
   (auto-revert-verbose nil)
@@ -271,6 +273,7 @@
   (advice-add #'bibtex-generate-autokey :override #'my/bibtex-generate-autokey))
 
 (use-package browse-url
+  :defer t
   :custom
   ;; Use Emacs' built in eww broswer (the Emacs Web Wowser!) by default.
   ;; browse-url-browser-function can take a list of regex's and associate a
@@ -315,25 +318,27 @@ minibuffer."
 (use-package calendar
   ;; Yes, my text editor comes with a calendar built in.  Doesn't yours?
   :defer t
-  :custom
-  (calendar-location-name "Austin")
-  (calendar-latitude [30 16 north])
-  (calendar-longitude [97 44 west])
-  (calendar-mark-holidays-flag t "Show holidays in the calendar")
-  (calendar-week-start-day 0 "Weeks start on Sunday")
   :hook
   ;; make today easier to find, visually:
   (calendar-today-visible . calendar-mark-today)
   :config
+  (setq calendar-location-name "Austin")
+  (setq calendar-latitude [30 16 north])
+  (setq calendar-longitude [97 44 west])
+  ;; Show holidays in the calendar
+  (setq calendar-mark-holidays-flag t)
+  ;; Weeks start on Sunday
+  (setq calendar-week-start-day 0)
   (setq calendar-date-display-form calendar-iso-date-display-form)
   (calendar-set-date-style 'iso))
 
 (use-package comint
+  :defer t
   ;; comint is the mode from which inferior processes inherit, like the
   ;; python REPL or iESS modes (the R console)
-  :custom
-  (comint-move-point-for-output nil)
-  (comint-scroll-to-bottom-on-input 'this))
+  :config
+  (setq comint-move-point-for-output nil)
+  (setq comint-scroll-to-bottom-on-input 'this))
 
 (use-package company
   ;; Company mode provides autocompletion of text and code.
@@ -359,9 +364,9 @@ minibuffer."
 
 (use-package compile
   :defer t
-  :custom
-  (compilation-ask-about-save nil)
-  (compilation-scroll-output 'first-error))
+  :config
+  (setq compilation-ask-about-save nil)
+  (setq compilation-scroll-output 'first-error))
 
 (use-package conf-mode
   :mode (("\\.service\\'" . conf-unix-mode)
@@ -382,6 +387,7 @@ minibuffer."
   :defer)
 
 (use-package delsel
+  :defer 1
   :config
   ;; Emacs by default doesn't replace selected text if you start typing
   ;; over it.  Since that's the behavior of virtually all other programs,
@@ -400,20 +406,19 @@ minibuffer."
   ;; Emacs can act as your file finder/explorer.  Dired is the built-in way
   ;; to do this.
   :defer t
-  :custom
-  (dired-auto-revert-buffer t)
-  (dired-dwim-target t)
-  (dired-recursive-copies 'always)
-  (dired-recursive-deletes 'always)
-  ;; -l: long listing format REQUIRED in dired-listing-switches
-  ;; -a: show everything (including dotfiles)
-  ;; -h: human-readable file sizes
-  (dired-listing-switches "-alh --group-directories-first")
   :bind
   (("C-x C-d" . dired) ; overrides list-directory, which I never use
    :map  dired-mode-map
    ("l" . dired-up-directory)) ; use l to go up in dired
   :config
+  (setq dired-auto-revert-buffer t)
+  (setq dired-dwim-target t)
+  (setq dired-recursive-copies 'always)
+  (setq dired-recursive-deletes 'always)
+  ;; -l: long listing format REQUIRED in dired-listing-switches
+  ;; -a: show everything (including dotfiles)
+  ;; -h: human-readable file sizes
+  (setq dired-listing-switches "-alh --group-directories-first")
   (defun my/dired-ediff-marked ()
     "Run `ediff' on two marked files in a dired buffer."
     (interactive)
@@ -473,14 +478,17 @@ three ediff buffers (A, B, and C)."
   :defer t)
 
 (use-package eldoc
-  ;; eldoc shows useful information in the minibuffer and is enabled by default.
-  :defer t
-  :custom
-  (eldoc-idle-delay 0 "We can speed it up a bit."))
+  ;; eldoc shows useful information in the minibuffer and is enabled by
+  ;; default.
+  :defer 1
+  :config
+  ;; No need to delay showing eldoc
+  (setq eldoc-idle-delay 0))
 
 (use-package elec-pair
-  :custom
-  (electric-pair-mode t))
+  :defer 1
+  :config
+  (electric-pair-mode))
 
 (use-package electric-operator
   ;; Electric operator will turn ~a=10*5+2~ into ~a = 10 * 5 + 2~, so let's
@@ -1038,20 +1046,20 @@ To be added to `exwm-randr-screen-change-hook'."
 
 (use-package flyspell
   ;; on the fly spell checking
-  :custom
-  (flyspell-abbrev-p t)
-  (flyspell-issue-welcome-flag nil)
-  (flyspell-use-global-abbrev-table-p t)
-  (flyspell-use-meta-tab nil)
   :hook
   (text-mode . turn-on-flyspell)
-  (prog-mode . flyspell-prog-mode))
+  (prog-mode . flyspell-prog-mode)
+  :config
+  (setq flyspell-abbrev-p t)
+  (setq flyspell-issue-welcome-flag nil)
+  (setq flyspell-use-global-abbrev-table-p t)
+  (setq flyspell-use-meta-tab nil))
 
 (use-package frame
   :defer t
-  :custom
-  (blink-cursor-mode nil "Don't blink the cursor. It's annoying.")
   :config
+  ;; Don't blink the cursor. It's annoying.
+  (blink-cursor-mode -1)
   ;; don't bind C-x C-z to suspend-frame:
   (unbind-key "C-x C-z")
   ;; In fact, I find suspend-frame so unhelpful let's disable it:
@@ -1102,9 +1110,6 @@ To be added to `exwm-randr-screen-change-hook'."
   :init
   (require 'helm-config)
   :config
-  (use-package helm-files
-    :config
-    (push ".git$" helm-boring-file-regexp-list))
   (use-package helm-org
     :bind
     (:map my/map
@@ -2172,10 +2177,10 @@ See `org-agenda-todo' for more details."
 (use-package projectile
   ;; Projectile makes using projects easier in emacs.  It also plays well
   ;; with helm, so let's set that up.
-  :custom
-  (projectile-completion-system 'helm)
-  (projectile-require-project-root nil)
+  :defer 1
   :config
+  (setq projectile-completion-system 'helm)
+  (setq projectile-require-project-root nil)
   (projectile-mode)
   (projectile-cleanup-known-projects))
 
@@ -2416,6 +2421,7 @@ there are no attachments."
   ;; spacemacs-dark conflicts with moody.el, so override here:
   (mode-line ((t (:box nil :background "#5d4d7a" :underline "#5d4d7a" :overline "#5d4d7a"))))
   (mode-line-inactive ((t (:box nil :underline "#5d4d7a" :overline "#5d4d7a"))))
+  (winum-face ((t (:foreground "yellow"))))
   :config
   (defun my/setup-frame-theme (&optional frame)
     "Setup theme for FRAME."
@@ -2640,7 +2646,7 @@ the current window and the windows state prior to that."
   (bind-key "<f1>" #'my/get-scratch my/map))
 
 (use-package winum
-  :demand t
+  :defer 1
   ;; I can use winum to quickly jump from window to window.
   :bind*
   ("M-0" . winum-select-window-0-or-10)
@@ -2653,13 +2659,12 @@ the current window and the windows state prior to that."
   ("M-7" . winum-select-window-7)
   ("M-8" . winum-select-window-8)
   ("M-9" . winum-select-window-9)
-  :custom
-  (winum-scope 'frame-local)
-  (winum-auto-setup-mode-line t)
-  :custom-face
-  (winum-face ((t (:foreground "yellow"))))
   :config
-  (winum-mode))
+  (setq winum-scope 'frame-local)
+  (setq winum-auto-setup-mode-line t)
+  ;; Call winum--init rather than winum-mode to avoid setting a keymap I
+  ;; don't want.
+  (winum--init))
 
 (use-package with-editor
   ;; Use Emacs as the $EDITOR environmental variable:
@@ -2688,9 +2693,8 @@ the current window and the windows state prior to that."
   ;; I integrate yasnippet with hippie-expand so using `hippie-expand'
   ;; expands a snippet if I have one, and then otherwise tries the
   ;; `hippie-expand' functions.
-
   :after hippie-exp
-  :demand t
+  :defer 1
   :custom
   (yas-wrap-around-region t)
   (yas-prompt-functions '(yas-completing-prompt) "If competing snippets, use completing-read (helm) to select:")
