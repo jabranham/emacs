@@ -731,6 +731,7 @@ Uses `pcmpl-ssh-config-hosts' to obtain a list of possible hosts."
   :hook
   (ess-r-post-run . my/ess-execute-screen-options)
   :config
+  (setq ess-write-to-dribble nil)
   ;; Make that folder if needed.
   (mkdir ess-history-directory t)
   (defalias 'ess-smart-S-assign #'self-insert-command)
