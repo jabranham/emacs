@@ -722,7 +722,6 @@ Uses `pcmpl-ssh-config-hosts' to obtain a list of possible hosts."
      (ess-R-fl-keyword:F&T . t)))
   :hook
   (ess-r-post-run . my/ess-execute-screen-options)
-  (inferior-ess-mode . my/inferior-ess-mode-setup)
   :config
   ;; Make that folder if needed.
   (mkdir ess-history-directory t)
@@ -738,9 +737,6 @@ Ensure one space to the left and start a newline with indentation."
   (defun my/ess-execute-screen-options ()
     "Call `ess-execute-screen-options' invisibly."
     (ess-execute-screen-options t))
-  (defun my/inferior-ess-mode-setup ()
-    "Add to `inferior-ess-mode-hook'"
-    (add-hook 'window-configuration-change-hook #'my/ess-execute-screen-options nil t))
   ;; I sometimes want to evaluate just part of a piped sequence. The
   ;; following lets me do so without needing to insert blank lines or
   ;; something:
