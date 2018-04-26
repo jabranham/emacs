@@ -1785,8 +1785,7 @@ To be added to `exwm-randr-screen-change-hook'."
   (org-refile-use-outline-path t)
   (org-refile-targets '((org-default-notes-file . (:maxlevel . 6))
                         (my/org-inbox . (:maxlevel . 2))
-                        (my/org-scheduled . (:level . 1))
-                        (my/org-notes . (:maxlevel . 6))))
+                        (my/org-scheduled . (:level . 1))))
   :config
   ;; These are the programming languages org should teach itself:
   (org-babel-do-load-languages
