@@ -49,7 +49,9 @@
 
 (define-abbrev-table 'apropos-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table '())
+(define-abbrev-table 'awk-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'biblio-selection-mode-abbrev-table '())
 
@@ -61,9 +63,13 @@
 
 (define-abbrev-table 'borg-build-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table '())
+(define-abbrev-table 'c++-mode-abbrev-table
+  '(
+   ))
 
-(define-abbrev-table 'c-mode-abbrev-table '())
+(define-abbrev-table 'c-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -94,6 +100,8 @@
 (define-abbrev-table 'conf-windows-mode-abbrev-table '())
 
 (define-abbrev-table 'conf-xdefaults-mode-abbrev-table '())
+
+(define-abbrev-table 'css-mode-abbrev-table '())
 
 (define-abbrev-table 'csv-mode-abbrev-table '())
 
@@ -171,6 +179,8 @@
 
 (define-abbrev-table 'gfm-mode-abbrev-table '())
 
+(define-abbrev-table 'gfm-view-mode-abbrev-table '())
+
 (define-abbrev-table 'gist-list-mode-abbrev-table '())
 
 (define-abbrev-table 'git-gutter+-commit-mode-abbrev-table '())
@@ -184,6 +194,7 @@
 (define-abbrev-table 'global-abbrev-table
   '(
     ("aacross" "across" nil 0)
+    ("accidentily" "accidentally" nil 0)
     ("accomodate" "accommodate" nil 1)
     ("accompaning" "accompanying" nil 1)
     ("accurary" "accuracy" nil 2)
@@ -252,7 +263,7 @@
     ("intrepret" "interpret" nil 2)
     ("intrepretation" "interpretation" nil 1)
     ("intrepreter" "interpreter" nil 1)
-    ("intrepreting" "interpreting" nil 0)
+    ("intrepreting" "interpreting" nil 1)
     ("inversly" "inversely" nil 0)
     ("iwth" "with" nil 2)
     ("jsut" "just" nil 0)
@@ -260,7 +271,7 @@
     ("knwo" "know" nil 0)
     ("lcass" "class" nil 0)
     ("magniture" "magnitude" nil 0)
-    ("methdology" "methodology" nil 0)
+    ("methdology" "methodology" nil 1)
     ("millinneum" "millennium" nil 0)
     ("misintrepreted" "misinterpreted" nil 0)
     ("multipled" "multiplied" nil 0)
@@ -358,7 +369,9 @@
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table '())
+(define-abbrev-table 'java-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'js-jsx-mode-abbrev-table '())
 
@@ -436,6 +449,8 @@
 
 (define-abbrev-table 'markdown-mode-abbrev-table '())
 
+(define-abbrev-table 'markdown-view-mode-abbrev-table '())
+
 (define-abbrev-table 'mediawiki-draft-mode-abbrev-table '())
 
 (define-abbrev-table 'mediawiki-mode-abbrev-table '())
@@ -443,6 +458,8 @@
 (define-abbrev-table 'message-mode-abbrev-table '())
 
 (define-abbrev-table 'messages-buffer-mode-abbrev-table '())
+
+(define-abbrev-table 'mhtml-mode-abbrev-table '())
 
 (define-abbrev-table 'mu4e-compose-mode-abbrev-table '())
 
@@ -452,7 +469,9 @@
 
 (define-abbrev-table 'nxml-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table '())
+(define-abbrev-table 'objc-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -476,7 +495,9 @@
 
 (define-abbrev-table 'perl-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table '())
+(define-abbrev-table 'pike-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'pkgbuild-mode-abbrev-table '())
 
