@@ -2471,21 +2471,7 @@ is already narrowed."
   ;; This line actually replaces Emacs' entire narrowing
   ;; keymap, that's how much I like this command. Only
   ;; copy it if that's what you want.
-  (bind-key* "C-x n" #'narrow-or-widen-dwim)
-
-  )
-
-(use-package sx
-  ;; Stack Exchange is the place to go to get questions answered.  This
-  ;; lets me search it from within Emacs.  It also sets it up to use sx.el
-  ;; to open stack exchange links (instead of eww or firefox):
-  :defer t
-  :bind ("M-s x" . sx-search)
-  :commands (sx-search sx-open-link)
-  :init
-  (push '(".*stackexchange.*" . sx-open-link) browse-url-browser-function)
-  (push '(".*stackoverflow.*" . sx-open-link) browse-url-browser-function)
-  )
+  (bind-key* "C-x n" #'narrow-or-widen-dwim))
 
 (use-package system-packages
   ;; This is a collection of functions I wrote to help me manage installed
