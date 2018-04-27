@@ -2088,6 +2088,11 @@ See `org-agenda-todo' for more details."
   ;; at the beginning of org-mode files for export:
   (org-export-allow-bind-keywords t))
 
+(use-package ox-html
+  :defer t
+  :config
+  (setq org-html-validation-link nil))
+
 (use-package ox-latex
   ;; org's latex/pdf exporting engine
   :defer t
