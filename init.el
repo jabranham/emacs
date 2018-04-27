@@ -1848,7 +1848,7 @@ match.  See also `prettify-symbols-compose-predicate'."
    '((daily today remove-match) (800 1000 1200 1400 1600 1800 2000)
      "" "") "By default, the time grid has a lot of ugly '-----' lines. Remove those.")
   (org-agenda-scheduled-leaders '("" "%2dx ") "I don't need to know that something is scheduled.  That's why it's appearing on the agenda in the first place.")
-  (org-agenda-block-separator 8212 "Use nice unicode character instead of ugly = to separate agendas:")
+  (org-agenda-block-separator ?— "Use nice unicode character instead of ugly = to separate agendas:")
   (org-agenda-deadline-leaders '("Deadline: " "In %d days: " "OVERDUE %d day: ") "Make deadlines, especially overdue ones, stand out more:")
   (org-agenda-current-time-string "⸻ NOW ⸻")
   ;; The agenda is ugly by default. It doesn't properly align items and it
