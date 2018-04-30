@@ -1782,7 +1782,7 @@ To be added to `exwm-randr-screen-change-hook'."
   ;; easily (among other things, of course)
   (org-outline-path-complete-in-steps nil)
   (org-refile-allow-creating-parent-nodes 'confirm)
-  (org-refile-use-outline-path t)
+  (org-refile-use-outline-path 'file)
   (org-refile-targets '((org-default-notes-file . (:maxlevel . 6))
                         (my/org-inbox . (:maxlevel . 2))
                         (my/org-scheduled . (:level . 1))))
