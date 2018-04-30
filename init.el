@@ -976,6 +976,7 @@ To be added to `exwm-randr-screen-change-hook'."
   :bind
   ;; Everywhere else you can zoom with C-- and C-+.  Let's make Emacs
   ;; follow that convention:
+  ("C-=" . text-scale-increase)
   ("C-+" . text-scale-increase)
   ("C--" . text-scale-decrease))
 
