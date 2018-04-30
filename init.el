@@ -1880,13 +1880,15 @@ match.  See also `prettify-symbols-compose-predicate'."
      ("h" "Home Agenda"
       ((agenda "" nil)
        (tags "@home"
-             ((org-agenda-overriding-header "Tasks to do at home")
-              (org-tags-match-list-sublevels nil)))))
+             ((org-agenda-overriding-header "Tasks to do at home")))
+       (tags "CATEGORY=\"inbox\"+LEVEL=2"
+             ((org-agenda-overriding-header "Refile")))))
      ("w" "Work Agenda"
       ((agenda "" nil)
        (tags "@work"
-             ((org-agenda-overriding-header "Tasks to do at work")
-              (org-tags-match-list-sublevels nil)))))
+             ((org-agenda-overriding-header "Tasks to do at work")))
+       (tags "+CATEGORY=\"inbox\"+LEVEL=2"
+             ((org-agenda-overriding-header "Refile")))))
      ("d" "deadlines"
       ((agenda ""
                ((org-agenda-entry-types '(:deadline))
@@ -1896,7 +1898,7 @@ match.  See also `prettify-symbols-compose-predicate'."
                 (org-agenda-skip-deadline-prewarning-if-scheduled nil)
                 (org-agenda-skip-deadline-if-done nil)))))
      ("b" "bibliography"
-      ((tags "CATEGORY=\"bib\""
+      ((tags "CATEGORY=\"bib\"+LEVEL=2"
              ((org-agenda-overriding-header "You've got a lot of reading to do...")))))
      ("u" "unscheduled"
       ((todo  "TODO"
