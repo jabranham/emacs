@@ -1263,6 +1263,8 @@ To be added to `exwm-randr-screen-change-hook'."
   :bind
   (:map ledger-mode-map
         ("C-c r" . ledger-reconcile)
+        ("C-c u" . my/ledger-navigate-next-uncleared)
+        ("C-c U" . my/ledger-navigate-previous-uncleared)
         :map my/map
         ("l" . my/ledger-file)
         :map ledger-report-mode-map
@@ -1301,7 +1303,23 @@ To be added to `exwm-randr-screen-change-hook'."
     (format "Ledger Report: %s"
             (propertize ledger-report-cmd 'face 'font-lock-comment-face)))
   (setq ledger-report-header-line-fn #'my/ledger-report--header-function)
-  (setq ledger-account-name-or-directive-regex ledger-account-directive-regex))
+  (setq ledger-account-name-or-directive-regex ledger-account-directive-regex)
+  (defun my/ledger-navigate-next-uncleared ()
+    "Move point to the next uncleared transaction."
+    (interactive)
+    (when (looking-at ledger-payee-uncleared-regex)
+      (forward-line))
+    (re-search-forward ledger-payee-uncleared-regex nil t)
+    (beginning-of-line)
+    (point))
+  (defun my/ledger-navigate-previous-uncleared ()
+    "Move point to the previous uncleared transaction."
+    (interactive)
+    (when (equal (car (ledger-context-at-point)) 'acct-transaction)
+      (ledger-navigate-beginning-of-xact))
+    (re-search-backward ledger-payee-uncleared-regex nil t)
+    (beginning-of-line)
+    (point)))
 
 (use-package magit
   ;; magit is magical git
