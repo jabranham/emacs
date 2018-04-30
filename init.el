@@ -1784,7 +1784,6 @@ To be added to `exwm-randr-screen-change-hook'."
   (org-refile-allow-creating-parent-nodes 'confirm)
   (org-refile-use-outline-path 'file)
   (org-refile-targets '((org-default-notes-file . (:maxlevel . 6))
-                        (my/org-inbox . (:maxlevel . 2))
                         (my/org-scheduled . (:level . 1))))
   :config
   ;; These are the programming languages org should teach itself:
@@ -1863,17 +1862,11 @@ match.  See also `prettify-symbols-compose-predicate'."
       ((agenda "" nil)
        (tags "@home"
              ((org-agenda-overriding-header "Tasks to do at home")
-              (org-tags-match-list-sublevels nil)))
-       (tags "REFILE"
-             ((org-agenda-overriding-header "Tasks to Refile")
               (org-tags-match-list-sublevels nil)))))
      ("w" "Work Agenda"
       ((agenda "" nil)
        (tags "@work"
              ((org-agenda-overriding-header "Tasks to do at work")
-              (org-tags-match-list-sublevels nil)))
-       (tags "REFILE"
-             ((org-agenda-overriding-header "Tasks to Refile")
               (org-tags-match-list-sublevels nil)))))
      ("d" "deadlines"
       ((agenda ""
@@ -1881,6 +1874,7 @@ match.  See also `prettify-symbols-compose-predicate'."
                 (org-agenda-span 'fortnight)
                 (org-agenda-time-grid nil)
                 (org-deadline-warning-days 0)
+                (org-agenda-skip-deadline-prewarning-if-scheduled nil)
                 (org-agenda-skip-deadline-if-done nil)))))
      ("b" "bibliography"
       ((tags "CATEGORY=\"bib\""
@@ -1892,15 +1886,12 @@ match.  See also `prettify-symbols-compose-predicate'."
   :hook
   (org-agenda-mode . hl-line-mode)
   :init
-  (defconst my/org-inbox (concat org-directory "refile.org")
-    "Inbox for tasks/todo.")
-  (defconst my/org-notes (concat org-directory "notes.org")
+  (defvar my/org-notes (expand-file-name "notes.org" org-directory)
     "Long-term storage for notes.")
-  (defconst my/org-scheduled (concat org-directory "scheduled.org")
+  (defvar my/org-scheduled (expand-file-name "scheduled.org" org-directory)
     "Scheduled tasks.")
   ;; set up org agenda files for the agenda
   (setq org-agenda-files `(,org-default-notes-file
-                           ,my/org-inbox
                            ,my/org-scheduled))
   (setq org-agenda-text-search-extra-files `(,my/org-notes))
   :config
@@ -1923,15 +1914,15 @@ See `org-agenda-todo' for more details."
   ;; And now for the capture templates themselves.  It's a bit complicated,
   ;; but the manual does a great job explaining.
   (org-capture-templates
-   `(("s" "store" entry (file ,my/org-inbox)
+   `(("s" "store" entry (file+headline org-default-notes-file "Inbox")
       "* TODO %?\n %a \n %i")
-     ("t" "task" entry (file  ,my/org-inbox)
+     ("t" "task" entry (file+headline org-default-notes-file "Inbox")
       "* TODO %? \n %i")
      ("n" "note" entry (file ,my/org-notes)
       "* %?\n %i")
-     ("b" "bib" entry (file+headline ,org-default-notes-file "Bibliography")
+     ("b" "bib" entry (file+headline org-default-notes-file "Bibliography")
       "* TODO %a            :@work:\n \n %i")
-     ("r" "refile+schedule" entry (file ,my/org-inbox)
+     ("r" "refile+schedule" entry (file+headline org-default-notes-file "Inbox")
       "* TODO %a %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+1d 9am\") t)"
       :immediate-finish t))))
 
