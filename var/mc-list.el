@@ -3,8 +3,10 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        beginning-of-visual-line
         crux-move-beginning-of-line
         end-of-visual-line
+        ess-smart-comma
         indent-for-tab-command
         kill-visual-line
         org-beginning-of-line
