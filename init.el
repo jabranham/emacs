@@ -736,13 +736,15 @@ Uses `pcmpl-ssh-config-hosts' to obtain a list of possible hosts."
   (mkdir ess-history-directory t)
   (defalias 'ess-smart-S-assign #'self-insert-command)
   (defun my/add-pipe ()
-    "Add a pipe operator %>%.
-
-Ensure one space to the left and start a newline with indentation."
+    "Add a pipe operator %>% at the end of the current line.
+Don't add one if the end of line already has one.  Ensure one
+space to the left and start a newline with indentation."
     (interactive)
-    (just-one-space 1)
-    (insert "%>%")
-    (ess-newline-and-indent))
+    (end-of-line)
+    (unless (looking-back "%>%")
+      (just-one-space 1)
+      (insert "%>%"))
+    (newline-and-indent))
   (defun my/ess-execute-screen-options ()
     "Call `ess-execute-screen-options' invisibly."
     (ess-execute-screen-options t))
