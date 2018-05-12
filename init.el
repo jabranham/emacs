@@ -1046,7 +1046,9 @@ To be added to `exwm-randr-screen-change-hook'."
   :bind
   (:map flymake-mode-map
         ("M-P" . flymake-goto-prev-error)
-        ("M-N" . flymake-goto-next-error)))
+        ("M-N" . flymake-goto-next-error))
+  :config
+  (remove-hook 'flymake-diagnostic-functions #'flymake-proc-legacy-flymake))
 
 (use-package flyspell
   ;; on the fly spell checking
