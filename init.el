@@ -1337,6 +1337,7 @@ To be added to `exwm-randr-screen-change-hook'."
   (magit-diff-refine-hunk 'all "Get highlighted word diffs.")
   (magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
   :config
+  (global-magit-file-mode -1)
   (magit-add-section-hook 'magit-status-sections-hook
                           'magit-insert-modules
                           'magit-insert-stashes
