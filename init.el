@@ -2114,7 +2114,7 @@ See `org-agenda-todo' for more details."
   ;; org's latex/pdf exporting engine
   :defer t
   :custom
-  (org-latex-pdf-process '("latexmk -synctex=1 -xelatex %f"))
+  (org-latex-pdf-process '("latexmk -xelatex %f"))
   :config
   ;; add support for coloring code output.  Use minted if pygments is
   ;; installed, otherwise fall back to the listings package, which doesn't
