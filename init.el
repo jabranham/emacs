@@ -2319,6 +2319,9 @@ See `org-agenda-todo' for more details."
   ("M-l" . downcase-dwim)
   ("M-c" . capitalize-dwim)
   ("M-u" . upcase-dwim)
+  ;; Super useful for "merging" lines together, overrides the much less
+  ;; useful tab-to-tab-stop:
+  ("M-i" . delete-indentation)
   (:prefix-map my/transpose-map
                :prefix "C-t"
                ("f" . my/toggle-window-split)
