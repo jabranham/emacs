@@ -198,6 +198,7 @@
     ("accomodate" "accommodate" nil 1)
     ("accompaning" "accompanying" nil 1)
     ("accurary" "accuracy" nil 2)
+    ("acknowledgement" "acknowledgment" nil 0)
     ("acn" "can" nil 0)
     ("admitadly" "admittedly" nil 0)
     ("advertisment" "advertisement" nil 0)
