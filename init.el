@@ -1455,6 +1455,7 @@ To be added to `exwm-randr-screen-change-hook'."
   (mu4e-view-show-images t)
   (message-kill-buffer-on-exit t)
   (mu4e-use-fancy-chars t)
+  (mu4e-headers-auto-update nil)
   (mu4e-headers-skip-duplicates t)
   (mu4e-headers-include-related nil "Don't include related messages, as threads can be quite long.")
   (mu4e-attachment-dir "~/Downloads")
