@@ -748,7 +748,7 @@ Don't add one if the end of line already has one.  Ensure one
 space to the left and start a newline with indentation."
     (interactive)
     (end-of-line)
-    (unless (looking-back "%>%")
+    (unless (looking-back "%>%" nil)
       (just-one-space 1)
       (insert "%>%"))
     (newline-and-indent))
