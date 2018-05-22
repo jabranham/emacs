@@ -386,6 +386,13 @@ minibuffer."
   ;; Emacs can handle csv files with ease:
   :defer)
 
+(use-package custom
+  :no-require t
+  :defer t
+  :config
+  ;; Don't write customization settings to init.el ... or anywhere else.
+  (setq custom-file null-device))
+
 (use-package delsel
   :defer 1
   :config
