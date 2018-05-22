@@ -1401,6 +1401,15 @@ To be added to `exwm-randr-screen-change-hook'."
   (moody-mode-line-height (if (string= (system-name) "mars") 22 40))
   (x-underline-at-descent-line t)
   :config
+  (defvar my/exwm-and-winum-modeline
+    '(:eval (let ((e (when (bound-and-true-p exwm-workspace-current-index)
+                       (propertize (number-to-string exwm-workspace-current-index)
+                                   'face 'font-lock-keyword-face)))
+                  (w (when winum-mode (winum-get-number-string))))
+              (format (concat " " e "|" w " ")))))
+  (put 'my/exwm-and-winum-modeline 'risky-local-variable t)
+  (make-variable-buffer-local 'my/exwm-and-winum-modeline)
+  (moody-replace-element 'mode-line-front-space 'my/exwm-and-winum-modeline)
   (moody-replace-mode-line-buffer-identification)
   (moody-replace-vc-mode))
 
@@ -2678,7 +2687,7 @@ the current window and the windows state prior to that."
   ("M-9" . winum-select-window-9)
   :config
   (setq winum-scope 'frame-local)
-  (setq winum-auto-setup-mode-line t)
+  (setq winum-auto-setup-mode-line nil)
   (winum-mode))
 
 (use-package with-editor
