@@ -846,6 +846,7 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
   (exwm-floating-setup . exwm-layout-hide-mode-line)
   (exwm-manage-finish . my/exwm-manage)
   (exwm-update-class . my/update-class-name)
+  (exwm-update-title . my/exwm-rename-buffer-to-title)
   :bind
   (:prefix-map my/power-menu-map
                :prefix "s-C"
@@ -874,6 +875,10 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
     "Setup X applications."
     (when (string= "Firefox" exwm-class-name)
       (exwm-layout-hide-mode-line)))
+  (defun my/exwm-rename-buffer-to-title ()
+    "Rename buffer to `exwm-title'"
+    (when (string= "qutebrowser" exwm-class-name)
+      (exwm-workspace-rename-buffer exwm-title)))
   (defun my/mute ()
     "Mute"
     (interactive)
