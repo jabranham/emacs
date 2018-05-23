@@ -23,6 +23,7 @@
 	build-step = ./autogen.sh
 	build-step = ./configure --prefix=$HOME
 	build-step = make
+	build-step = borg-makeinfo
 	remote = "jabranham git@github.com:jabranham/auctex.git"
 [submodule "auto-compile"]
 	path = lib/auto-compile
