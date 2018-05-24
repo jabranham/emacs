@@ -811,6 +811,9 @@ Prefix arg VIS toggles visibility of ess-code as for `ess-eval-region'."
         ("0" . eww-browse-with-external-browser)))
 
 (use-package exwm
+  ;; EXWM makes Emacs your window manager.  It works surprising well.  I've
+  ;; used Gnome and i3 and neither of them seems as intuitive or as stable
+  ;; as EXWM.
   :demand t
   :if (getenv "EXWM")
   :custom
