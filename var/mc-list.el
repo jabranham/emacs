@@ -6,6 +6,8 @@
         beginning-of-visual-line
         crux-move-beginning-of-line
         end-of-visual-line
+        ess-insert-S-assign
+        ess-smart-S-assign
         ess-smart-comma
         indent-for-tab-command
         kill-visual-line
