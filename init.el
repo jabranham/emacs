@@ -2320,7 +2320,7 @@ See `org-agenda-todo' for more details."
 (use-package sh-script
   :defer t
   :mode
-  ("PKGBUILD" . sh-mode))
+  ("/PKGBUILD$" . sh-mode))
 
 (use-package shell
   :hook
