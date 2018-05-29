@@ -14,6 +14,7 @@
         org-beginning-of-line
         org-delete-char
         org-end-of-line
+        org-kill-line
         org-self-insert-command
         sp-backward-delete-char
         ))
